@@ -1,8 +1,13 @@
 const S = require("sequelize")
 const db = require("../db")
 
-class Securities extends S.Model{}
+const bcrypt = require("bcrypt");
 
+class Securities extends S.Model{
+    hash(password, salt) {
+        return bcrypt.hash(password, salt);
+      }
+}
 Securities.init({
     name:{
         type: S.STRING
@@ -29,4 +34,11 @@ Securities.init({
 },{
     sequelize: db, modelName: "securities"
 })
+
+Securities.beforeCreate( async (securities) => {
+    const genererSalt= await bcrypt.genSalt(16)
+     securities.salt= genererSalt
+     const hash= await securities.hash(securities.password, genererSalt)
+     return securities.password= hash
+  });
 module.exports= Securities
