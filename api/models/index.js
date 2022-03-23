@@ -5,19 +5,23 @@ const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
 
-/*
-asocianes
--un cliente tiene muchas sucursales:
+
+/* asocianes */
+/* -un cliente tiene muchas sucursales: */
 Client.hasMany(BranchOficce)
--una sucursal tiene muchas provincias
+/* -una sucursal tiene muchas provincias */
 BranchOficce.belongsToMany(Provincies, {through: 'provincies_Oficce '})
--un vigilador esta habilitado en distintas provincias
+/* -un vigilador esta habilitado en distintas provincias */
 Securities.belongsToMany(Provincies, {through: 'provincies_Oficce '})
--una sucursal tiene muchas jornadas
+/* -una sucursal tiene muchas jornadas */
 BranchOficce.belongsToMany(WorkDay, {through: 'ownTime'})
--un vigilador tiene muchas jornadas
+/* -un vigilador tiene muchas jornadas */
 Securities.belongsToMany(WorkDay, {through: 'ownTime'})
-*/
+/* - a un cliente se le designa vigilantes 
+Client.belongsToMany(Securities, {through: 'yourSecurity'})*/
+/* - a un vigilante se le asigna una sucursal */
+Securities.belongsTo(BranchOficce, {through: 'yourSecurity'})
+
 
 
 
