@@ -12,25 +12,32 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
 
-import axios from 'axios'
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+// import axios from 'axios'
+// import { useNavigate } from "react-router-dom";
+// import {useDispatch} from 'react-redux'
 
 
 const theme = createTheme();
 
 export default function Login() {
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
-  // const handleSubmit = (data) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // const onSub = (data) => {
   //   axios
   //     .post("/login", data)
   //     .catch(() => alert("Ingresa un Email o Contraseña Valida"))
   //     .then((user) => {
-  //       dispatch(setUser(user.data), navigate("/"));
+  //       dispatch(sendLogin(user.data), navigate("/"));
   //     });
   // };
 
@@ -46,6 +53,7 @@ export default function Login() {
             alignItems: "center",
           }}
         >
+          
           <Avatar sx={{ m: 1, bgcolor: "#ffc107" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -54,10 +62,11 @@ export default function Login() {
           </Typography>
           <Box
             component="form"
-            // onSubmit={handleSubmit}
+            
             noValidate
             sx={{ mt: 1 }}
           >
+            <form /* onSubmit={handleSubmit(onSub)}*/>
             <TextField
               margin="normal"
               required
@@ -65,10 +74,16 @@ export default function Login() {
               id="email"
               label="Email"
               name="email"
-              value={email}
-    
               autoComplete="email"
               autoFocus
+
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Ingrese un email valido",
+                },
+              })}
             />
             <TextField
               margin="normal"
@@ -77,10 +92,10 @@ export default function Login() {
               name="password"
               label="Contraseña"
               type="password"
-              value={password}
-        
               id="password"
               autoComplete="current-password"
+
+              {...register("password", { required: true, minLength: 8 })}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +107,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              
             >
               Iniciar sesión
             </Button>
@@ -108,6 +124,7 @@ export default function Login() {
                 </Link>
               </Grid>
             </Grid>
+            </form>
           </Box>
         </Box>
       </Container>
