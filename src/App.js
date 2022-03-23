@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPosition } from './states/geoLocalizacion';
 import { effectLogin } from './states/user';
 
+
 function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
