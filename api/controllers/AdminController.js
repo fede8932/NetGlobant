@@ -30,6 +30,16 @@ class AdminController{
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
+
+    static async addOffice(req, res, next) {
+      const newOffice = await  AdminServices.serviceaddOffice(req, res, next);
+      return res.status(201).json(newOffice);
+    }
+  
+    static async removeOffice(req, res, next){
+    await  AdminServices.serviceRemoveOffice(req, next)
+    return res.sendStatus(202)
+    }
 }
 
 module.exports= AdminController

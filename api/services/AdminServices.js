@@ -1,4 +1,4 @@
-const { Client, Securities, BranchOficce} = require("./models")
+const { Client, Securities, BranchOficce, Provincies} = require("./models")
 
 
 class AdminServices{
@@ -55,6 +55,45 @@ class AdminServices{
             next(err)
         }
     }
+    static async serviceaddOffice(req, next) {
+        try {
+          const provincie = req.body.provincie;
+          const provincieLocal = await Provincies.findOne({
+            where: { name: provincie },
+          });
+          const office = await BranchOficce.create(req.body);
+          office.setProvicieLocal(provincieLocal);
+          return office;
+        } catch (err) {
+          next(err);
+        }
+      }
+      static async serviceRemoveOffice(req, next) {
+         try{
+             await BranchOficce.destroy({
+               where:{
+                  id: req.params.id
+               }
+            })
+         }catch(err){
+            next(err)
+         }
+      }
+    
+      static async serviceEditOffice(req, next){
+    try{
+       const [rows, update]= await BranchOficce.update(req.body,{
+          where:{
+             id: req.body.id
+          }, returning:true
+       })
+       return update
+    }catch(err){
+       next(err)
+    }
+    
+    
+      }
 }
 
 
