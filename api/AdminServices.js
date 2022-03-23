@@ -1,4 +1,4 @@
-const {Admin, Client, Securities, BranchOficce} = require("./models")
+const { Client, Securities, BranchOficce} = require("./models")
 
 
 class AdminServices{
@@ -43,7 +43,7 @@ class AdminServices{
             const{branchOffice}=req.body
              const office= await BranchOficce.findOne({
                 where:{name: branchOffice } })
-            const security= await Security.findOne({
+            const security= await Securities.findOne({
                 where:{
                     CUIT: req.body.CUIT
                 }  

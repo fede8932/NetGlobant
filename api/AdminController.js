@@ -26,7 +26,7 @@ class AdminController{
       return  oneSecurity? res.status(200).json(oneSecurity): res.sendStatus(404)
     }
 
-    static async addSecurity(req,next){
+    static async addSecurity(req,res,next){
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
