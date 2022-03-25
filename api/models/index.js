@@ -12,13 +12,11 @@ Client.hasMany(BranchOficce)
 /* -una sucursal tiene muchas provincias */
 BranchOficce.belongsTo(Provincies, {through: 'provincies_Oficce '})
 /* -un vigilador esta habilitado en distintas provincias */
-Securities.belongsToMany(Provincies, {through: 'provincies_Oficce '})
+Securities.belongsToMany(Provincies, {through: 'provincies_security '})
 /* -una sucursal tiene muchas jornadas */
 BranchOficce.belongsToMany(WorkDay, {through: 'ownTime'})
 /* -un vigilador tiene muchas jornadas */
-Securities.belongsToMany(WorkDay, {through: 'ownTime'})
-/* - a un cliente se le designa vigilantes 
-Client.belongsToMany(Securities, {through: 'yourSecurity'})*/
+Securities.belongsToMany(WorkDay, { as:'my_workday', through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
 Securities.belongsTo(BranchOficce, {through: 'yourSecurity'})
 

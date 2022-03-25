@@ -13,6 +13,12 @@ BranchOficce.init({
     city:{
         type: S.STRING
     },
+    openHour:{
+        type: S.DATE
+    },
+    closeHour:{
+        type: S.DATE
+    },
     addressX:{
         type: S.FLOAT
     },
