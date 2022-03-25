@@ -18,11 +18,9 @@ import { useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 // import {useDispatch} from 'react-redux'
 
-
 const theme = createTheme();
 
 export default function Login() {
-
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -53,77 +51,67 @@ export default function Login() {
             alignItems: "center",
           }}
         >
-          
           <Avatar sx={{ m: 1, bgcolor: "#ffc107" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Iniciar sesión
           </Typography>
-          <Box
-            component="form"
-            
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <form /* onSubmit={handleSubmit(onSub)}*/>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Ingrese un email valido",
+                  },
+                })}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Contraseña"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                {...register("password", { required: true, minLength: 8 })}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Recordar mi cuenta"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Iniciar sesión
+              </Button>
 
-              {...register("email", {
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Ingrese un email valido",
-                },
-              })}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-
-              {...register("password", { required: true, minLength: 8 })}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recordar mi cuenta"
-            />
-            <Button
-             
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              
-            >
-              Iniciar sesión
-            </Button>
-           
-            <Grid container>
-              <Grid item xs={6}>
-                <Link href="#" variant="body2">
-                  {"Olvidaste tu contraseña?"}
-                </Link>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Link href="#" variant="body2">
+                    {"Olvidaste tu contraseña?"}
+                  </Link>
+                </Grid>
+                <Grid item xs={6}>
+                  <Link href="#" variant="body2">
+                    {"No tienes una cuenta?   "}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <Link href="#" variant="body2">
-                  {"No tienes una cuenta?   "}
-                </Link>
-              </Grid>
-            </Grid>
             </form>
           </Box>
         </Box>

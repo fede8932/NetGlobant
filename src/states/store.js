@@ -8,7 +8,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   reducer: {
     ubicacion: geoReducer,
-    usuario: userReducer
+    usuario: userReducer,
   },
 });
 

@@ -1,17 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-
 
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, "../.env") });
 require("./config/passport");
 const db = require("./db");
-const passport = require("./config/passport")
-const routes = require("./routes")
-
+const passport = require("./config/passport");
+const routes = require("./routes");
 
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 
@@ -27,7 +25,7 @@ app.use(
 
 app.use(express.json());
 
-const sessionStore = new SequelizeStore({ db })
+const sessionStore = new SequelizeStore({ db });
 
 app.use(
   session({
@@ -40,8 +38,6 @@ app.use(
     },
   })
 );
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());
