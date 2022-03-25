@@ -10,6 +10,7 @@ const SecurityForm = () => {
   const email = useInput();
   const entryHour = useInput();
   const hoursPerDay = useInput();
+  const branchOffice = useInput();
 
   const handleClick = (e) => {
     //   e.preventDefault();
@@ -23,6 +24,7 @@ const SecurityForm = () => {
     //       email: email.value,
     //       entryHour: entryHour.value,
     //       hoursPerDay: hoursPerDay.value,
+    //       branchOffice: branchOffice.value,
 
     //     })
     //     .then((res) => res.data)
@@ -34,9 +36,10 @@ const SecurityForm = () => {
   };
 
   return (
-    <Box mt={5}>
-      <Typography variant="h4">FORMULARIO DE VIGILADORES</Typography>
-      <Grid container>
+    <Box mt={5} py={15}  bgcolor="primary.light" >
+      <Typography variant="h4" color="secondary" >FORMULARIO DE VIGILADORES</Typography>
+      <Box marginX={15} >
+      <Grid  container >
         <Grid item xs={12} sm={6}>
           <Box m={2}>
             <TextField
@@ -51,7 +54,7 @@ const SecurityForm = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Box m={2}>
+          <Box m={2} >
             <TextField
               label="Apellido"
               name="lastname"
@@ -116,9 +119,24 @@ const SecurityForm = () => {
             />
           </Box>
         </Grid>
+        <Grid item xs={12}>
+          <Box m={2}>
+            <TextField
+              label="Sucursal"
+              name="branchOffice"
+              variant="outlined"
+              value={branchOffice.value}
+              onChange={branchOffice.onChange}
+              required
+              fullWidth
+            />
+          </Box>
+        </Grid>
       </Grid>
+      </Box>
       <Box mt={3}>
         <Button
+        color='secondary'
           onClick={handleClick}
           variant="contained"
           type="submit"
