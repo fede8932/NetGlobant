@@ -8,7 +8,8 @@ export const sendLogin = createAsyncThunk("LOGIN", (dataUser) => {
   }).then((res) => res.data);
 });
 export const effectLogin = createAsyncThunk("PERSISTENCIA", () => {
-  return axios.get("/api/auth/me").then((res) => res.data);
+  const user = localStorage.getItem('user');
+  return JSON.parse(user)
 });
 
 const userReducer = createReducer([], {
