@@ -1,4 +1,4 @@
-const AdminServices= require("./AdminServices")
+const AdminServices= require("../services/AdminServices")
 
 
 class AdminController{
@@ -32,24 +32,56 @@ class AdminController{
 
     }
 
+    static async getOneOffice(req, res, next){
+      const oneOffice= await AdminServices.serviceGetOneOffice(req,next)
+    return  oneOffice? res.status(200).json(oneOffice): res.sendStatus(404)
+  }
+
     static async addSecurity(req,res,next){
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
 
     static async addOffice(req, res, next) {
-      const newOffice = await  AdminServices.serviceaddOffice(req, res, next);
+      const newOffice = await  AdminServices.serviceaddOffice(req, next);
       return res.status(201).json(newOffice);
+    }
+
+    static async addClient(req, res, next) {
+      const newClient = await  AdminServices.serviceAddClient(req,next)
+      return newClient? res.status(201).json( newClient ): res.sendStatus(400)
     }
   
     static async removeOffice(req, res, next){
     await  AdminServices.serviceRemoveOffice(req, next)
     return res.sendStatus(202)
     }
+   
+    static async removeSecurity(req, res, next){
+      await  AdminServices.serviceRemoveSecurity(req, next)
+    return res.sendStatus(202)
+    }
+
+    static async removeClient(req, res, next){
+      await  AdminServices.serviceRemoveClient(req, next)
+      return res.sendStatus(202)
+
+    }
+
 
     static async editOffice(req,res, next){
       const updatedOffice= await AdminServices.serviceEditOffice(req, next)
       return res.staus(201).json(updatedOffice)
+    }
+
+    static async editSecurity(req,res, next){
+      const updatedSecurity= await AdminServices.serviceEditSecurity(req, next)
+      return res.staus(201).json( updatedSecurity)
+    }
+
+    static async editClient(req, res, next){
+      const updatedClient= await AdminServices.serviceEditClient(req, next)
+      return res.staus(201).json(updatedClient)
     }
 }
 

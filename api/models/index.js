@@ -16,7 +16,7 @@ Securities.belongsToMany(Provincies, {through: 'provincies_security '})
 /* -una sucursal tiene muchas jornadas */
 BranchOficce.belongsToMany(WorkDay, {through: 'ownTime'})
 /* -un vigilador tiene muchas jornadas */
-Securities.belongsToMany(WorkDay, {through: 'ownTime'})
+Securities.belongsToMany(WorkDay, { as:'my_workday', through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
 Securities.belongsTo(BranchOficce, {through: 'yourSecurity'})
 
