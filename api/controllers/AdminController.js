@@ -26,6 +26,12 @@ class AdminController{
       return  oneSecurity? res.status(200).json(oneSecurity): res.sendStatus(404)
     }
 
+    static async getAllOffice(req,res,next){
+      const allOfficies= await AdminServices.serviceGetAllOffice(next)
+      return   allOfficies? res.status(200).json( allOfficies): res.sendStatus(404)
+
+    }
+
     static async addSecurity(req,res,next){
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
@@ -39,6 +45,11 @@ class AdminController{
     static async removeOffice(req, res, next){
     await  AdminServices.serviceRemoveOffice(req, next)
     return res.sendStatus(202)
+    }
+
+    static async editOffice(req,res, next){
+      const updatedOffice= await AdminServices.serviceEditOffice(req, next)
+      return res.staus(201).json(updatedOffice)
     }
 }
 

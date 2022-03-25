@@ -37,6 +37,14 @@ class AdminServices{
             next(err)
         }
     }
+    static async serviceGetAllOffice(next){
+        try{
+            const allOffice= await BranchOficce.findAll()
+            return  allOffice
+        }catch(err){
+          next(err)
+        }
+    }
 
     static async serviceAddSecurity(req, next){
         try{
