@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm, Controller } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 
 // import axios from 'axios'
 // import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ import { useForm, Controller } from "react-hook-form";
 export default function Login() {
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
+  const ruta = useLocation().pathname === '/admin/login' ?  'admin back ruta' : 'user back ruta'
 
   const { handleSubmit, control } = useForm();
 
@@ -28,10 +30,11 @@ export default function Login() {
   const onSubmit = (data) => {
     console.log("data formulario login", data);
     // axios
-    //   .post("/login", data)
+    //   .post(ruta, data)
     //   .catch(() => alert("Ingresa un Email o Contraseña Valida"))
     //   .then((user) => {
-    //     dispatch(sendLogin(user.data), navigate("/"));
+    //    localStorage.setItem('user', JSON.stringify(user.data)); 
+    //    dispatch(sendLogin(user.data), navigate("/"));
     //   });
   };
 

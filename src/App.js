@@ -13,24 +13,16 @@ import Lists from "./components/Lists";
 import { Route, Routes } from "react-router-dom";
 import Oculto from "./components/Oculto";
 import theme from "./utils/themeConfig";
+import UserPage from "./components/UserPage";
 
 function App() {
   const dispatch = useDispatch();
   const ubi = useSelector((state) => state.ubicacion);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (data) =>
-        dispatch(setPosition([data.coords.latitude, data.coords.longitude])),
-      (err) => console.error(err)
-    );
-  }, []);
-
-  useEffect(() => {
-    dispatch(effectLogin())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition((data) => dispatch(setPosition([data.coords.latitude , data.coords.longitude])), (err) => console.error(err))
+    dispatch(effectLogin()).then(res=>console.log(res)).catch(err=>console.log(err))
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -39,17 +31,12 @@ function App() {
         <Lists />
         <Oculto />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/admin/login" element={<Login />} />
           <Route path="/client" element={<ClientForm />} />
           <Route path="/security" element={<SecurityForm />} />
+          <Route path="/status" element={<UserPage />} />
         </Routes>
-
-
-
-
-
-
-
       </div>
     </ThemeProvider>
   );
