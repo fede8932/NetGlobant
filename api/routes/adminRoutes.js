@@ -13,7 +13,8 @@ adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar)
 adminRouter.post("/add/office/security", AdminController.addSecurity)
 adminRouter.post("/add/office", AdminController.addOffice)
 adminRouter.post("/add/client",AdminController.addClient)
-adminRouter.post("/add/Calendar/office/:id", AdminController.addSchedule)
+adminRouter.post("/add/Calendar/office", AdminController.addSchedule)
+
 
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity)
 adminRouter.delete("/remove/client/:id",AdminController.removeClient)

@@ -32,7 +32,9 @@ class AdminServices {
 
   static async serviceGetOneSecurities(req, next) {
     try {
-      const oneSecurity = await Securities.findByPk(req.pararms.id);
+      const oneSecurity = await Securities.findAll(
+        {where:{
+          name: req.pararms.name}});
       return oneSecurity;
     } catch (err) {
       next(err);
@@ -77,16 +79,20 @@ class AdminServices {
 
   static async serviceAddSecurity(req, next) {
     try {
+      
       const { branchOffice } = req.body;
+    
       const office = await BranchOficce.findOne({
         where: { name: branchOffice },
       });
+     
       const security = await Securities.findOne({
         where: {
-          CUIT: req.body.CUIT,
+          CUIL: req.body.CUIL,
         },
       });
-      office.setSecurity(security);
+      
+      office.addSecurity(security);
       return office;
     } catch (err) {
       next(err);
@@ -96,18 +102,20 @@ class AdminServices {
   static async serviceAddOffice(req, next) {
     try {
       const provincie = req.body.provincie;
+      
       const { owner } = req.body;
       const provincieLocal = await Provincies.findOne({
         where: { name: provincie },
       });
-      const office = await BranchOficce.create(req.body);
       const client = await Client.findOne({
         where: {
           bussinessName: owner,
         },
       });
+      console.log(client)
+      const office = await BranchOficce.create(req.body)
       office.setClient(client);
-      office.setProvicieLocal(provincieLocal);
+      office.setProvincy(provincieLocal);
       return office;
     } catch (err) {
       next(err);
@@ -126,10 +134,11 @@ class AdminServices {
  static async serviceAddSchedule(req, next){
    try{
     const office= await BranchOficce.findOne({
-      where:{ name: req.params.name},
+      where:{ name: req.body.branchName},
   }) 
-  const schedule= await WorkDay.create(req.body)
-  office.setSchedule(schedule)
+  const  workDay= await WorkDay.create(req.body)
+  
+  office.addWorkDay(workDay)
   return office
    }catch(err){
     next(err)
