@@ -14,7 +14,8 @@ import { Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserInfo from "./components/UserInfo";
-
+import Vigilador from "./components/Vigilador";
+import "./style/index.scss"
 
 function App() {
   const dispatch = useDispatch();
@@ -42,8 +43,10 @@ function App() {
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/search/securities" element={<Vigilador />} />
       </Routes>
     </div>
+
   );
 }
 

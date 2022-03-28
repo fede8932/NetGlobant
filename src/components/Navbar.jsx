@@ -1,5 +1,4 @@
 // fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
-
 import {
   Navbar,
   Nav,
@@ -11,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { getClient } from "../states/singleClient";
+import { getClient } from "../states/singleClient";
 import { useInput } from "../hooks/useInput";
 
 const Barra = () => {
@@ -26,7 +25,7 @@ const Barra = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(getClient(client.value));
+    dispatch(getClient(client.value));
   };
 
   const showUsernameOrLogin = () => {
@@ -71,7 +70,7 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/security")}>
                 Agregar Vigilador
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
+              <NavDropdown.Item onClick={() => handleClick("/search/securities")}>
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>
