@@ -1,5 +1,3 @@
-
-
 const { Client, Securities, BranchOficce, Provincies } = require("../models");
 
 

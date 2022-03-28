@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> customLogin
 const AdminServices= require("../services/AdminServices")
 
 

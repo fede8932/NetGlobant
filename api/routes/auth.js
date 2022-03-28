@@ -1,12 +1,10 @@
 const router = require("express").Router()
-const passport = require("passport")
 
 const UserController = require("../controllers/Auth")
-const { isAuth } = require("../middleware/isAuth")
+const { adminAuthMiddleware } = require("../middleware/isAuth")
 
-router.post("/login", passport.authenticate("local"), UserController.login)
-router.post("/register", UserController.register)
-router.post("/logout", isAuth, UserController.logout)
 
+router.post("/login", UserController.login)
+router.post("/register", adminAuthMiddleware, UserController.register)
 
 module.exports = router
