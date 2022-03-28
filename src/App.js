@@ -8,9 +8,7 @@ import Login from "./components/Login";
 import ClientForm from "./components/ClientFrom";
 import SecurityForm from "./components/SecurityForm";
 import Navbar from "./components/Navbar";
-import Lists from "./components/Lists";
 import { Route, Routes } from "react-router-dom";
-import Oculto from "./components/Oculto";
 import theme from "./utils/themeConfig";
 
 function App() {
@@ -35,8 +33,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <div>
         <Navbar />
-        <Lists />
-        <Oculto />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/client" element={<ClientForm />} />
