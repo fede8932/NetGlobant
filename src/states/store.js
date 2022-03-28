@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-
 import geoReducer from "./geoLocalizacion";
+import clientReducer from "./singleClient";
 import userReducer from "./user";
 
 const store = configureStore({
@@ -9,6 +9,7 @@ const store = configureStore({
   reducer: {
     ubicacion: geoReducer,
     usuario: userReducer,
+    client: clientReducer
   },
 });
 

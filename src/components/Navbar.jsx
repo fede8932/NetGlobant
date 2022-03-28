@@ -1,3 +1,5 @@
+// fijarse la función showUserNameOrLogin, agregar admin.name en vez de admin solo
+
 import {
   Navbar,
   Nav,
@@ -8,23 +10,36 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getClient } from "../states/singleClient";
+import { useInput } from "../hooks/useInput";
 
 const Barra = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch;
   const admin = useSelector((state) => state.admin);
+  const client = useInput();
 
   const handleClick = (url) => {
     navigate(url);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getClient(client.value));
+  };
+
   const showUsernameOrLogin = () => {
-    return admin.name ? (
+    return admin ? (
+      <p>{admin.name}</p>
+    ) : (<>
       <Button onClick={() => handleClick("/login")} variant="primary">
         Login
       </Button>
-    ) : (
-      admin.name
+      <Button onClick={() => handleClick("/register")} variant="primary">
+        Register
+      </Button>
+      </>
     );
   };
 
@@ -61,16 +76,17 @@ const Barra = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form className="d-flex">
+          <Form onSubmit={handleSubmit} className="d-flex">
             <FormControl
+              {...client}
               type="search"
               placeholder="Buscar Clientes.."
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="primary">Buscar</Button>
+            {/* <input type="submit" value="Buscar" style={{backgroundColor: "blue"}} /> */}
           </Form>
-          {showUsernameOrLogin}
+          {showUsernameOrLogin()}
         </Navbar.Collapse>
       </Container>
     </Navbar>
