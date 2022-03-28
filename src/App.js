@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosition } from "./states/geoLocalizacion";
@@ -8,10 +9,12 @@ import Login from "./components/Login";
 import ClientForm from "./components/ClientFrom";
 import SecurityForm from "./components/SecurityForm";
 import Navbar from "./components/Navbar";
+import Register from "./components/Register"
 import { Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserInfo from "./components/UserInfo";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +41,7 @@ function App() {
         <Route path="/security" element={<SecurityForm />} />
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

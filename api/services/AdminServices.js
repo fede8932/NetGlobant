@@ -1,6 +1,5 @@
 const { Client, Securities, BranchOficce, Provincies, WorkDay } = require("../models");
 
-
 class AdminServices {
   static async serviceGetAllClients(next) {
     try {
@@ -50,7 +49,6 @@ class AdminServices {
       next(err);
     }
   }
-
 
   static async serviceGetOneOffice(req, next) {
     try {
@@ -157,8 +155,6 @@ class AdminServices {
     }
   }
 
-
-
   static async serviceRemoveSecurity(req, next) {
     try {
       await Securities.destroy({
@@ -210,8 +206,6 @@ class AdminServices {
       next(err);
     }
   }
-
-
   
   static async serviceEditSecurity(req, next) {
     try {
@@ -226,6 +220,7 @@ class AdminServices {
       next(err);
     }
   }
+
   static async serviceEditClient(req, next) {
     try {
       const [rows, update] = await Client.update(req.body, {
@@ -239,7 +234,6 @@ class AdminServices {
       next(err);
     }
   }
-
 }
 
 module.exports = AdminServices;
