@@ -1,0 +1,26 @@
+.mapContainer{
+    min-width: 17em;
+    min-height: 17em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border: 1px solid rgb(155, 154, 154);
+    border-radius: 13px;
+}
+.userContainer{
+    display: flex;
+    justify-content: center;
+}
+.listItem_{
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.textContainer{
+    border: 1px solid rgb(245, 240, 240);
+    border-radius: 13px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 1.5em;
+}
+.responsiveContainer{
+    max-width: 45em;
+}

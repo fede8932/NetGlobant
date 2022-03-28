@@ -14,13 +14,18 @@ import { Route, Routes } from "react-router-dom";
 import Oculto from "./components/Oculto";
 import theme from "./utils/themeConfig";
 import UserPage from "./components/UserPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import UserInfo from "./components/UserInfo";
+import 'leaflet/dist/leaflet.css'
 
 function App() {
   const dispatch = useDispatch();
   const ubi = useSelector((state) => state.ubicacion);
 
   useEffect(()=>{
-    navigator.geolocation.getCurrentPosition((data) => dispatch(setPosition([data.coords.latitude , data.coords.longitude])), (err) => console.error(err))
+    navigator.geolocation.getCurrentPosition((data) => {
+      console.log("ubicación --->",data)
+      return dispatch(setPosition([data.coords.latitude , data.coords.longitude])), (err) => console.error(err)})
     dispatch(effectLogin()).then(res=>console.log(res)).catch(err=>console.log(err))
   },[])
 
@@ -28,14 +33,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <div>
         <Navbar />
-        <Lists />
-        <Oculto />
+        {/* <Lists />
+        <Oculto /> */}
         <Routes>
-          <Route path="/user/login" element={<Login />} />
-          <Route path="/admin/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/client" element={<ClientForm />} />
           <Route path="/security" element={<SecurityForm />} />
           <Route path="/status" element={<UserPage />} />
+          <Route path="/user/info" element={<UserInfo />} />
         </Routes>
       </div>
     </ThemeProvider>
