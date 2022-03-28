@@ -71,7 +71,7 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/security")}>
                 Agregar Vigilador
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
+              <NavDropdown.Item onClick={() => handleClick("/search/securities")}>
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>

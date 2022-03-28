@@ -10,7 +10,10 @@ import SecurityForm from "./components/SecurityForm";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import theme from "./utils/themeConfig";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Vigilador from "./components/Vigilador";
+import "./style/index.scss"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +41,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/client" element={<ClientForm />} />
           <Route path="/security" element={<SecurityForm />} />
+          <Route path="/search/securities" element={<Vigilador />} />
         </Routes>
       </div>
     </ThemeProvider>
