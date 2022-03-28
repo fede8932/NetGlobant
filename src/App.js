@@ -10,6 +10,7 @@ import SecurityForm from "./components/SecurityForm";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import theme from "./utils/themeConfig";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const dispatch = useDispatch();
