@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> customLogin
 const AdminServices= require("../services/AdminServices")
 
 
@@ -41,6 +37,11 @@ class AdminController{
     return  oneOffice? res.status(200).json(oneOffice): res.sendStatus(404)
   }
 
+  static async getOfficeCalendar(req,res,next){
+    const officeCalendar= await AdminServices.serviceGetCalenderOffice(req, next)
+    return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
+  }
+
     static async addSecurity(req,res,next){
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
@@ -55,7 +56,12 @@ class AdminController{
       const newClient = await  AdminServices.serviceAddClient(req,next)
       return newClient? res.status(201).json( newClient ): res.sendStatus(400)
     }
-  
+
+    static async addSchedule(req,res,next){
+      await AdminServices.serviceAddSchedule(req,next)
+      return res.sendStatus(201)
+    }
+
     static async removeOffice(req, res, next){
     await  AdminServices.serviceRemoveOffice(req, next)
     return res.sendStatus(202)
@@ -72,6 +78,10 @@ class AdminController{
 
     }
 
+    static async removeSchedule(req, res, next){
+    await AdminServices.serviceRemoveSchedule(req, next)
+    return res.sendStatus(202)
+    }
 
     static async editOffice(req,res, next){
       const updatedOffice= await AdminServices.serviceEditOffice(req, next)

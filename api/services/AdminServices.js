@@ -1,4 +1,4 @@
-const { Client, Securities, BranchOficce, Provincies } = require("../models");
+const { Client, Securities, BranchOficce, Provincies, WorkDay } = require("../models");
 
 
 class AdminServices {
@@ -10,10 +10,7 @@ class AdminServices {
       next(err);
 
     }
-  }
-
-  
-    
+  } 
 
   static async serviceGetOne(req, next) {
     try {
@@ -63,7 +60,20 @@ class AdminServices {
     }
   }
 
-
+  static async serviceGetCalenderOffice(req, next){
+    try{
+        const calendar= await BranchOficce.findOne({
+            where:{ id: req.params.id},
+            include:{
+                model:WorkDay,
+                as:'my_workday'
+            }
+        }) 
+        return calendar
+       } catch(err){
+           next(err)
+       }
+  }
 
   static async serviceAddSecurity(req, next) {
     try {
@@ -83,8 +93,6 @@ class AdminServices {
     }
   }
 
-
-  
   static async serviceAddOffice(req, next) {
     try {
       const provincie = req.body.provincie;
@@ -115,7 +123,18 @@ class AdminServices {
     }
   }
 
- 
+ static async serviceAddSchedule(req, next){
+   try{
+    const office= await BranchOficce.findOne({
+      where:{ name: req.params.name},
+  }) 
+  const schedule= await WorkDay.create(req.body)
+  office.setSchedule(schedule)
+  return office
+   }catch(err){
+    next(err)
+   }
+ }
 
   static async serviceRemoveOffice(req, next) {
     try {
@@ -152,6 +171,20 @@ class AdminServices {
       });
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async serviceRemoveSchedule(req, next){
+    try{
+      const office= await BranchOficce.findOne({
+        where:{ name: req.params.name},
+        })
+        const schedule= await WorkDay.findOne({
+          where:{ id: req.params.id},
+          })
+        office.removeSchedule(schedule)    
+    }catch(err){
+           next(err)
     }
   }
 

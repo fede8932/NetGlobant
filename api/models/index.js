@@ -14,7 +14,7 @@ BranchOficce.belongsTo(Provincies, {through: 'provincies_Oficce '})
 /* -un vigilador esta habilitado en distintas provincias */
 Securities.belongsToMany(Provincies, {through: 'provincies_security '})
 /* -una sucursal tiene muchas jornadas */
-BranchOficce.belongsToMany(WorkDay, {through: 'ownTime'})
+BranchOficce.belongsToMany(WorkDay, {as:'office_calendar' ,through: 'ownTime'})
 /* -un vigilador tiene muchas jornadas */
 Securities.belongsToMany(WorkDay, { as:'my_workday', through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
