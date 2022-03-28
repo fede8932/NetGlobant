@@ -5,23 +5,27 @@ const SingleCard = () => {
   return (
     <div class="wrapper">
       <div class="profile-card js-profile-card">
-      <Button style={{float: "right", marginRight: "10px", marginTop: "10px"}}variant="primary">Editar</Button>
+        <Button
+          style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
+          variant="primary"
+        >
+          Editar
+        </Button>
         <div class="profile-card__img">
           <img
-            src="https://res.cloudinary.com/muhammederdem/image/upload/v1537638518/Ba%C5%9Fl%C4%B1ks%C4%B1z-1.jpg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCdmJA4Akj6ixyEygNfLmUCYK2spe3LTTZg&usqp=CAU"
             alt="profile card"
           />
         </div>
-
         <div class="profile-card__cnt js-profile-cnt">
           <div class="profile-card__name">Pepe Argento</div>
           <div class="profile-card__txt">
+            <div style={{marginBottom: "15px"}}>CUIT: 20-13049351-9</div>
             Vigilador residente en <strong>Argentina</strong>
           </div>
           <div class="profile-card-loc">
             <span class="profile-card-loc__txt">La Matanza, Buenos Aires</span>
           </div>
-
           <div class="profile-card-ctr">
             <button class="profile-card__button button--blue js-message-btn">
               Asignar Trabajo
@@ -31,7 +35,6 @@ const SingleCard = () => {
             </button>
           </div>
         </div>
-
         <div class="profile-card-message js-message">
           <form class="profile-card-form">
             <div class="profile-card-form__container">
@@ -48,7 +51,6 @@ const SingleCard = () => {
               </button>
             </div>
           </form>
-
           <div class="profile-card__overlay js-message-close"></div>
         </div>
       </div>
