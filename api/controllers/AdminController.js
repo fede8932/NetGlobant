@@ -1,4 +1,4 @@
-const AdminServices= require("./AdminServices")
+const AdminServices= require("../services/AdminServices")
 
 
 class AdminController{

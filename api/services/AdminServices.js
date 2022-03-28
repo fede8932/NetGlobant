@@ -1,4 +1,4 @@
-const { Client, Securities, BranchOficce, Provincies} = require("./models")
+const { Client, Securities, BranchOficce, Provincies} = require("../models")
 
 
 class AdminServices{

@@ -8,8 +8,11 @@ class AuthController {
     return res.sendStatus(201);
   }
 
-  static login(req, res){
-    return res.send(req.user);
+  static async login(req, res){
+    const { error, response } = await UserServices.login(req.body);
+
+    if (error) return res.status(401).send("Email or password is wrong");
+    return res.send(response);
   }
 
   static logout(req, res) {

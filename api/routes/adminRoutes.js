@@ -1,5 +1,5 @@
 const adminRouter = require("express").Router()
-const AdminController= require("../AdminController")
+const AdminController= require("../controllers/AdminController")
 
 adminRouter.get("/clients", AdminController.getAllClients)
 adminRouter.get("/clients/:id", AdminController.getOneClient)
