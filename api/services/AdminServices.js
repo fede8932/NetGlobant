@@ -12,9 +12,6 @@ class AdminServices {
     }
   }
 
-  
-    
-
   static async serviceGetOne(req, next) {
     try {
       const oneClient = await Client.findByPk(req.pararms.id);

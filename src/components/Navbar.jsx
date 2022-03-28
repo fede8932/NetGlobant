@@ -1,60 +1,96 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
-import { useNavigate } from "react-router-dom";
-import { spacing } from "@mui/system";
-import { red } from "@material-ui/core/colors";
-import { ThemeProvider } from "@material-ui/styles";
-import theme from "../utils/themeConfig";
+// fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
 
-const useStyle = makeStyles((theme) => ({
-  boton: {
-    color:"#212121",
-    backgroundColor: red
-},
-}));
+import {
+  Navbar,
+  Nav,
+  Container,
+  Button,
+  Form,
+  NavDropdown,
+  FormControl,
+} from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import { getClient } from "../states/singleClient";
+import { useInput } from "../hooks/useInput";
 
-const Navbar = () => {
+const Barra = () => {
   const navigate = useNavigate();
-  const { boton } = useStyle();
+  const dispatch = useDispatch;
+  const admin = useSelector((state) => state.admin);
+  const client = useInput();
 
-  const handleClick = () => {
-    navigate("/user/login");
+  const handleClick = (url) => {
+    navigate(url);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // dispatch(getClient(client.value));
+  };
+
+  const showUsernameOrLogin = () => {
+    return admin ? (
+      <p>{admin.name}</p>
+    ) : (<>
+      <Button onClick={() => handleClick("/admin/login")} variant="primary">
+        Login
+      </Button>
+      <Button onClick={() => handleClick("/register")} variant="primary">
+        Register
+      </Button>
+      </>
+    );
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              className={boton}
-            >
-              <MenuIcon></MenuIcon>
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              NetGlobal
-            </Typography>
-            <Button onClick={handleClick} color="inherit">
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Button color="secondary">boton</Button>
-      </Box>
-    </ThemeProvider>
+    <Navbar bg="primary" variant="dark" expand="lg">
+      <Container fluid>
+        <Navbar.Brand href="/">NetGlobal</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: "100px" }}
+            navbarScroll
+          >
+            <NavDropdown title="Clientes" id="navbarScrollingDropdown">
+              <NavDropdown.Item onClick={() => handleClick("/client")}>
+                Agregar Cliente
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Ver Clientes</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action5">
+                Agregar Sucursal
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action4">
+                Ver Sucursales
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Vigiladores" id="navbarScrollingDropdown">
+              <NavDropdown.Item onClick={() => handleClick("/security")}>
+                Agregar Vigilador
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action4">
+                Ver Vigiladores
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Form onSubmit={handleSubmit} className="d-flex">
+            <FormControl
+              {...client}
+              type="search"
+              placeholder="Buscar Clientes.."
+              className="me-2"
+              aria-label="Search"
+            />
+            {/* <input type="submit" value="Buscar" style={{backgroundColor: "blue"}} /> */}
+          </Form>
+          {showUsernameOrLogin()}
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default Barra;
