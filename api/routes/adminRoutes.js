@@ -9,6 +9,7 @@ adminRouter.get("/office",AdminController.getAllOffice)
 adminRouter.get("/office/:id", AdminController.getOneOffice)
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar)
 
+
 adminRouter.post("/add/office/security", AdminController.addSecurity)
 adminRouter.post("/add/office", AdminController.addOffice)
 adminRouter.post("/add/client",AdminController.addClient)

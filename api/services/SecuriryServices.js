@@ -18,6 +18,11 @@ class SecuritiesServices{
 
     }
 
+    static async serviceToWriteMyWorkDay(req, next){
+        
+
+    }
+
 }
 
 
