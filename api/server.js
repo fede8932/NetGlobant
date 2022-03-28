@@ -1,12 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const cookieParser = require("cookie-parser")
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
 
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, "../.env") });
 require("./config/passport");
 const db = require("./db");
+const passport = require("./config/passport")
+const routes = require("./routes")
+
 
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 
@@ -36,13 +41,15 @@ app.use(
   })
 );
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", routes);
 
 db.sync({ force: false }).then(() => {
-  app.listen(PORT, (req, res) => {
+  app.listen(SERVER_PORT, (req, res) => {
     console.log("Server Listening on port: " + SERVER_PORT);
   });
 });
