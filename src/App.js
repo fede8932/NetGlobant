@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
@@ -16,7 +15,6 @@ import theme from "./utils/themeConfig";
 import UserPage from "./components/UserPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserInfo from "./components/UserInfo";
-import 'leaflet/dist/leaflet.css'
 
 function App() {
   const dispatch = useDispatch();
