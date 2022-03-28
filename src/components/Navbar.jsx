@@ -25,7 +25,7 @@ const Navbar = () => {
   const { boton } = useStyle();
 
   const handleClick = () => {
-    navigate("/user/login");
+    navigate("/login");
   };
 
   return (

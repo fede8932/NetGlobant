@@ -10,6 +10,8 @@ import SecurityForm from "./components/SecurityForm";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserInfo from "./components/UserInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ function App() {
         <Route path="/client" element={<ClientForm />} />
         <Route path="/security" element={<SecurityForm />} />
         <Route path="/status" element={<UserPage />} />
+        <Route path="/user/info" element={<UserInfo />} />
       </Routes>
     </div>
   );
