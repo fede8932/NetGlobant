@@ -5,6 +5,7 @@ adminRouter.get("/clients", AdminController.getAllClients)
 adminRouter.get("/clients/:id", AdminController.getOneClient)
 adminRouter.get("/securities", AdminController.getAllSecurities)
 adminRouter.get("/securities/:id", AdminController.getOneSecurity)
+adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)
 adminRouter.get("/office",AdminController.getAllOffice)
 adminRouter.get("/office/:id", AdminController.getOneOffice)
 

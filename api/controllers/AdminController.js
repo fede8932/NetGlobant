@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> customLogin
 const AdminServices= require("../services/AdminServices")
+
+const { distance, distance } = require("../lib/findDistance")
 
 
 class AdminController{
@@ -10,8 +8,6 @@ class AdminController{
     const clients= await AdminServices.serviceGetAllClients(next)
   return clients? res.status(200).json(clients): res.sendStatus(404)
     }
-
-
 
     static async getOneClient(req, res, next){
         const oneClient= await AdminServices.serviceGetOne(req, next)
@@ -72,22 +68,30 @@ class AdminController{
 
     }
 
-
     static async editOffice(req,res, next){
       const updatedOffice= await AdminServices.serviceEditOffice(req, next)
-      return res.staus(201).json(updatedOffice)
+      return res.status(201).json(updatedOffice)
     }
 
     static async editSecurity(req,res, next){
       const updatedSecurity= await AdminServices.serviceEditSecurity(req, next)
-      return res.staus(201).json( updatedSecurity)
+      return res.status(201).json( updatedSecurity)
     }
 
     static async editClient(req, res, next){
       const updatedClient= await AdminServices.serviceEditClient(req, next)
-      return res.staus(201).json(updatedClient)
+      return res.status(201).json(updatedClient)
     }
   
+    static async getSecuritiesByDistance(req, res, next) {
+      const { y, x } = req.body
+      const securities= await AdminServices.serviceGetSecuritiesByDistance(req, next)
+      securities.map( securitie => {
+        const dist = distance(y, x, securitie.y, securitie.x)
+        securitie.dist
+      })
+      return res.send(securities)
+    }
 }
 
 module.exports = AdminController;

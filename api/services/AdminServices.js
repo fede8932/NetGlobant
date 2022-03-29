@@ -1,5 +1,6 @@
 const { Client, Securities, BranchOficce, Provincies } = require("../models");
-
+const { Op } = require("@sequelize/core")
+const { getRadius } = require("../lib/findDistance")
 
 class AdminServices {
   static async serviceGetAllClients(next) {
@@ -8,12 +9,8 @@ class AdminServices {
       return clients;
     } catch (err) {
       next(err);
-
     }
   }
-
-  
-    
 
   static async serviceGetOne(req, next) {
     try {
@@ -46,24 +43,19 @@ class AdminServices {
     try {
       const allOffice = await BranchOficce.findAll();
       return allOffice;
-
     } catch (err) {
       next(err);
     }
   }
-
 
   static async serviceGetOneOffice(req, next) {
     try {
       const oneOffice = await BranchOficce.findByPk(req.pararms.id);
       return oneOffice;
-
     } catch (err) {
       next(err);
     }
   }
-
-
 
   static async serviceAddSecurity(req, next) {
     try {
@@ -83,8 +75,6 @@ class AdminServices {
     }
   }
 
-
-  
   static async serviceAddOffice(req, next) {
     try {
       const provincie = req.body.provincie;
@@ -115,8 +105,6 @@ class AdminServices {
     }
   }
 
- 
-
   static async serviceRemoveOffice(req, next) {
     try {
       await BranchOficce.destroy({
@@ -128,8 +116,6 @@ class AdminServices {
       next(err);
     }
   }
-
-
 
   static async serviceRemoveSecurity(req, next) {
     try {
@@ -169,8 +155,6 @@ class AdminServices {
     }
   }
 
-
-  
   static async serviceEditSecurity(req, next) {
     try {
       const [rows, update] = await Securities.update(req.body, {
@@ -198,6 +182,54 @@ class AdminServices {
     }
   }
 
+  static async serviceGetSecuritiesByDistance(req, next) {
+    const { y, x } = req.body
+    const { id } = req.params
+    try {
+      let { maxLat, maxLon, minLat, minLon } = getRadius(y, x, 10)
+      const securities = await Securities.findAll({
+        where: {
+          y: {
+            [Op.and]: [
+              {[Op.lte]: maxLat},
+              {[Op.gte]: minLat}
+            ]
+          },
+          x: {
+            [Op.and]: [
+              {[Op.lte]: maxLon},
+              {[Op.gte]: minLon}
+            ]
+          }
+        }
+      })
+      if (securities.length < 2){
+        let { maxLat, maxLon, minLat, minLon } = getRadius(y, x, 50)
+        const securities = await Securities.findAll({
+          where: {
+            y: {
+              [Op.and]: [
+                {[Op.lte]: maxLat},
+                {[Op.gte]: minLat}
+              ]
+            },
+            x: {
+              [Op.and]: [
+                {[Op.lte]: maxLon},
+                {[Op.gte]: minLon}
+              ]
+            }
+          }
+        })
+      }
+      if (securities.length < 2){
+        const securities = await Securities.findAll( { include: Provincies.findOne( {where: { id: id } } ) } )
+      }
+      return securities
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = AdminServices;
