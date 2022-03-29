@@ -16,6 +16,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UserInfo from "./components/UserInfo";
 import Vigilador from "./components/Vigilador";
 import "./style/index.scss"
+import EditSecurity from "./components/EditSecurity";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,9 +45,9 @@ function App() {
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities" element={<Vigilador />} />
+        <Route path="/edit/security/:id" element={<EditSecurity />} />
       </Routes>
     </div>
-
   );
 }
 
