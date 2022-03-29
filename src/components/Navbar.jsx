@@ -12,10 +12,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
 import { useInput } from "../hooks/useInput";
+import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const admin = useSelector((state) => state.admin);
   const client = useInput();
 
@@ -31,13 +32,14 @@ const Barra = () => {
   const showUsernameOrLogin = () => {
     return admin ? (
       <p>{admin.name}</p>
-    ) : (<>
-      <Button onClick={() => handleClick("/admin/login")} variant="primary">
-        Login
-      </Button>
-      <Button onClick={() => handleClick("/register")} variant="primary">
-        Register
-      </Button>
+    ) : (
+      <>
+        <Button onClick={() => handleClick("/admin/login")} variant="primary">
+          Login
+        </Button>
+        <Button onClick={() => handleClick("/register")} variant="primary">
+          Register
+        </Button>
       </>
     );
   };
@@ -70,7 +72,9 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/security")}>
                 Agregar Vigilador
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => handleClick("/search/securities")}>
+              <NavDropdown.Item
+                onClick={() => handleClick("/search/securities")}
+              >
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>
@@ -83,7 +87,7 @@ const Barra = () => {
               className="me-2"
               aria-label="Search"
             />
-            {/* <input type="submit" value="Buscar" style={{backgroundColor: "blue"}} /> */}
+              <Button variant="primary" type="submit">Buscar</Button>
           </Form>
           {showUsernameOrLogin()}
         </Navbar.Collapse>
