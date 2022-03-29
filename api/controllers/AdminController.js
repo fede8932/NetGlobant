@@ -9,8 +9,9 @@ class AdminController{
   return clients? res.status(200).json(clients): res.sendStatus(404)
     }
 
-    static async getOneClient(req, res, next){
-        const oneClient= await AdminServices.serviceGetOne(req, next)
+  static async getOneClient(req, res, next){
+    
+      const oneClient= await AdminServices.serviceGetOne(req, next)
       return  oneClient? res.status(200).json(oneClient): res.sendStatus(404)
     }
 
@@ -37,21 +38,33 @@ class AdminController{
     return  oneOffice? res.status(200).json(oneOffice): res.sendStatus(404)
   }
 
+  static async getOfficeCalendar(req,res,next){
+    const officeCalendar= await AdminServices.serviceGetCalenderOffice(req, next)
+    return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
+  }
+
     static async addSecurity(req,res,next){
+      
         const office= await AdminServices.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
 
     static async addOffice(req, res, next) {
-      const newOffice = await  AdminServices.serviceaddOffice(req, next);
+      const newOffice = await  AdminServices.serviceAddOffice(req, next);
       return res.status(201).json(newOffice);
     }
 
     static async addClient(req, res, next) {
+     
       const newClient = await  AdminServices.serviceAddClient(req,next)
-      return newClient? res.status(201).json( newClient ): res.sendStatus(400)
+      return newClient? res.status(201).json( newClient ): res.sendStatus(404)
     }
-  
+
+    static async addSchedule(req,res,next){
+      await AdminServices.serviceAddSchedule(req,next)
+      return res.sendStatus(201)
+    }
+
     static async removeOffice(req, res, next){
     await  AdminServices.serviceRemoveOffice(req, next)
     return res.sendStatus(202)
@@ -66,6 +79,11 @@ class AdminController{
       await  AdminServices.serviceRemoveClient(req, next)
       return res.sendStatus(202)
 
+    }
+
+    static async removeSchedule(req, res, next){
+    await AdminServices.serviceRemoveSchedule(req, next)
+    return res.sendStatus(202)
     }
 
     static async editOffice(req,res, next){

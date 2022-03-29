@@ -1,168 +1,136 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { useForm, Controller } from "react-hook-form";
-import { useLocation } from "react-router-dom";
-
-// import axios from 'axios'
-// import { useNavigate } from "react-router-dom";
-// import {useDispatch} from 'react-redux'
+import LoginCss from "../styles/Home.module.css";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Container, Button, Form } from "react-bootstrap";
+import { FiUser } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  const ruta = useLocation().pathname === '/admin/login' ?  'admin back ruta' : 'user back ruta'
+  const [user, setUser] = useState(null);
 
-  const { handleSubmit, control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = (evento) => {
+    console.log("ESTO ES EVENTO EN LOGIN", evento);
+    console.log(register);
 
-
-  const onSubmit = (data) => {
-    console.log("data formulario login", data);
-    // axios
-    //   .post(ruta, data)
-    //   .catch(() => alert("Ingresa un Email o Contraseña Valida"))
-    //   .then((user) => {
-    //    localStorage.setItem('user', JSON.stringify(user.data)); 
-    //    dispatch(sendLogin(user.data), navigate("/"));
-    //   });
+    setTimeout(() => {
+      if (evento.password === "123456") {
+        setUser(evento);
+      } else {
+        setUser(null);
+      }
+    }, 4000);
   };
 
   return (
+    <>
+      <Container id="main-container" className="d-grid h-100 ">
+        <Form id="sign-in-form" className="text-center p-3 w-100 " onSubmit={handleSubmit(onSubmit)}>
+          <FiUser className="mt-5" style={{ color: "grey" }} size={50} />
+          <div className={LoginCss.contenedor}>
+            <div className={LoginCss.container} id="container">
+              <div className={LoginCss.loginCentrado}>
+                
+                  <Form.Group
+                    className="mb-1 mt-3 "
+                    controlId="sign-in-email-address"
+                  >
+                    <div
+                      className={`${LoginCss.inputBonito} ${
+                        errors.email && LoginCss.error
+                      }`}
+                    >
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        name="email"
+                        placeholder="Email"
+                        {...register("email", {
+                          required: {
+                            value: true,
+                            message: "Necesitas este campo",
+                          },
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                            message: "El formato no es correcto",
+                          },
+                        })}
+                      />
+                      {errors.email && (
+                        <span className={errors.email && LoginCss.mensajeError}>
+                          {errors.email.message}
+                        </span>
+                      )}
+                    </div>
+                  </Form.Group>
 
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Iniciar sesión
-        </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Controller 
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-               
-               
-                sx={{ m: 1, width: '35ch' }}
-              
-                  label="Email"
-                  variant="outlined"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  type="email"
-                />
-              )}
-              rules={{
-                required: "Email required",
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Debe ser un email correcto",
-                },
-              }}
-            />
-            <br />
-            <br />
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-                sx={{ m: 1, width: '35ch' }}
-                  label="Password"
-                  variant="outlined"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  type="password"
-                />
-              )}
-              rules={{
-                required: "Contraseña requerida",
-                minLength: {
-                  value: 8,
-                  message: "La contraseña debe tener al menos 8 caracteres",
-                },
-                // pattern: {
-                //   value: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
-                //   message:
-                //     "Password should contain at least 1 alphabet and 1 numeric value",
-                // },
-                validate: {
-                  equals: (password) =>
-                    password !== "password123" || "Elegí una contraseña segura",
-                },
-              }}
-            />
+                  <Form.Group className="mb-1" controlId="sign-in-password">
+                    <div
+                      className={`${LoginCss.inputBonito}  ${
+                        errors.password && LoginCss.error
+                      }`}
+                    >
+                      <label
+                        className={LoginCss.labelName}
+                        // className={LoginCss.textoInput}
+                      ></label>
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Contraseña"
+                        {...register("password", {
+                          required: {
+                            value: true,
+                            message: "El campo es requerido",
+                          },
+                          minLength: {
+                            value: 6,
+                            message:
+                              "La contraseña debe tener al menos 6 caracteres",
+                          },
+                        })}
+                      />
+                      {errors.password && (
+                        <span
+                          className={errors.password && LoginCss.mensajeError}
+                        >
+                          {errors.password.message}
+                        </span>
+                      )}
+                    </div>
+                  </Form.Group>
 
-            <br />
-            
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recordar mi cuenta"
-            />
-            <br/>
-            
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              color="secondary"
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Iniciar sesión
-            </Button>
-            
-            <Grid container>
-              <Grid item xs={6}>
-                <Link href="#" variant="body2">
-                  {"Olvidaste tu contraseña?"}
-                </Link>
-              </Grid>
-              <Grid item xs={6}>
-                <Link href="#" variant="body2">
-                  {"No tienes una cuenta?   "}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
+                  <Button
+                    variant="secondary"
+                    size="ms"
+                    type="submit"
+                    value="submit"
+                  >
+                    {" "}
+                    INICIAR SESIÓN
+                  </Button>
 
-        </Box>
-      </Box>
-    </Container>
+                  {/* {!user && <div>Contraseña incorrecta</div>} */}
+                
+                <br></br>
+                {/* <div className="border"></div> */}
+                <br></br>
+                <p>¿Aún no tienes cuenta?</p>
+                {/* <Link  to="/register">
+              <a >
+                ¡Registrate!
+              </a>
+            </Link> */}
+              </div>
+            </div>
+          </div>
+        </Form>
+      </Container>
+    </>
   );
 }

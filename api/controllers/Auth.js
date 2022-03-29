@@ -8,7 +8,7 @@ class AuthController {
     return res.sendStatus(201);
   }
 
-  static async login(req, res){
+  static async login(req, res) {
     const { error, response } = await UserServices.login(req.body);
 
     if (error) return res.status(401).send("Email or password is wrong");
@@ -21,4 +21,4 @@ class AuthController {
   }
 }
 
-module.exports = AuthController
+module.exports = AuthController;
