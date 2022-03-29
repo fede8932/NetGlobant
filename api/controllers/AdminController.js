@@ -9,8 +9,9 @@ class AdminController{
 
 
 
-    static async getOneClient(req, res, next){
-        const oneClient= await AdminServices.serviceGetOne(req, next)
+  static async getOneClient(req, res, next){
+    
+      const oneClient= await AdminServices.serviceGetOne(req, next)
       return  oneClient? res.status(200).json(oneClient): res.sendStatus(404)
     }
 
@@ -87,17 +88,17 @@ class AdminController{
 
     static async editOffice(req,res, next){
       const updatedOffice= await AdminServices.serviceEditOffice(req, next)
-      return res.staus(201).json(updatedOffice)
+      return res.status(201).json(updatedOffice)
     }
 
     static async editSecurity(req,res, next){
       const updatedSecurity= await AdminServices.serviceEditSecurity(req, next)
-      return res.staus(201).json( updatedSecurity)
+      return res.status(201).json( updatedSecurity)
     }
 
     static async editClient(req, res, next){
       const updatedClient= await AdminServices.serviceEditClient(req, next)
-      return res.staus(201).json(updatedClient)
+      return res.status(201).json(updatedClient)
     }
   
 }

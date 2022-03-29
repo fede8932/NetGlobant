@@ -1,6 +1,7 @@
 const { Client, Securities, BranchOficce, Provincies, WorkDay } = require("../models");
 
 class AdminServices {
+
   static async serviceGetAllClients(next) {
     try {
       const clients = await Client.findAll();
@@ -13,7 +14,8 @@ class AdminServices {
 
   static async serviceGetOne(req, next) {
     try {
-      const oneClient = await Client.findByPk(req.pararms.id);
+      const oneClient = await Client.findOne({
+        where:{ id: req.params.id}});
       return oneClient;
     } catch (err) {
       next(err);
@@ -29,11 +31,11 @@ class AdminServices {
     }
   }
 
-  static async serviceGetOneSecurities(req, next) {
+  static async serviceGetOneSecurities(req, next) {// esta ruta no se puede checkear hasa que este conectado con el front
     try {
       const oneSecurity = await Securities.findAll(
         {where:{
-          name: req.pararms.name}});
+          name: req.body.name}});
       return oneSecurity;
     } catch (err) {
       next(err);
@@ -52,7 +54,7 @@ class AdminServices {
 
   static async serviceGetOneOffice(req, next) {
     try {
-      const oneOffice = await BranchOficce.findByPk(req.pararms.id);
+      const oneOffice = await BranchOficce.findByPk(req.params.id);
       return oneOffice;
 
     } catch (err) {
@@ -66,7 +68,7 @@ class AdminServices {
             where:{ id: req.params.id},
             include:{
                 model:WorkDay,
-                as:'my_workday'
+                as:'calendarOffice'
             }
         }) 
         return calendar
@@ -110,7 +112,6 @@ class AdminServices {
           bussinessName: owner,
         },
       });
-      console.log(client)
       const office = await BranchOficce.create(req.body)
       office.setClient(client);
       office.setProvincy(provincieLocal);
@@ -181,13 +182,11 @@ class AdminServices {
 
   static async serviceRemoveSchedule(req, next){
     try{
-      const office= await BranchOficce.findOne({
-        where:{ name: req.params.name},
-        })
-        const schedule= await WorkDay.findOne({
+
+         await WorkDay.destroy({
           where:{ id: req.params.id},
           })
-        office.removeSchedule(schedule)    
+            
     }catch(err){
            next(err)
     }
@@ -197,7 +196,7 @@ class AdminServices {
     try {
       const [rows, update] = await BranchOficce.update(req.body, {
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
         returning: true,
       });
@@ -211,7 +210,7 @@ class AdminServices {
     try {
       const [rows, update] = await Securities.update(req.body, {
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
         returning: true,
       });
@@ -225,7 +224,7 @@ class AdminServices {
     try {
       const [rows, update] = await Client.update(req.body, {
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
         returning: true,
       });

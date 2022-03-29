@@ -17,10 +17,7 @@ adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
 adminRouter.delete("/remove/client/:id", AdminController.removeClient);
 adminRouter.delete("/remove/office/:id", AdminController.removeOffice);
-adminRouter.delete(
-  "/remove/calendar/office/:id",
-  AdminController.removeSchedule
-);
+adminRouter.delete("/remove/calendar/office/:id",AdminController.removeSchedule);
 
 adminRouter.put("/edit/office/:id", AdminController.editOffice);
 adminRouter.put("/edit/security/:id", AdminController.editSecurity);
