@@ -16,6 +16,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UserInfo from "./components/UserInfo";
 import Vigilador from "./components/Vigilador";
 import "./style/index.scss"
+import { effectDevice } from "./states/device";
+import HomeMobile from "./components/homeMobile";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,12 +32,15 @@ function App() {
     dispatch(effectLogin())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+    dispatch(effectDevice())
+      .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
       <Navbar />
       <Routes>
+        <Route path="/home/mobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/client" element={<ClientForm />} />
