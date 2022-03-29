@@ -18,6 +18,8 @@ import Vigilador from "./components/Vigilador";
 import "./style/index.scss";
 import Sidebar from "./components/Sidebar";
 import Clients from "./components/Clients";
+import { effectDevice } from "./states/device";
+import HomeMobile from "./components/homeMobile";
 
 
 function App() {
@@ -34,7 +36,9 @@ function App() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    // dispatch(effectLogin());
+    dispatch(effectDevice())
+      .catch((err) => console.log(err));
+
   }, []);
 
   return (
@@ -43,6 +47,7 @@ function App() {
    
 
       <Routes>
+        <Route path="/home/mobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/client" element={<ClientForm />} />

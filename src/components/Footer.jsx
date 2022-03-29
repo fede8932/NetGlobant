@@ -1,43 +1,20 @@
-// import { Box } from "@material-ui/core"
-// import * as React from 'react';
-// import Typography from '@mui/material/Typography';
-// import Link from '@mui/material/Link';
+import * as React from 'react';
 
+const Footer = function (){
+    return (
+    <div id="footer" class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+        <span class="text-muted">© 2022 Bootcamp Enero, Inc</span>
+        </div>
 
-// function Copyright() {
-//     return (
-//       <Typography variant="body2" color="text.secondary">
-//         {'Copyright © '}
-//         <Link color="inherit" href="https://mui.com/">
-//           Bootcamp P5 Enero
-//         </Link>{' '}
-//         {new Date().getFullYear()}
-//         {'.'}
-//       </Typography>
-//     );
-//   }
-
-// const Footer = function (){
-//     return (
-//         <Box
-//         component="footer"
-//         sx={{
-//           py: 3,
-//           px: 2,
-//           mt: 'auto',
-//           backgroundColor: (theme) =>
-//             theme.palette.mode === 'light'
-//               ? theme.palette.grey[200]
-//               : theme.palette.grey[800],
-//         }}
-//       >
-//         <Container maxWidth="sm">
-//           <Typography variant="body1">
-//             Agregar texto/link/info en footer
-//           </Typography>
-//           <Copyright />
-//         </Container>
-//       </Box>
-//     )
-// }
-// export default Footer
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook"></i></a></li>
+        <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-twitter"></i></a></li>
+        <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-whatsapp"></i></a></li>
+        </ul>
+    </footer>
+    </div>
+    )
+}
+export default Footer
