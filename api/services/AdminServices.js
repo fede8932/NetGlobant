@@ -85,15 +85,16 @@ class AdminServices {
 
   static async serviceGetCalenderSecurity(req, next) {
     try {
-      const calendarSecurity = await Securities.findOne({
-        where: { name: req.params.name },
-        include: {
-          model: WorkDay,
-          as: "my_workday",
-        },
-      });
-      return calendarSecurity;
+      const scheduleSecurity= await Securities.findOne({
+        where:{ id: req.params.id},
+        include:{
+            model:WorkDay,
+            as:'my_workday'
+        }
+    }) 
+    return scheduleSecurity
     } catch (err) {
+     
       next(err);
     }
   }
@@ -170,6 +171,7 @@ class AdminServices {
         where: { name: req.body.name},
       });
       const workDay= await WorkDay.create(req.body);
+      
       security.addWorkDay(workDay);
       return security;
     } catch (err) {
