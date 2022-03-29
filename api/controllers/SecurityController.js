@@ -11,6 +11,11 @@ class SecurityController{
      return res.sendStatus(201)
  }
 
+static async changeMyPassword(req, res, next){
+    await SecuritiesServices.serviceChangeMyPassword(req, next)
+    return res.sendStatus(204)
+}
+
 }
 
 module.exports= SecurityController

@@ -7,7 +7,9 @@ adminRouter.get("/securities", AdminController.getAllSecurities);
 adminRouter.get("/securities/:id", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
+adminRouter.get("/calendar/security/:id", AdminController.getOfficeCalendarSecurity)
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);
+
 
 adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
 adminRouter.post("/add/office", AdminController.addOffice);

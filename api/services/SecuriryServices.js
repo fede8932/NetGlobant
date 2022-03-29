@@ -30,8 +30,25 @@ class SecuritiesServices{
 
     }
 
-    
+   /*  static async serviceCancellWorkDay(req, next){
+        const [rows, workDay]= await WorkDay.update((req.body,{
+            where:{ id: req.params.id},
+        }))
+        return workDay
+        }catch(err){
+            next(err)
+        }
+    } */
 
+    static async serviceChangeMyPassword(req, next){
+          try{
+              await Securities.update(req.body, {
+                  where:{ id: req.params.id}
+              })
+          }catch(err){
+          next(err)
+          }
+    }
 }
 
 

@@ -43,6 +43,11 @@ class AdminController{
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
   }
 
+  static async getOfficeCalendarSecurity(req,res,next){
+    const securityCalendar= await AdminServices.serviceGetCalenderSecurity(req, next)
+    return securityCalendar? res.status(200).json(securityCalendar): res.sendStatus(404)
+  }
+
     static async addSecurityOffice(req,res,next){
         const office= await AdminServices.serviceAddSecurityOffice(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)

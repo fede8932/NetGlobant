@@ -83,6 +83,21 @@ class AdminServices {
     }
   }
 
+  static async serviceGetCalenderSecurity(req, next) {
+    try {
+      const calendarSecurity = await Securities.findOne({
+        where: { name: req.params.name },
+        include: {
+          model: WorkDay,
+          as: "my_workday",
+        },
+      });
+      return calendarSecurity;
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceAddSecurityOffice(req, next) {
     try {
       const { branchOffice } = req.body;
