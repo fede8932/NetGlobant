@@ -8,7 +8,7 @@ import {
   NavDropdown,
   FormControl,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
 import { useInput } from "../hooks/useInput";
@@ -16,7 +16,7 @@ import { useInput } from "../hooks/useInput";
 const Barra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
-  const admin = useSelector((state) => state.admin);
+  const admin = useSelector((state) => state.usuario);
   const client = useInput();
 
   const handleClick = (url) => {
@@ -29,35 +29,46 @@ const Barra = () => {
   };
 
   const showUsernameOrLogin = () => {
-    return admin ? (
-      <p>{admin.name}</p>
-    ) : (<>
-      <Button onClick={() => handleClick("/admin/login")} variant="primary">
+    return admin.name ? (
+      <>
+        <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
+        <Button
+          onClick={() => handleClick("/register")}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Register
+        </Button>
+      </>
+    ) : (
+      <Button
+        onClick={() => handleClick("/admin/login")}
+        variant="warning"
+        style={{ color: "#696969" }}
+      >
         Login
       </Button>
-      <Button onClick={() => handleClick("/register")} variant="primary">
-        Register
-      </Button>
-      </>
     );
   };
 
   return (
-    <Navbar bg="primary" variant="dark" expand="lg">
+    <Navbar bg="warning" variant="dark" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/">NetGlobal</Navbar.Brand>
+        <Navbar.Brand style={{ color: "#696969" }} href="/">
+          NetGlobal
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
+            style={{ maxHeight: "100px", color: "#808080" }}
             navbarScroll
           >
             <NavDropdown title="Clientes" id="navbarScrollingDropdown">
               <NavDropdown.Item onClick={() => handleClick("/client")}>
                 Agregar Cliente
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Ver Clientes</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleClick("/clients")}>Ver Clientes</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action5">
                 Agregar Sucursal
@@ -70,7 +81,9 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/security")}>
                 Agregar Vigilador
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => handleClick("/search/securities")}>
+              <NavDropdown.Item
+                onClick={() => handleClick("/search/securities")}
+              >
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>
