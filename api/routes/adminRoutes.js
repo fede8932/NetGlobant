@@ -7,6 +7,7 @@ adminRouter.get("/securities", AdminController.getAllSecurities);
 adminRouter.get("/securities/:id", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
+adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);
 
 adminRouter.post("/add/office/security", AdminController.addSecurity);
@@ -24,3 +25,4 @@ adminRouter.put("/edit/security/:id", AdminController.editSecurity);
 adminRouter.put("/edit/client/:id", AdminController.editClient);
 
 module.exports = adminRouter;
+
