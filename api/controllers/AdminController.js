@@ -43,15 +43,22 @@ class AdminController{
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
   }
 
+
   static async addSecurity(req, res, next){
     const security= await AdminServices.serviceAddSecurity(req, next)
     return security? res.status(201).json(security): res.sendStatus(500)
   }
 
 
-    static async addSecurity(req,res,next){
-      
-        const office= await AdminServices.serviceAddSecurity(req, next)
+
+  static async getOfficeCalendarSecurity(req,res,next){
+    const securityCalendar= await AdminServices.serviceGetCalenderSecurity(req, next)
+    return securityCalendar? res.status(200).json(securityCalendar): res.sendStatus(404)
+  }
+
+    static async addSecurityOffice(req,res,next){
+        const office= await AdminServices.serviceAddSecurityOffice(req, next)
+
         return office? res.status(200).json(office): res.sendStatus(500)
     }
 
@@ -68,6 +75,21 @@ class AdminController{
 
     static async addSchedule(req,res,next){
       await AdminServices.serviceAddSchedule(req,next)
+      return res.sendStatus(201)
+    }
+
+    static async addScheduleSecurity(req,res,next){
+      await AdminServices.serviceAddScheduleSecurity(req,next)
+      return res.sendStatus(201)
+    }
+
+    static async addSecurity(req, res, next){
+      const security= await AdminServices.serviceAddSecurity(req, next)
+      return security? res.status(201).json(security): res.sendStatus(500)
+    }
+
+    static async addSecurityProvincie(req,res,next){
+      await AdminServices.serviceAddSecurityProvincie(req, next)
       return res.sendStatus(201)
     }
 

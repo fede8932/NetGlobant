@@ -1,7 +1,7 @@
-
 const { Op } = require("@sequelize/core")
 const { getRadius } = require("../lib/findDistance")
 const { Client, Securities, BranchOficce, Provincies, WorkDay } = require("../models");
+
 
 class AdminServices {
   static async serviceGetAllClients(next) {
@@ -80,6 +80,24 @@ class AdminServices {
     }
   }
 
+
+  static async serviceGetCalenderSecurity(req, next) {
+    try {
+      const scheduleSecurity= await Securities.findOne({
+        where:{ id: req.params.id},
+        include:{
+            model:WorkDay,
+            as:'my_workday'
+        }
+    }) 
+    return scheduleSecurity
+    } catch (err) {
+     
+
+      next(err);
+    }
+  }
+
   static async serviceAddSecurityOffice(req, next) {
     try {
       const { branchOffice } = req.body;
@@ -146,6 +164,21 @@ class AdminServices {
     }
   }
 
+
+  static async serviceAddScheduleSecurity(req, next) {
+    try {
+      const security = await Securities.findOne({
+        where: { name: req.body.name},
+      });
+      const workDay= await WorkDay.create(req.body);
+      
+      security.addWorkDay(workDay);
+      return security;
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceAddSecurity(req, next) {
     try {
       const provincies = await Provincies.findOne({
@@ -158,6 +191,24 @@ class AdminServices {
       return security;
     } catch (err) {
       console.log("error => ", err)
+      next(err);
+    }
+  }
+
+  static async serviceAddSecurityProvincie(req, next) {
+    try {
+      const { provincie } = req.body;
+      const provincies = await Provincies.findOne({
+        where: { name: provincie },
+      });
+      const security = await Securities.findOne({
+        where: {
+          name: req.body.name,
+        },
+      });
+      security.addProvincies(provincies);
+      return security;
+    } catch (err) {
       next(err);
     }
   }
@@ -224,13 +275,13 @@ class AdminServices {
 
   static async serviceEditSecurity(req, next) {
     try {
-      const [rows, update] = await Securities.update(req.body, {
+      const [rows, security] = await Securities.update(req.body, {
         where: {
           id: req.params.id,
         },
         returning: true,
       });
-      return update;
+      return security;
     } catch (err) {
       next(err);
     }
