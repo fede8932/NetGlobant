@@ -20,6 +20,7 @@ import Sidebar from "./components/Sidebar";
 import Clients from "./components/Clients";
 import { effectDevice } from "./states/device";
 import HomeMobile from "./components/homeMobile";
+import EditSecurity from "./components/EditSecurity";
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities" element={<Vigilador />} />
+        <Route path="/edit/security/:id" element={<EditSecurity />} />
       </Routes>
     </div>
   );

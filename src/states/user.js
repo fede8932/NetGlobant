@@ -3,6 +3,7 @@ import { createAction, createReducer , createAsyncThunk} from "@reduxjs/toolkit"
 
 export const setUser = createAction("SET_USER")
 
+
 export const effectLogin = createAsyncThunk("PERSISTENCIA", () => {
   return axios.get("/api/auth/me").then((res) => res.data);
 });

@@ -1,9 +1,11 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const SingleCard = () => {
   const navigate = useNavigate();
+  const security = useSelector(state => state.security)
 
   const handleClick = (url) => {
     navigate(url);
@@ -20,7 +22,7 @@ const SingleCard = () => {
             marginLeft: "100%",
           }}
           variant="primary"
-          onClick={() => handleClick("/edit/securities")}
+          onClick={() => handleClick(`/edit/security/${security.id}`)}
         >
           Editar
         </Button>

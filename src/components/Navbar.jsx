@@ -12,11 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
 import { useInput } from "../hooks/useInput";
+import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
   const admin = useSelector((state) => state.usuario);
+
   const client = useInput();
 
   const handleClick = (url) => {
@@ -29,6 +31,7 @@ const Barra = () => {
   };
 
   const showUsernameOrLogin = () => {
+
     return admin.name ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
@@ -48,6 +51,7 @@ const Barra = () => {
       >
         Login
       </Button>
+
     );
   };
 
@@ -96,7 +100,7 @@ const Barra = () => {
               className="me-2"
               aria-label="Search"
             />
-            {/* <input type="submit" value="Buscar" style={{backgroundColor: "blue"}} /> */}
+              <Button variant="primary" type="submit">Buscar</Button>
           </Form>
           {showUsernameOrLogin()}
         </Navbar.Collapse>
