@@ -9,10 +9,13 @@ adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);
 
-adminRouter.post("/add/office/security", AdminController.addSecurity);
+adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
 adminRouter.post("/add/office", AdminController.addOffice);
 adminRouter.post("/add/client", AdminController.addClient);
 adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
+adminRouter.post("/add/Calendar/security", AdminController.addScheduleSecurity);
+adminRouter.post("/add/security", AdminController.addSecurity)
+adminRouter.post("/add/provincie/security", AdminController.addSecurityProvincie)
 
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
 adminRouter.delete("/remove/client/:id", AdminController.removeClient);

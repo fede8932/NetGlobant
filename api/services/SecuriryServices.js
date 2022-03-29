@@ -19,9 +19,18 @@ class SecuritiesServices{
     }
 
     static async serviceToWriteMyWorkDay(req, next){
-        
+        try{
+            const [rows, workDay]= await WorkDay.update(req.body,{
+                where:{ id: req.params.id},
+            })
+            return workDay
+        }catch(err){
+            next(err)
+        }
 
     }
+
+    
 
 }
 
