@@ -1,5 +1,5 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios"
+import axios from "axios";
 
 export const getClient = createAsyncThunk("GET_CLIENTS", async (clientName) => {
   try {
@@ -15,4 +15,3 @@ const clientReducer = createReducer([], {
 });
 
 export default clientReducer;
-
