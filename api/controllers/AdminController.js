@@ -39,7 +39,7 @@ class AdminController{
   }
 
   static async getOfficeCalendar(req,res,next){
-    const officeCalendar= await AdminServices.serviceGetCalenderOffice(req, next)
+    const officeCalendar= await AdminServices.serviceGetCalendarOffice(req, next)
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
   }
 

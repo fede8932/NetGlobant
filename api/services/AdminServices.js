@@ -62,7 +62,7 @@ class AdminServices {
     }
   }
 
-  static async serviceGetCalenderOffice(req, next){
+  static async serviceGetCalendarOffice(req, next){
     try{
         const calendar= await BranchOficce.findOne({
             where:{ id: req.params.id},
