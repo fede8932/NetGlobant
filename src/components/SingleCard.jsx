@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import PopUp from "./PopUp";
 
 const SingleCard = () => {
   const navigate = useNavigate();
@@ -26,17 +27,7 @@ const SingleCard = () => {
         >
           Editar
         </Button>
-        <Button
-          style={{
-            float: "right",
-            marginRight: "10px",
-            marginTop: "10px",
-            marginLeft: "100%",
-          }}
-          variant="danger"
-        >
-          Eliminar
-        </Button>
+        <PopUp />
         <div class="profile-card__img">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLCdmJA4Akj6ixyEygNfLmUCYK2spe3LTTZg&usqp=CAU"

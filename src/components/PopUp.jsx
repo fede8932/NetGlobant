@@ -1,46 +1,56 @@
-function MyVerticallyCenteredModal(props) {
-    return (
+import { Button, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteSecurity } from "../states/singleSecurity";
+
+const PopUp = () => {
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const security = useSelector(state => state.security)
+
+  const handleClose = () => setShow(false);
+  const handleDelete = () => {
+    setShow(true);
+    dispatch(deleteSecurity(security.id));
+  };
+
+  return (
+    <>
+      <Button
+        variant="danger"
+        style={{
+          float: "right",
+          marginRight: "10px",
+          marginTop: "10px",
+          marginLeft: "100%",
+        }}
+        onClick={handleDelete}
+      >
+        Eliminar
+      </Button>
+
       <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
-          </Modal.Title>
+          <Modal.Title>Atención</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+          Al dar click en Eliminar, borrará de forma permamente el vigilador de
+          su base de datos.
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button variant="danger">Eliminar</Button>
         </Modal.Footer>
       </Modal>
-    );
-  }
-  
-  function App() {
-    const [modalShow, setModalShow] = React.useState(false);
-  
-    return (
-      <>
-        <Button variant="primary" onClick={() => setModalShow(true)}>
-          Launch vertically centered modal
-        </Button>
-  
-        <MyVerticallyCenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      </>
-    );
-  }
-  
-  render(<App />);
+    </>
+  );
+};
+
+export default PopUp;
