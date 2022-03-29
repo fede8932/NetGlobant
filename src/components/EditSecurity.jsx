@@ -1,6 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editSecurity } from "../states/singleSecurity";
+import { useInput } from "../hooks/useInput";
 
 const EditSecurity = () => {
+  const dispatch = useDispatch();
+  // const [editedSecurity, setEditedSecurity] = useState({
+  //   name: "",
+  //   lastName: "",
+  //   CUIL: "",
+  //   email: "",
+  // });
+  const name = useInput();
+  const lastName = useInput();
+  const CUIL = useInput();
+  const email = useInput();
+  const security = useSelector((state) => state.security);
+  console.log("ESTO ES SECURITY", {
+    name: name.value,
+    lastName: lastName.value,
+    CUIL: CUIL.value,
+    email: email.value,
+  });
+
+  const handleClick = () => {
+    dispatch(
+      editSecurity(security.id, {
+        name: name.value,
+        lastName: lastName.value,
+        CUIL: CUIL.value,
+        email: email.value,
+      })
+    );
+  };
+
   return (
     <div class="container rounded bg-white mt-5 mb-5">
       <div class="row">
@@ -21,56 +54,71 @@ const EditSecurity = () => {
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h4 class="text-right">Editar Perfil</h4>
             </div>
-            <div class="row mt-2">
-              <div class="col-md-6">
-                <label class="labels">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" />
+            <form>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <label class="labels">Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                    {...name}
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="labels">Apellido</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Apellido"
+                    {...lastName}
+                  />
+                </div>
               </div>
-              <div class="col-md-6">
-                <label class="labels">Apellido</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Apellido"
-                />
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <label class="labels">CUIL</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese el CUIL"
+                    {...CUIL}
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Provincia</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese la provincia"
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese el email"
+                    {...email}
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Provincias habilitadas</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese las provincias separadas por una coma"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-12">
-                <label class="labels">CUIL</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ingrese el CUIL"
-                />
-              </div>
-              <div class="col-md-12">
-                <label class="labels">Provincia</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ingrese la provincia"
-                />
-              </div>
-              <div class="col-md-12">
-                <label class="labels">Email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ingrese el email"
-                />
-              </div>
-              <div class="col-md-12">
-                <label class="labels">Provincias habilitadas</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ingrese las provincias separadas por una coma"
-                />
-              </div>
-            </div>
+            </form>
+
             <div class="mt-5 text-center">
-              <button class="btn btn-primary profile-button" type="button">
+              <button
+                onClick={handleClick}
+                class="btn btn-primary profile-button"
+                type="button"
+              >
                 Guardar Cambios
               </button>
             </div>

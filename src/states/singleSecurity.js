@@ -10,14 +10,20 @@ export const getSecurity = createAsyncThunk("GET_SECURITY", async (name) => {
   }
 });
 
-export const editSecurity = createAsyncThunk("EDIT_SECURITY", async (id) => {
-  try {
-    const editedSecurity = await axios.put(`/api/edit/security/${id}`);
-    return editSecurity.data;
-  } catch (err) {
-    console.log(err);
+export const editSecurity = createAsyncThunk(
+  "EDIT_SECURITY",
+  async (id, security) => {
+    try {
+      const editedSecurity = await axios.put(
+        `/api/edit/security/${id}`,
+        security
+      );
+      return editSecurity.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
 const securityReducer = createReducer(
   {},
