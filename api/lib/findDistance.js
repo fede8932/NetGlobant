@@ -1,15 +1,15 @@
 const distance = (latitude1, longitude1, latitude2, longitude2) => {
-  const latitude1 = (latitude1 * Math.PI) / 180;
-  const longitude1 = (longitude1 * Math.PI) / 180;
-  const latitude2 = (latitude2 * Math.PI) / 180;
-  const longitude2 = (longitude2 * Math.PI) / 180;
+  const lat1 = (latitude1 * Math.PI) / 180;
+  const lon1 = (longitude1 * Math.PI) / 180;
+  const lat2 = (latitude2 * Math.PI) / 180;
+  const lon2 = (longitude2 * Math.PI) / 180;
 
-  const distanceLat = latitude2 - latitude1;
-  const distanceLon = longitude2 - longitude1;
+  const distanceLat = lat2 - lat1;
+  const distanceLon = lon2 - lon1;
   const a =
     Math.pow(Math.sin(distanceLat / 2), 2) +
-    Math.cos(latitude1) *
-      Math.cos(latitude2) *
+    Math.cos(lat1) *
+      Math.cos(lat2) *
       Math.pow(Math.sin(distanceLon / 2), 2);
 
   const c = 2 * Math.asin(Math.sqrt(a));
