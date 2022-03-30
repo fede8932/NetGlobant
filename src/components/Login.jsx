@@ -5,12 +5,12 @@ import { FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../states/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const admin = useSelector(state=>state.device)=="mobile"?false:true
   const {
     register,
     handleSubmit,
@@ -24,13 +24,14 @@ export default function Login() {
       data: {
         email: data.email,
         password: data.password,
-        isAdmin: true,
+        isAdmin: admin,
       },
     });
+    localStorage.setItem('user', JSON.stringify(token));
     dispatch(
       setUser({ data, name: token.data.name, token: token.data.jwt.token })
     );
-    navigate("/");
+    admin ? navigate("/") : navigate("/status");
   };
 
   return (

@@ -38,6 +38,7 @@
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",
     "sequelize": "^6.17.0",
+    "sequelize-cli": "^6.4.1",
     "serve": "^13.0.2",
     "sweetalert": "^2.1.2",
     "web-vitals": "^0.2.4",
@@ -84,6 +85,7 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.9",
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.15"
   }
 }

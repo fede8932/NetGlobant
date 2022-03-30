@@ -1,4 +1,5 @@
 const distance = (latitude1, longitude1, latitude2, longitude2) => {
+
   const lat1 = (latitude1 * Math.PI) / 180;
   const lon1 = (longitude1 * Math.PI) / 180;
   const lat2 = (latitude2 * Math.PI) / 180;
@@ -13,6 +14,7 @@ const distance = (latitude1, longitude1, latitude2, longitude2) => {
   const r = 6371;
   return c * r;
 };
+
 
 const getRadius = (latitude, longitude, radius) => {
   const kmXDegree = 111;
