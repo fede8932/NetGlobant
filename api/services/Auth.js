@@ -34,18 +34,18 @@ class AuthServices {
   }
 
   static async login(data) {
-    const { email, password, isAdmin } = data;
+    const { email, password, admin } = data;
 
-    if (isAdmin) {
+    if (admin) {
       try {
-        const admin = await Admin.findOne({ where: {email: email} });
-        const isPasswordValid = await verifyPassword(password, admin.password);
+        const administrator = await Admin.findOne({ where: {email: email} });
+        const isPasswordValid = await verifyPassword(password, administrator.password);
         if (isPasswordValid) {
-          const jwt = creatingJWT(admin, isAdmin);
+          const jwt = creatingJWT(administrator, admin);
           return {
             error: false,
             response: {
-              name: admin.name,
+              name: administrator.name,
               jwt,
             },
           };
@@ -64,10 +64,11 @@ class AuthServices {
         const security = await Securities.findOne({ where: {email: email} });
         const isPasswordValid = await verifyPassword(password, security.password);
         if (isPasswordValid) {
-          const jwt = creatingJWT(security, isAdmin);
+          const jwt = creatingJWT(security, admin);
           return {
             error: false,
             response: {
+              id: security.id,
               name: security.name,
               jwt,
             },
