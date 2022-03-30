@@ -41,6 +41,11 @@ class AdminController{
     return  oneOffice? res.status(200).json(oneOffice): res.sendStatus(404)
   }
 
+   static async getAllSecuritiesByOffice(req,res,next){
+     const securityList= await AdminServicesGet.serviceGetAllSecuritiesByOffice(req, next)
+     return securityList? res.status(200).json(securityList): res.sendStatus(404)
+   } 
+
   static async getOfficeCalendar(req,res,next){
     const officeCalendar= await AdminServicesGet.serviceGetCalenderOffice(req, next)   
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
@@ -51,8 +56,8 @@ class AdminController{
     return securityCalendar? res.status(200).json(securityCalendar): res.sendStatus(404)
   }
 
-    static async addSecurityOffice(req,res,next){
-        const office= await AdminServicesPost.serviceAddSecurityOffice(req, next)
+    static async addSecurity(req,res,next){
+        const office= await AdminServicesPost.serviceAddSecurity(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
 
@@ -81,8 +86,8 @@ class AdminController{
       return res.sendStatus(201)
     }
 
-    static async addSecurity(req, res, next){
-      const security= await AdminServicesPost.serviceAddSecurity(req, next)
+    static async addSecurityOffice(req, res, next){
+      const security= await AdminServicesPost.serviceAddSecurityOffice(req, next)
       return security? res.status(201).json(security): res.sendStatus(500)
     }
 

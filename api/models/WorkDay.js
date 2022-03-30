@@ -5,6 +5,9 @@ class WorkDay extends S.Model {}
 
 WorkDay.init(
   {
+  /*   day:{
+      type: S.DATE, 
+    }, */
     entryHour: {
       type: S.DATE,
     },

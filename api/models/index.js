@@ -18,7 +18,7 @@ BranchOficce.calendar= BranchOficce.belongsToMany(WorkDay, { through: 'calendar_
 /* -un vigilador tiene muchas jornadas */
 Securities.calendar=Securities.belongsToMany(WorkDay, {through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
-BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
+BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
 
 
 

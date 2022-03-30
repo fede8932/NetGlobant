@@ -11,7 +11,7 @@ const {
     static async serviceAddSecurityOffice(req, next) {
         try {
           const { branchOffice } = req.body;
-    
+       console.log("NAME", branchOffice)
           const office = await BranchOficce.findOne({
             where: { name: branchOffice },
           });
@@ -25,6 +25,7 @@ const {
           office.addSecurity(security);
           return office;
         } catch (err) {
+          console.log(err)
           next(err);
         }
       }

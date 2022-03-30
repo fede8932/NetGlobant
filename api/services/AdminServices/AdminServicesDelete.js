@@ -52,6 +52,15 @@ const {
         }
       }
     
+      static async serviceRemoveCalendarSecurity(req, next){
+        try{
+          
+
+        }catch(err){
+
+        }
+
+      }
 
   }
   module.exports= AdminServicesDelite

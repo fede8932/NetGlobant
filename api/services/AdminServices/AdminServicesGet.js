@@ -1,6 +1,6 @@
 const { Client,Securities,BranchOficce,Provincies,WorkDay} = require("../../models");
 const { Op } = require("@sequelize/core")
-const { getRadius } = require("../lib/findDistance")
+const { getRadius } = require("../../lib/findDistance")
 
 class AdminServicesGet{
     static async serviceGetAllClients(next) {
@@ -62,6 +62,25 @@ class AdminServicesGet{
         } catch (err) {
           next(err);
         }
+      }
+
+      static async serviceGetAllSecuritiesByOffice(req, next){
+       try{
+        console.log("ACA ENTRO", req.params.name  )
+        const securityList = await BranchOficce.findAll({
+          where: { name: req.params.name },
+          include: {
+            association: BranchOficce.security,
+          },
+        });
+        console.log("ACA NO ES", securityList)
+        return securityList
+       } catch(err){
+         console.log("ACA ESTA SALAME", err )
+         next(err)
+       }
+
+
       }
     
       static async serviceGetCalenderOffice(req, next) {
