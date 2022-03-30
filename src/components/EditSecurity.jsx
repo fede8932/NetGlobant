@@ -16,10 +16,11 @@ const EditSecurity = () => {
       email.value
     );
   };
+  console.log("ACA", security)
 
   const handleClick = () => {
     dispatch(
-      editSecurity(security.id, {
+      editSecurity(security[0].id, {
         name: name.value,
         lastName: lastName.value,
         CUIL: CUIL.value,
