@@ -134,7 +134,7 @@ class AdminController{
       const securities= await AdminServices.serviceGetSecuritiesByDistance(req, next)
       securities.map( securitie => {
         const dist = distance(y, x, securitie.y, securitie.x)
-        securitie.dist
+        securitie.dist = dist
       })
       return res.send(securities)
     }
