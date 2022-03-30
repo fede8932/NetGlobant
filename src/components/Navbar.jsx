@@ -16,7 +16,7 @@ import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const admin = useSelector((state) => state.usuario);
 
   const client = useInput();
