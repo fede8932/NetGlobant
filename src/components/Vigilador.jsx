@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import SingleCard from "./SingleCard";
@@ -14,9 +14,9 @@ const Vigilador = () => {
     e.preventDefault();
     dispatch(getSecurity(securityToSearch.value));
   };
-  
+
   const showCard = () => {
-    return security ? (
+    return security[0] ? (
       <SingleCard />
     ) : (
       <p style={{ fontSize: "40px", marginTop: "200px", textAlign: "center" }}>

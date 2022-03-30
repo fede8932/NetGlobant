@@ -37,7 +37,7 @@ export const deleteSecurity = createAsyncThunk(
   }
 );
 
-const securityReducer = createReducer({}, {
+const securityReducer = createReducer([], {
   [getSecurity.fulfilled]: (state, action) => action.payload,
   [editSecurity.fulfilled]: (state, action) => action.payload,
   [deleteSecurity.fulfilled]: (state, action) => action.payload,
