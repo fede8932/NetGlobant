@@ -18,7 +18,6 @@ const Barra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.usuario);
-
   const client = useInput();
 
   const handleClick = (url) => {
@@ -31,36 +30,35 @@ const Barra = () => {
   };
 
   const showUsernameOrLogin = () => {
-
     return admin.name ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
         <Button
-        // onClick={() => handleLogout("")}
-        variant="warning"
-        style={{ color: "#696969" }}
-      >
-        Logout
-      </Button>
-    
+          // onClick={() => handleLogout("")}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Logout
+        </Button>
       </>
     ) : (
       <>
-      <Button
-        onClick={() => handleClick("/admin/login")}
-        variant="warning"
-        style={{ color: "#696969" }}
-      >
-        Login
-      </Button>
-       <Button
-       onClick={() => handleClick("/register")}
-       variant="warning"
-       style={{ color: "#696969" }}
-     >
-       Register
-     </Button>
-     </>
+        <Button
+          onClick={() => handleClick("/admin/login")}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Login
+        </Button>
+
+        <Button
+          onClick={() => handleClick("/register")}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Register
+        </Button>
+      </>
     );
   };
 
@@ -81,7 +79,9 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/client")}>
                 Agregar Cliente
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => handleClick("/clients")}>Ver Clientes</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleClick("/clients")}>
+                Ver Clientes
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action5">
                 Agregar Sucursal
@@ -101,7 +101,20 @@ const Barra = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          
+
+          <Form onSubmit={handleSubmit} className="d-flex">
+            <FormControl
+              {...client}
+              type="search"
+              placeholder="Buscar Clientes.."
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="primary" type="submit">
+              Buscar
+            </Button>
+          </Form>
+
           {showUsernameOrLogin()}
         </Navbar.Collapse>
       </Container>

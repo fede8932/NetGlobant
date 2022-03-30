@@ -5,27 +5,22 @@ import { useInput } from "../hooks/useInput";
 
 const EditSecurity = () => {
   const dispatch = useDispatch();
-  // const [editedSecurity, setEditedSecurity] = useState({
-  //   name: "",
-  //   lastName: "",
-  //   CUIL: "",
-  //   email: "",
-  // });
   const name = useInput();
   const lastName = useInput();
   const CUIL = useInput();
   const email = useInput();
   const security = useSelector((state) => state.security);
-  console.log("ESTO ES SECURITY", {
-    name: name.value,
-    lastName: lastName.value,
-    CUIL: CUIL.value,
-    email: email.value,
-  });
+
+  const validEmail = (email) => {
+    return /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi.test(
+      email.value
+    );
+  };
+  console.log("ACA", security)
 
   const handleClick = () => {
     dispatch(
-      editSecurity(security.id, {
+      editSecurity(security[0].id, {
         name: name.value,
         lastName: lastName.value,
         CUIL: CUIL.value,
@@ -96,7 +91,8 @@ const EditSecurity = () => {
                 <div class="col-md-12">
                   <label class="labels">Email</label>
                   <input
-                    type="text"
+                    type="email"
+                    name="email"
                     class="form-control"
                     placeholder="Ingrese el email"
                     {...email}

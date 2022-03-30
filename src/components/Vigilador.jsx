@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import SingleCard from "./SingleCard";
 import { getSecurity } from "../states/singleSecurity";
+import { useInput } from "../hooks/useInput";
 
 const Vigilador = () => {
   const dispatch = useDispatch();
+  const securityToSearch = useInput();
   const security = useSelector((state) => state.security);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSecurity(e.target.value));
+    dispatch(getSecurity(securityToSearch.value));
   };
 
-  
   const showCard = () => {
-    return security ? (
+    return security[0] ? (
       <SingleCard />
     ) : (
       <p style={{ fontSize: "40px", marginTop: "200px", textAlign: "center" }}>
@@ -42,6 +43,7 @@ const Vigilador = () => {
         style={{ width: "40%", margin: "0 auto" }}
       >
         <FormControl
+          {...securityToSearch}
           type="search"
           placeholder="Buscar Vigilador"
           className="me-2"
