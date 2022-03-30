@@ -2,9 +2,9 @@ const adminRouter = require("express").Router();
 const AdminController = require("../controllers/AdminController");
 
 adminRouter.get("/clients", AdminController.getAllClients);
-adminRouter.get("/clients/:id", AdminController.getOneClient);
+adminRouter.get("/clients/:name", AdminController.getOneClient);
 adminRouter.get("/securities", AdminController.getAllSecurities);
-adminRouter.get("/securities/:id", AdminController.getOneSecurity);
+adminRouter.get("/securities/:name", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
 adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)

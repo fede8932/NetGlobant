@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-
 const { resolve } = require("path");
 require("dotenv").config({ path: resolve(__dirname, "../.env") });
 const db = require("./db");
-const routes = require("./routes")
+const routes = require("./routes");
+const morgan = require("morgan");
 
 const { SERVER_PORT } = process.env;
 
@@ -19,6 +19,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(morgan("tiny"));
 app.use("/api", routes);
 
 db.sync({ force: false }).then(() => {

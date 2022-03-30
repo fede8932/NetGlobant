@@ -6,7 +6,7 @@ import PopUp from "./PopUp";
 
 const SingleCard = () => {
   const navigate = useNavigate();
-  const security = useSelector(state => state.security)
+  const security = useSelector((state) => state.security);
 
   const handleClick = (url) => {
     navigate(url);

@@ -18,7 +18,6 @@ const Barra = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.usuario);
-
   const client = useInput();
 
   const handleClick = (url) => {
@@ -31,7 +30,6 @@ const Barra = () => {
   };
 
   const showUsernameOrLogin = () => {
-
     return admin.name ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
@@ -51,7 +49,6 @@ const Barra = () => {
       >
         Login
       </Button>
-
     );
   };
 
@@ -72,7 +69,9 @@ const Barra = () => {
               <NavDropdown.Item onClick={() => handleClick("/client")}>
                 Agregar Cliente
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => handleClick("/clients")}>Ver Clientes</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => handleClick("/clients")}>
+                Ver Clientes
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action5">
                 Agregar Sucursal
@@ -100,7 +99,9 @@ const Barra = () => {
               className="me-2"
               aria-label="Search"
             />
-              <Button variant="primary" type="submit">Buscar</Button>
+            <Button variant="primary" type="submit">
+              Buscar
+            </Button>
           </Form>
           {showUsernameOrLogin()}
         </Navbar.Collapse>
