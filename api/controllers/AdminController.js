@@ -1,6 +1,6 @@
 const AdminServices= require("../services/AdminServices")
 
-const { distance, distance } = require("../lib/findDistance")
+const { distance} = require("../lib/findDistance")
 
 
 class AdminController{
