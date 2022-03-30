@@ -7,7 +7,7 @@ const {
 } = require("../models");
 
 class AdminServices {
-  static async serviceGetAllClients(next) {
+  /* static async serviceGetAllClients(next) {
     try {
       const clients = await Client.findAll();
       return clients;
@@ -73,8 +73,7 @@ class AdminServices {
       const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
-          model: WorkDay,
-          as: "calendarOffice",
+          association: BranchOficce.calendar,
         },
       });
       return calendar;
@@ -88,8 +87,7 @@ class AdminServices {
       const scheduleSecurity= await Securities.findOne({
         where:{ id: req.params.id},
         include:{
-            model:WorkDay,
-            as:'my_workday'
+          association: Securities.calendar,
         }
     }) 
     return scheduleSecurity
@@ -97,9 +95,9 @@ class AdminServices {
      
       next(err);
     }
-  }
+  } */
 
-  static async serviceAddSecurityOffice(req, next) {
+  /* static async serviceAddSecurityOffice(req, next) {
     try {
       const { branchOffice } = req.body;
 
@@ -134,10 +132,12 @@ class AdminServices {
         },
       });
       const office = await BranchOficce.create(req.body);
+      console.log(office)
       office.setClient(client);
       office.setProvincy(provincieLocal);
       return office;
     } catch (err) {
+      console.log("ERROR", err)
       next(err);
     }
   }
@@ -151,16 +151,33 @@ class AdminServices {
     }
   }
 
+ static async serviceAsingSchedule(req,next){
+   try{
+     const security= await Securities.findOne({
+       where:{
+         CUIL: req.body.CUIL }
+     })
+     const workDay= await WorkDay.findOne({
+       where:{id: req.body.id}
+     })
+     security.addWorkDays(workDay)
+   }catch(err){
+     next(err)
+   }
+ }
+
+
   static async serviceAddSchedule(req, next) {
     try {
-      const office = await BranchOficce.findOne({
+      const branchOficces = await BranchOficce.findOne({
         where: { name: req.body.branchName },
       });
       const workDay = await WorkDay.create(req.body);
 
-      office.addWorkDay(workDay);
-      return office;
+      branchOficces.addWorkDays(workDay);
+      return branchOficces;
     } catch (err) {
+      
       next(err);
     }
   }
@@ -172,7 +189,7 @@ class AdminServices {
       });
       const workDay= await WorkDay.create(req.body);
       
-      security.addWorkDay(workDay);
+      security.addWorkDays(workDay);
       return security;
     } catch (err) {
       next(err);
@@ -211,8 +228,8 @@ class AdminServices {
       next(err);
     }
   }
-
-  static async serviceRemoveOffice(req, next) {
+ */
+ /*  static async serviceRemoveOffice(req, next) {
     try {
       await BranchOficce.destroy({
         where: {
@@ -257,7 +274,7 @@ class AdminServices {
       next(err);
     }
   }
-
+ */
   static async serviceEditOffice(req, next) {
     try {
       const [rows, update] = await BranchOficce.update(req.body, {
@@ -299,6 +316,18 @@ class AdminServices {
       next(err);
     }
   }
+
+
+static async serviceEditCalendarOffice(req, next){
+  try{
+    const [rows, newSchedule]= await WorkDay.update(req.body,{
+      where:{id: req.body.id},
+      returning:true
+    })
+  }catch(err){
+    next(err)
+  }
+}
 }
 
 module.exports = AdminServices;

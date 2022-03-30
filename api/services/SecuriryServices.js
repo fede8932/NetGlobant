@@ -7,8 +7,7 @@ class SecuritiesServices{
      const schedule= await Securities.findOne({
          where:{ id: req.params.id},
          include:{
-             model:WorkDay,
-             as:'my_workday'
+            association: Securities.calendar
          }
      }) 
      return schedule

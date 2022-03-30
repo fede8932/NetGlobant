@@ -10,13 +10,13 @@ const WorkDay= require("./WorkDay")
 /* -un cliente tiene muchas sucursales: */
 BranchOficce.belongsTo(Client)
 /* -una sucursal le pertenece a una  provincia */
-BranchOficce.belongsTo(Provincies/*,  {through: 'provincies_Oficce '} */)
+BranchOficce.belongsTo(Provincies)
 /* -un vigilador esta habilitado en distintas provincias */
 Securities.belongsToMany(Provincies, {through: 'provincies_security '})
 /* -una sucursal tiene muchas jornadas */
-BranchOficce.belongsToMany(WorkDay, {as:'calendarOffice' , through: 'calendar_office'})
+BranchOficce.calendar= BranchOficce.belongsToMany(WorkDay, { through: 'calendar_office'})
 /* -un vigilador tiene muchas jornadas */
-Securities.belongsToMany(WorkDay, { as:'my_workday', through: 'ownTime'})
+Securities.calendar=Securities.belongsToMany(WorkDay, {through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
 BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
 

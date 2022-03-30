@@ -1,9 +1,12 @@
-const AdminServices= require("../services/AdminServices")
+const AdminServicesGet= require("../services/AdminServices/AdminServicesGet")
+const  AdminServicesPost= require("../services/AdminServices/AdminServicesPost")
+const  AdminServicesDelite= require("../services/AdminServices/AdminServicesDelete")
+const  AdminServicesPut= require("../services/AdminServices/AdminServicesPut")
 
 
 class AdminController{
    static async getAllClients(req, res, next){
-    const clients= await AdminServices.serviceGetAllClients(next)
+    const clients= await AdminServicesGet.serviceGetAllClients(next)
   return clients? res.status(200).json(clients): res.sendStatus(404)
     }
 
@@ -11,112 +14,116 @@ class AdminController{
 
   static async getOneClient(req, res, next){
     
-      const oneClient= await AdminServices.serviceGetOne(req, next)
+      const oneClient= await AdminServicesGet.serviceGetOne(req, next)
       return  oneClient? res.status(200).json(oneClient): res.sendStatus(404)
     }
 
 
     static async getAllSecurities(req, res, next){
-        const allSecurities= await AdminServices.serviceGetAllSecurities(next)
+        const allSecurities= await AdminServicesGet.serviceGetAllSecurities(next)
       return  allSecurities? res.status(200).json(allSecurities): res.sendStatus(404)
 
     }
 
     static async getOneSecurity(req, res, next){
-        const oneSecurity= await AdminServices.serviceGetOneSecurities(req, next)
+        const oneSecurity= await AdminServicesGet.serviceGetOneSecurities(req, next)
       return  oneSecurity? res.status(200).json(oneSecurity): res.sendStatus(404)
     }
 
     static async getAllOffice(req,res,next){
-      const allOfficies= await AdminServices.serviceGetAllOffice(next)
+      const allOfficies= await AdminServicesGet.serviceGetAllOffice(next)
       return   allOfficies? res.status(200).json( allOfficies): res.sendStatus(404)
 
     }
 
     static async getOneOffice(req, res, next){
-      const oneOffice= await AdminServices.serviceGetOneOffice(req,next)
+      const oneOffice= await AdminServicesGet.serviceGetOneOffice(req,next)
     return  oneOffice? res.status(200).json(oneOffice): res.sendStatus(404)
   }
 
   static async getOfficeCalendar(req,res,next){
-    const officeCalendar= await AdminServices.serviceGetCalenderOffice(req, next)
+    const officeCalendar= await AdminServicesGet.serviceGetCalenderOffice(req, next)
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
   }
 
   static async getOfficeCalendarSecurity(req,res,next){
-    const securityCalendar= await AdminServices.serviceGetCalenderSecurity(req, next)
+    const securityCalendar= await AdminServicesGet.serviceGetCalenderSecurity(req, next)
     return securityCalendar? res.status(200).json(securityCalendar): res.sendStatus(404)
   }
 
     static async addSecurityOffice(req,res,next){
-        const office= await AdminServices.serviceAddSecurityOffice(req, next)
+        const office= await AdminServicesPost.serviceAddSecurityOffice(req, next)
         return office? res.status(200).json(office): res.sendStatus(500)
     }
 
     static async addOffice(req, res, next) {
-      const newOffice = await  AdminServices.serviceAddOffice(req, next);
+      const newOffice = await  AdminServicesPost.serviceAddOffice(req, next);
       return res.status(201).json(newOffice);
     }
 
     static async addClient(req, res, next) {
-     
-      const newClient = await  AdminServices.serviceAddClient(req,next)
+      const newClient = await  AdminServicesPost.serviceAddClient(req,next)
       return newClient? res.status(201).json( newClient ): res.sendStatus(404)
     }
 
     static async addSchedule(req,res,next){
-      await AdminServices.serviceAddSchedule(req,next)
+      await AdminServicesPost.serviceAddSchedule(req,next)
       return res.sendStatus(201)
     }
 
     static async addScheduleSecurity(req,res,next){
-      await AdminServices.serviceAddScheduleSecurity(req,next)
+      await AdminServicesPost.serviceAddScheduleSecurity(req,next)
+      return res.sendStatus(201)
+    }
+
+    static async asingScheduleToSecurity(req,res,next){
+      await AdminServicesPost.serviceAsingSchedule(req, next)
       return res.sendStatus(201)
     }
 
     static async addSecurity(req, res, next){
-      const security= await AdminServices.serviceAddSecurity(req, next)
+      const security= await AdminServicesPost.serviceAddSecurity(req, next)
       return security? res.status(201).json(security): res.sendStatus(500)
     }
 
     static async addSecurityProvincie(req,res,next){
-      await AdminServices.serviceAddSecurityProvincie(req, next)
+      await AdminServicesPost.serviceAddSecurityProvincie(req, next)
       return res.sendStatus(201)
     }
 
     static async removeOffice(req, res, next){
-    await  AdminServices.serviceRemoveOffice(req, next)
+    await  AdminServicesDelite.serviceRemoveOffice(req, next)
     return res.sendStatus(202)
     }
    
     static async removeSecurity(req, res, next){
-      await  AdminServices.serviceRemoveSecurity(req, next)
+      await  AdminServicesDelite.serviceRemoveSecurity(req, next)
     return res.sendStatus(202)
     }
 
     static async removeClient(req, res, next){
-      await  AdminServices.serviceRemoveClient(req, next)
+      await  AdminServicesDelite.serviceRemoveClient(req, next)
       return res.sendStatus(202)
 
     }
 
     static async removeSchedule(req, res, next){
-    await AdminServices.serviceRemoveSchedule(req, next)
+    await AdminServicesDelite.serviceRemoveSchedule(req, next)
     return res.sendStatus(202)
     }
 
     static async editOffice(req,res, next){
-      const updatedOffice= await AdminServices.serviceEditOffice(req, next)
+      const updatedOffice= await AdminServicesPut.serviceEditOffice(req, next)
       return res.status(201).json(updatedOffice)
     }
 
     static async editSecurity(req,res, next){
-      const updatedSecurity= await AdminServices.serviceEditSecurity(req, next)
+      const updatedSecurity= await AdminServicesPut.serviceEditSecurity(req, next)
       return res.status(201).json( updatedSecurity)
     }
 
     static async editClient(req, res, next){
-      const updatedClient= await AdminServices.serviceEditClient(req, next)
+      const updatedClient= await AdminServicesPut.serviceEditClient(req, next)
       return res.status(201).json(updatedClient)
     }
   
