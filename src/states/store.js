@@ -4,6 +4,7 @@ import geoReducer from "./geoLocalizacion";
 import clientReducer from "./singleClient";
 import userReducer from "./user";
 import securityReducer from "./singleSecurity";
+import deviceReducer from "./device";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -12,6 +13,7 @@ const store = configureStore({
     usuario: userReducer,
     client: clientReducer,
     security: securityReducer,
+    device : deviceReducer,
   },
 });
 

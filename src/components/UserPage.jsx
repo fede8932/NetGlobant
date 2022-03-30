@@ -5,6 +5,7 @@ import Footer from './Footer'
 
 export default function UserPage() {
   return (
+    <>
     <div className="responsiveContainer">
       <Container className="textContainer">
         <h4>Precioná el boton "INGRESO", en el momento exacto en el que comiences tu jornada laboral. Precioná "EGRESO", cuando seas relevado.</h4>
@@ -12,15 +13,16 @@ export default function UserPage() {
       </Container>
       <Container>
         <div className="d-grid gap-2">
-          <Button variant="success" size="lg">
+          <Button variant="warning" size="lg">
             Ingreso
           </Button>
-          <Button variant="danger" size="lg">
+          <Button variant="secondary" size="lg">
             Egreso
           </Button>
         </div>
       </Container>
-      <Footer/>
     </div>
+    <Footer/>
+    </>
     );
 }
