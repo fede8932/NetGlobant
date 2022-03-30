@@ -3,7 +3,7 @@ const securitiesList = [
       name: "Juan",
       lastName:"Perez",
       CUIL:"237845",
-      entryHour:"dia",
+      entryHour:12,
       email:"juanperez@gmail.com",
       password:"12345678"
     },
@@ -11,7 +11,7 @@ const securitiesList = [
         name: "Pedro",
         lastName:"Martinez",
         CUIL:"237846",
-        entryHour:"noche",
+        entryHour:11,
         email:"pedromartinez@gmail.com",
         password:"12345678"
     },

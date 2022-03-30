@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Form , Button , Container , ListGroup } from 'react-bootstrap';
 import Mapa from './Mapa';
-import '../styles/mobile.scss'
+<<<<<<< HEAD
+import '../style/mobile.scss'
+=======
+>>>>>>> 645a6903aa70605884100fdbd1a331cfd939a7a9
 
 
 export default function UserInfo() {
   return (
-    <Container classNAme="userContainer">
+    <Container className="userContainer">
         <h1>
           Calendario de servicios
         </h1>

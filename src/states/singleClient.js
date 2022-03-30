@@ -3,14 +3,14 @@ import axios from "axios";
 
 export const getClient = createAsyncThunk("GET_CLIENTS", async (clientName) => {
   try {
-    const client = await axios.get(`/api/client/${clientName}`);
+    const client = await axios.get(`/api/admin/client/${clientName}`);
     return client.data;
   } catch (err) {
     console.log(err);
   }
 });
 
-const clientReducer = createReducer([], {
+const clientReducer = createReducer({}, {
   [getClient]: (state, action) => action.payload,
 });
 

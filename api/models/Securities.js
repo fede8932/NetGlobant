@@ -22,9 +22,6 @@ Securities.init(
     entryHour: {
       type: S.INTEGER,
     },
-    hoursPerDay: {
-      type: S.INTEGER,
-    },
     email: {
       type: S.STRING,
       validate: {
@@ -32,6 +29,9 @@ Securities.init(
       },
     },
     password: {
+      type: S.STRING,
+    },
+    address:{
       type: S.STRING,
     },
     salt: {

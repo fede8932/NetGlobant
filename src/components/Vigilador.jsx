@@ -14,9 +14,11 @@ const Vigilador = () => {
   };
   const showCard = () => {
     return security ? (
-        <SingleCard />
+      <SingleCard />
     ) : (
-      <p style={{fontSize: "40px", marginTop: "200px", textAlign: "center"}}>Busque un vigilador para ver sus datos aquí.</p>
+      <p style={{ fontSize: "40px", marginTop: "200px", textAlign: "center" }}>
+        Busque un vigilador para ver sus datos aquí.
+      </p>
     );
   };
 

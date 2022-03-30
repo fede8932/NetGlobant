@@ -17,8 +17,15 @@ WorkDay.init(
     wishClosingHour: {
       type: S.DATE,
     },
-  },
-  {
+    status:{
+      type: S.BOOLEAN,
+      defaultValue:true
+    },
+    comment:{
+      type: S.TEXT
+    }
+
+  },{
     sequelize: db,
     modelName: "workDay",
   }
