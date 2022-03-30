@@ -3,7 +3,6 @@ import { Form , Button , Container , ListGroup } from 'react-bootstrap';
 import Mapa from './Mapa';
 import '../style/mobile.scss'
 
-
 export default function UserInfo() {
   return (
     <Container className="userContainer">

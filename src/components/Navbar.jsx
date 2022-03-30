@@ -36,14 +36,16 @@ const Barra = () => {
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
         <Button
-          onClick={() => handleClick("/register")}
-          variant="warning"
-          style={{ color: "#696969" }}
-        >
-          Register
-        </Button>
+        // onClick={() => handleLogout("")}
+        variant="warning"
+        style={{ color: "#696969" }}
+      >
+        Logout
+      </Button>
+    
       </>
     ) : (
+      <>
       <Button
         onClick={() => handleClick("/admin/login")}
         variant="warning"
@@ -51,7 +53,14 @@ const Barra = () => {
       >
         Login
       </Button>
-
+       <Button
+       onClick={() => handleClick("/register")}
+       variant="warning"
+       style={{ color: "#696969" }}
+     >
+       Register
+     </Button>
+     </>
     );
   };
 
@@ -92,16 +101,7 @@ const Barra = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form onSubmit={handleSubmit} className="d-flex">
-            <FormControl
-              {...client}
-              type="search"
-              placeholder="Buscar Clientes.."
-              className="me-2"
-              aria-label="Search"
-            />
-              <Button variant="primary" type="submit">Buscar</Button>
-          </Form>
+          
           {showUsernameOrLogin()}
         </Navbar.Collapse>
       </Container>

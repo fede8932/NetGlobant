@@ -12,6 +12,8 @@ const Vigilador = () => {
     e.preventDefault();
     dispatch(getSecurity(e.target.value));
   };
+
+  
   const showCard = () => {
     return security ? (
       <SingleCard />

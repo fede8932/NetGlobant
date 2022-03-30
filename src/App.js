@@ -21,7 +21,9 @@ import Clients from "./components/Clients";
 import { effectDevice } from "./states/device";
 import HomeMobile from "./components/homeMobile";
 import EditSecurity from "./components/EditSecurity";
-
+import CardClient from "./components/CardClient";
+import EditClient from "./components/EditClient";
+import AdminClient from "./components/AdminClient";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,15 +39,13 @@ function App() {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    dispatch(effectDevice())
-      .catch((err) => console.log(err));
-
+    dispatch(effectDevice()).catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
       <Navbar />
-   
+    
 
       <Routes>
         <Route path="/home/mobile" element={<HomeMobile />} />
@@ -53,12 +53,15 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
         <Route path="/client" element={<ClientForm />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/clients/:id" element={<CardClient />} />
+        <Route path="/edit/client/:id" element={<EditClient />} />
         <Route path="/security" element={<SecurityForm />} />
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities" element={<Vigilador />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
+        <Route path="/admin/client" element={<AdminClient />} />
       </Routes>
     </div>
   );
