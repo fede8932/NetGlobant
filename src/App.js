@@ -28,11 +28,6 @@ function App() {
   const ubi = useSelector((state) => state.ubicacion);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (data) =>
-        dispatch(setPosition([data.coords.latitude, data.coords.longitude])),
-      (err) => console.error(err)
-    );
     dispatch(effectLogin())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

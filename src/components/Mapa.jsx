@@ -10,7 +10,7 @@ import {
   
   const Mapa = function() {
     return (
-      <MapContainer center={[-34.5593394216462 , -58.7077300207355]} zoom={18} id="mapa">
+      <MapContainer center={[-34.5593394216462 , -58.7077300207355]} zoom={14} id="mapa">
       <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

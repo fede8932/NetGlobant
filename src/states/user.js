@@ -5,7 +5,7 @@ export const setUser = createAction("SET_USER")
 
 
 export const effectLogin = createAsyncThunk("PERSISTENCIA", () => {
-  return axios.get("/api/auth/me").then((res) => res.data);
+  return JSON.parse(localStorage.getItem('user'));
 });
 
 const userReducer = createReducer({}, {
