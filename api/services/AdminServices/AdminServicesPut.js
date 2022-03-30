@@ -50,16 +50,16 @@ const {
       }
     
     
-    static async serviceEditCalendarOffice(req, next){
-      try{
-        const [rows, newSchedule]= await WorkDay.update(req.body,{
-          where:{id: req.body.id},
-          returning:true
-        })
-      }catch(err){
-        next(err)
+      static async serviceEditCalendarOffice(req, next){
+        try{
+          const [rows, newSchedule]= await WorkDay.update(req.body,{
+            where:{id: req.body.id},
+            returning:true
+          })
+        }catch(err){
+          next(err)
+        }
       }
-    }
     }
 
 

@@ -3,14 +3,14 @@ const  AdminServicesPost= require("../services/AdminServices/AdminServicesPost")
 const  AdminServicesDelite= require("../services/AdminServices/AdminServicesDelete")
 const  AdminServicesPut= require("../services/AdminServices/AdminServicesPut")
 
+const { distance } = require("../lib/findDistance")
+
 
 class AdminController{
    static async getAllClients(req, res, next){
     const clients= await AdminServicesGet.serviceGetAllClients(next)
   return clients? res.status(200).json(clients): res.sendStatus(404)
     }
-
-
 
   static async getOneClient(req, res, next){
     
@@ -42,7 +42,7 @@ class AdminController{
   }
 
   static async getOfficeCalendar(req,res,next){
-    const officeCalendar= await AdminServicesGet.serviceGetCalenderOffice(req, next)
+    const officeCalendar= await AdminServicesGet.serviceGetCalenderOffice(req, next)   
     return officeCalendar? res.status(200).json(officeCalendar): res.sendStatus(404)
   }
 
@@ -127,6 +127,15 @@ class AdminController{
       return res.status(201).json(updatedClient)
     }
   
+    static async getSecuritiesByDistance(req, res, next) {
+      const { y, x } = req.body
+      const securities= await AdminServicesGet.serviceGetSecuritiesByDistance(req, next)
+      securities.map( securitie => {
+        const dist = distance(y, x, securitie.y, securitie.x)
+        securitie.dist
+      })
+      return res.send(securities)
+    }
 }
 
 module.exports = AdminController;

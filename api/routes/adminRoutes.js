@@ -8,11 +8,12 @@ adminRouter.get("/securities", AdminController.getAllSecurities);
 adminRouter.get("/securities/:id", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
-adminRouter.get("/calendar/security/:id", AdminController.getOfficeCalendarSecurity)
+adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);
+adminRouter.get("/calendar/security/:id", AdminController.getOfficeCalendarSecurity)
 
-
-adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
+adminRouter.post("/add/security", AdminController.addSecurity)
+adminRouter.post("/add/office/security", AdminController.addSecurity);
 adminRouter.post("/add/office", AdminController.addOffice);
 adminRouter.post("/add/client", AdminController.addClient);
 adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
@@ -32,3 +33,4 @@ adminRouter.put("/edit/client/:id", AdminController.editClient);
 adminRouter.put("/edit/calendar/office/:id", AdminController)
 
 module.exports = adminRouter;
+

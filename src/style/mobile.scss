@@ -23,9 +23,31 @@
 }
 .responsiveContainer{
     max-width: 45em;
+    min-height: 75vh;
+    margin: auto;
+    margin-top: 4rem;
 }
 #mapa{
     min-width: 17em;
     height: 25em;
     margin:3px;
+
 }
+
+
+
+
+.img-fluid{
+    margin-top: 6rem;
+}
+.appLogin{
+    margin-top: 5rem;
+    width: 100%;
+}
+#footer{
+    margin-bottom: 0;
+}
+.bi{
+    font-size: 1.6rem;
+}
+
