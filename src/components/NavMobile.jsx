@@ -1,94 +1,87 @@
 // fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
 import {
   Navbar,
-  Nav,
   Container,
   Button,
-  Form,
-  NavDropdown,
-  FormControl,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
 import { useInput } from "../hooks/useInput";
+import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
-  const admin = useSelector((state) => state.admin);
-  const client = useInput();
-  const device = useSelector(state=>state.device)
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.usuario);
   const handleClick = (url) => {
     navigate(url);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(getClient(client.value));
+  const handleLogout = () => {
+    localStorage.clear();
   };
-
-  const showUsernameOrLogin = (dispositivo) => {
-    return admin ? (
-      <p>{admin.name}</p>
-    ) : (<>
-      <Button onClick={() => handleClick("/admin/login")} variant="primary">
-        Login
-      </Button>
-      {dispositivo==="mobile"?(<></>):(<Button onClick={() => handleClick("/register")} variant="primary">
-        Register
-      </Button>)}
+  const showUsernameOrLogin = () => {
+    return user ? (
+      <>
+        <Navbar.Text style={{ color: "#696969" }}><i className="bi bi-person"></i><span className="userName">{user.name}</span></Navbar.Text>
+        <Button
+          onClick={()=>{navigate('/status')}}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Inicio
+        </Button><Button
+          onClick={()=>{navigate('/user/info')}}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Calendario
+        </Button>
+        <Button
+          onClick={()=>{navigate('/user/premisos')}}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Permisos
+        </Button>
+        <Button
+          onClick={handleLogout}
+          variant="warning"
+          style={{ color: "#696969" }}
+          href="/"
+        >
+          Logout
+        </Button>
+      </>
+    ) : (
+      <>
+        <Button
+          onClick={() => handleClick("/admin/login")}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Login
+        </Button>
       </>
     );
   };
-
+  console.log("nav mobile")
   return (
-    <Navbar bg="primary" variant="dark" expand="lg">
+    <Navbar
+      display="flex"
+      position="relative"
+      bg="warning"
+      variant="dark"
+      expand="lg"
+    >
       <Container fluid>
-        <Navbar.Brand href="/">NetGlobal</Navbar.Brand>
+        <Navbar.Brand style={{ color: "#696969" }} href="/">
+          NetGlobal
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          {device==="mobile"?(<></>):(
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <NavDropdown title="Clientes" id="navbarScrollingDropdown">
-                <NavDropdown.Item onClick={() => handleClick("/client")}>
-                  Agregar Cliente
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Ver Clientes</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Agregar Sucursal
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Ver Sucursales
-                </NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title="Vigiladores" id="navbarScrollingDropdown">
-                <NavDropdown.Item onClick={() => handleClick("/security")}>
-                  Agregar Vigilador
-                </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => handleClick("/search/securities")}>
-                  Ver Vigiladores
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>)}
-          {device==="mobile"?(<></>):
-            (<Form onSubmit={handleSubmit} className="d-flex">
-              <FormControl
-                {...client}
-                type="search"
-                placeholder="Buscar Clientes.."
-                className="me-2"
-                aria-label="Search"
-              />
-              {/* <input type="submit" value="Buscar" style={{backgroundColor: "blue"}} /> */}
-            </Form>)}
-          {showUsernameOrLogin(device)}
+        <Navbar.Collapse id="navbarScroll" className="navUser">
+          {showUsernameOrLogin()}
         </Navbar.Collapse>
       </Container>
     </Navbar>

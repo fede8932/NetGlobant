@@ -46,6 +46,7 @@
 }
 .userContainer{
     min-height: 80vh;
+    margin-top: 2em;
 }
 .verqueonda{
     display: flex;
@@ -56,5 +57,13 @@
 }
 .egr{
     color: red;
+}
+.navUser{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.userName{
+    font-size: 1.2em;
 }
 

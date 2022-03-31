@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { Container , Button , Col} from 'react-bootstrap';
+import { Container , Button , Col , Toast} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from './Footer'
 import { setPosition } from '../states/geoLocalizacion';
 import haversineDistance from '../geoCalculator';
 import { useEffect } from 'react';
-import { timeFormat } from '../geoCalculator'; // trae la hora actual formateada AA-MM-DD HH:MM:SS-03
+import axios from 'axios';
+import { tiempoParcial , tiempoCompleto } from '../geoCalculator'; // trae la hora actual formateada AA-MM-DD HH:MM:SS-03
 
 
 export default function UserPage() {
+  const [showA, setShowA] = React.useState(false);
+  const toggleShowA = () => setShowA(!showA);
   const [ingColor , setIngColor] = React.useState("warning")
   const [outColor , setOutColor] = React.useState("secondary")
   const ubicacion = useSelector(state=>state.ubicacion)
+  const user = useSelector(state=>state.usuario)
   const dispatch = useDispatch()
-  const clientDirection = [-34.51694950961221, -58.77232427009819] // esto se saca de la base de datos
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (data) =>
@@ -23,12 +25,23 @@ export default function UserPage() {
     );
   }, []);
 
-  const checkIn = ()=>{
+  const checkIn = async ()=>{
     if(ingColor!=="warning")return
-    if(haversineDistance(clientDirection , ubicacion , 1.60934)>15){
-      console.log("no estas en tu puesto de trabajo")
+    const servicio = await axios({
+      method: "GET",
+      url: `/api/security/myWorkDay/${user.id}/${tiempoParcial()}`,
+    });
+    const clientDirection = [servicio.data.office.addressX , servicio.data.office.addressY]
+    console.log([clientDirection,ubicacion])
+    if(haversineDistance(clientDirection , ubicacion , 1.60934)>5000){
+      toggleShowA()
       return
     }
+    const ingreso = await axios({
+      method: "PATCH",
+      url : `/api/security/myEffictiveWorkDay/${user.id}/:${tiempoCompleto()}`
+    })
+    console.log(ingreso)
     setIngColor("secondary")
     setOutColor("warning")
     console.log("ubicacion")
@@ -51,6 +64,12 @@ export default function UserPage() {
           <Button onClick={checkIn} variant={ingColor} size="lg">
             Ingreso
           </Button>
+        <Toast show={showA} onClose={toggleShowA}>
+          <Toast.Header>
+            <strong className="me-auto">No es posible registrar el ingreso.</strong>
+          </Toast.Header>
+          <Toast.Body>No estas en tu lugar de vigilancia.</Toast.Body>
+        </Toast>
           <Button onClick={checkOut} variant={outColor} size="lg">
             Egreso
           </Button>

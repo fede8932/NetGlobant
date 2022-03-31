@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form , Button , Container , ListGroup } from 'react-bootstrap';
 import Footer from './Footer';
-import Mapa from './Mapa';
+import Consulta from './Consulta';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ export default function UserInfo() {
   const consultar = async (date) => {
     const servicio = await axios({
       method: "GET",
-      url: `/api/security/myWorkDay/${user.data.id}/${date.fecha}`,
+      url: `/api/security/myWorkDay/${user.id}/${date.fecha}`,
     });
     setInfo(servicio)
     console.log(info)
@@ -47,17 +47,7 @@ export default function UserInfo() {
             Consultar
           </Button>
         </Form><br />
-        <ListGroup variant="flush">
-          <ListGroup.Item><span className="listItem_">Cliente: </span><span>Razon social</span></ListGroup.Item>
-          <ListGroup.Item><span className="listItem_">Sucursal: </span><span>Localidad/numero/prov de sucursal</span></ListGroup.Item>
-          <ListGroup.Item><span className="listItem_">Calle: </span><span>Npmbre o numero de calle</span></ListGroup.Item>
-          <ListGroup.Item><span className="listItem_">Altura: </span><span>numeracion</span></ListGroup.Item>
-          <ListGroup.Item><span className="listItem_">Ciudad/provincia: </span><span>loc / prov</span></ListGroup.Item>
-          <ListGroup.Item className='verqueonda'><span className="listItem_">Ingreso: <span className='ing'>hora</span></span><span className="listItem_">Egreso: <span className='egr'>hora</span></span></ListGroup.Item>
-        </ListGroup>
-        <div className="mapContainer">
-          <Mapa/>
-        </div>
+        {info.data?(<Consulta info={info}/>):(<></>)}
         <Footer/>
     </Container>
       

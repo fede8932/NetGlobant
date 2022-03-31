@@ -1,7 +1,15 @@
-export const timeFormat = function(){
+export const tiempoCompleto = function(){
   var date = new Date();
   const formatDate = (date)=>{
-  let formatted_date =  `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}-03` 
+  let formatted_date =  `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}-03` 
+  return formatted_date;
+}
+return(formatDate(date));
+}
+export const tiempoParcial = function(){
+  var date = new Date();
+  const formatDate = (date)=>{
+  let formatted_date =  `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` 
   return formatted_date;
 }
 return(formatDate(date));

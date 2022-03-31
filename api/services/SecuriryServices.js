@@ -1,4 +1,4 @@
-const { Securities, WorkDay } = require("../models");
+const { Securities, WorkDay , BranchOficce , Client , Provincies } = require("../models");
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -18,7 +18,27 @@ class SecuritiesServices {
           },
         },
       });
-      return schedule;
+
+      const oficina = await BranchOficce.findOne({
+        include: {
+          association: BranchOficce.calendar,
+          where: {
+            wishEntryHour: today.wishEntryHour, 
+          },
+        },
+      });
+      const cliente = await Client.findOne({
+        where: {
+          id: oficina.clientId, 
+        },
+      });
+      const provincia = await Provincies.findOne({
+        where: {
+          id: oficina.provincyId, 
+        },
+      });
+      console.log("oficinas",oficina)
+      return {office : oficina , calendario : schedule , cliente : cliente , provincia : provincia};
     } catch (err) {
       next(err);
     }
