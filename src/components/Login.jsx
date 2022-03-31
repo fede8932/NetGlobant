@@ -27,7 +27,7 @@ export default function Login() {
         // isAdmin: admin,
       },
     });
-    localStorage.setItem("user", JSON.stringify(token));
+    localStorage.setItem("user", JSON.stringify({ id: token.data.id, name: token.data.name, token: token.data.jwt.token }));
     dispatch(
       setUser({ id: token.data.id, name: token.data.name, token: token.data.jwt.token })
     );

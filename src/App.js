@@ -25,11 +25,10 @@ import CardClient from "./components/CardClient";
 import EditClient from "./components/EditClient";
 import AdminClient from "./components/AdminClient";
 import AdminSecurity from "./components/AdminSecurity";
+import NavbarMobile from "./components/NavMobile";
 
 function App() {
   const dispatch = useDispatch();
-  const ubi = useSelector((state) => state.ubicacion);
-
   useEffect(() => {
     dispatch(effectLogin())
       .then((res) => console.log(res))
@@ -37,19 +36,18 @@ function App() {
 
     dispatch(effectDevice()).catch((err) => console.log(err));
   }, []);
+  const device = useSelector((state) => state.device);
 
   return (
     <div>
       <div style={{position:"relative"}}>
-        <Navbar />
+        {device==="desk"?(<Navbar />):(<NavbarMobile/>)}
       </div>
 
-      <div style={{position:"absolute"}}>
-        <Sidebar />
-      </div>
+      {device==="desk"?(<div style={{position:"absolute"}}><Sidebar /></div>):(<></>)}
 
       <Routes>
-        <Route path="/home/mobile" element={<HomeMobile />} />
+        <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/client" element={<ClientForm />} />
