@@ -19,7 +19,6 @@ const Barra = () => {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.usuario);
   const client = useInput();
-
   const handleClick = (url) => {
     navigate(url);
   };
