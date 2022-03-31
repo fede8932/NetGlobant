@@ -27,6 +27,11 @@ import AdminClient from "./components/AdminClient";
 import AdminSecurity from "./components/AdminSecurity";
 import NavbarMobile from "./components/NavMobile";
 import SecurityList from "./components/SecurityList";
+import AdminBranchOffice from "./components/AdminBranchOffice";
+import BranchOfficeForm from "./components/BranchOfficeForm";
+import SearchBranchOffice from "./components/SearchBranchOffice";
+import CardBranchOffice from "./components/CardBranchOffice";
+import EditBranchOffice from "./components/EditBranchOffice";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,9 +73,16 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
+
+        <Route path="/addbranchoffice" element={<BranchOfficeForm />} />
+        <Route path="/search/branchoffice" element={<SearchBranchOffice />} />
+        <Route path="/branch/:id" element={<CardBranchOffice />} />
+
+        <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
         <Route path="/admin/client" element={<AdminClient />} />
         <Route path="/admin/security" element={<AdminSecurity />} />
         <Route path="/search/securities" element={<SecurityList />} />
+        <Route path="/admin/branchoffice" element={<AdminBranchOffice />} />
       </Routes>
     </div>
   );

@@ -29,11 +29,12 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetAllSecurities(next) {
+  static async serviceGetOneName(req, next) {
     try {
-      const allSecurities = await Securities.findAll();
-      console.log("SECURITIES", allSecurities);
-      return allSecurities;
+      const oneClient = await Client.findOne({
+        where: { bussinessName: req.params.name },
+      });
+      return oneClient;
     } catch (err) {
       next(err);
     }
@@ -54,11 +55,20 @@ class AdminServicesGet {
     }
   }
 
+  static async serviceGetAllSecurities(next) {
+    try {
+      const allSecurities = await Securities.findAll();
+      return allSecurities;
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceGetOneSecurityById(req, next) {
     try {
       const oneSecurity = await Securities.findAll({
         where: {
-          id: req.params.id
+          id: req.params.id,
         },
       });
       return oneSecurity;
@@ -79,6 +89,17 @@ class AdminServicesGet {
   static async serviceGetOneOffice(req, next) {
     try {
       const oneOffice = await BranchOficce.findByPk(req.params.id);
+      return oneOffice;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetOneOfficeName(req, next) {
+    try {
+      const oneOffice = await BranchOficce.findOne({
+        where: { name: req.params.name },
+      });
       return oneOffice;
     } catch (err) {
       next(err);

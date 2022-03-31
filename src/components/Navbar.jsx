@@ -1,12 +1,8 @@
 // fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
 import {
   Navbar,
-  Nav,
   Container,
   Button,
-  Form,
-  NavDropdown,
-  FormControl,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,7 +66,6 @@ const Barra = () => {
     <Navbar
       display="flex"
       position="relative"
-      zIndex="-1"
       bg="warning"
       variant="dark"
       expand="lg"

@@ -8,6 +8,7 @@ class AdminServicesPut {
           id: req.params.id,
         },
         returning: true,
+        plain: true,
       });
       return update;
     } catch (err) {
@@ -24,7 +25,7 @@ class AdminServicesPut {
         returning: true,
         plain: true,
       });
-      return [security];
+      return security;
     } catch (err) {
       next(err);
     }
@@ -32,30 +33,35 @@ class AdminServicesPut {
 
   static async serviceEditClient(req, next) {
     try {
+      console.log("req.body", req.body);
+
       const [rows, update] = await Client.update(req.body, {
         where: {
           id: req.params.id,
         },
         returning: true,
+        plain: true,
       });
+
+      console.log("update", update);
       return update;
     } catch (err) {
       next(err);
     }
   }
 
-  static async serviceEditCalendar(req, next) {
+  static async serviceEditCalendarOffice(req, next) {
     try {
       const [rows, newSchedule] = await WorkDay.update(req.body, {
         where: { id: req.body.id },
         returning: true,
+        plain: true,
       });
     } catch (err) {
       next(err);
     }
   }
-
-  static async serviceEditCalendarOffice(req, next) {
+  static async serviceEditCalendar(req, next) {
     try {
       const [rows, newSchedule] = await WorkDay.update(req.body, {
         where: { id: req.body.id },

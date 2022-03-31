@@ -10,9 +10,10 @@ import { useNavigate } from "react-router-dom";
 const Clients = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const client = useInput();
+  const searchClient = useInput();
 
   const clients = useSelector((state) => state.clients);
+  const client = useSelector((state) => state.client)
 
   useEffect(() => {
     dispatch(getAllClients());
@@ -20,7 +21,10 @@ const Clients = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getClient(client.value));
+    console.log("searchClient => ", searchClient.value)
+    dispatch(getClient(searchClient.value));
+    console.log("client => ",client)
+    navigate(`/clients/${client.id}`)
   };
 
   const handleClient = (id) => {
@@ -35,13 +39,15 @@ const Clients = () => {
         style={{ width: "40%", margin: "0 auto", marginTop: "60px" }}
       >
         <FormControl
-          {...client}
+          {...searchClient}
           type="search"
           placeholder="Buscar Clientes.."
           className="me-2"
           aria-label="Search"
         />
-        <Button onClick={handleSubmit} variant="outline-success">
+        <Button 
+        type="input"
+         variant="outline-success">
           Buscar
         </Button>
       </Form>
@@ -51,7 +57,7 @@ const Clients = () => {
         bordered
         hover
         size="sm"
-        style={{ width: "70%", margin: "0 auto", marginTop: "60px" }}
+        style={{ width: "50%", margin: "0 auto", marginTop: "60px" }}
       >
         <thead>
           <tr>

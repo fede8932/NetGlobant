@@ -24,7 +24,7 @@ export default function Login() {
       data: {
         email: data.email,
         password: data.password,
-        // isAdmin: admin,
+        admin: admin,
       },
     });
     localStorage.setItem("user", JSON.stringify({ id: token.data.id, name: token.data.name, token: token.data.jwt.token }));

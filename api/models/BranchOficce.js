@@ -14,14 +14,14 @@ BranchOficce.init({
         type: S.STRING
     },
     openHour:{
-        type: S.DATE
+        type: S.INTEGER
     },
     status:{
         type: S.BOOLEAN,
         defaultValue:true
       },
     closeHour:{
-        type: S.DATE
+        type: S.INTEGER
     },
     addressX:{
         type: S.FLOAT

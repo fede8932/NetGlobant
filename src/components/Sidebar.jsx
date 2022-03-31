@@ -2,13 +2,12 @@ import React from "react";
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
 import { NavLink } from "react-router-dom";
-import LoginCss from "../style/Home.module.css";
+
 
 const Sidebar = () => {
   return (
@@ -34,7 +33,7 @@ const Sidebar = () => {
                 Vigiladores
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/admin/branchoffice" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Sucursales</CDBSidebarMenuItem>
             </NavLink>
 

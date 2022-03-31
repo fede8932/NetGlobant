@@ -20,6 +20,8 @@ const EditSecurity = () => {
     );
   };
 
+  console.log("id security => ", security[0].id);
+
   const handleClick = () => {
     dispatch(
       editSecurity({
@@ -28,7 +30,7 @@ const EditSecurity = () => {
         lastName: lastName.value,
         CUIL: CUIL.value,
         email: email.value,
-        province: province.value
+        province: province.value,
       })
     );
     navigate(`/search/securities/${security[0].id}`);

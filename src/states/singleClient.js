@@ -1,9 +1,9 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getClient = createAsyncThunk("GET_CLIENT", async (clientName) => {
+export const getClient = createAsyncThunk("GET_CLIENT_NAME", async (clientName) => {
   try {
-    const client = await axios.get(`/api/admin/clients/${clientName}`);
+    const client = await axios.get(`/api/admin/clientsname/${clientName}`);
     return client.data;
   } catch (err) {
     console.log(err);
@@ -12,7 +12,7 @@ export const getClient = createAsyncThunk("GET_CLIENT", async (clientName) => {
 
 export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
   try {
-    const client = await axios.get(`/api/admin/client/${id}`);
+    const client = await axios.get(`/api/admin/clients/${id}`);
     return client.data;
   } catch (err) {
     console.log(err);
@@ -21,10 +21,11 @@ export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
 
 export const editClient = createAsyncThunk(
   "EDIT_CLIENT",
-  async (id, client) => {
+  async (client) => {
+   
     try {
-      const editClient = await axios.put(`/api/edit/client/${id}`, client);
-      return editClient.data;
+      const editedClient = await axios.put(`/api/admin/edit/client/${client.id}`, client);
+      return editedClient.data;
     } catch (err) {
       console.log(err);
     }
@@ -33,7 +34,7 @@ export const editClient = createAsyncThunk(
 
 export const deleteClient = createAsyncThunk("DELETE_CLIENT", async (id) => {
   try {
-    const deleteClient = await axios.delete(`/api/remove/client/${id}`);
+    const deleteClient = await axios.delete(`/api/admin/remove/client/${id}`);
     return deleteClient.data;
   } catch (err) {
     console.log(err);
