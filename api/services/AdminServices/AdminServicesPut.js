@@ -30,7 +30,7 @@ class AdminServicesPut {
         returning: true,
         plain: true,
       });
-      return security;
+      return [security];
     } catch (err) {
       next(err);
     }
