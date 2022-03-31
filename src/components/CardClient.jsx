@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";

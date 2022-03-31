@@ -12,13 +12,14 @@ export const getSecurity = createAsyncThunk("GET_SECURITY", async (name) => {
 
 export const editSecurity = createAsyncThunk(
   "EDIT_SECURITY",
-  async (id, security) => {
+  async (security) => {
+    console.log("SECURITY", security);
     try {
       const editedSecurity = await axios.put(
-        `/api/edit/security/${id}`,
+        `/api/admin/edit/security/${security.id}`,
         security
       );
-      return editSecurity.data;
+      return editedSecurity.data;
     } catch (err) {
       console.log(err);
     }
@@ -29,7 +30,9 @@ export const deleteSecurity = createAsyncThunk(
   "DELETE_SECURITY",
   async (id) => {
     try {
-      const deletedSecurity = await axios.delete(`/api/remove/security/${id}`);
+      const deletedSecurity = await axios.delete(
+        `/api/admin/remove/security/${id}`
+      );
       return deletedSecurity.data;
     } catch (err) {
       console.log(err);

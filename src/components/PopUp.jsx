@@ -2,16 +2,21 @@ import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSecurity } from "../states/singleSecurity";
+import { useNavigate } from "react-router-dom";
 
 const PopUp = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const security = useSelector(state => state.security)
+  const security = useSelector((state) => state.security);
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
+
+  const showPopup = () => setShow(true);
+
   const handleDelete = () => {
-    setShow(true);
-    dispatch(deleteSecurity(security.id));
+    dispatch(deleteSecurity(security[0].id));
+    navigate("/search/securities");
   };
 
   return (
@@ -24,7 +29,7 @@ const PopUp = () => {
           marginTop: "10px",
           marginLeft: "100%",
         }}
-        onClick={handleDelete}
+        onClick={showPopup}
       >
         Eliminar
       </Button>
@@ -46,7 +51,9 @@ const PopUp = () => {
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <Button variant="danger">Eliminar</Button>
+          <Button onClick={handleDelete} variant="danger">
+            Eliminar
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

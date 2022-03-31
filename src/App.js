@@ -14,7 +14,7 @@ import { Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserInfo from "./components/UserInfo";
-import Vigilador from "./components/Vigilador";
+import Security from "./components/Security";
 import "./style/index.scss";
 import Sidebar from "./components/Sidebar";
 import Clients from "./components/Clients";
@@ -25,6 +25,7 @@ import CardClient from "./components/CardClient";
 import EditClient from "./components/EditClient";
 import AdminClient from "./components/AdminClient";
 import AdminSecurity from "./components/AdminSecurity";
+import SecurityList from "./components/SecurityList";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,11 +41,11 @@ function App() {
 
   return (
     <div>
-      <div style={{position:"relative"}}>
+      <div style={{ position: "relative" }}>
         <Navbar />
       </div>
 
-      <div style={{position:"absolute"}}>
+      <div style={{ position: "absolute" }}>
         <Sidebar />
       </div>
 
@@ -60,10 +61,12 @@ function App() {
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/search/securities" element={<Vigilador />} />
+        <Route path="/search/securities/" element={<Security />} />
+        <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
         <Route path="/admin/client" element={<AdminClient />} />
         <Route path="/admin/security" element={<AdminSecurity />} />
+        <Route path="/securities" element={<SecurityList />} />
       </Routes>
     </div>
   );

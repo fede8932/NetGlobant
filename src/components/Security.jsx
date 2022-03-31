@@ -5,7 +5,7 @@ import SingleCard from "./SingleCard";
 import { getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
 
-const Vigilador = () => {
+const Security = () => {
   const dispatch = useDispatch();
   const securityToSearch = useInput();
   const security = useSelector((state) => state.security);
@@ -56,4 +56,4 @@ const Vigilador = () => {
   );
 };
 
-export default Vigilador;
+export default Security;

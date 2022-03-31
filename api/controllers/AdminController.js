@@ -125,7 +125,7 @@ class AdminController {
 
   static async removeSecurity(req, res, next) {
     await AdminServicesDelite.serviceRemoveSecurity(req, next);
-    return res.sendStatus(202);
+    return res.status(202).json([]);
   }
 
   static async removeClient(req, res, next) {
