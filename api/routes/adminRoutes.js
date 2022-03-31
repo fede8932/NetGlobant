@@ -25,14 +25,14 @@ adminRouter.post("/asing/Calendar/security", AdminController.asingScheduleToSecu
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
 adminRouter.delete("/remove/client/:id", AdminController.removeClient);
 adminRouter.delete("/remove/office/:id", AdminController.removeOffice);
-adminRouter.delete("/remove/calendar/office/:id",AdminController.removeSchedule);
-adminRouter.delete("/remove/calendar/security/:id")
-adminRouter.delete("/remove/office/security/:id")
+adminRouter.delete("/remove/calendar/office/:id",AdminController.removeScheduleOffice);
+adminRouter.delete("/remove/calendar/security/:id", AdminController.removeScheduleSecurity)
+adminRouter.delete("/remove/office/security/:name/:id", AdminController.removeSecurityByOffice)
 
 adminRouter.put("/edit/office/:id", AdminController.editOffice);
 adminRouter.put("/edit/security/:id", AdminController.editSecurity);
 adminRouter.put("/edit/client/:id", AdminController.editClient);
-adminRouter.put("/edit/calendar/office/:id")
+adminRouter.put("/edit/calendar/office/:id",)
 adminRouter.put("/edit/calendar/security/:id")
 adminRouter.put("/edit/office/security/:id")
 
