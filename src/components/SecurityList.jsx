@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Form, Button, FormControl } from "react-bootstrap";
+import { Form, Button, FormControl, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllSecurity, getSecurity } from "../states/singleSecurity";
+import { getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
+import { getAllSecurities } from "../states/securities";
 
 const SecurityList = () => {
   const dispatch = useDispatch();
@@ -11,11 +12,12 @@ const SecurityList = () => {
   const securities = useSelector((state) => state.securities);
   const navigate = useNavigate();
 
-  useEffect(() => dispatch(getAllSecurity), []);
+  useEffect(() => dispatch(getAllSecurities()), []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSecurity(securityToSearch))
+    dispatch(getSecurity(securityToSearch));
+    navigate(`/search/securities/${securities[0].id}`)
   };
 
   const searchSecurity = (id) => navigate(`/search/securities/${id}`);
@@ -67,7 +69,7 @@ const SecurityList = () => {
             <tr key={security.id} onClick={() => searchSecurity(security.id)}>
               <td>{security.name}</td>
               <td>{security.lastName}</td>
-              <td>{security.CUIT}</td>
+              <td>{security.CUIL}</td>
               <td>{security.address}</td>
               <td>{security.email}</td>
             </tr>
@@ -78,4 +80,4 @@ const SecurityList = () => {
   );
 };
 
-export default Security;
+export default SecurityList;

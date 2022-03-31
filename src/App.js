@@ -61,12 +61,11 @@ function App() {
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/search/securities/" element={<Security />} />
         <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
         <Route path="/admin/client" element={<AdminClient />} />
         <Route path="/admin/security" element={<AdminSecurity />} />
-        <Route path="/securities" element={<SecurityList />} />
+        <Route path="/search/securities" element={<SecurityList />} />
       </Routes>
     </div>
   );

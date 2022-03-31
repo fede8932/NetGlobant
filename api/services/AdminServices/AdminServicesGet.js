@@ -32,6 +32,7 @@ class AdminServicesGet {
   static async serviceGetAllSecurities(next) {
     try {
       const allSecurities = await Securities.findAll();
+      console.log("SECURITIES", allSecurities);
       return allSecurities;
     } catch (err) {
       next(err);
@@ -45,6 +46,19 @@ class AdminServicesGet {
         where: {
           name: name,
           lastName: lastName,
+        },
+      });
+      return oneSecurity;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetOneSecurityById(req, next) {
+    try {
+      const oneSecurity = await Securities.findAll({
+        where: {
+          id: req.params.id
         },
       });
       return oneSecurity;

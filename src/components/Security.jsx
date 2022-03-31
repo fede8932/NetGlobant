@@ -4,11 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import SingleCard from "./SingleCard";
 import { getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
+import { useNavigate, useParams } from "react-router-dom";
+import { getSecurityById } from "../states/singleSecurity";
 
 const Security = () => {
   const dispatch = useDispatch();
   const securityToSearch = useInput();
+  const id = useParams();
   const security = useSelector((state) => state.security);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getSecurityById(id.id));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

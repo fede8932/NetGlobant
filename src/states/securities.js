@@ -14,7 +14,7 @@ export const getAllSecurities = createAsyncThunk(
 );
 
 const securitiesReducer = createReducer([], {
-  [getAllSecurities]: (state, action) => action.payload,
+  [getAllSecurities.fulfilled]: (state, action) => action.payload,
 });
 
 export default securitiesReducer;
