@@ -24,12 +24,12 @@ export default function Login() {
       data: {
         email: data.email,
         password: data.password,
-        isAdmin: admin,
+        // isAdmin: admin,
       },
     });
     localStorage.setItem('user', JSON.stringify(token));
     dispatch(
-      setUser({ data, name: token.data.name, token: token.data.jwt.token })
+      setUser({ id: token.data.id, name: token.data.name, token: token.data.jwt.token })
     );
     admin ? navigate("/") : navigate("/status");
   };
