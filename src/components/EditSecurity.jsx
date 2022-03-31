@@ -9,6 +9,7 @@ const EditSecurity = () => {
   const lastName = useInput();
   const CUIL = useInput();
   const email = useInput();
+  const province = useInput();
   const security = useSelector((state) => state.security);
 
   const validEmail = (email) => {
@@ -25,6 +26,7 @@ const EditSecurity = () => {
         lastName: lastName.value,
         CUIL: CUIL.value,
         email: email.value,
+        province: province.value
       })
     );
   };

@@ -284,6 +284,7 @@ class AdminServices {
         },
         returning: true,
       });
+      console.log(req.body)
       return security;
     } catch (err) {
       next(err);

@@ -15,7 +15,7 @@ export const editSecurity = createAsyncThunk(
   async (id, security) => {
     try {
       const editedSecurity = await axios.put(
-        `/api/edit/security/${id}`,
+        `/api/admin/edit/security/${id}`,
         security
       );
       return editSecurity.data;
