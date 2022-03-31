@@ -4,6 +4,8 @@ const {
     BranchOficce,
     WorkDay,
   } = require("../../models");
+ 
+
   
   class AdminServicesDelite{
     static async serviceRemoveOffice(req, next) {
@@ -11,6 +13,7 @@ const {
           await BranchOficce.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -23,6 +26,7 @@ const {
           await Securities.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -35,6 +39,7 @@ const {
           await Client.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -44,20 +49,41 @@ const {
     
       static async serviceRemoveSchedule(req, next) {
         try {
-          await WorkDay.destroy({
-            where: { id: req.params.id },
+          const workDay= await WorkDay.findOne({
+            where: { id: req.params.id, status:true },
           });
+          workDay.status= false
+
         } catch (err) {
           next(err);
         }
       }
-    
+
+    // si el front me puede enviar el id del dia, lo la fecha o algo entonces va a quedar un solo service para office y par security, si en cambio me pasan dato de branch o de security entonces cambia ambas logicas y se mantienen por separado
+
       static async serviceRemoveCalendarSecurity(req, next){
+
         try{
-          
-
+          const workDay= await WorkDay.findOne({
+            where: { id: req.params.id, status:true },
+          });
+          workDay.status= false
         }catch(err){
+        }
+      }
 
+      static async serviceRemoveSecurityByOffice(req, next){
+        try{
+          const office= await BranchOficce.findOne({where:{
+            name: req.params.name},
+          })
+          const security= await Securities.findOne({where:{
+            id: req.params.id},
+          })
+          office.removeSecurities(security)
+          return office
+        }catch(err){
+          next(err)
         }
 
       }

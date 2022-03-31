@@ -16,6 +16,10 @@ BranchOficce.init({
     openHour:{
         type: S.DATE
     },
+    status:{
+        type: S.BOOLEAN,
+        defaultValue:true
+      },
     closeHour:{
         type: S.DATE
     },

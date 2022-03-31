@@ -5,7 +5,7 @@ const securitiesList = [
       CUIL:"237845",
       entryHour:12,
       email:"juanperez@gmail.com",
-      password:"12345678"
+      password:"1234567"
     },
     {
         name: "Pedro",

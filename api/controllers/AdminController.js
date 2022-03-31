@@ -2,6 +2,7 @@ const AdminServicesGet = require("../services/AdminServices/AdminServicesGet");
 const AdminServicesPost = require("../services/AdminServices/AdminServicesPost");
 const AdminServicesDelite = require("../services/AdminServices/AdminServicesDelete");
 const AdminServicesPut = require("../services/AdminServices/AdminServicesPut");
+const AdminServicesPatch =require("../services/AdminServices/AdminSevicesPatch")
 
 const { distance } = require("../lib/findDistance");
 
@@ -96,8 +97,8 @@ class AdminController {
   }
 
   static async addScheduleSecurity(req, res, next) {
-    await AdminServicesPost.serviceAddScheduleSecurity(req, next);
-    return res.sendStatus(201);
+   const workDay= await AdminServicesPost.serviceAddScheduleSecurity(req, next);
+    return workDay? res.status(201).send(workDay): res.sendStatus(401);
   }
 
   static async asingScheduleToSecurity(req, res, next) {
@@ -133,9 +134,19 @@ class AdminController {
     return res.sendStatus(202);
   }
 
-  static async removeSchedule(req, res, next) {
+  static async removeScheduleOffice(req, res, next) {
     await AdminServicesDelite.serviceRemoveSchedule(req, next);
     return res.sendStatus(202);
+  }
+
+  static async removeScheduleSecurity(req, res, next){
+    await AdminServicesDelite.serviceRemoveCalendarSecurity(req, next)
+    return res.sendStatus(202)
+  }
+
+  static async removeSecurityByOffice(req, res, next){
+  await AdminServicesDelite.serviceRemoveSecurityByOffice(req, next)
+    return res.sendStatus(202)
   }
 
   static async editOffice(req, res, next) {
@@ -154,6 +165,37 @@ class AdminController {
   static async editClient(req, res, next) {
     const updatedClient = await AdminServicesPut.serviceEditClient(req, next);
     return res.status(201).json(updatedClient);
+  }
+
+  static async editCalendar(req, res, next){
+    const updateCalendar= await AdminServicesPut.serviceEditCalendar(req,next)
+    return res.status(201).json(updateCalendar) 
+  }
+
+  static async patchSecurity(req,res,next){
+    const patchSecurity= await AdminServicesPatch.serviceValidateSecurity(req, next)
+    return patchSecurity? res.status(204).json(patchSecurity): res.sendStatus(404)
+  }
+
+  static async patchCalendar(req,res,next){
+    const patchCalendar= await AdminServicesPatch.serviceValidateSecurity(req, next)
+    return patchCalendar? res.status(204).json(patchCalendar): res.sendStatus(404)
+  }
+
+  static async patchClient(req,res,next){
+    const patchClient= await AdminServicesPatch.serviceValidateSecurity(req, next)
+    return patchClient? res.status(204).json(patchClient): res.sendStatus(404)
+  }
+
+  static async patchAdmin(req,res,next){
+    const patchAdmin= await AdminServicesPatch.serviceValidateSecurity(req, next)
+    return patchAdmin? res.status(204).json(patchAdmin): res.sendStatus(404)
+  }
+
+  static async patchOffice(req, res, next){
+      const patchOffice= await AdminServicesPatch.serviceValidateSecurity(req, next)
+      return patchOffice? res.status(204).json(patchOffice): res.sendStatus(404)
+    
   }
 
   static async getSecuritiesByDistance(req, res, next) {

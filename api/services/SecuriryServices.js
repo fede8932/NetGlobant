@@ -1,4 +1,10 @@
-const { Securities, WorkDay , BranchOficce , Client , Provincies } = require("../models");
+const {
+  Securities,
+  WorkDay,
+  BranchOficce,
+  Client,
+  Provincies,
+} = require("../models");
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -23,22 +29,26 @@ class SecuritiesServices {
         include: {
           association: BranchOficce.calendar,
           where: {
-            wishEntryHour: today.wishEntryHour, 
+            wishEntryHour: today.wishEntryHour,
           },
         },
       });
       const cliente = await Client.findOne({
         where: {
-          id: oficina.clientId, 
+          id: oficina.clientId,
         },
       });
       const provincia = await Provincies.findOne({
         where: {
-          id: oficina.provincyId, 
+          id: oficina.provincyId,
         },
       });
-      console.log("oficinas",oficina)
-      return {office : oficina , calendario : schedule , cliente : cliente , provincia : provincia};
+      return {
+        office: oficina,
+        calendario: schedule,
+        cliente: cliente,
+        provincia: provincia,
+      };
     } catch (err) {
       next(err);
     }
@@ -46,7 +56,7 @@ class SecuritiesServices {
 
   static async serviceToWriteMyWorkDay(req, next) {
     try {
-      const today= await Securities.findOne({
+      const today = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
@@ -55,10 +65,20 @@ class SecuritiesServices {
           },
         },
       });
-      const workDaily=today.dataValues.workDays   
-       const [rows, workDay] = await WorkDay.update(req.body, {
-        where: { id: workDaily[0].dataValues.id }, returning:true }); 
-      console.log(workDay)
+      const workDaily = today.dataValues.workDays;
+      const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body;
+      const securityIn = horarioDeFichadaIngreso
+        ? { entryHour: horarioDeFichadaIngreso, serverHourEntry: new Date() }
+        : {
+            closingHour: horarioDeFichadaEgreso,
+            serverHourClosing: new Date(),
+          };
+
+      const [rows, workDay] = await WorkDay.update(securityIn, {
+        where: { id: workDaily[0].dataValues.id },
+        returning: true,
+      });
+
       return workDay;
     } catch (err) {
       next(err);

@@ -29,7 +29,8 @@ export default function Login() {
     });
     localStorage.setItem("user", JSON.stringify({ id: token.data.id, name: token.data.name, token: token.data.jwt.token }));
     dispatch(
-      setUser({ id: token.data.id, name: token.data.name, token: token.data.jwt.token })
+
+      setUser({ data,/*  name: token.data.name, */ token: token.data.jwt.token })
     );
     admin ? navigate("/") : navigate("/status");
   };

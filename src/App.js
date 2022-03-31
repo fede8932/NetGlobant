@@ -29,6 +29,7 @@ import NavbarMobile from "./components/NavMobile";
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(effectLogin())
       .then((res) => console.log(res))
@@ -40,11 +41,17 @@ function App() {
 
   return (
     <div>
-      <div style={{position:"relative"}}>
-        {device==="desk"?(<Navbar />):(<NavbarMobile/>)}
+      <div style={{ position: "relative" }}>
+        {device === "desk" ? <Navbar /> : <NavbarMobile />}
       </div>
 
-      {device==="desk"?(<div style={{position:"absolute"}}><Sidebar /></div>):(<></>)}
+      {device === "desk" ? (
+        <div style={{ position: "absolute" }}>
+          <Sidebar />
+        </div>
+      ) : (
+        <></>
+      )}
 
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />

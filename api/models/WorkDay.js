@@ -17,6 +17,12 @@ WorkDay.init(
     wishClosingHour: {
       type: S.DATE,
     },
+    serverHourEntry:{
+     type: S.DATE(S.NOW)
+    },
+    serverHourClosing:{
+      type: S.DATE(S.NOW)
+     },
     status:{
       type: S.BOOLEAN,
       defaultValue:true

@@ -28,6 +28,10 @@ Securities.init(
         isEmail: true,
       },
     },
+    status:{
+      type: S.BOOLEAN,
+      defaultValue:true
+    },
     password: {
       type: S.STRING,
     },
