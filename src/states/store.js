@@ -6,6 +6,7 @@ import userReducer from "./user";
 import securityReducer from "./singleSecurity";
 import deviceReducer from "./device";
 import allClientsReducer from "./Clients";
+import securitiesReducer from "./securities"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -16,6 +17,7 @@ const store = configureStore({
     security: securityReducer,
     device : deviceReducer,
     clients: allClientsReducer,
+    securities: securitiesReducer,
   },
 });
 

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editSecurity } from "../states/singleSecurity";
+import { editSecurity, getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
+import { useNavigate } from "react-router-dom";
 
 const EditSecurity = () => {
   const dispatch = useDispatch();
@@ -11,17 +12,18 @@ const EditSecurity = () => {
   const email = useInput();
   const province = useInput();
   const security = useSelector((state) => state.security);
+  const navigate = useNavigate();
 
   const validEmail = (email) => {
     return /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi.test(
       email.value
     );
   };
-  console.log("ACA", security)
 
   const handleClick = () => {
     dispatch(
-      editSecurity(security[0].id, {
+      editSecurity({
+        id: security[0].id,
         name: name.value,
         lastName: lastName.value,
         CUIL: CUIL.value,
@@ -29,6 +31,7 @@ const EditSecurity = () => {
         province: province.value
       })
     );
+    navigate(`/search/securities/${security[0].id}`);
   };
 
   return (

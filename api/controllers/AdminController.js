@@ -34,6 +34,16 @@ class AdminController {
       : res.sendStatus(404);
   }
 
+  static async getOneSecurityById(req, res, next) {
+    const oneSecurityById = await AdminServicesGet.serviceGetOneSecurityById(
+      req,
+      next
+    );
+    return oneSecurityById
+      ? res.status(200).json(oneSecurityById)
+      : res.sendStatus(404);
+  }
+
   static async getAllOffice(req, res, next) {
     const allOfficies = await AdminServicesGet.serviceGetAllOffice(next);
     return allOfficies
@@ -126,7 +136,7 @@ class AdminController {
 
   static async removeSecurity(req, res, next) {
     await AdminServicesDelite.serviceRemoveSecurity(req, next);
-    return res.sendStatus(202);
+    return res.status(202).json([]);
   }
 
   static async removeClient(req, res, next) {

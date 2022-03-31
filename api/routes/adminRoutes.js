@@ -5,6 +5,7 @@ const AdminController = require("../controllers/AdminController");
 adminRouter.get("/clients", AdminController.getAllClients);
 adminRouter.get("/clients/:name", AdminController.getOneClient);
 adminRouter.get("/securities", AdminController.getAllSecurities);
+adminRouter.get("/securitiesById/:id", AdminController.getOneSecurityById);
 adminRouter.get("/securities/:name", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
