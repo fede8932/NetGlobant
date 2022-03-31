@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const admin = useSelector(state=>state.device)=="mobile"?false:true
+  const admin = useSelector((state) => state.device) == "mobile" ? false : true;
   const {
     register,
     handleSubmit,
@@ -24,11 +24,12 @@ export default function Login() {
       data: {
         email: data.email,
         password: data.password,
-        isAdmin: admin,
+        // isAdmin: admin,
       },
     });
-    localStorage.setItem('user', JSON.stringify(token));
+    localStorage.setItem("user", JSON.stringify(token));
     dispatch(
+
       setUser({ data,/*  name: token.data.name, */ token: token.data.jwt.token })
     );
     admin ? navigate("/") : navigate("/status");
@@ -85,9 +86,7 @@ export default function Login() {
                       errors.password && LoginCss.error
                     }`}
                   >
-                    <label
-                      className={LoginCss.labelName}
-                    ></label>
+                    <label className={LoginCss.labelName}></label>
                     <input
                       type="password"
                       name="password"

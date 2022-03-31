@@ -18,9 +18,10 @@ export default function UserInfo() {
   const consultar = async (date) => {
     const servicio = await axios({
       method: "GET",
-      url: `/api/security/myWorkDay/${user.id}/${date}`, //ver bien donde esta el id de user
+      url: `/api/security/myWorkDay/${user.data.id}/${date.fecha}`,
     });
     setInfo(servicio)
+    console.log(info)
   };
 
   return (
@@ -52,6 +53,7 @@ export default function UserInfo() {
           <ListGroup.Item><span className="listItem_">Calle: </span><span>Npmbre o numero de calle</span></ListGroup.Item>
           <ListGroup.Item><span className="listItem_">Altura: </span><span>numeracion</span></ListGroup.Item>
           <ListGroup.Item><span className="listItem_">Ciudad/provincia: </span><span>loc / prov</span></ListGroup.Item>
+          <ListGroup.Item className='verqueonda'><span className="listItem_">Ingreso: <span className='ing'>hora</span></span><span className="listItem_">Egreso: <span className='egr'>hora</span></span></ListGroup.Item>
         </ListGroup>
         <div className="mapContainer">
           <Mapa/>

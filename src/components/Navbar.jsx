@@ -19,7 +19,6 @@ const Barra = () => {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.usuario);
   const client = useInput();
-
   const handleClick = (url) => {
     navigate(url);
   };
@@ -29,14 +28,19 @@ const Barra = () => {
     dispatch(getClient(client.value));
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   const showUsernameOrLogin = () => {
-    return admin.name ? (
+    return admin ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
         <Button
-          // onClick={() => handleLogout("")}
+          onClick={handleLogout}
           variant="warning"
           style={{ color: "#696969" }}
+          href="/"
         >
           Logout
         </Button>
@@ -63,14 +67,21 @@ const Barra = () => {
   };
 
   return (
-    <Navbar bg="warning" variant="dark" expand="lg">
+    <Navbar
+      display="flex"
+      position="relative"
+      zIndex="-1"
+      bg="warning"
+      variant="dark"
+      expand="lg"
+    >
       <Container fluid>
         <Navbar.Brand style={{ color: "#696969" }} href="/">
           NetGlobal
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
+          {/* <Nav
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: "100px", color: "#808080" }}
             navbarScroll
@@ -100,9 +111,9 @@ const Barra = () => {
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>
-          </Nav>
+          </Nav> */}
 
-          <Form onSubmit={handleSubmit} className="d-flex">
+          {/* <Form onSubmit={handleSubmit} className="d-flex">
             <FormControl
               {...client}
               type="search"
@@ -113,7 +124,7 @@ const Barra = () => {
             <Button variant="primary" type="submit">
               Buscar
             </Button>
-          </Form>
+          </Form> */}
 
           {showUsernameOrLogin()}
         </Navbar.Collapse>
