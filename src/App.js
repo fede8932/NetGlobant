@@ -30,13 +30,13 @@ function App() {
   const dispatch = useDispatch();
   const ubi = useSelector((state) => state.ubicacion);
 
-  // useEffect(() => {
-  //   dispatch(effectLogin())
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
+  useEffect(() => {
+    dispatch(effectLogin())
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
-  //   dispatch(effectDevice()).catch((err) => console.log(err));
-  // }, []);
+    dispatch(effectDevice()).catch((err) => console.log(err));
+  }, []);
 
   return (
     <div>

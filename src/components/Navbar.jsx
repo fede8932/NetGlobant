@@ -29,14 +29,19 @@ const Barra = () => {
     dispatch(getClient(client.value));
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   const showUsernameOrLogin = () => {
     return admin ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
         <Button
-          // onClick={() => handleLogout("")}
+          onClick={handleLogout}
           variant="warning"
           style={{ color: "#696969" }}
+          href="/"
         >
           Logout
         </Button>
@@ -63,7 +68,14 @@ const Barra = () => {
   };
 
   return (
-    <Navbar display="flex" position="relative" zIndex="-1" bg="warning" variant="dark" expand="lg">
+    <Navbar
+      display="flex"
+      position="relative"
+      zIndex="-1"
+      bg="warning"
+      variant="dark"
+      expand="lg"
+    >
       <Container fluid>
         <Navbar.Brand style={{ color: "#696969" }} href="/">
           NetGlobal
