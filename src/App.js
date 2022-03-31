@@ -24,23 +24,29 @@ import EditSecurity from "./components/EditSecurity";
 import CardClient from "./components/CardClient";
 import EditClient from "./components/EditClient";
 import AdminClient from "./components/AdminClient";
+import AdminSecurity from "./components/AdminSecurity";
 
 function App() {
   const dispatch = useDispatch();
   const ubi = useSelector((state) => state.ubicacion);
 
-  useEffect(() => {
-    dispatch(effectLogin())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  // useEffect(() => {
+  //   dispatch(effectLogin())
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
 
-    dispatch(effectDevice()).catch((err) => console.log(err));
-  }, []);
+  //   dispatch(effectDevice()).catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div>
-      <Navbar />
-    
+      <div style={{position:"relative"}}>
+        <Navbar />
+      </div>
+
+      <div style={{position:"absolute"}}>
+        <Sidebar />
+      </div>
 
       <Routes>
         <Route path="/home/mobile" element={<HomeMobile />} />
@@ -57,6 +63,7 @@ function App() {
         <Route path="/search/securities" element={<Vigilador />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
         <Route path="/admin/client" element={<AdminClient />} />
+        <Route path="/admin/security" element={<AdminSecurity />} />
       </Routes>
     </div>
   );

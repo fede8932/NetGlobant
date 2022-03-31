@@ -4,7 +4,7 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const AdminClient = function () {
+const AdminSecurity = function () {
   const navigate = useNavigate();
 
   const handleClick = (url) => {
@@ -21,21 +21,21 @@ const AdminClient = function () {
       }}
     >
       <Button
-        onClick={() => handleClick("/client")}
+       onClick={() => handleClick("/security")}
         variant="secondary"
         style={{ display: "inline-block", width: "150px", marginRight: "20px" }}
       >
         <AiOutlineFileAdd size={70} />
-        Agregar cliente
+        Agregar vigilador
       </Button>
-      <Button onClick={() => handleClick("/clients")}
+      <Button onClick={() => handleClick("/search/securities")}
         variant="secondary"
         style={{ display: "inline-block", width: "150px", marginLeft: "20px" }}
       >
         <AiOutlineFileSearch size={70} />
-        Buscar cliente
+        Buscar vigilador
       </Button>
     </div>
   );
 };
-export default AdminClient;
+export default AdminSecurity;
