@@ -4,7 +4,8 @@ const {
     BranchOficce,
     WorkDay,
   } = require("../../models");
-const { destroy } = require("../../models/Admin");
+ 
+
   
   class AdminServicesDelite{
     static async serviceRemoveOffice(req, next) {
@@ -12,6 +13,7 @@ const { destroy } = require("../../models/Admin");
           await BranchOficce.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -24,6 +26,7 @@ const { destroy } = require("../../models/Admin");
           await Securities.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -36,6 +39,7 @@ const { destroy } = require("../../models/Admin");
           await Client.destroy({
             where: {
               id: req.params.id,
+              status:true
             },
           });
         } catch (err) {
@@ -46,7 +50,7 @@ const { destroy } = require("../../models/Admin");
       static async serviceRemoveSchedule(req, next) {
         try {
           const workDay= await WorkDay.findOne({
-            where: { id: req.params.id },
+            where: { id: req.params.id, status:true },
           });
           workDay.status= false
 
@@ -61,7 +65,7 @@ const { destroy } = require("../../models/Admin");
 
         try{
           const workDay= await WorkDay.findOne({
-            where: { id: req.params.id },
+            where: { id: req.params.id, status:true },
           });
           workDay.status= false
         }catch(err){
@@ -72,12 +76,11 @@ const { destroy } = require("../../models/Admin");
         try{
           const office= await BranchOficce.findOne({where:{
             name: req.params.name},
-          include:{
-            association:BranchOficce.security,
-            where:{id: req.params.id}
-          }
           })
-          console.log(office.dataValues.securities)
+          const security= await Securities.findOne({where:{
+            id: req.params.id},
+          })
+          office.removeSecurities(security)
           return office
         }catch(err){
           next(err)

@@ -2,7 +2,6 @@ const {
     Client,
     Securities,
     BranchOficce,
-    Provincies,
     WorkDay,
   } = require("../../models");
 
@@ -50,19 +49,25 @@ const {
       }
     
     
-      static async serviceEditCalendarOffice(req, next){
+      static async serviceEditCalendar(req, next){
         try{
           const [rows, newSchedule]= await WorkDay.update(req.body,{
             where:{id: req.body.id},
-            returning:true
+            returning:true,
           })
         }catch(err){
           next(err)
         }
       }
+
+
+      
+
+
+      
+
     }
 
 
-  
 
   module.exports= AdminServicesPut

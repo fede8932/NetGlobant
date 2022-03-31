@@ -20,9 +20,11 @@ Admin.init({
         type: S.STRING,
         allowNull:false
     },
-    salt:{
-        type: S.STRING
-    }
+    status:{
+        type: S.BOOLEAN,
+        defaultValue:true
+      }
+    
 },{
     sequelize: db, modelName: "admin"
 })

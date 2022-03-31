@@ -16,6 +16,10 @@ Client.init({
         isEmail:true
     }
     },
+    status:{
+        type: S.BOOLEAN,
+        defaultValue:true
+      },
     legalAddress:{
         type: S.STRING
     },

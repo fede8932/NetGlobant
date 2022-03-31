@@ -32,15 +32,14 @@ adminRouter.delete("/remove/office/security/:name/:id", AdminController.removeSe
 adminRouter.put("/edit/office/:id", AdminController.editOffice);
 adminRouter.put("/edit/security/:id", AdminController.editSecurity);
 adminRouter.put("/edit/client/:id", AdminController.editClient);
-adminRouter.put("/edit/calendar/office/:id",)
-adminRouter.put("/edit/calendar/security/:id")
-adminRouter.put("/edit/office/security/:id")
+adminRouter.put("/edit/calendar/:id", AdminController.editCalendar);
 
-adminRouter.patch("/validate/calendar")
-adminRouter.patch("/validate/security")
-adminRouter.patch("/validate/client")
-adminRouter.patch("/validate/admins")
 
+adminRouter.patch("/validate/calendar", AdminController.patchCalendar)
+adminRouter.patch("/validate/security", AdminController.patchSecurity)
+adminRouter.patch("/validate/client", AdminController.patchClient)
+adminRouter.patch("/validate/admins", AdminController.patchAdmin)
+adminRouter.patch("/validate/Office", AdminController.patchOffice)
 
 
 module.exports = adminRouter;
