@@ -42,11 +42,12 @@ class AuthServices {
         const isPasswordValid = await verifyPassword(password, administrator.password);
         if (isPasswordValid) {
           const jwt = creatingJWT(administrator, admin);
+          administrator.password = null
           return {
             error: false,
             response: {
-              name: administrator.name,
-              jwt,
+              administrator: administrator,
+              jwt: jwt,
             },
           };
         } else {
@@ -65,12 +66,12 @@ class AuthServices {
         const isPasswordValid = await verifyPassword(password, security.password);
         if (isPasswordValid) {
           const jwt = creatingJWT(security, admin);
+          security.password = null
           return {
             error: false,
             response: {
-              id: security.id,
-              name: security.name,
-              jwt,
+              security: security,
+              jwt: jwt,
             },
           };
         } else {
