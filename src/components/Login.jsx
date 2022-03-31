@@ -29,7 +29,7 @@ export default function Login() {
     });
     localStorage.setItem('user', JSON.stringify(token));
     dispatch(
-      setUser({ data, name: token.data.name, token: token.data.jwt.token })
+      setUser({ data,/* name: token.data.name, */token: token.data.jwt.token })
     );
     admin ? navigate("/") : navigate("/status");
   };

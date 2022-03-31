@@ -8,21 +8,19 @@ import {
   CDBSidebarMenuItem,
 } from "cdbreact";
 import { NavLink } from "react-router-dom";
-
+import LoginCss from "../style/Home.module.css";
 
 const Sidebar = () => {
   return (
-    <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
-    >
-      <CDBSidebar textColor="#fff" backgroundColor="#333">
+   
+      <CDBSidebar  textColor="#fff" backgroundColor="#333" style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}>
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a
             href="/"
             className="text-decoration-none"
             style={{ color: "inherit" }}
           >
-            NetGlobal
+            Menu
           </a>
         </CDBSidebarHeader>
 
@@ -31,7 +29,7 @@ const Sidebar = () => {
             <NavLink exact to="/admin/client" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Clientes</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/admin/security" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">
                 Vigiladores
               </CDBSidebarMenuItem>
@@ -54,7 +52,7 @@ const Sidebar = () => {
           </CDBSidebarMenu>
         </CDBSidebarContent>
       </CDBSidebar>
-    </div>
+  
   );
 };
 

@@ -63,14 +63,14 @@ const Barra = () => {
   };
 
   return (
-    <Navbar bg="warning" variant="dark" expand="lg">
+    <Navbar display="flex" position="relative" zIndex="-1" bg="warning" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand style={{ color: "#696969" }} href="/">
           NetGlobal
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
+          {/* <Nav
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: "100px", color: "#808080" }}
             navbarScroll
@@ -100,9 +100,9 @@ const Barra = () => {
                 Ver Vigiladores
               </NavDropdown.Item>
             </NavDropdown>
-          </Nav>
+          </Nav> */}
 
-          <Form onSubmit={handleSubmit} className="d-flex">
+          {/* <Form onSubmit={handleSubmit} className="d-flex">
             <FormControl
               {...client}
               type="search"
@@ -113,7 +113,7 @@ const Barra = () => {
             <Button variant="primary" type="submit">
               Buscar
             </Button>
-          </Form>
+          </Form> */}
 
           {showUsernameOrLogin()}
         </Navbar.Collapse>
