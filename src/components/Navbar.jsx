@@ -30,7 +30,7 @@ const Barra = () => {
   };
 
   const showUsernameOrLogin = () => {
-    return admin.name ? (
+    return admin ? (
       <>
         <Navbar.Text variant="secondary">{admin.name}</Navbar.Text>
         <Button
