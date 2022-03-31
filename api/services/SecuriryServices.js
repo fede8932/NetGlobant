@@ -18,6 +18,7 @@ class SecuritiesServices {
           },
         },
       });
+      console.log(schedule)
       return schedule;
     } catch (err) {
       next(err);
@@ -26,7 +27,7 @@ class SecuritiesServices {
 
   static async serviceToWriteMyWorkDay(req, next) {
     try {
-      const today= await Securities.findOne({
+      const today = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
@@ -35,10 +36,20 @@ class SecuritiesServices {
           },
         },
       });
-      const workDaily=today.dataValues.workDays   
-       const [rows, workDay] = await WorkDay.update(req.body, {
-        where: { id: workDaily[0].dataValues.id }, returning:true }); 
-      console.log(workDay)
+      const workDaily = today.dataValues.workDays;
+      const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body;
+      const securityIn = horarioDeFichadaIngreso
+        ? { entryHour: horarioDeFichadaIngreso, serverHourEntry: new Date() }
+        : {
+            closingHour: horarioDeFichadaEgreso,
+            serverHourClosing: new Date(),
+          };
+
+      const [rows, workDay] = await WorkDay.update(securityIn, {
+        where: { id: workDaily[0].dataValues.id },
+        returning: true,
+      });
+      
       return workDay;
     } catch (err) {
       next(err);

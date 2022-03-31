@@ -21,6 +21,9 @@ Securities.calendar=Securities.belongsToMany(WorkDay, {through: 'ownTime'})
 BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
 
 
+/* WorkDay.beforeCreate */
+
+
 
 
 

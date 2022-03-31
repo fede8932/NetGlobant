@@ -20,7 +20,7 @@ adminRouter.post("/add/provincie/security", AdminController.addSecurityProvincie
 adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
 adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
 adminRouter.post("/add/Calendar/security", AdminController.addScheduleSecurity);
-adminRouter.post("/asing/Calendar/security", AdminController.asingScheduleToSecurity);
+adminRouter.post("/assign/Calendar/security", AdminController.asingScheduleToSecurity);
 
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
 adminRouter.delete("/remove/client/:id", AdminController.removeClient);
