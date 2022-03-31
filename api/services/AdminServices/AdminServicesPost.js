@@ -32,8 +32,8 @@ const {
     
       static async serviceAddOffice(req, next) {
         try {
+          
           const provincie = req.body.provincie;
-    
           const { owner } = req.body;
           const provincieLocal = await Provincies.findOne({
             where: { name: provincie },
@@ -43,6 +43,7 @@ const {
               bussinessName: owner,
             },
           });
+
           const office = await BranchOficce.create(req.body);
           console.log(office)
           office.setClient(client);

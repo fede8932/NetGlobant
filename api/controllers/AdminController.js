@@ -16,6 +16,11 @@ class AdminController {
     return oneClient ? res.status(200).json(oneClient) : res.sendStatus(404);
   }
 
+  static async getOneClientName(req, res, next) {
+    const oneClient = await AdminServicesGet.serviceGetOneName(req, next);
+    return oneClient ? res.status(200).json(oneClient) : res.sendStatus(404);
+  }
+
   static async getAllSecurities(req, res, next) {
     const allSecurities = await AdminServicesGet.serviceGetAllSecurities(next);
     return allSecurities
@@ -42,6 +47,11 @@ class AdminController {
 
   static async getOneOffice(req, res, next) {
     const oneOffice = await AdminServicesGet.serviceGetOneOffice(req, next);
+    return oneOffice ? res.status(200).json(oneOffice) : res.sendStatus(404);
+  }
+
+  static async getOneOfficeName(req, res, next) {
+    const oneOffice = await AdminServicesGet.serviceGetOneOfficeName(req, next);
     return oneOffice ? res.status(200).json(oneOffice) : res.sendStatus(404);
   }
 
@@ -120,7 +130,7 @@ class AdminController {
 
   static async removeOffice(req, res, next) {
     await AdminServicesDelite.serviceRemoveOffice(req, next);
-    return res.sendStatus(202);
+    return res.status(202).json([]);
   }
 
   static async removeSecurity(req, res, next) {

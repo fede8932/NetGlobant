@@ -3,35 +3,40 @@ import { Button, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteClient } from "../states/singleClient";
+import { deleteBranchId } from "../states/branches";
 import swal from "sweetalert";
-import { getClientId } from "../states/singleClient";
+import { getBranchId } from "../states/singleBranch";
 
-const CardClient = () => {
+const CardBranchOffice = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = useParams();
-  const client = useSelector((state) => state.client);
+
+
+  const branch = useSelector((state) => state.branch);
 
   useEffect(() => {
-    dispatch(getClientId(id.id));
+    dispatch(getBranchId(id.id));
   }, []);
 
-  console.log("client.id en delete",client.id)
   const handleDelete = () => {
-    dispatch(deleteClient(client.id));
-    swal({
-      title: "El cliente fue removido",
-      text: ".",
-      icon: "success",
-      button: "Aceptar",
-    });
-    navigate("/clients");
+    dispatch(deleteBranchId(branch.id));
+    
+      swal({
+        title: "La sucursal fue removida",
+        text: ".",
+        icon: "success",
+        button: "Aceptar",
+      });
+      navigate("/search/branchoffice");
   };
 
   const handleClick = (url) => {
     navigate(url);
   };
+
+
 
   return (
     <>
@@ -45,19 +50,19 @@ const CardClient = () => {
       >
         <Card.Body>
           <Card.Title style={{ fontSize: "20px" }}>
-            {client.bussinessName}
+            {branch.name}
           </Card.Title>
           <Card.Subtitle className="mb-2 mt-5 text-muted">
-            CUIT: {client.CUIT}
+            Ciudad: {branch.city}
           </Card.Subtitle>
           <Card.Subtitle className="mb-2 text-muted">
-            Dirección Legal: {client.legalAddress}
+            Dirección Legal: {branch.address}
           </Card.Subtitle>
 
           <Card.Text className="mb-2 mt-5">
-            Inicio de contrato: {client.startContratDate}
+            Horario de apertura: {branch.openHour}
           </Card.Text>
-          <Card.Text>Fin de contrato: {client.endContratDate}</Card.Text>
+          <Card.Text>Horario de cierre: {branch.closeHour}</Card.Text>
 
           <Card.Text>
             <Button
@@ -66,7 +71,7 @@ const CardClient = () => {
                 marginRight: "20px",
               }}
               variant="secondary"
-              onClick={() => navigate("/clients")}
+              onClick={() => navigate("/search/branchoffice")}
             >
               Cerrar
             </Button>
@@ -76,7 +81,7 @@ const CardClient = () => {
                 marginRight: "20px",
               }}
               variant="secondary"
-              onClick={() => handleClick(`/edit/client/${client.id}`)}
+              onClick={() => handleClick(`/edit/branch/${branch.id}`)}
             >
               Editar
             </Button>
@@ -97,4 +102,4 @@ const CardClient = () => {
   );
 };
 
-export default CardClient;
+export default CardBranchOffice;

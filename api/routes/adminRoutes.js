@@ -3,11 +3,13 @@ const AdminController = require("../controllers/AdminController");
 
 
 adminRouter.get("/clients", AdminController.getAllClients);
-adminRouter.get("/clients/:name", AdminController.getOneClient);
+adminRouter.get("/clients/:id", AdminController.getOneClient);
+adminRouter.get("/clientsname/:name", AdminController.getOneClientName);
 adminRouter.get("/securities", AdminController.getAllSecurities);
 adminRouter.get("/securities/:name", AdminController.getOneSecurity);
 adminRouter.get("/office", AdminController.getAllOffice);
 adminRouter.get("/office/:id", AdminController.getOneOffice);
+adminRouter.get("/officename/:name", AdminController.getOneOfficeName);
 adminRouter.get("/securities/office/:name",AdminController.getAllSecuritiesByOffice);
 adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)
 adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);

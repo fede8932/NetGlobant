@@ -7,45 +7,47 @@ import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getClientId } from "../states/singleClient";
+import { editBranchId, getBranchId } from "../states/singleBranch";
 
-const EditSecurity = () => {
+const EditBranchOffice = () => {
   const dispatch = useDispatch();
   const id = useParams();
-  const client = useSelector((state) => state.client);
+  const branch = useSelector((state) => state.branch);
   const navigate = useNavigate();
 
-  const bussinessName = useInput();
-  const CUIT = useInput();
-  const email = useInput();
-  const legalAddress = useInput();
-  const startContratDate = useInput();
-  const endContratDate = useInput();
+  const name = useInput();
+  const city = useInput();
+  const address = useInput();
+  const openHour = useInput();
+  const closeHour = useInput();
+  const provincie = useInput();
+  const owner = useInput();
 
   useEffect(() => {
-    dispatch(getClientId(id.id));
+    dispatch(getBranchId(id.id));
   }, []);
-
 
   const handleClick = () => {
     dispatch(
-      editClient({
+      editBranchId({
         id: id.id,
-        bussinessName: bussinessName.value,
-        CUIT: CUIT.value,
-        legalAddress: legalAddress.value,
-        Email: email.value,
-        startContratDate: startContratDate.value,
-        endContratDate: endContratDate.value,
+        name: name.value,
+        city: city.value,
+        address: address.value,
+        openHour: openHour.value,
+        closeHour: closeHour.value,
+        provincie: provincie.value,
+        owner: owner.value,
       })
     );
     swal({
-      title: "El cliente fue editado",
+      title: "La sucursal fue editada",
       text: ".",
       icon: "success",
       button: "Aceptar",
     });
-    navigate(`/clients/${id.id}`);
+    
+    navigate(`/branch/${id.id}`);
   };
   return (
     <div className="container rounded bg-white mt-5 mb-5">
@@ -55,7 +57,7 @@ const EditSecurity = () => {
           <div className="p-3 py-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h4 className="text-right" style={{ color: "grey" }}>
-                EDITAR CLIENTE
+                EDITAR SUCURSAL
               </h4>
             </div>
             <div className="row mt-2">
@@ -63,24 +65,24 @@ const EditSecurity = () => {
                 <Form.Label className="labels">Nombre</Form.Label>
                 <Form.Control
                   size="ms"
-                  placeholder={client.bussinessName}
+                  placeholder={branch.name}
                   className="position-relative"
                   name="bussinessName"
                   variant="outlined"
-                  value={bussinessName.value}
-                  onChange={bussinessName.onChange}
+                  value={name.value}
+                  onChange={name.onChange}
                 />
               </div>
               <div className="col-md-6">
-                <Form.Label className="labels">CUIT</Form.Label>
+                <Form.Label className="labels">Ciudad</Form.Label>
                 <Form.Control
                   size="ms"
-                  placeholder={client.CUIT}
+                  placeholder={branch.city}
                   className="position-relative"
                   name="CUIT"
                   variant="outlined"
-                  value={CUIT.value}
-                  onChange={CUIT.onChange}
+                  value={city.value}
+                  onChange={city.onChange}
                 />
               </div>
             </div>
@@ -90,51 +92,66 @@ const EditSecurity = () => {
                 <Form.Label className="labels">Dirección</Form.Label>
                 <Form.Control
                   size="ms"
-                  placeholder={client.legalAddress}
+                  placeholder={branch.address}
                   className="position-relative"
                   name="legalAddress"
                   variant="outlined"
-                  value={legalAddress.value}
-                  onChange={legalAddress.onChange}
+                  value={address.value}
+                  onChange={address.onChange}
                 />
               </div>
 
               <div className="col-md-12">
-                <Form.Label className="labels">Email</Form.Label>
+                <Form.Label className="labels">Provincia</Form.Label>
                 <Form.Control
                   size="ms"
-                  placeholder={client.Email}
+                  placeholder={branch.provincie}
                   className="position-relative"
                   name="email"
                   variant="outlined"
-                  value={email.value}
-                  onChange={email.onChange}
+                  value={provincie.value}
+                  onChange={provincie.onChange}
+                />
+              </div>
+
+              <div className="col-md-12">
+                <Form.Label className="labels">Cliente</Form.Label>
+                <Form.Control
+                  size="ms"
+                  placeholder={branch.owner}
+                  className="position-relative"
+                  name="email"
+                  variant="outlined"
+                  value={owner.value}
+                  onChange={owner.onChange}
                 />
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                  <Form.Label className="labels">Inicio de contrato</Form.Label>
+                  <Form.Label className="labels">
+                    Horario de apertura
+                  </Form.Label>
                   <Form.Control
                     size="ms"
-                    placeholder={client.startContratDate}
+                    placeholder={branch.openHour}
                     className="position-relative"
                     name="startContratDate"
                     variant="outlined"
-                    value={startContratDate.value}
-                    onChange={startContratDate.onChange}
+                    value={openHour.value}
+                    onChange={openHour.onChange}
                   />
                 </div>
 
                 <div className="col-md-6">
-                  <Form.Label className="labels">Fin de contrato</Form.Label>
+                  <Form.Label className="labels">Horario de cierre</Form.Label>
                   <Form.Control
                     size="ms"
-                    placeholder={client.endContratDate}
+                    placeholder={branch.closeHour}
                     className="position-relative"
                     name="endContratDate"
                     variant="outlined"
-                    value={endContratDate.value}
-                    onChange={endContratDate.onChange}
+                    value={closeHour.value}
+                    onChange={closeHour.onChange}
                   />
                 </div>
               </div>
@@ -156,4 +173,4 @@ const EditSecurity = () => {
   );
 };
 
-export default EditSecurity;
+export default EditBranchOffice;

@@ -110,6 +110,7 @@ const ClientForm = () => {
                 <div className="col-md-6">
                   <Form.Label className="labels">Inicio de contrato</Form.Label>
                   <Form.Control
+                  type="date"
                     size="ms"
                     placeholder="MM/DD/AAAA"
                     className="position-relative"
@@ -123,6 +124,7 @@ const ClientForm = () => {
                 <div className="col-md-6">
                   <Form.Label className="labels">Fin de contrato</Form.Label>
                   <Form.Control
+                  type="date"
                     size="ms"
                     placeholder="MM/DD/AAAA"
                     className="position-relative"

@@ -9,6 +9,7 @@ const EditSecurity = () => {
   const lastName = useInput();
   const CUIL = useInput();
   const email = useInput();
+  
   const security = useSelector((state) => state.security);
 
   const validEmail = (email) => {
@@ -17,6 +18,8 @@ const EditSecurity = () => {
     );
   };
   console.log("ACA", security)
+
+  console.log("id security => ", security[0].id)
 
   const handleClick = () => {
     dispatch(

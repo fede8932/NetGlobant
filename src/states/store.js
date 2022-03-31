@@ -6,6 +6,8 @@ import userReducer from "./user";
 import securityReducer from "./singleSecurity";
 import deviceReducer from "./device";
 import allClientsReducer from "./Clients";
+import branchesReducer from "./branches";
+import branchReducer from "./singleBranch";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -13,9 +15,11 @@ const store = configureStore({
     ubicacion: geoReducer,
     usuario: userReducer,
     client: clientReducer,
+    clients: allClientsReducer,
     security: securityReducer,
     device : deviceReducer,
-    clients: allClientsReducer,
+    branches: branchesReducer,
+    branch: branchReducer,
   },
 });
 

@@ -14,6 +14,7 @@ const {
               id: req.params.id,
             },
             returning: true,
+            plain: true,
           });
           return update;
         } catch (err) {
@@ -37,12 +38,17 @@ const {
     
       static async serviceEditClient(req, next) {
         try {
+          console.log("req.body",req.body)
+        
           const [rows, update] = await Client.update(req.body, {
             where: {
               id: req.params.id,
             },
             returning: true,
+            plain: true,
           });
+
+          console.log('update', update)
           return update;
         } catch (err) {
           next(err);
