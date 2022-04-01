@@ -10,6 +10,7 @@ class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
     try {
       const date = req.params.date;
+      console.log(date)
       const today = await WorkDay.findOne({
         where: {
           wishEntryHour: date,
