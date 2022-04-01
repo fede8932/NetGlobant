@@ -1,20 +1,11 @@
 import React from "react";
 import { useInput } from "../hooks/useInput";
-import {
-  ListGroup,
-  Button,
-  Form,
-  Dropdown,
-  DropdownButton,
-  SplitButton,
-  ButtonGroup,
-} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import swal from "sweetalert";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaWpforms } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { createSecurity } from "../states/singleSecurity";
 
 const SecurityForm = () => {
   const name = useInput();
@@ -25,37 +16,33 @@ const SecurityForm = () => {
   const address = useInput();
   const provincie = useInput();
   const password = useInput();
-  const seguridad = useSelector(state => state.security)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const seguridad = useSelector((state) => state.security);
 
-  const handleClick = async (e) => {
-    try {
-      e.preventDefault();
+  const handleClick = (e) => {
+    e.preventDefault();
 
-      const security = await axios({
-        method: "POST",
-        url: "/api/admin/add/security",
-        data: {
-          name: name.value,
-          lastName: lastName.value,
-          CUIL: cuil.value,
-          email: email.value,
-          address: address.value,
-          provincie: provincie.value,
-          password: password.value,
-        },
-      });
-      swal({
-        title: "Vigilador agregado",
-        text: ".",
-        icon: "success",
-        button: "Aceptar",
-      });
-      navigate(`/search/securities/${seguridad.id}`)
-      return security;
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(
+      createSecurity({
+        name: name.value,
+        lastName: lastName.value,
+        CUIL: cuil.value,
+        email: email.value,
+        address: address.value,
+        provincie: provincie.value,
+        password: password.value,
+      })
+    );
+
+    swal({
+      title: "Vigilador agregado",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
+
+    navigate(`/search/securities/${seguridad.id}`);
   };
 
   return (

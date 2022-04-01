@@ -3,7 +3,6 @@ import { useInput } from "../hooks/useInput";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { postBranch } from "../states/singleBranch";
@@ -21,7 +20,7 @@ const BranchOfficeForm = () => {
   const provincie = useInput();
   const owner = useInput();
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     dispatch(
       postBranch({
@@ -41,7 +40,8 @@ const BranchOfficeForm = () => {
       icon: "success",
       button: "Aceptar",
     });
-    console.log("ESTO ES BRANCH.ID", branch.id)
+
+    console.log("BRANCH", branch)
 
     navigate(`/branch/${branch.id}`);
   };

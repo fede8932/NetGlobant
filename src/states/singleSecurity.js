@@ -22,6 +22,21 @@ export const getSecurityById = createAsyncThunk(
   }
 );
 
+export const createSecurity = createAsyncThunk(
+  "CREATE_SECURITY",
+  async (security) => {
+    try {
+      const securityToCreate = await axios.post(
+        "/api/admin/add/security",
+        security
+      );
+      return securityToCreate.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 export const editSecurity = createAsyncThunk(
   "EDIT_SECURITY",
   async (security) => {
@@ -57,6 +72,7 @@ const securityReducer = createReducer([], {
   [editSecurity.fulfilled]: (state, action) => action.payload,
   [deleteSecurity.fulfilled]: (state, action) => action.payload,
   [getSecurityById.fulfilled]: (state, action) => action.payload,
+  [createSecurity.fulfilled]: (state, action) => action.payload,
 });
 
 export default securityReducer;

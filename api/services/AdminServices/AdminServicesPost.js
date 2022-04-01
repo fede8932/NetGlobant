@@ -6,21 +6,21 @@ const {
   WorkDay,
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
-const {validateCreateWorkDay} = require("../../lib/validationCalendar");
-
+const { validateCreateWorkDay } = require("../../lib/validationCalendar");
 
 class AdminServicesPost {
   static async serviceAddSecurityOffice(req, next) {
     try {
       const { id } = req.body;
-      
+
       const office = await BranchOficce.findOne({
-        where: { id: id, status:true },
+        where: { id: id, status: true },
       });
 
       const security = await Securities.findOne({
         where: {
-          CUIL: req.body.CUIL, status:true
+          CUIL: req.body.CUIL,
+          status: true,
         },
       });
 
@@ -42,7 +42,8 @@ class AdminServicesPost {
       });
       const client = await Client.findOne({
         where: {
-          bussinessName: owner, status:true
+          bussinessName: owner,
+          status: true,
         },
       });
       const office = await BranchOficce.create(req.body);
@@ -67,11 +68,12 @@ class AdminServicesPost {
     try {
       const security = await Securities.findOne({
         where: {
-          CUIL: req.body.CUIL, status:true
+          CUIL: req.body.CUIL,
+          status: true,
         },
       });
       const workDay = await WorkDay.findOne({
-        where: { id: req.body.id, status:true },
+        where: { id: req.body.id, status: true },
       });
       security.addWorkDays(workDay);
     } catch (err) {
@@ -82,7 +84,7 @@ class AdminServicesPost {
   static async serviceAddSchedule(req, next) {
     try {
       const branchOficces = await BranchOficce.findOne({
-        where: { name: req.body.branchName, status:true },
+        where: { name: req.body.branchName, status: true },
       });
       const workDay = await WorkDay.create(req.body);
 
@@ -96,7 +98,7 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
-        where: { name: req.body.name, status:true },
+        where: { name: req.body.name, status: true },
         include: {
           association: Securities.calendar,
           where: {
@@ -114,7 +116,6 @@ class AdminServicesPost {
         req.body.wishEntryHour,
         req.body.wishClosingHour
       );
-      console.log("DEFINITION", definition);
       return definition ? createWorkDay(req) : definition;
     } catch (err) {
       next(err);
@@ -123,19 +124,15 @@ class AdminServicesPost {
 
   static async serviceAddSecurity(req, next) {
     try {
-      console.log("ESTO ES REQ BODY", req.body)
       const provincies = await Provincies.findOne({
         where: {
           name: req.body.provincie,
         },
       });
-      console.log("PROVINCE", provincies)
       const security = await Securities.create(req.body);
-      console.log("SECURITY", security)
       security.addProvincies(provincies);
       return security;
     } catch (err) {
-      console.log("ACAA", err)
       next(err);
     }
   }
@@ -148,7 +145,8 @@ class AdminServicesPost {
       });
       const security = await Securities.findOne({
         where: {
-          name: req.body.name, status:true
+          name: req.body.name,
+          status: true,
         },
       });
       security.addProvincies(provincies);

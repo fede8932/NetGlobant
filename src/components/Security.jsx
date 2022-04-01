@@ -22,7 +22,6 @@ const Security = () => {
     e.preventDefault();
     dispatch(getSecurity(securityToSearch.value));
   };
-
   const showCard = () => {
     return security[0] ? (
       <SingleCard />
