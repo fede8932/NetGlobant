@@ -39,7 +39,7 @@ const Barra = () => {
           Calendario
         </Button>
         <Button
-          onClick={()=>{navigate('/user/premisos')}}
+          onClick={()=>{navigate('/user/avisos')}}
           variant="warning"
           style={{ color: "#696969" }}
         >

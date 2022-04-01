@@ -32,6 +32,7 @@ import BranchOfficeForm from "./components/BranchOfficeForm";
 import SearchBranchOffice from "./components/SearchBranchOffice";
 import CardBranchOffice from "./components/CardBranchOffice";
 import EditBranchOffice from "./components/EditBranchOffice";
+import AvisosForm from "./components/AvisosForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ function App() {
         <Route path="/admin/security" element={<AdminSecurity />} />
         <Route path="/search/securities" element={<SecurityList />} />
         <Route path="/admin/branchoffice" element={<AdminBranchOffice />} />
+        <Route path="/user/avisos" element={<AvisosForm />} />
       </Routes>
     </div>
   );
