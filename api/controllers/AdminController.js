@@ -129,12 +129,17 @@ class AdminController {
     return res.sendStatus(201);
   }
 
+  static async asingScheduleToOffice(req, res, next) {
+    await AdminServicesPost.serviceAsingScheduleOffice(req, next);
+    return res.sendStatus(201);
+  }
+
   static async addSecurityOffice(req, res, next) {
     const security = await AdminServicesPost.serviceAddSecurityOffice(
       req,
       next
     );
-    return security ? res.status(201).json(security) : res.sendStatus(500);
+    return security ? res.status(201).json(security) : res.sendStatus(404);
   }
 
   static async addSecurityProvincie(req, res, next) {
@@ -209,17 +214,18 @@ class AdminController {
   }
 
   static async patchCalendar(req, res, next) {
-    const patchCalendar = await AdminServicesPatch.serviceValidateSecurity(
+    const patchCalendar = await AdminServicesPatch.serviceValidateCalendar(
       req,
       next
     );
+    console.log(patchCalendar)
     return patchCalendar
-      ? res.status(204).json(patchCalendar)
+      ? res.status(201).json(patchCalendar)
       : res.sendStatus(404);
   }
 
   static async patchClient(req, res, next) {
-    const patchClient = await AdminServicesPatch.serviceValidateSecurity(
+    const patchClient = await AdminServicesPatch.serviceValidateClient(
       req,
       next
     );
@@ -229,7 +235,7 @@ class AdminController {
   }
 
   static async patchAdmin(req, res, next) {
-    const patchAdmin = await AdminServicesPatch.serviceValidateSecurity(
+    const patchAdmin = await AdminServicesPatch.serviceValidateAdmin(
       req,
       next
     );
@@ -237,7 +243,7 @@ class AdminController {
   }
 
   static async patchOffice(req, res, next) {
-    const patchOffice = await AdminServicesPatch.serviceValidateSecurity(
+    const patchOffice = await AdminServicesPatch.serviceValidateOffice(
       req,
       next
     );

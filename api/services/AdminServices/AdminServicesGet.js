@@ -108,14 +108,14 @@ class AdminServicesGet {
 
   static async serviceGetAllSecuritiesByOffice(req, next) {
     try {
-      console.log("ACA ENTRO", req.params.name);
+      
       const securityList = await BranchOficce.findAll({
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
         },
       });
-      console.log("ACA NO ES", securityList);
+      
       return securityList;
     } catch (err) {
       console.log("ACA ESTA SALAME", err);

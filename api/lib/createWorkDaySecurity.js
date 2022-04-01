@@ -5,6 +5,7 @@ const createWorkDay = async (req) => {
   const security = await Securities.findOne({
     where: { name: req.body.name },
   });
+  console.log(security)
   security.addWorkDays(workDay);
   return security;
 };

@@ -24,6 +24,7 @@ adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
 adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
 adminRouter.post("/add/Calendar/security", AdminController.addScheduleSecurity);
 adminRouter.post("/assign/Calendar/security", AdminController.asingScheduleToSecurity);
+adminRouter.post("/assign/Calendar/office", AdminController.asingScheduleToOffice);
 
 adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
 adminRouter.delete("/remove/client/:id", AdminController.removeClient);
@@ -38,11 +39,11 @@ adminRouter.put("/edit/client/:id", AdminController.editClient);
 adminRouter.put("/edit/calendar/:id", AdminController.editCalendar);
 
 
-adminRouter.patch("/validate/calendar", AdminController.patchCalendar)
-adminRouter.patch("/validate/security", AdminController.patchSecurity)
-adminRouter.patch("/validate/client", AdminController.patchClient)
-adminRouter.patch("/validate/admins", AdminController.patchAdmin)
-adminRouter.patch("/validate/Office", AdminController.patchOffice)
+adminRouter.patch("/validate/calendar/:id", AdminController.patchCalendar)
+adminRouter.patch("/validate/security/:id", AdminController.patchSecurity)
+adminRouter.patch("/validate/client/:id", AdminController.patchClient)
+adminRouter.patch("/validate/admins/:id", AdminController.patchAdmin)
+adminRouter.patch("/validate/Office/:id", AdminController.patchOffice)
 
 
 module.exports = adminRouter;

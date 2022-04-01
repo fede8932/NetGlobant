@@ -6,7 +6,7 @@ const {
   WorkDay,
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
-const { validateCreateWorkDay } = require("../../lib/validationCalendar");
+const { validateCreateWorkDay, validationZone } = require("../../lib/validationsr");
 
 class AdminServicesPost {
   static async serviceAddSecurityOffice(req, next) {
@@ -23,9 +23,12 @@ class AdminServicesPost {
           status: true,
         },
       });
-
+      const isEnable= await validationZone(security.id,office.id)
+      if(isEnable){
       office.addSecurity(security);
-      return office;
+      return office
+    }
+      
     } catch (err) {
       console.log(err);
       next(err);
@@ -81,16 +84,32 @@ class AdminServicesPost {
     }
   }
 
+  static async serviceAsingScheduleOffice(req, next) {
+    try {
+      const security = await BranchOficce.findOne({
+        where: {
+         id: req.body.officeId, status:true
+        },
+      });
+      const workDay = await WorkDay.findOne({
+        where: { id: req.body.id, status: true },
+      });
+      security.addWorkDays(workDay);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceAddSchedule(req, next) {
     try {
       const branchOficces = await BranchOficce.findOne({
-        where: { name: req.body.branchName, status: true },
+        where: { name: req.body.branchName,status: true  } 
       });
       const workDay = await WorkDay.create(req.body);
-
       branchOficces.addWorkDays(workDay);
       return branchOficces;
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }
@@ -98,7 +117,7 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
-        where: { name: req.body.name, status: true },
+        where: { name: req.body.name , status: true },
         include: {
           association: Securities.calendar,
           where: {
@@ -116,6 +135,7 @@ class AdminServicesPost {
         req.body.wishEntryHour,
         req.body.wishClosingHour
       );
+      console.log(definition)
       return definition ? createWorkDay(req) : definition;
     } catch (err) {
       next(err);

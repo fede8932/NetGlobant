@@ -1,3 +1,5 @@
+const { BranchOficce, Securities } = require("../models");
+
 function validateCreateWorkDay(inHour, exitHour, newInHour, newExitHour) {
   let listHoures = [];
   const entryHour = new Date(inHour).getHours();
@@ -22,8 +24,20 @@ function validateCreateWorkDay(inHour, exitHour, newInHour, newExitHour) {
   return true;
 }
 
-function enableOrDisable(instance){
-   return instance.status? instance.status= false: instance.status=true 
+function  enableOrDisable(instance){
+ instance.status= !instance.status
+ return instance.save()
 }
 
-module.exports = {enableOrDisable, validateCreateWorkDay}
+const  validationZone= async(idBranch, idSecurity)=>{
+ const securities= await Securities.findOne({
+ where:{id: idBranch}, include:{ association: Securities.provincie}
+ })
+const officie= await BranchOficce.findOne({
+  where:{id: idSecurity}
+})
+const comparation= securities.provincies.filter((provincie)=> provincie.id == officie.provincyId)
+return comparation.length>0? true: false
+} 
+
+module.exports = {enableOrDisable, validateCreateWorkDay, validationZone}

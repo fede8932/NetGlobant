@@ -5,6 +5,7 @@ const {
     WorkDay,
   } = require("../../models");
  
+  const{enableOrDisable}= require("../../lib/validationsr")
 
   
   class AdminServicesDelite{
@@ -49,11 +50,9 @@ const {
     
       static async serviceRemoveSchedule(req, next) {
         try {
-          const workDay= await WorkDay.findOne({
+        await WorkDay.destroy({
             where: { id: req.params.id, status:true },
           });
-          workDay.status= false
-
         } catch (err) {
           next(err);
         }
@@ -64,10 +63,9 @@ const {
       static async serviceRemoveCalendarSecurity(req, next){
 
         try{
-          const workDay= await WorkDay.findOne({
+           await WorkDay.destroy({
             where: { id: req.params.id, status:true },
           });
-          workDay.status= false
         }catch(err){
         }
       }

@@ -1,12 +1,12 @@
 const{WorkDay,Securities,BranchOficce,Client, Admin}= require("../../models")
-const {enableOrDisable}= require("../../lib/validationCalendar")
+const {enableOrDisable}= require("../../lib/validationsr")
 
 class AdminServicesPatch{
 
     static async serviceValidateSecurity(req, next){
         try{
         const security= await Securities.findOne({
-            where:{ id: req.body.id}
+            where:{ id: req.params.id}
         })
         enableOrDisable(security)
         return security
@@ -18,11 +18,12 @@ class AdminServicesPatch{
     static async serviceValidateCalendar(req, next){
         try{
             const calendar= await WorkDay.findOne({
-                where:{ id: req.body.id}
+                where:{ id: req.params.id}
             })
-            enableOrDisable(calendar)
-            return calendar
+           const newStatus= await enableOrDisable(calendar)
+            return newStatus
         }catch(err){
+            console.log(err)
             next(err)
         }
     }
@@ -30,7 +31,7 @@ class AdminServicesPatch{
     static async serviceValidateClient(req, next){
         try{
             const client= await Client.findOne({
-                where:{ id: req.body.id}
+                where:{ id: req.params.id}
             })
             enableOrDisable(client)
             return client
@@ -42,7 +43,7 @@ class AdminServicesPatch{
     static async serviceValidateOffice(req, next){
         try{
             const office= await BranchOficce.findOne({
-                where:{ id: req.body.id}
+                where:{ id: req.params.id}
             })
             enableOrDisable(office)
             return office
@@ -54,7 +55,7 @@ class AdminServicesPatch{
     static async serviceValidateAdmin(req, next){
         try{
             const admin= await Admin.findOne({
-                where:{ id: req.body.id}
+                where:{ id: req.params.id}
             })
             enableOrDisable(admin)
             return admin

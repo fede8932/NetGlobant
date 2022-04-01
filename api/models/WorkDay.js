@@ -25,7 +25,6 @@ WorkDay.init(
      },
     status:{
       type: S.BOOLEAN,
-      defaultValue:true
     },
     comment:{
       type: S.TEXT

@@ -64,7 +64,7 @@ class AdminServicesPut {
   static async serviceEditCalendar(req, next) {
     try {
       const [rows, newSchedule] = await WorkDay.update(req.body, {
-        where: { id: req.body.id },
+        where: { id: req.params.id },
         returning: true,
       });
     } catch (err) {
