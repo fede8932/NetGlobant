@@ -15,7 +15,7 @@ class SecuritiesServices {
           wishEntryHour: date,
         },
       });
-      console.log("TODAY",today)
+      console.log("TODAY",date)
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
@@ -54,6 +54,7 @@ class SecuritiesServices {
         provincia: provincia,
       };
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }

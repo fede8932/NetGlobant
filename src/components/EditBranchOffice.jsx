@@ -103,15 +103,41 @@ const EditBranchOffice = () => {
 
               <div className="col-md-12">
                 <Form.Label className="labels">Provincia</Form.Label>
+
                 <Form.Control
+                  as="select"
                   size="ms"
-                  placeholder={branch.provincie}
+                  placeholder="Provincia"
                   className="position-relative"
                   name="email"
                   variant="outlined"
                   value={provincie.value}
                   onChange={provincie.onChange}
-                />
+                >
+                  <option>Buenos Aires</option>
+                  <option>Córdoba</option>
+                  <option>San Luis</option>
+                  <option>Catamarca</option>
+                  <option>Tierra Del Fuego</option>
+                  <option>Santa Cruz</option>
+                  <option>Río Negro</option>
+                  <option>Neuquén</option>
+                  <option>La Pampa</option>
+                  <option>Santa Fé</option>
+                  <option>La Rioja</option>
+                  <option>Tucumán</option>
+                  <option>Corrientes</option>
+                  <option>Entre Ríos</option>
+                  <option>Misiones</option>
+                  <option>Chaco</option>
+                  <option>Formosa</option>
+                  <option>Jujuy</option>
+                  <option>San Juan</option>
+                  <option>Salta</option>
+                  <option>Mendoza</option>
+                  <option>Santiago del Estero</option>
+                  <option>Chubut</option>
+                </Form.Control>
               </div>
 
               <div className="col-md-12">

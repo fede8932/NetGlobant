@@ -10,7 +10,7 @@ import { postBranch } from "../states/singleBranch";
 const BranchOfficeForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const branch = useSelector(state => state.branch)
+  const branch = useSelector((state) => state.branch);
 
   const name = useInput();
   const address = useInput();
@@ -41,7 +41,7 @@ const BranchOfficeForm = () => {
       button: "Aceptar",
     });
 
-    console.log("BRANCH", branch)
+    console.log("BRANCH", branch);
 
     navigate(`/branch/${branch.id}`);
   };
@@ -111,7 +111,7 @@ const BranchOfficeForm = () => {
                   onChange={owner.onChange}
                 />
               </div>
-
+              {/* 
               <div className="col-md-12">
                 <Form.Label className="labels">Provincia</Form.Label>
                 <Form.Control
@@ -123,6 +123,45 @@ const BranchOfficeForm = () => {
                   value={provincie.value}
                   onChange={provincie.onChange}
                 />
+              </div> */}
+
+              <div className="col-md-12">
+                <Form.Label className="labels">Provincia</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  size="ms"
+                  placeholder="Provincia"
+                  className="position-relative"
+                  name="email"
+                  variant="outlined"
+                  value={provincie.value}
+                  onChange={provincie.onChange}
+                >
+                  <option>Buenos Aires</option>
+                  <option>Córdoba</option>
+                  <option>San Luis</option>
+                  <option>Catamarca</option>
+                  <option>Tierra Del Fuego</option>
+                  <option>Santa Cruz</option>
+                  <option>Río Negro</option>
+                  <option>Neuquén</option>
+                  <option>La Pampa</option>
+                  <option>Santa Fé</option>
+                  <option>La Rioja</option>
+                  <option>Tucumán</option>
+                  <option>Corrientes</option>
+                  <option>Entre Ríos</option>
+                  <option>Misiones</option>
+                  <option>Chaco</option>
+                  <option>Formosa</option>
+                  <option>Jujuy</option>
+                  <option>San Juan</option>
+                  <option>Salta</option>
+                  <option>Mendoza</option>
+                  <option>Santiago del Estero</option>
+                  <option>Chubut</option>
+                </Form.Control>
               </div>
 
               <div className="row mt-2">

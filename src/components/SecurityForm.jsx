@@ -165,6 +165,7 @@ const SecurityForm = () => {
                       variant="outlined"
                       value={password.value}
                       onChange={password.onChange}
+                      type="password"
                     />
                   </div>
 
