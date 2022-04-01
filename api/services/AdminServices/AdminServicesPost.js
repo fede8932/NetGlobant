@@ -123,15 +123,19 @@ class AdminServicesPost {
 
   static async serviceAddSecurity(req, next) {
     try {
+      console.log("ESTO ES REQ BODY", req.body)
       const provincies = await Provincies.findOne({
         where: {
           name: req.body.provincie,
         },
       });
+      console.log("PROVINCE", provincies)
       const security = await Securities.create(req.body);
+      console.log("SECURITY", security)
       security.addProvincies(provincies);
       return security;
     } catch (err) {
+      console.log("ACAA", err)
       next(err);
     }
   }

@@ -49,7 +49,7 @@ Securities.init(
 );
 
 Securities.beforeCreate(async (securities) => {
-  securities.salt = await genSalt(16);
-  securities.password = await hash(securities.password, securities.salt);
+  salt = await genSalt(16);
+  securities.password = await hash(securities.password, salt);
 });
 module.exports = Securities;

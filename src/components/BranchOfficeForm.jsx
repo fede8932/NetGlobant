@@ -6,11 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import { postBranch } from "../states/branches";
+import { postBranch } from "../states/singleBranch";
 
 const BranchOfficeForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const branch = useSelector(state => state.branch)
 
   const name = useInput();
   const address = useInput();
@@ -40,8 +41,9 @@ const BranchOfficeForm = () => {
       icon: "success",
       button: "Aceptar",
     });
+    console.log("ESTO ES BRANCH.ID", branch.id)
 
-    navigate("/search/branchoffice");
+    navigate(`/branch/${branch.id}`);
   };
 
   return (

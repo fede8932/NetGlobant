@@ -7,27 +7,26 @@ import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 
 const SearchBranchOffice = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchBranch = useInput();
 
-  const branches = useSelector((state) => state.branches);
   const branch = useSelector((state) => state.branch);
+  const branches = useSelector((state) => state.branches);
 
   useEffect(() => {
     dispatch(getAllBranches());
   }, []);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      dispatch(getBranchName(searchBranch.value));
-      navigate(`/branch/${branch.id}`)
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getBranchName(searchBranch.value));
+    navigate(`/branch/${branch.id}`);
+  };
 
   const handleBranch = (id) => {
     navigate(`/branch/${id}`);
   };
-
 
   return (
     <>
@@ -43,10 +42,7 @@ const SearchBranchOffice = () => {
           className="me-2"
           aria-label="Search"
         />
-        <Button
-          type="input"
-          variant="outline-success"
-        >
+        <Button type="input" variant="outline-success">
           Buscar
         </Button>
       </Form>
@@ -74,7 +70,7 @@ const SearchBranchOffice = () => {
               <td>{branch.address}</td>
               <td>{branch.city}</td>
             </tr>
-           ))} 
+          ))}
         </tbody>
       </Table>
     </>

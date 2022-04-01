@@ -8,11 +8,9 @@ import swal from "sweetalert";
 import { getBranchId } from "../states/singleBranch";
 
 const CardBranchOffice = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = useParams();
-
 
   const branch = useSelector((state) => state.branch);
 
@@ -22,21 +20,19 @@ const CardBranchOffice = () => {
 
   const handleDelete = () => {
     dispatch(deleteBranchId(branch.id));
-    
-      swal({
-        title: "La sucursal fue removida",
-        text: ".",
-        icon: "success",
-        button: "Aceptar",
-      });
-      navigate("/search/branchoffice");
+
+    swal({
+      title: "La sucursal fue removida",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
+    navigate("/search/branchoffice");
   };
 
   const handleClick = (url) => {
     navigate(url);
   };
-
-
 
   return (
     <>
@@ -49,9 +45,7 @@ const CardBranchOffice = () => {
         }}
       >
         <Card.Body>
-          <Card.Title style={{ fontSize: "20px" }}>
-            {branch.name}
-          </Card.Title>
+          <Card.Title style={{ fontSize: "20px" }}>{branch.name}</Card.Title>
           <Card.Subtitle className="mb-2 mt-5 text-muted">
             Ciudad: {branch.city}
           </Card.Subtitle>

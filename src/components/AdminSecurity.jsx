@@ -30,7 +30,7 @@ const AdminSecurity = function () {
         <AiOutlineFileAdd size={70} />
         Agregar vigilador
       </Button>
-      <Button onClick={() => handleClick("/clients")}
+      <Button onClick={() => handleClick("/search/securities")}
         variant="secondary"
         style={{ display: "inline-block", width: "290px", marginLeft: "20px" ,height:"130px"}}
       >
