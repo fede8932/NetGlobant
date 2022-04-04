@@ -121,7 +121,7 @@ class AdminController {
       req,
       next
     );
-    return workDay ? res.status(201).send(workDay) : res.sendStatus(401);
+    return res.status(201).send(workDay);
   }
 
   static async asingScheduleToSecurity(req, res, next) {

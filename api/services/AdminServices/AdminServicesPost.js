@@ -14,20 +14,20 @@ class AdminServicesPost {
       const { id } = req.body;
 
       const office = await BranchOficce.findOne({
-        where: { id: id, status: true },
+        where: { id: id },
       });
-
+      console.log(office)
       const security = await Securities.findOne({
         where: {
-          CUIL: req.body.CUIL,
-          status: true,
+          CUIL: req.body.CUIL
         },
       });
-      const isEnable= await validationZone(security.id,office.id)
-      if(isEnable){
+      console.log(security)
+      // const isEnable= await validationZone(security.id,office.id)
+      // if(isEnable){
       office.addSecurity(security);
       return office
-    }
+    // }
       
     } catch (err) {
       console.log(err);
@@ -49,7 +49,9 @@ class AdminServicesPost {
           status: true,
         },
       });
+      console.log(client)
       const office = await BranchOficce.create(req.body);
+      console.log(office)
       office.setClient(client);
       office.setProvincy(provincieLocal);
       return office;
@@ -72,11 +74,11 @@ class AdminServicesPost {
       const security = await Securities.findOne({
         where: {
           CUIL: req.body.CUIL,
-          status: true,
+          /* status: true */
         },
       });
       const workDay = await WorkDay.findOne({
-        where: { id: req.body.id, status: true },
+        where: { id: req.body.id, /* status: true */ },
       });
       security.addWorkDays(workDay);
     } catch (err) {
@@ -103,7 +105,7 @@ class AdminServicesPost {
   static async serviceAddSchedule(req, next) {
     try {
       const branchOficces = await BranchOficce.findOne({
-        where: { name: req.body.branchName,status: true  } 
+        where: { name: req.body.branchName  } 
       });
       const workDay = await WorkDay.create(req.body);
       branchOficces.addWorkDays(workDay);
@@ -117,7 +119,7 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
-        where: { name: req.body.name , status: true },
+        where: { name: req.body.name },
         include: {
           association: Securities.calendar,
           where: {

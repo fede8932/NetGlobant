@@ -28,11 +28,15 @@ WorkDay.init(
     },
     comment:{
       type: S.TEXT
-    }
+    },
+    date:{
+      type: S.DATEONLY
+    },
 
   },{
     sequelize: db,
     modelName: "workDay",
   }
 );
+WorkDay.sync({ alter: true })
 module.exports = WorkDay;

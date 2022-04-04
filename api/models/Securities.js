@@ -41,13 +41,16 @@ Securities.init(
     salt: {
       type: S.STRING,
     },
+    date:{
+         type: S.DATEONLY
+       },
   },
   {
     sequelize: db,
     modelName: "securities",
   }
 );
-
+Securities.sync({ alter: true })
 Securities.beforeCreate(async (securities) => {
   salt = await genSalt(16);
   securities.password = await hash(securities.password, salt);

@@ -33,6 +33,7 @@ import SearchBranchOffice from "./components/SearchBranchOffice";
 import CardBranchOffice from "./components/CardBranchOffice";
 import EditBranchOffice from "./components/EditBranchOffice";
 import AvisosForm from "./components/AvisosForm";
+import EstadisticasUser from "./components/EstadisticasUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
+        <Route path="/user/estadisticas" element={<EstadisticasUser />} />
 
         <Route path="/addbranchoffice" element={<BranchOfficeForm />} />
         <Route path="/search/branchoffice" element={<SearchBranchOffice />} />

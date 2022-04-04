@@ -25,6 +25,7 @@ export default function UserInfo() {
   };
 
   return (
+    <div className="estadisticasContainer">
     <Container className="userContainer">
         <h1>
           Calendario de servicios
@@ -48,9 +49,9 @@ export default function UserInfo() {
           </Button>
         </Form><br />
         {info.data?(<Consulta info={info}/>):(<></>)}
-        <Footer/>
     </Container>
-      
+    <Footer/>
+    </div>
     );
 }
 
