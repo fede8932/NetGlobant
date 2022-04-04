@@ -17,7 +17,7 @@ Securities.init(
       type: S.STRING,
     },
     CUIL: {
-      type: S.INTEGER,
+      type: S.BIGINT,
     },
     entryHour: {
       type: S.INTEGER,
@@ -47,6 +47,8 @@ Securities.init(
     modelName: "securities",
   }
 );
+
+Securities.sync({ alter: true })
 
 Securities.beforeCreate(async (securities) => {
   salt = await genSalt(16);

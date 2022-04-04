@@ -11,10 +11,18 @@ class SecurityController{
      return res.sendStatus(201)
  }
 
+static async cancellMyWorkDay(req, res, next){
+    await SecuritiesServices.serviceCancellWorkDay(req, next)
+    return res.sendstatus(200)
+}
+
+
 static async changeMyPassword(req, res, next){
     await SecuritiesServices.serviceChangeMyPassword(req, next)
     return res.sendStatus(204)
 }
+
+static async 
 
 }
 

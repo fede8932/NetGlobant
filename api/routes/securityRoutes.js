@@ -5,6 +5,8 @@ securityRouter.get("/myWorkDay/:id/:date", SecurityController.getMyWorkDay)
 
 securityRouter.patch("/mypassword/:id", SecurityController.changeMyPassword)
 
+securityRouter.put("/cancelledWorkDay/:id", SecurityController.cancellMyWorkDay)
+
 securityRouter.patch("/myEffictiveWorkDay/:id/:date", SecurityController.writeMyWorkDay )
 
 

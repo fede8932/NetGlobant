@@ -18,16 +18,21 @@ WorkDay.init(
       type: S.DATE,
     },
     serverHourEntry:{
-     type: S.DATE(S.NOW)
+     type: S.DATE,
+     defaultValue: S.NOW
     },
     serverHourClosing:{
-      type: S.DATE(S.NOW)
+      type: S.DATE,
+      defaultValue: S.NOW
      },
     status:{
       type: S.BOOLEAN,
     },
     comment:{
       type: S.TEXT
+    },
+    urlSecurity:{
+      type: S.STRING
     }
 
   },{
@@ -35,4 +40,7 @@ WorkDay.init(
     modelName: "workDay",
   }
 );
+
+WorkDay.sync({ alter: true })
+
 module.exports = WorkDay;

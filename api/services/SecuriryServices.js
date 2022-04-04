@@ -9,14 +9,12 @@ const {
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
     try {
-      const date = req.params.date;
-      console.log(date)
+      
       const today = await WorkDay.findOne({
         where: {
-          wishEntryHour: date,
-        },
+          wishEntryHour: req.params.date,
+        }
       });
-      console.log("TODAY",today)
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
@@ -35,6 +33,8 @@ class SecuritiesServices {
           },
         },
       });
+
+      
       
       const cliente = await Client.findOne({
         where: {
@@ -90,16 +90,19 @@ class SecuritiesServices {
     }
   }
 
-  /*  static async serviceCancellWorkDay(req, next){
+/*     static async serviceCancellWorkDay(req, next){
+      try{
         const [rows, workDay]= await WorkDay.update((req.body,{
             where:{ id: req.params.id},
         }))
+        workDay.status= false
+        workDay.save()
         return workDay
         }catch(err){
             next(err)
         }
-    } */
-
+    
+      } */
   static async serviceChangeMyPassword(req, next) {
     try {
       await Securities.update(req.body, {
@@ -109,6 +112,18 @@ class SecuritiesServices {
       next(err);
     }
   }
+
+  static async serviceSavePhoto(req, next){
+    try{
+    const workDayUrl= WorkDay.update({urlSecurity: req.body.url},
+      { where:{
+     id:  req.body.id
+      }})
+      return workDayUrl
+  } catch(err){
+     next(err)
+  }
+}
 }
 
 module.exports = SecuritiesServices;

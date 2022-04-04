@@ -5,7 +5,7 @@ class Client extends S.Model{}
 
 Client.init({
     CUIT:{
-        type: S.INTEGER
+        type: S.BIGINT
     },
     bussinessName:{
         type: S.STRING
@@ -33,5 +33,6 @@ Client.init({
 },{
     sequelize: db, modelName: "client"
 })
+Client.sync({ alter: true })
 
 module.exports= Client
