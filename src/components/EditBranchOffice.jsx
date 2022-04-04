@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editClient } from "../states/singleClient";
-import { useInput } from "../hooks/useInput";
-import swal from "sweetalert";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { editBranchId, getBranchId } from "../states/singleBranch";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 const EditBranchOffice = () => {
   const dispatch = useDispatch();
@@ -15,51 +14,44 @@ const EditBranchOffice = () => {
   const branch = useSelector((state) => state.branch);
   const navigate = useNavigate();
 
-  const name = useInput();
-  const city = useInput();
-  const address = useInput();
-  const openHour = useInput();
-  const closeHour = useInput();
-  const provincie = useInput();
-  const owner = useInput();
-
   useEffect(() => {
     dispatch(getBranchId(id.id));
   }, []);
 
-  const handleClick = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
     dispatch(
       editBranchId({
         id: id.id,
-        name: name.value,
-        city: city.value,
-        address: address.value,
-        openHour: openHour.value,
-        closeHour: closeHour.value,
-        provincie: provincie.value,
-        owner: owner.value,
+        data,
       })
     );
-    swal({
-      title: "La sucursal fue editada",
-      text: ".",
-      icon: "success",
-      button: "Aceptar",
-    });
-    
+  
     navigate(`/branch/${id.id}`);
   };
+
+  const handleClickVolver = (url) => {
+    navigate(url);
+  };
+
+
   return (
     <div className="container rounded bg-white mt-5 mb-5">
-      <div className="row">
-        <div className="col-md-3 border-right"></div>
-        <div className="col-md-5 border-right">
-          <div className="p-3 py-5">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="text-right" style={{ color: "grey" }}>
-                EDITAR SUCURSAL
-              </h4>
-            </div>
+    <div className="row">
+      <div className="col-md-3 border-right"></div>
+      <div className="col-md-5 border-right">
+        <div className="p-3 py-5">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h4 className="text-right" style={{ color: "grey" }}>
+              EDITAR SUCURSAL
+            </h4>
+          </div>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <div className="row mt-2">
               <div className="col-md-6">
                 <Form.Label className="labels">Nombre</Form.Label>
@@ -67,135 +59,158 @@ const EditBranchOffice = () => {
                   size="ms"
                   placeholder={branch.name}
                   className="position-relative"
-                  name="bussinessName"
+                  name="name"
                   variant="outlined"
-                  value={name.value}
-                  onChange={name.onChange}
+                  {...register("name", 
+                  )}
                 />
-              </div>
-              <div className="col-md-6">
-                <Form.Label className="labels">Ciudad</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder={branch.city}
-                  className="position-relative"
-                  name="CUIT"
-                  variant="outlined"
-                  value={city.value}
-                  onChange={city.onChange}
+                <ErrorMessage
+                  errors={require}
+                  name="name"
+                  render={({ message }) => <p>{message}</p>}
                 />
               </div>
             </div>
 
             <div className="row mt-3">
               <div className="col-md-12">
-                <Form.Label className="labels">Dirección</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder={branch.address}
-                  className="position-relative"
-                  name="legalAddress"
-                  variant="outlined"
-                  value={address.value}
-                  onChange={address.onChange}
-                />
+                <Form.Label className="labels">Dirección: {branch.address}</Form.Label>
+
               </div>
 
               <div className="col-md-12">
-                <Form.Label className="labels">Provincia</Form.Label>
-
-                <Form.Control
-                  as="select"
-                  size="ms"
-                  placeholder="Provincia"
-                  className="position-relative"
-                  name="email"
-                  variant="outlined"
-                  value={provincie.value}
-                  onChange={provincie.onChange}
-                >
-                  <option>Buenos Aires</option>
-                  <option>Córdoba</option>
-                  <option>San Luis</option>
-                  <option>Catamarca</option>
-                  <option>Tierra Del Fuego</option>
-                  <option>Santa Cruz</option>
-                  <option>Río Negro</option>
-                  <option>Neuquén</option>
-                  <option>La Pampa</option>
-                  <option>Santa Fé</option>
-                  <option>La Rioja</option>
-                  <option>Tucumán</option>
-                  <option>Corrientes</option>
-                  <option>Entre Ríos</option>
-                  <option>Misiones</option>
-                  <option>Chaco</option>
-                  <option>Formosa</option>
-                  <option>Jujuy</option>
-                  <option>San Juan</option>
-                  <option>Salta</option>
-                  <option>Mendoza</option>
-                  <option>Santiago del Estero</option>
-                  <option>Chubut</option>
-                </Form.Control>
+                <Form.Label className="labels">Ciudad: {branch.city}</Form.Label>
+            
               </div>
 
-              <div className="col-md-12">
-                <Form.Label className="labels">Cliente</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder={branch.owner}
-                  className="position-relative"
-                  name="email"
-                  variant="outlined"
-                  value={owner.value}
-                  onChange={owner.onChange}
-                />
-              </div>
+             
+
               <div className="row mt-2">
-                <div className="col-md-6">
-                  <Form.Label className="labels">
-                    Horario de apertura
-                  </Form.Label>
-                  <Form.Control
-                    size="ms"
-                    placeholder={branch.openHour}
-                    className="position-relative"
-                    name="startContratDate"
-                    variant="outlined"
-                    value={openHour.value}
-                    onChange={openHour.onChange}
-                  />
-                </div>
+                  <div className="col-md-6">
+                    <Form.Label className="labels">
+                      Hoario de apertura: {branch.openHour} HS
+                    </Form.Label>
+                    <Form.Control
+                      as="select"
+                      size="ms"
+                      placeholder="Horario de apertura"
+                      className="position-relative"
+                      name="Horario de apertura"
+                      variant="outlined"
+                      {...register("openHour", {
+                        required: {
+                          value: true,
+                          message: "Necesitas este campo",
+                        },
+                      })}
+                    >
+                      <option>00</option>
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                      <option>04</option>
+                      <option>05</option>
+                      <option>06</option>
+                      <option>07</option>
+                      <option>08</option>
+                      <option>09</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                      <option>13</option>
+                      <option>14</option>
+                      <option>15</option>
+                      <option>16</option>
+                      <option>17</option>
+                      <option>18</option>
+                      <option>19</option>
+                      <option>20</option>
+                      <option>21</option>
+                      <option>22</option>
+                      <option>23</option>
+                    </Form.Control>
 
-                <div className="col-md-6">
-                  <Form.Label className="labels">Horario de cierre</Form.Label>
-                  <Form.Control
-                    size="ms"
-                    placeholder={branch.closeHour}
-                    className="position-relative"
-                    name="endContratDate"
-                    variant="outlined"
-                    value={closeHour.value}
-                    onChange={closeHour.onChange}
-                  />
+                    <ErrorMessage
+                      errors={errors}
+                      name="openHour"
+                      render={({ message }) => <p>{message}</p>}
+                    />
+                  </div>
+
+                  <div className="col-md-6">
+                    <Form.Label className="labels">
+                      Horario de cierre: {branch.closeHour} HS
+                    </Form.Label>
+                    <Form.Control
+                      as="select"
+                      size="ms"
+                      placeholder="Horario de cierre"
+                      className="position-relative"
+                      name="Horario de cierre"
+                      variant="outlined"
+                      {...register("closeHour", {
+                        required: {
+                          value: true,
+                          message: "Necesitas este campo",
+                        },
+                      })}
+                    >
+                      <option>00</option>
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                      <option>04</option>
+                      <option>05</option>
+                      <option>06</option>
+                      <option>07</option>
+                      <option>08</option>
+                      <option>09</option>
+                      <option>10</option>
+                      <option>11</option>
+                      <option>12</option>
+                      <option>13</option>
+                      <option>14</option>
+                      <option>15</option>
+                      <option>16</option>
+                      <option>17</option>
+                      <option>18</option>
+                      <option>19</option>
+                      <option>20</option>
+                      <option>21</option>
+                      <option>22</option>
+                      <option>23</option>
+                    </Form.Control>
+                    <ErrorMessage
+                      errors={errors}
+                      name="closeHour"
+                      render={({ message }) => <p>{message}</p>}
+                    />
+                  </div>
                 </div>
-              </div>
             </div>
-            <div className="mt-5 text-center">
+            <div className="text-center">
               <Button
+                onSubmit={handleSubmit(onSubmit)}
+                type="submit"
                 variant="warning"
-                onClick={handleClick}
                 className="btn btn-primary profile-button"
-                type="button"
               >
                 GUARDAR CAMBIOS
               </Button>
+              <Button
+                variant="warning"
+                onClick={() => handleClickVolver("/clients")}
+                className="btn btn-primary profile-button m-5"
+                type="button"
+              >
+                VOLVER
+              </Button>
             </div>
-          </div>
+          </Form>
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
