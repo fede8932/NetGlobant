@@ -33,6 +33,7 @@ import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo"
+import CalendarComponent from "./components/Calendar";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
       ) : (
         <></>
       )}
+   
 
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />
@@ -81,6 +83,7 @@ function App() {
         <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
         <Route path="/search/securities" element={<SecurityList />} />
         <Route path="/user/avisos" element={<AvisosForm />} />
+        <Route path="/calendar" element={<CalendarComponent />} />
       </Routes>
     </div>
   );
