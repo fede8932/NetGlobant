@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
-import { postClient, getClientId } from "../states/singleClient";
+import { postClient } from "../states/singleClient";
 
 const ClientFormNuevo = () => {
   const navigate = useNavigate();
