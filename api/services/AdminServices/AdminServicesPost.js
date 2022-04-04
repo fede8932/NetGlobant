@@ -23,11 +23,12 @@ class AdminServicesPost {
           status: true,
         },
       });
-      const isEnable= await validationZone(security.id,office.id)
-      if(isEnable){
+      console.log("OFFICE", office, "SECURITY", security)
+      /* const isEnable= await validationZone(security.id,office.id)
+      if(isEnable){ */
       office.addSecurity(security);
       return office
-    }
+   /*  } */
       
     } catch (err) {
       console.log(err);

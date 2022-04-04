@@ -31,7 +31,7 @@ WorkDay.init(
     comment:{
       type: S.TEXT
     },
-    urlSecurity:{
+    imageSecurity:{
       type: S.STRING
     }
 

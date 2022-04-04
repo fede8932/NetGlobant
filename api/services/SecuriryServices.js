@@ -90,7 +90,7 @@ class SecuritiesServices {
     }
   }
 
-/*     static async serviceCancellWorkDay(req, next){
+    static async serviceCancellWorkDay(req, next){
       try{
         const [rows, workDay]= await WorkDay.update((req.body,{
             where:{ id: req.params.id},
@@ -102,7 +102,7 @@ class SecuritiesServices {
             next(err)
         }
     
-      } */
+      } 
   static async serviceChangeMyPassword(req, next) {
     try {
       await Securities.update(req.body, {
@@ -115,7 +115,7 @@ class SecuritiesServices {
 
   static async serviceSavePhoto(req, next){
     try{
-    const workDayUrl= WorkDay.update({urlSecurity: req.body.url},
+    const workDayUrl= WorkDay.update({imageSecurity: req.body.image},
       { where:{
      id:  req.body.id
       }})
