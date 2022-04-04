@@ -14,20 +14,21 @@ class AdminServicesPost {
       const { id } = req.body;
 
       const office = await BranchOficce.findOne({
-        where: { id: id, status: true },
+        where: { id: id,/*  status: true */ },
       });
-
+      
       const security = await Securities.findOne({
         where: {
           CUIL: req.body.CUIL,
-          status: true,
+          /* status: true */
         },
       });
-      const isEnable= await validationZone(security.id,office.id)
-      if(isEnable){
+
+     /*  const isEnable= await validationZone(security.id,office.id)
+      if(isEnable){ */
       office.addSecurity(security);
       return office
-    }
+  /*   } */
       
     } catch (err) {
       console.log(err);
@@ -72,11 +73,11 @@ class AdminServicesPost {
       const security = await Securities.findOne({
         where: {
           CUIL: req.body.CUIL,
-          status: true,
+          /* status: true */
         },
       });
       const workDay = await WorkDay.findOne({
-        where: { id: req.body.id, status: true },
+        where: { id: req.body.id, /* status: true */ },
       });
       security.addWorkDays(workDay);
     } catch (err) {
@@ -88,11 +89,11 @@ class AdminServicesPost {
     try {
       const security = await BranchOficce.findOne({
         where: {
-         id: req.body.officeId, status:true
+         id: req.body.officeId,/*  status:true */
         },
       });
       const workDay = await WorkDay.findOne({
-        where: { id: req.body.id, status: true },
+        where: { id: req.body.id, /* status: true */ },
       });
       security.addWorkDays(workDay);
     } catch (err) {
@@ -117,7 +118,7 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
-        where: { name: req.body.name , status: true },
+        where: { name: req.body.name  },
         include: {
           association: Securities.calendar,
           where: {

@@ -3,14 +3,14 @@ const {Provincies, Admin, Securities, Client}= require("../models")
 
 
 const provinces= require("../utils/provinces")
-const adminList = require("./lists/adminList");
-const securitiesList = require("./lists/securitiesList");
-const clientsList = require("./lists/clientsList");
+const superAdmin= require("../utils/superAAdmin");
+const securitiesList = require("../utils/lists/securitiesList");
+const clientsList = require("../utils/lists/clientsList");
 
 const setupSeed = async () => {
   console.log("SEED STARTING");
 
-  const admins = await Admin.bulkCreate(adminList);
+  const admins = await Admin.bulkCreate(superAdmin);
 
   const securities = await Securities.bulkCreate(securitiesList);
 

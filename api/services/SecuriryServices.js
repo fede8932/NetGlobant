@@ -12,10 +12,10 @@ class SecuritiesServices {
       const date = req.params.date;
       const today = await WorkDay.findOne({
         where: {
-          wishEntryHour: date,
+          date: date,
         },
       });
-      console.log("TODAY",date)
+      console.log("TODAY",today.wishEntryHour)
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
