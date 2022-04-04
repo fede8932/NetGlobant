@@ -60,7 +60,9 @@ class AdminServicesPost {
 
   static async serviceAddClient(req, next) {
     try {
+      console.log("ESTO ES REQ BODY", req.body)
       const client = await Client.create(req.body);
+      console.log("CLIENT", client)
       return client;
     } catch (err) {
       next(err);

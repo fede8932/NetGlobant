@@ -9,10 +9,7 @@ import { postClient } from "../states/singleClient";
 
 const ClientFormNuevo = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-  const client = useSelector((state) => state.client);
-
   const {
     register,
     handleSubmit,
@@ -20,8 +17,12 @@ const ClientFormNuevo = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    dispatch(postClient(data));
-    navigate(`/`);
+    try {
+      const createdClient = await dispatch(postClient(data));
+      navigate(`/clients/${createdClient.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClickVolver = (url) => {
@@ -77,8 +78,7 @@ const ClientFormNuevo = () => {
                       },
                       minLength: {
                         value: 11,
-                        message:
-                          "El CUIT debe tener 11 caracteres",
+                        message: "El CUIT debe tener 11 caracteres",
                       },
                       maxLength: {
                         value: 11,
