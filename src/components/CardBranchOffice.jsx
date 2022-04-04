@@ -1,28 +1,37 @@
 import React, { useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { deleteBranchId } from "../states/branches";
 import swal from "sweetalert";
 import { getBranchId } from "../states/singleBranch";
-import {BiEdit} from 'react-icons/bi'
-import {RiDeleteBin6Line} from 'react-icons/ri'
+import { BiEdit } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { getClientId } from "../states/singleClient";
 
 const CardBranchOffice = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = useParams();
-
   const branch = useSelector((state) => state.branch);
+  const client = useSelector((state) => state.client);
 
-  useEffect(() => {
-    dispatch(getBranchId(id.id));
+  useEffect(async () => {
+    try {
+      const obtainedBranch = await dispatch(getBranchId(id.id));
+      const obtainedClient = await dispatch(
+        getClientId(obtainedBranch.payload.clientId)
+      );
+      console.log("ESTO ES CLIENT", obtainedClient.payload.id);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
+
+  console.log("eeeeeesto es client", client);
 
   const handleDelete = () => {
     dispatch(deleteBranchId(branch.id));
-
     swal({
       title: "La sucursal fue removida",
       text: ".",
@@ -48,6 +57,9 @@ const CardBranchOffice = () => {
       >
         <Card.Body>
           <Card.Title style={{ fontSize: "20px" }}>{branch.name}</Card.Title>
+          {/* <Card.Subtitle className="mb-2 mt-5 text-muted">
+            Cliente: <strong>{client.bussinesName}</strong>
+          </Card.Subtitle> */}
           <Card.Subtitle className="mb-2 mt-5 text-muted">
             Ciudad: {branch.city}
           </Card.Subtitle>
@@ -79,7 +91,7 @@ const CardBranchOffice = () => {
               variant="secondary"
               onClick={() => handleClick(`/edit/branch/${branch.id}`)}
             >
-             <BiEdit/>
+              <BiEdit />
               Editar
             </Button>
             <Button
@@ -90,7 +102,7 @@ const CardBranchOffice = () => {
               variant="secondary"
               onClick={handleDelete}
             >
-               <RiDeleteBin6Line/>
+              <RiDeleteBin6Line />
               Eliminar
             </Button>
           </Card.Text>

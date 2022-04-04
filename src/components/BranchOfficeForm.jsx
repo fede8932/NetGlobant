@@ -5,14 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postBranch } from "../states/singleBranch";
 import { useForm } from "react-hook-form";
-
 import { ErrorMessage } from "@hookform/error-message";
 import { getAllClients } from "../states/Clients";
+
 const BranchOfficeForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const branch = useSelector((state) => state.branch);
-
   const clients = useSelector((state) => state.clients);
 
   useEffect(() => {
@@ -26,8 +24,12 @@ const BranchOfficeForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    dispatch(postBranch(data));
-    navigate(`/branch/${branch.id}`);
+    try {
+      const createdBranch = await dispatch(postBranch(data));
+      navigate(`/branch/${createdBranch.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClickVolver = (url) => {

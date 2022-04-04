@@ -1,18 +1,15 @@
 import React from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
-
 import { createSecurity } from "../states/singleSecurity";
 
 const SecurityFormNuevo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const security = useSelector((state) => state.security);
-
   const {
     register,
     handleSubmit,
@@ -20,12 +17,13 @@ const SecurityFormNuevo = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("ESTO ES DATA EN ONSUBMIT", data);
-    dispatch(createSecurity(data));
-    navigate(`/search/securities/${security.id}`);
-   
+    try {
+      const createdSecurity = await dispatch(createSecurity(data));
+      navigate(`/search/securities/${createdSecurity.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
 
   const handleClickVolver = (url) => {
     navigate(url);
@@ -217,8 +215,8 @@ const SecurityFormNuevo = () => {
                 </div>
 
                 <div className="col-md-12">
-                    <Form.Label className="labels">Contraseña</Form.Label>
-                    <Form.Control
+                  <Form.Label className="labels">Contraseña</Form.Label>
+                  <Form.Control
                     size="ms"
                     placeholder="Contraseña"
                     className="position-relative"
@@ -236,8 +234,7 @@ const SecurityFormNuevo = () => {
                     name="password"
                     render={({ message }) => <p>{message}</p>}
                   />
-                  </div>
-
+                </div>
               </div>
 
               <div className="text-center">
