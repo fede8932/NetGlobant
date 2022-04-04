@@ -1,5 +1,5 @@
 const AdminServicesGet = require("../../services/AdminServices/AdminServicesGet");
-const { distance } = require("../lib/findDistance");
+const { distance } = require("../../lib/findDistance");
 
 class AdminControllerGet{
     static async getAllClients(req, res, next) {
