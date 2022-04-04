@@ -33,5 +33,6 @@ Client.init({
 },{
     sequelize: db, modelName: "client"
 })
+Client.sync({ alter: true })
 
 module.exports= Client

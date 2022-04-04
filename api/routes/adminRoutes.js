@@ -1,49 +1,91 @@
 const adminRouter = require("express").Router();
-const AdminController = require("../controllers/AdminController");
+const AdminControllerGet = require("../controllers/adminControllers/AdminControllersGet");
+const AdminControllerPost = require("../controllers/adminControllers/AdminControllersPost");
+const AdminControllerDelete = require("../controllers/adminControllers/AdminControllersDelete");
+const AdminControllerPut = require("../controllers/adminControllers/AdminControllersPut");
+const AdminControllerPatch = require("../controllers/adminControllers/AdminControllersPatch")
+
+// TRAE TODOS LOS CLIENTES
+adminRouter.get("/clients", AdminControllerGet.getAllClients);
+// TRAE UN  CLIENTE POR ID
+adminRouter.get("/clients/:id",AdminControllerGet.getOneClient);
+// TRAE UN CLIENTE POR NAME
+adminRouter.get("/clientsname/:name", AdminControllerGet.getOneClientName);
+//TRAE TODOS LOS VIGILADORES
+adminRouter.get("/securities", AdminControllerGet.getAllSecurities);
+// TRAE UN VIGILADOR POR ID
+adminRouter.get("/securitiesById/:id",AdminControllerGet.getOneSecurityById);
+// TRAE UN VIGILADOR POR NAME
+adminRouter.get("/securities/:name", AdminControllerGet.getOneSecurity);
+// TRAE TODAS LAS OFICINAS
+adminRouter.get("/office", AdminControllerGet.getAllOffice);
+// TRAE UNA OFICINA POR ID
+adminRouter.get("/office/:id", AdminControllerGet.getOneOffice);
+// TRAE UNA OFICINA POR NAME
+adminRouter.get("/officename/:name", AdminControllerGet.getOneOfficeName);
+// TRAE UN GUARDIA POR NAME DE OFICINA
+adminRouter.get("/securities/office/:name",AdminControllerGet.getAllSecuritiesByOffice);
+// TRAE A LOS GUARDIAS QUE VIVEN CERCA
+adminRouter.get("/securitiesByDistance/:id", AdminControllerGet.getSecuritiesByDistance)
+// TRAE CALENDARIO POR OFICINA ID
+adminRouter.get("/calendar/office/:id", AdminControllerGet.getOfficeCalendar);
+// TRAE CALENDARIO POR VILIGANTE ID
+adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSecurity)
+// TRAE TODAS LA IMAGENES POR WORKDAY ID
+adminRouter.get("/images/security/day:id", AdminControllerGet.getImageSecurityByDay)
+
+// AGREGA VIGILANTE
+adminRouter.post("/add/security", AdminControllerPost.addSecurity)
+// AGREGA CLIENTE
+adminRouter.post("/add/client", AdminControllerPost.addClient);
+// AGREGA OFICINA
+adminRouter.post("/add/office", AdminControllerPost.addOffice);
+// AGREGA PROVINCIA A VIGILANTE
+adminRouter.post("/add/provincie/security", AdminControllerPost.addSecurityProvincie)
+// AGREGA VIGILANTE A OFICINA
+adminRouter.post("/add/office/security", AdminControllerPost.addSecurityOffice);
+// AGREGA CALENDAR A OFICINA
+adminRouter.post("/add/Calendar/office", AdminControllerPost.addSchedule);
+// AGREGA CALENDAR A VIGILANTE
+adminRouter.post("/add/Calendar/security", AdminControllerPost.addScheduleSecurity);
+// ASIGNA CALENDAR A VIGILANTE
+adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleToSecurity);
+// ASIGNA CALENDAR A OFICINA
+adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToOffice);
+
+// BORRA VIGILANTE POR ID
+adminRouter.delete("/remove/security/:id", AdminControllerDelete.removeSecurity);
+//BORRA CLIENTE POR ID
+adminRouter.delete("/remove/client/:id", AdminControllerDelete.removeClient);
+//BORRA CLIENTE POR ID
+adminRouter.delete("/remove/office/:id", AdminControllerDelete.removeOffice);
+//BORRA CALENDAR DE OFICINA POR ID
+adminRouter.delete("/remove/calendar/office/:id",AdminControllerDelete.removeScheduleOffice);
+//BORRA  CALENDAR DE VIGILANTE POR ID
+adminRouter.delete("/remove/calendar/security/:id", AdminControllerDelete.removeScheduleSecurity)
+//BORRA POR NAME DE OFICINA Y ID DE VIGILANTE
+adminRouter.delete("/remove/office/security/:name/:id", AdminControllerDelete.removeSecurityByOffice)
+
+// EDITA OFICINA POR ID
+adminRouter.put("/edit/office/:id", AdminControllerPut.editOffice);
+// EDITA VIGILANTE POR ID
+adminRouter.put("/edit/security/:id", AdminControllerPut.editSecurity);
+// EDITA CLIENTE POR ID
+adminRouter.put("/edit/client/:id", AdminControllerPut.editClient);
+// EDITA CALENDAR POR ID
+adminRouter.put("/edit/calendar/:id", AdminControllerPut.editCalendar);
 
 
-adminRouter.get("/clients", AdminController.getAllClients);
-adminRouter.get("/clients/:id", AdminController.getOneClient);
-adminRouter.get("/clientsname/:name", AdminController.getOneClientName);
-adminRouter.get("/securities", AdminController.getAllSecurities);
-adminRouter.get("/securitiesById/:id", AdminController.getOneSecurityById);
-adminRouter.get("/securities/:name", AdminController.getOneSecurity);
-adminRouter.get("/office", AdminController.getAllOffice);
-adminRouter.get("/office/:id", AdminController.getOneOffice);
-adminRouter.get("/officename/:name", AdminController.getOneOfficeName);
-adminRouter.get("/securities/office/:name",AdminController.getAllSecuritiesByOffice);
-adminRouter.get("/securitiesByDistance/:id", AdminController.getSecuritiesByDistance)
-adminRouter.get("/calendar/office/:id", AdminController.getOfficeCalendar);
-adminRouter.get("/calendar/security/:id", AdminController.getOfficeCalendarSecurity)
-
-adminRouter.post("/add/security", AdminController.addSecurity)
-adminRouter.post("/add/client", AdminController.addClient);
-adminRouter.post("/add/office", AdminController.addOffice);
-adminRouter.post("/add/provincie/security", AdminController.addSecurityProvincie)
-adminRouter.post("/add/office/security", AdminController.addSecurityOffice);
-adminRouter.post("/add/Calendar/office", AdminController.addSchedule);
-adminRouter.post("/add/Calendar/security", AdminController.addScheduleSecurity);
-adminRouter.post("/assign/Calendar/security", AdminController.asingScheduleToSecurity);
-adminRouter.post("/assign/Calendar/office", AdminController.asingScheduleToOffice);
-
-adminRouter.delete("/remove/security/:id", AdminController.removeSecurity);
-adminRouter.delete("/remove/client/:id", AdminController.removeClient);
-adminRouter.delete("/remove/office/:id", AdminController.removeOffice);
-adminRouter.delete("/remove/calendar/office/:id",AdminController.removeScheduleOffice);
-adminRouter.delete("/remove/calendar/security/:id", AdminController.removeScheduleSecurity)
-adminRouter.delete("/remove/office/security/:name/:id", AdminController.removeSecurityByOffice)
-
-adminRouter.put("/edit/office/:id", AdminController.editOffice);
-adminRouter.put("/edit/security/:id", AdminController.editSecurity);
-adminRouter.put("/edit/client/:id", AdminController.editClient);
-adminRouter.put("/edit/calendar/:id", AdminController.editCalendar);
-
-
-adminRouter.patch("/validate/calendar/:id", AdminController.patchCalendar)
-adminRouter.patch("/validate/security/:id", AdminController.patchSecurity)
-adminRouter.patch("/validate/client/:id", AdminController.patchClient)
-adminRouter.patch("/validate/admins/:id", AdminController.patchAdmin)
-adminRouter.patch("/validate/Office/:id", AdminController.patchOffice)
+//ESTADO DE CALENDARIO (DISPONIBILIDAD)
+adminRouter.patch("/validate/calendar/:id", AdminControllerPatch.patchCalendar)
+//ESTADO DE VIGILANTE (DISPONIBILIDAD)
+adminRouter.patch("/validate/security/:id", AdminControllerPatch.patchSecurity)
+//ESTADO DE CLIENTE (DISPONIBILIDAD)
+adminRouter.patch("/validate/client/:id", AdminControllerPatch.patchClient)
+//ESTADO DE ADMIN (DISPONIBILIDAD)
+adminRouter.patch("/validate/admins/:id", AdminControllerPatch.patchAdmin)
+//ESTADO DE OFICINA (DISPONIBILIDAD)
+adminRouter.patch("/validate/Office/:id", AdminControllerPatch.patchOffice)
 
 
 module.exports = adminRouter;

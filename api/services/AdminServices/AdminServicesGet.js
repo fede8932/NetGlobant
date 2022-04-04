@@ -7,6 +7,7 @@ const {
 } = require("../../models");
 const { Op } = require("@sequelize/core");
 const { getRadius } = require("../../lib/findDistance");
+const { findAll } = require("../../models/Admin");
 
 class AdminServicesGet {
   static async serviceGetAllClients(next) {
@@ -189,5 +190,23 @@ class AdminServicesGet {
       next(error);
     }
   }
+
+
+static async getImageSecurity(req, next){
+  try{
+  const image= WorkDay.findAll({
+    where:{
+      id: req.params.id
+    },
+    include:{
+      attributes:['imageSecurity']
+    }
+  })
+  return image
+}catch(err){
+  next(err)
+}
+}
+
 }
 module.exports = AdminServicesGet;

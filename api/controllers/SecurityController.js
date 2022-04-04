@@ -11,9 +11,20 @@ class SecurityController{
      return res.sendStatus(201)
  }
 
+static async cancellMyWorkDay(req, res, next){
+    await SecuritiesServices.serviceCancellWorkDay(req, next)
+    return res.sendstatus(200)
+}
+
+
 static async changeMyPassword(req, res, next){
     await SecuritiesServices.serviceChangeMyPassword(req, next)
     return res.sendStatus(204)
+}
+
+static async saveImageSecurity(req, res, next){
+    const newImage= await SecuritiesServices.serviceSavePhoto(req, next)
+    return newImage? res.sendStatus(201): res.sendStatus(500)
 }
 
 }

@@ -9,13 +9,13 @@ const {
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
     try {
-      const date = req.params.date;
       const today = await WorkDay.findOne({
         where: {
           date: date,
         },
       });
-      console.log("TODAY",date)
+      console.log("TODAY", date);
+
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
@@ -25,7 +25,7 @@ class SecuritiesServices {
           },
         },
       });
-      console.log(schedule)
+      console.log(schedule);
       const oficina = await BranchOficce.findOne({
         include: {
           association: BranchOficce.calendar,
@@ -34,19 +34,19 @@ class SecuritiesServices {
           },
         },
       });
-      
+
       const cliente = await Client.findOne({
         where: {
           id: oficina.clientId,
         },
       });
-      console.log(oficina)
+      console.log(oficina);
       const provincia = await Provincies.findOne({
         where: {
           id: oficina.provincyId,
         },
       });
-     
+
       return {
         office: oficina,
         calendario: schedule,
@@ -54,7 +54,7 @@ class SecuritiesServices {
         provincia: provincia,
       };
     } catch (err) {
-      console.log(err)
+      console.log(err);
       next(err);
     }
   }
@@ -90,21 +90,42 @@ class SecuritiesServices {
     }
   }
 
-  /*  static async serviceCancellWorkDay(req, next){
-        const [rows, workDay]= await WorkDay.update((req.body,{
-            where:{ id: req.params.id},
-        }))
-        return workDay
-        }catch(err){
-            next(err)
-        }
-    } */
-
+  static async serviceCancellWorkDay(req, next) {
+    try {
+      const [rows, workDay] = await WorkDay.update(
+        (req.body,
+        {
+          where: { id: req.params.id },
+        })
+      );
+      workDay.status = false;
+      workDay.save();
+      return workDay;
+    } catch (err) {
+      next(err);
+    }
+  }
   static async serviceChangeMyPassword(req, next) {
     try {
       await Securities.update(req.body, {
         where: { id: req.params.id },
       });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceSavePhoto(req, next) {
+    try {
+      const workDayUrl = WorkDay.update(
+        { imageSecurity: req.body.image },
+        {
+          where: {
+            id: req.body.id,
+          },
+        }
+      );
+      return workDayUrl;
     } catch (err) {
       next(err);
     }
