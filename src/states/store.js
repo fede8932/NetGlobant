@@ -19,7 +19,6 @@ const store = configureStore({
     clients: allClientsReducer,
     security: securityReducer,
     device: deviceReducer,
-    clients: allClientsReducer,
     securities: securitiesReducer,
     branches: branchesReducer,
     branch: branchReducer,

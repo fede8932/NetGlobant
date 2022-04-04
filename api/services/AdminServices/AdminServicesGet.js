@@ -118,7 +118,6 @@ class AdminServicesGet {
       
       return securityList;
     } catch (err) {
-      console.log("ACA ESTA SALAME", err);
       next(err);
     }
   }

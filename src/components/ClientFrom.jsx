@@ -1,38 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useInput } from "../hooks/useInput";
-import { Button, Form} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-
+import { postClient } from "../states/singleClient";
 
 const ClientForm = () => {
-  const usuario = useSelector((state) => state.usuario);
-
   const bussinessName = useInput();
   const CUIT = useInput();
   const email = useInput();
   const legalAddress = useInput();
   const startContratDate = useInput();
   const endContratDate = useInput();
+  const navigate = useNavigate();
+  const client = useSelector((state) => state.client);
+  const dispatch = useDispatch();
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-
-    await axios({
-      method: "POST",
-      url: "/api/admin/add/client",
-      data: {
+    dispatch(
+      postClient({
         bussinessName: bussinessName.value,
         CUIT: CUIT.value,
-        Email: email.value,
+        email: email.value,
         legalAddress: legalAddress.value,
         startContratDate: startContratDate.value,
-        EndContratDate: endContratDate.value,
-      },
-    });
+        endContratDate: endContratDate.value,
+      })
+    );
+
     swal({
       title: "Cliente agregado",
       text: ".",
@@ -40,7 +38,7 @@ const ClientForm = () => {
       button: "Aceptar",
     });
 
-    //  navigate("/");
+    navigate(`/clients/${client.id}`);
   };
 
   return (
@@ -50,7 +48,9 @@ const ClientForm = () => {
         <div className="col-md-5 border-right">
           <div className="p-3 py-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="text-right" style={{ color: "grey" }}>ALTA DE CLIENTES</h4>
+              <h4 className="text-right" style={{ color: "grey" }}>
+                ALTA DE CLIENTES
+              </h4>
             </div>
             <div className="row mt-2">
               <div className="col-md-6">
@@ -76,7 +76,6 @@ const ClientForm = () => {
                   value={CUIT.value}
                   onChange={CUIT.onChange}
                 />
-          
               </div>
             </div>
 
@@ -110,7 +109,7 @@ const ClientForm = () => {
                 <div className="col-md-6">
                   <Form.Label className="labels">Inicio de contrato</Form.Label>
                   <Form.Control
-                  type="date"
+                    type="date"
                     size="ms"
                     placeholder="MM/DD/AAAA"
                     className="position-relative"
@@ -124,7 +123,7 @@ const ClientForm = () => {
                 <div className="col-md-6">
                   <Form.Label className="labels">Fin de contrato</Form.Label>
                   <Form.Control
-                  type="date"
+                    type="date"
                     size="ms"
                     placeholder="MM/DD/AAAA"
                     className="position-relative"

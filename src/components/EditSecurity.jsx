@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editSecurity, getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const EditSecurity = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,13 @@ const EditSecurity = () => {
         province: province.value,
       })
     );
+    swal({
+      title: "La sucursal fue editada",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
+
     navigate(`/search/securities/${security[0].id}`);
   };
 
