@@ -46,6 +46,13 @@ const Barra = () => {
           Permisos
         </Button>
         <Button
+          onClick={()=>{navigate('/user/estadisticas')}}
+          variant="warning"
+          style={{ color: "#696969" }}
+        >
+          Estadísticas
+        </Button>
+        <Button
           onClick={handleLogout}
           variant="warning"
           style={{ color: "#696969" }}

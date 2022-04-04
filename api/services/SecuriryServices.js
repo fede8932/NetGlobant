@@ -12,7 +12,7 @@ class SecuritiesServices {
       const date = req.params.date;
       const today = await WorkDay.findOne({
         where: {
-          wishEntryHour: date,
+          date: date,
         },
       });
       console.log("TODAY",date)
@@ -25,7 +25,7 @@ class SecuritiesServices {
           },
         },
       });
-      
+      console.log(schedule)
       const oficina = await BranchOficce.findOne({
         include: {
           association: BranchOficce.calendar,
@@ -40,7 +40,7 @@ class SecuritiesServices {
           id: oficina.clientId,
         },
       });
-      
+      console.log(oficina)
       const provincia = await Provincies.findOne({
         where: {
           id: oficina.provincyId,

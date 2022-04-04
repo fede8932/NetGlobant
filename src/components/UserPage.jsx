@@ -53,30 +53,30 @@ export default function UserPage() {
     console.log("ubicacion")
   }
   return (
-    <>
-    <div className="responsiveContainer">
-      <Container className="textContainer">
-        <h4>Precioná el boton "INGRESO", en el momento exacto en el que comiences tu jornada laboral. Precioná "EGRESO", cuando seas relevado.</h4>
-        <p>Deberás estar correctamente uniformado y listo en tu puesto de vigilancia al momento de iniciar.</p>
-      </Container>
-      <Container>
-        <div className="d-grid gap-2">
-          <Button onClick={checkIn} variant={ingColor} size="lg">
-            Ingreso
-          </Button>
-        <Toast show={showA} onClose={toggleShowA}>
-          <Toast.Header>
-            <strong className="me-auto">No es posible registrar el ingreso.</strong>
-          </Toast.Header>
-          <Toast.Body>No estas en tu lugar de vigilancia.</Toast.Body>
-        </Toast>
-          <Button onClick={checkOut} variant={outColor} size="lg">
-            Egreso
-          </Button>
-        </div>
-      </Container>
+    <div className="estadisticasContainer">
+      <div className="responsiveContainer">
+        <Container className="textContainer">
+          <h4>Presioná el boton "INGRESO", en el momento exacto en el que comiences tu jornada laboral. Precioná "EGRESO", cuando seas relevado.</h4>
+          <p>Deberás estar correctamente uniformado y listo en tu puesto de vigilancia al momento de iniciar.</p>
+        </Container>
+        <Container>
+          <div className="d-grid gap-2">
+            <Button onClick={checkIn} variant={ingColor} size="lg">
+              Ingreso
+            </Button>
+          <Toast show={showA} onClose={toggleShowA}>
+            <Toast.Header>
+              <strong className="me-auto">No es posible registrar el ingreso.</strong>
+            </Toast.Header>
+            <Toast.Body>No estas en tu lugar de vigilancia.</Toast.Body>
+          </Toast>
+            <Button onClick={checkOut} variant={outColor} size="lg">
+              Egreso
+            </Button>
+          </div>
+        </Container>
+      </div>
+      <Footer/>
     </div>
-    <Footer/>
-    </>
     );
 }

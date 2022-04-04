@@ -20,7 +20,6 @@
 }
 .responsiveContainer{
     max-width: 45em;
-    min-height: 75vh;
     margin: auto;
     margin-top: 4rem;
 }
@@ -38,15 +37,8 @@
     margin-top: 5rem;
     width: 100%;
 }
-#footer{
-    margin-bottom: 0;
-}
 .bi{
     font-size: 1.6rem;
-}
-.userContainer{
-    min-height: 80vh;
-    margin-top: 2em;
 }
 .verqueonda{
     display: flex;
@@ -66,4 +58,12 @@
 .userName{
     font-size: 1.2em;
 }
-
+.estadisticasContainer{
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.userContainer{
+    margin-top: 2em;
+}

@@ -4,19 +4,16 @@ import { Button, Form} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 
 const AvisosForm = () => {
   const usuario = useSelector((state) => state.usuario);
 
-  const bussinessName = useInput();
-  const CUIT = useInput();
-  const email = useInput();
-  const legalAddress = useInput();
-  const startContratDate = useInput();
-  const endContratDate = useInput();
+  const name = useInput();
+  const motivo = useInput();
+  const startDate = useInput();
+  const endDate = useInput();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -25,22 +22,15 @@ const AvisosForm = () => {
       method: "POST",
       url: "/api/admin/add/client",
       data: {
-        bussinessName: bussinessName.value,
-        CUIT: CUIT.value,
-        Email: email.value,
-        legalAddress: legalAddress.value,
-        startContratDate: startContratDate.value,
-        EndContratDate: endContratDate.value,
+        name: name.value,
       },
     });
     swal({
-      title: "Cliente agregado",
-      text: ".",
+      title: "Solicitud enviada",
+      text: "Podrás ver el estado de la solicitud en 'Estadísticas'",
       icon: "success",
       button: "Aceptar",
     });
-
-    //  navigate("/");
   };
 
   return (
@@ -63,40 +53,11 @@ const AvisosForm = () => {
                   variant="outlined"
                   value={usuario.name}
                   disabled="true"
-                  onChange={bussinessName.onChange}
                 />
               </div>
             </div>
-
-            <div className="row mt-3">
-              <div className="col-md-12">
-                <Form.Label className="labels">Dirección</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder="Dirección"
-                  className="position-relative"
-                  name="legalAddress"
-                  variant="outlined"
-                  value={legalAddress.value}
-                  onChange={legalAddress.onChange}
-                />
-              </div>
-
-              <div className="col-md-12">
-                <Form.Label className="labels">Email</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder="Email"
-                  className="position-relative"
-                  name="email"
-                  variant="outlined"
-                  value={email.value}
-                  onChange={email.onChange}
-                />
-              </div>
-              <div className="row mt-2">
-                <div className="col-md-6">
-                  <Form.Label className="labels">Inicio de contrato</Form.Label>
+            <div className="col-md-6">
+                  <Form.Label className="labels">Inicio de licencia</Form.Label>
                   <Form.Control
                   type="date"
                     size="ms"
@@ -104,13 +65,11 @@ const AvisosForm = () => {
                     className="position-relative"
                     name="startContratDate"
                     variant="outlined"
-                    value={startContratDate.value}
-                    onChange={startContratDate.onChange}
+                    onChange={startDate.onChange}
                   />
-                </div>
-
-                <div className="col-md-6">
-                  <Form.Label className="labels">Fin de contrato</Form.Label>
+            </div>
+              <div className="col-md-6">
+                  <Form.Label className="labels">Fin de licencia</Form.Label>
                   <Form.Control
                   type="date"
                     size="ms"
@@ -118,17 +77,27 @@ const AvisosForm = () => {
                     className="position-relative"
                     name="endContratDate"
                     variant="outlined"
-                    value={endContratDate.value}
-                    onChange={endContratDate.onChange}
+                    onChange={endDate.onChange}
                   />
-                </div>
               </div>
+              <div className="row mt-2">
+              <div className="col-md-6">
+                <Form.Label className="labels">Motivo</Form.Label>
+                <div class="form-floating">
+                <textarea onChange={motivo.onChange} class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">Comments</label>
+              </div>
+              </div>
+            </div>
+            </div>
+            <div className="row mt-3">
+              <div className="row mt-2">
             </div>
             <div className="mt-5 text-center">
               <Button
                 variant="warning"
                 onClick={handleClick}
-                className="btn btn-primary profile-button"
+                className="btnAgregar btn btn-primary profile-button"
                 type="button"
               >
                 AGREGRAR

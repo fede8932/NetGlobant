@@ -1,6 +1,3 @@
-
-
-
 const { useState, useEffect } = require("react");
 
 export function useInput(initialState = "") {
@@ -15,4 +12,3 @@ export function useInput(initialState = "") {
   };
   return { value, onChange };
 }
-

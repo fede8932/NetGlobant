@@ -34,7 +34,7 @@ import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo"
 import CalendarComponent from "./components/Calendar";
-
+import EstadisticasUser from "./components/EstadisticasUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +77,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurityNuevo />} />
+        <Route path="/user/estadisticas" element={<EstadisticasUser />} />
         <Route path="/addbranchoffice" element={<BranchOfficeForm />} />
         <Route path="/search/branchoffice" element={<SearchBranchOffice />} />
         <Route path="/branch/:id" element={<CardBranchOffice />} />
