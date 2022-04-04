@@ -1,5 +1,6 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import swal from "sweetalert";
 
 export const getBranchId = createAsyncThunk("GET_BRANCH", async (id) => {
   try {
@@ -37,6 +38,12 @@ export const editBranchId = createAsyncThunk("EDIT_BRANCH", async (branch) => {
 export const postBranch = createAsyncThunk("POST_BRANCH", async (branch) => {
   try {
     const newBranch = await axios.post("/api/admin/add/office", branch);
+    swal({
+      title: "Sucursal agregada",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
     return newBranch.data;
   } catch (err) {
     console.log(err);

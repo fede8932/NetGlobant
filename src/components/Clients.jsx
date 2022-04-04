@@ -5,15 +5,14 @@ import { getClient } from "../states/singleClient";
 import { getAllClients } from "../states/Clients";
 import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
-
+import { AiOutlineFileAdd } from "react-icons/ai";
 
 const Clients = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchClient = useInput();
-
   const clients = useSelector((state) => state.clients);
-  const client = useSelector((state) => state.client)
+  const client = useSelector((state) => state.client);
 
   useEffect(() => {
     dispatch(getAllClients());
@@ -21,22 +20,58 @@ const Clients = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("searchClient => ", searchClient.value)
+    console.log("searchClient => ", searchClient.value);
     dispatch(getClient(searchClient.value));
-    console.log("client => ",client)
-    navigate(`/clients/${client.id}`)
+    console.log("client => ", client);
+    navigate(`/clients/${client.id}`);
   };
 
   const handleClient = (id) => {
     navigate(`/clients/${id}`);
   };
 
+
+
+  const handleClick = (url) => {
+    navigate(url);
+  };
+
   return (
     <>
+
+<div>
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          CLIENTES
+        </h1>
+
+        <Button
+         onClick={() => handleClick("/client")}
+          variant="secondary"
+          style={{
+            position: "relative",
+            left: "1000px",
+            bottom: "60px",
+          }}
+        >
+          <AiOutlineFileAdd size={40} />
+          Agregar cliente
+        </Button>
+      </div>
+
+
+
       <Form
         onSubmit={handleSubmit}
         className="d-flex"
-        style={{ width: "40%", margin: "0 auto", marginTop: "60px" }}
+ 
+        style={{ width: "40%", margin: "0 auto" }}
       >
         <FormControl
           {...searchClient}
@@ -45,9 +80,7 @@ const Clients = () => {
           className="me-2"
           aria-label="Search"
         />
-        <Button 
-        type="input"
-         variant="outline-success">
+        <Button type="input" variant="outline-success">
           Buscar
         </Button>
       </Form>

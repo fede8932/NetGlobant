@@ -5,6 +5,7 @@ import { getAllBranches } from "../states/branches";
 import { getBranchName } from "../states/singleBranch";
 import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineFileAdd } from "react-icons/ai";
 
 const SearchBranchOffice = () => {
   const dispatch = useDispatch();
@@ -28,12 +29,42 @@ const SearchBranchOffice = () => {
     navigate(`/branch/${id}`);
   };
 
+  const handleClick = (url) => {
+    navigate(url);
+  };
   return (
     <>
+      <div>
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          SUCURSALES
+        </h1>
+
+        <Button
+          onClick={() => handleClick("/addbranchoffice")}
+          variant="secondary"
+          style={{
+            position: "relative",
+            left: "1000px",
+            bottom: "60px",
+          }}
+        >
+          <AiOutlineFileAdd size={40} />
+          Agregar sucursal
+        </Button>
+      </div>
+
       <Form
         onSubmit={handleSubmit}
         className="d-flex"
-        style={{ width: "40%", margin: "0 auto", marginTop: "60px" }}
+        style={{ width: "40%", margin: "0 auto" }}
+       
       >
         <FormControl
           {...searchBranch}
@@ -53,6 +84,7 @@ const SearchBranchOffice = () => {
         hover
         size="sm"
         style={{ width: "50%", margin: "0 auto", marginTop: "60px" }}
+        
       >
         <thead>
           <tr>

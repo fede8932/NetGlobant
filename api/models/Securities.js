@@ -17,7 +17,7 @@ Securities.init(
       type: S.STRING,
     },
     CUIL: {
-      type: S.INTEGER,
+      type: S.BIGINT,
     },
     entryHour: {
       type: S.INTEGER,

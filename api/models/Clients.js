@@ -5,12 +5,12 @@ class Client extends S.Model{}
 
 Client.init({
     CUIT:{
-        type: S.INTEGER
+        type: S.BIGINT
     },
     bussinessName:{
         type: S.STRING
     },
-    Email:{
+    email:{
         type:S.STRING,
         validate:{
         isEmail:true
@@ -26,7 +26,7 @@ Client.init({
     startContratDate:{
         type:S.DATE
     },
-    EndContratDate:{
+    endContratDate:{
         type:S.DATE
     },
 

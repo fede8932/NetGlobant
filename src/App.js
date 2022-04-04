@@ -23,16 +23,14 @@ import HomeMobile from "./components/homeMobile";
 import EditSecurity from "./components/EditSecurity";
 import CardClient from "./components/CardClient";
 import EditClient from "./components/EditClient";
-import AdminClient from "./components/AdminClient";
-import AdminSecurity from "./components/AdminSecurity";
 import NavbarMobile from "./components/NavMobile";
 import SecurityList from "./components/SecurityList";
-import AdminBranchOffice from "./components/AdminBranchOffice";
 import BranchOfficeForm from "./components/BranchOfficeForm";
 import SearchBranchOffice from "./components/SearchBranchOffice";
 import CardBranchOffice from "./components/CardBranchOffice";
 import EditBranchOffice from "./components/EditBranchOffice";
 import AvisosForm from "./components/AvisosForm";
+import ClientFormNuevo from "./components/ClientFormNuevo";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,7 +62,7 @@ function App() {
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/client" element={<ClientForm />} />
+        <Route path="/client" element={<ClientFormNuevo/>} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/clients/:id" element={<CardClient />} />
         <Route path="/edit/client/:id" element={<EditClient />} />
@@ -74,16 +72,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities/:id" element={<Security />} />
         <Route path="/edit/security/:id" element={<EditSecurity />} />
-
         <Route path="/addbranchoffice" element={<BranchOfficeForm />} />
         <Route path="/search/branchoffice" element={<SearchBranchOffice />} />
         <Route path="/branch/:id" element={<CardBranchOffice />} />
-
         <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
-        <Route path="/admin/client" element={<AdminClient />} />
-        <Route path="/admin/security" element={<AdminSecurity />} />
         <Route path="/search/securities" element={<SecurityList />} />
-        <Route path="/admin/branchoffice" element={<AdminBranchOffice />} />
         <Route path="/user/avisos" element={<AvisosForm />} />
       </Routes>
     </div>

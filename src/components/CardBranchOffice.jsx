@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { deleteBranchId } from "../states/branches";
 import swal from "sweetalert";
 import { getBranchId } from "../states/singleBranch";
+import {BiEdit} from 'react-icons/bi'
+import {RiDeleteBin6Line} from 'react-icons/ri'
 
 const CardBranchOffice = () => {
   const navigate = useNavigate();
@@ -77,6 +79,7 @@ const CardBranchOffice = () => {
               variant="secondary"
               onClick={() => handleClick(`/edit/branch/${branch.id}`)}
             >
+             <BiEdit/>
               Editar
             </Button>
             <Button
@@ -87,6 +90,7 @@ const CardBranchOffice = () => {
               variant="secondary"
               onClick={handleDelete}
             >
+               <RiDeleteBin6Line/>
               Eliminar
             </Button>
           </Card.Text>

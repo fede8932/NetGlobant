@@ -1,14 +1,18 @@
-import React from "react";
 
-export function useInput() {
-  const [value, setValue] = React.useState("");
+
+
+const { useState, useEffect } = require("react");
+
+export function useInput(initialState = "") {
+  const [value, setValue] = useState(initialState);
+
+  useEffect(() => {
+    setValue(initialState);
+  }, [initialState]);
 
   const onChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
-
   return { value, onChange };
 }
-
 

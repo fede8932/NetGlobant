@@ -5,6 +5,7 @@ import { getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { getAllSecurities } from "../states/securities";
+import { AiOutlineFileAdd } from "react-icons/ai";
 
 const SecurityList = () => {
   const dispatch = useDispatch();
@@ -17,23 +18,43 @@ const SecurityList = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getSecurity(securityToSearch));
-    navigate(`/search/securities/${securities[0].id}`)
+    navigate(`/search/securities/${securities[0].id}`);
   };
 
   const searchSecurity = (id) => navigate(`/search/securities/${id}`);
 
+  const handleClick = (url) => {
+    navigate(url);
+  };
+
   return (
     <>
-      <h1
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "20px",
-        }}
-      >
-        Vigiladores:
-      </h1>
+      <div>
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          VIGILADORES
+        </h1>
+
+        <Button
+          onClick={() => handleClick("/security")}
+          variant="secondary"
+          style={{
+            position: "relative",
+            left: "1000px",
+            bottom: "60px",
+          }}
+        >
+          <AiOutlineFileAdd size={40} />
+          Agregar vigilador
+        </Button>
+      </div>
+
       <Form
         onSubmit={handleSubmit}
         className="d-flex"
@@ -53,7 +74,7 @@ const SecurityList = () => {
         bordered
         hover
         size="sm"
-        style={{ width: "70%", margin: "0 auto", marginTop: "60px" }}
+        style={{ width: "50%", margin: "0 auto", marginTop: "60px" }}
       >
         <thead>
           <tr>

@@ -1,14 +1,33 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import swal from "sweetalert";
 
-export const getClient = createAsyncThunk("GET_CLIENT_NAME", async (clientName) => {
+export const postClient = createAsyncThunk("POST_CLIENT", async (client) => {
   try {
-    const client = await axios.get(`/api/admin/clientsname/${clientName}`);
-    return client.data;
+    const newClient = await axios.post("/api/admin/add/client", client);
+    swal({
+      title: "Cliente agregado",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
+    return newClient.data;
   } catch (err) {
     console.log(err);
   }
 });
+
+export const getClient = createAsyncThunk(
+  "GET_CLIENT_NAME",
+  async (clientName) => {
+    try {
+      const client = await axios.get(`/api/admin/clientsname/${clientName}`);
+      return client.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
   try {
@@ -19,18 +38,23 @@ export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
   }
 });
 
-export const editClient = createAsyncThunk(
-  "EDIT_CLIENT",
-  async (client) => {
-   
-    try {
-      const editedClient = await axios.put(`/api/admin/edit/client/${client.id}`, client);
-      return editedClient.data;
-    } catch (err) {
-      console.log(err);
-    }
+export const editClient = createAsyncThunk("EDIT_CLIENT", async (client) => {
+  try {
+    const editedClient = await axios.put(
+      `/api/admin/edit/client/${client.id}`,
+      client
+    );
+    swal({
+      title: "El cliente fue editado",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
+    return editedClient.data;
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
 export const deleteClient = createAsyncThunk("DELETE_CLIENT", async (id) => {
   try {
@@ -48,6 +72,7 @@ const clientReducer = createReducer(
     [getClientId.fulfilled]: (state, action) => action.payload,
     [editClient.fulfilled]: (state, action) => action.payload,
     [deleteClient.fulfilled]: (state, action) => action.payload,
+    [postClient.fulfilled]: (state, action) => action.payload,
   }
 );
 

@@ -33,16 +33,6 @@ const BranchOfficeForm = () => {
         closeHour: closeHour.value,
       })
     );
-
-    swal({
-      title: "Sucursal agregada",
-      text: ".",
-      icon: "success",
-      button: "Aceptar",
-    });
-
-    console.log("BRANCH", branch);
-
     navigate(`/branch/${branch.id}`);
   };
 

@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { deleteClient } from "../states/singleClient";
 import swal from "sweetalert";
 import { getClientId } from "../states/singleClient";
+import { BiEdit } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CardClient = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const CardClient = () => {
     dispatch(getClientId(id.id));
   }, []);
 
-  console.log("client.id en delete",client.id)
+  console.log("client.id en delete", client.id);
   const handleDelete = () => {
     dispatch(deleteClient(client.id));
     swal({
@@ -78,6 +80,7 @@ const CardClient = () => {
               variant="secondary"
               onClick={() => handleClick(`/edit/client/${client.id}`)}
             >
+              <BiEdit />
               Editar
             </Button>
             <Button
@@ -88,6 +91,7 @@ const CardClient = () => {
               variant="secondary"
               onClick={handleDelete}
             >
+              <RiDeleteBin6Line />
               Eliminar
             </Button>
           </Card.Text>
