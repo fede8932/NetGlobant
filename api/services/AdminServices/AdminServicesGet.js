@@ -23,12 +23,18 @@ class AdminServicesGet {
     try {
       const oneClient = await Client.findOne({
         where: { id: req.params.id },
+        include:{
+          association: Client.offices,
+           }
+        
       });
       return oneClient;
     } catch (err) {
       next(err);
     }
   }
+
+
 
   static async serviceGetOneName(req, next) {
     try {
@@ -86,6 +92,25 @@ class AdminServicesGet {
       next(err);
     }
   }
+
+  static async serviceGetAllOfficeByClient(req, next) {
+    try {
+      const allOfficeByClient = await BranchOficce.findAll({
+        where: {
+          clientId: req.params.clientId
+        },
+        include:{
+          association: Client.offices,
+        }
+      })
+      return allOfficeByClient;
+    } catch (err) {
+      console.log("error => ", err)
+      next(err);
+    }
+  }
+
+
 
   static async serviceGetOneOffice(req, next) {
     try {

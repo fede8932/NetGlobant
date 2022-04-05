@@ -57,6 +57,15 @@ class AdminControllerGet{
           : res.sendStatus(404);
       }
     
+
+      static async getAllOfficeByClient(req, res, next) {       
+        const allOfficiesByClient = await AdminServicesGet.serviceGetAllOfficeByClient(req, next);
+        return allOfficiesByClient
+          ? res.status(200).json(allOfficiesByClient)
+          : res.sendStatus(404);
+      }
+
+
       static async getOneOffice(req, res, next) {
         const oneOffice = await AdminServicesGet.serviceGetOneOffice(req, next);
         return oneOffice ? res.status(200).json(oneOffice) : res.sendStatus(404);

@@ -35,6 +35,9 @@ import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo"
 import CalendarComponent from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
+import Footer from './components/Footer'
+import FormRecomendation from './components/FormRecomendation'
+
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +64,10 @@ function App() {
       ) : (
         <></>
       )}
+
+      <FormRecomendation/>
    
+   <Footer/>
 
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />
