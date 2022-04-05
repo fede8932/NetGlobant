@@ -29,6 +29,12 @@ export const editBranchId = createAsyncThunk("EDIT_BRANCH", async (branch) => {
       `/api/admin/edit/office/${branch.id}`,
       branch
     );
+    swal({
+      title: "La sucursal fue editada",
+      text: ".",
+      icon: "success",
+      button: "Aceptar",
+    });
     return editBranch.data;
   } catch (err) {
     console.log(err);

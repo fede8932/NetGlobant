@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
@@ -10,10 +9,7 @@ import { postClient } from "../states/singleClient";
 
 const ClientFormNuevo = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-  const client = useSelector((state) => state.client);
-
   const {
     register,
     handleSubmit,
@@ -21,8 +17,12 @@ const ClientFormNuevo = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    dispatch(postClient(data));
-    navigate(`/`);
+    try {
+      const createdClient = await dispatch(postClient(data));
+      navigate(`/clients/${createdClient.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClickVolver = (url) => {
@@ -78,14 +78,13 @@ const ClientFormNuevo = () => {
                       },
                       minLength: {
                         value: 11,
-                        message:
-                          "El CUIT debe tener 11 caracteres",
+                        message: "El CUIT debe tener 11 caracteres",
                       },
-                      // maxLength: {
-                      //   value: 11,
-                      //   message:
-                      //   "El CUIT debe tener 11 caracteres",
-                      // },
+                      maxLength: {
+                        value: 11,
+                        message:
+                        "El CUIT debe tener 11 caracteres",
+                      },
                     })}
                   />
                   <ErrorMessage

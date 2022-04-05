@@ -1,5 +1,6 @@
 import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 import axios from "axios";
+import swal from "sweetalert";
 
 export const getSecurity = createAsyncThunk("GET_SECURITY", async (name) => {
   try {
@@ -30,6 +31,12 @@ export const createSecurity = createAsyncThunk(
         "/api/admin/add/security",
         security
       );
+      swal({
+        title: "Vigilador agregado",
+        text: ".",
+        icon: "success",
+        button: "Aceptar",
+      });
       return securityToCreate.data;
     } catch (err) {
       console.log(err);

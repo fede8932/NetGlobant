@@ -6,7 +6,10 @@ const {
   WorkDay,
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
-const { validateCreateWorkDay, validationZone } = require("../../lib/validationsr");
+const {
+  validateCreateWorkDay,
+  validationZone,
+} = require("../../lib/validationsr");
 
 class AdminServicesPost {
   static async serviceAddSecurityOffice(req, next) {
@@ -30,6 +33,7 @@ class AdminServicesPost {
       return office
   /*   } */
       
+
     } catch (err) {
       console.log(err);
       next(err);
@@ -50,7 +54,9 @@ class AdminServicesPost {
           status: true,
         },
       });
+      console.log(client);
       const office = await BranchOficce.create(req.body);
+      console.log(office);
       office.setClient(client);
       office.setProvincy(provincieLocal);
       return office;
@@ -61,7 +67,9 @@ class AdminServicesPost {
 
   static async serviceAddClient(req, next) {
     try {
+      console.log("ESTO ES REQ BODY", req.body);
       const client = await Client.create(req.body);
+      console.log("CLIENT", client);
       return client;
     } catch (err) {
       next(err);
@@ -78,6 +86,7 @@ class AdminServicesPost {
       });
       const workDay = await WorkDay.findOne({
         where: { id: req.body.id, /* status: true */ },
+
       });
       security.addWorkDays(workDay);
     } catch (err) {
@@ -89,7 +98,9 @@ class AdminServicesPost {
     try {
       const security = await BranchOficce.findOne({
         where: {
+
          id: req.body.officeId,/*  status:true */
+
         },
       });
       const workDay = await WorkDay.findOne({
@@ -104,13 +115,13 @@ class AdminServicesPost {
   static async serviceAddSchedule(req, next) {
     try {
       const branchOficces = await BranchOficce.findOne({
-        where: { name: req.body.branchName,status: true  } 
+        where: { name: req.body.branchName },
       });
       const workDay = await WorkDay.create(req.body);
       branchOficces.addWorkDays(workDay);
       return branchOficces;
     } catch (err) {
-      console.log(err)
+      console.log(err);
       next(err);
     }
   }
@@ -118,7 +129,9 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
+
         where: { name: req.body.name  },
+
         include: {
           association: Securities.calendar,
           where: {
@@ -136,7 +149,7 @@ class AdminServicesPost {
         req.body.wishEntryHour,
         req.body.wishClosingHour
       );
-      console.log(definition)
+      console.log(definition);
       return definition ? createWorkDay(req) : definition;
     } catch (err) {
       next(err);

@@ -28,18 +28,21 @@ Securities.init(
         isEmail: true,
       },
     },
-    status:{
+    status: {
       type: S.BOOLEAN,
-      defaultValue:true
+      defaultValue: true,
     },
     password: {
       type: S.STRING,
     },
-    address:{
+    address: {
       type: S.STRING,
     },
     salt: {
       type: S.STRING,
+    },
+    date: {
+      type: S.DATEONLY,
     },
   },
   {
@@ -47,6 +50,7 @@ Securities.init(
     modelName: "securities",
   }
 );
+Securities.sync({ alter: true });
 
 Securities.beforeCreate(async (securities) => {
   salt = await genSalt(16);

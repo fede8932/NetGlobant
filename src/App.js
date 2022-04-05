@@ -31,6 +31,10 @@ import CardBranchOffice from "./components/CardBranchOffice";
 import EditBranchOffice from "./components/EditBranchOffice";
 import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
+import SecurityFormNuevo from "./components/SecurityFormNuevo";
+import EditSecurityNuevo from "./components/EditSecurityNuevo"
+import CalendarComponent from "./components/Calendar";
+import EstadisticasUser from "./components/EstadisticasUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +61,7 @@ function App() {
       ) : (
         <></>
       )}
+   
 
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />
@@ -66,18 +71,20 @@ function App() {
         <Route path="/clients" element={<Clients />} />
         <Route path="/clients/:id" element={<CardClient />} />
         <Route path="/edit/client/:id" element={<EditClient />} />
-        <Route path="/security" element={<SecurityForm />} />
+        <Route path="/security" element={<SecurityFormNuevo />} />
         <Route path="/status" element={<UserPage />} />
         <Route path="/user/info" element={<UserInfo />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search/securities/:id" element={<Security />} />
-        <Route path="/edit/security/:id" element={<EditSecurity />} />
+        <Route path="/edit/security/:id" element={<EditSecurityNuevo />} />
+        <Route path="/user/estadisticas" element={<EstadisticasUser />} />
         <Route path="/addbranchoffice" element={<BranchOfficeForm />} />
         <Route path="/search/branchoffice" element={<SearchBranchOffice />} />
         <Route path="/branch/:id" element={<CardBranchOffice />} />
         <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
         <Route path="/search/securities" element={<SecurityList />} />
         <Route path="/user/avisos" element={<AvisosForm />} />
+        <Route path="/calendar" element={<CalendarComponent />} />
       </Routes>
     </div>
   );
