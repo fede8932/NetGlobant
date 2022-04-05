@@ -28,9 +28,11 @@ adminRouter.get("/securities/office/:name",AdminControllerGet.getAllSecuritiesBy
 // TRAE A LOS GUARDIAS QUE VIVEN CERCA
 adminRouter.get("/securitiesByDistance/:id", AdminControllerGet.getSecuritiesByDistance)
 // TRAE CALENDARIO POR OFICINA ID
-adminRouter.get("/calendar/office/:id", AdminControllerGet.getOfficeCalendar);
+adminRouter.get("/calendar/office/:id/:date", AdminControllerGet.getOfficeCalendar);
 // TRAE CALENDARIO POR VILIGANTE ID
 adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSecurity)
+// TRAE SECURITIES POR PROVINCIA
+adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuritiesByProvincie)
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get("/images/security/day:id", AdminControllerGet.getImageSecurityByDay)
 

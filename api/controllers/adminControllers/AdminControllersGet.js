@@ -82,6 +82,7 @@ class AdminControllerGet{
           req,
           next
         );
+        console.log("controller",officeCalendar)
         return officeCalendar
           ? res.status(200).json(officeCalendar)
           : res.sendStatus(404);
@@ -95,6 +96,11 @@ class AdminControllerGet{
         return securityCalendar
           ? res.status(200).json(securityCalendar)
           : res.sendStatus(404);
+      }
+
+      static async getSecuritiesByProvincie(req, res, next){
+        const securities= await AdminServicesGet.serviceGetAllSecuritiesByProvincie(req, next)
+        return securities? res.status(200).send(securities): res.sendStatus(404)
       }
     
       static async getSecuritiesByDistance(req, res, next) {

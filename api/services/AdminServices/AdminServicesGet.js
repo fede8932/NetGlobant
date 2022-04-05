@@ -6,6 +6,7 @@ const {
   WorkDay,
 } = require("../../models");
 const { Op } = require("@sequelize/core");
+/* const { Op } = require("sequelize") */
 const { getRadius } = require("../../lib/findDistance");
 const { findAll } = require("../../models/Admin");
 
@@ -119,24 +120,62 @@ class AdminServicesGet {
       
       return securityList;
     } catch (err) {
-      console.log("ACA ESTA SALAME", err);
       next(err);
     }
   }
 
   static async serviceGetCalenderOffice(req, next) {
     try {
+      console.log("ACA", req.body)
       const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
           association: BranchOficce.calendar,
-        },
+          where:{
+            date: req.params.date
+          }
+        }
       });
-      return calendar;
+      console.log(calendar)
+      const securities= await BranchOficce.findAll({
+        where: { id: req.params.id },
+        include:{
+          association: BranchOficce.security,
+           }, 
+      })
+      console.log(securities[0].securities)
+      return {calendar:calendar.workDays, securities: securities[0].securities};
     } catch (err) {
       next(err);
     }
   }
+
+static async serviceGetAllSecuritiesByProvincie(req, next){
+ try{
+    const provincie= await BranchOficce.findAll({
+      where: {
+        name: req.params.name
+      }
+    })
+    console.log(provincie[0].provincyId)
+    const provincieId=provincie[0].provincyId
+    const  securities= await Securities.findAll({
+      include:{
+        association: Securities.provincie,
+        where:{
+          id: provincieId
+        }
+      }
+    }) 
+    console.log(securities)
+    return securities
+
+ }catch(err){
+   console.log(err)
+   next(err)
+ }
+}
+
 
   static async serviceGetCalenderSecurity(req, next) {
     try {

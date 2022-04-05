@@ -76,6 +76,9 @@ class AdminServicesPost {
     }
   }
 
+
+
+  
   static async serviceAsingSchedule(req, next) {
     try {
       const security = await Securities.findOne({
