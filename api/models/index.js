@@ -8,7 +8,7 @@ const WorkDay= require("./WorkDay")
 
 /* asocianes */
 /* -un cliente tiene muchas sucursales: */
-BranchOficce.belongsTo(Client)
+Client.offices=BranchOficce.belongsTo(Client)
 /* -una sucursal le pertenece a una  provincia */
 BranchOficce.belongsTo(Provincies)
 /* -un vigilador esta habilitado en distintas provincias */

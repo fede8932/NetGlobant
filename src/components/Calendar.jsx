@@ -1,5 +1,7 @@
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
+import CalendarClientFilter from "./CalendarClientFilter";
+import CalendarBranchFilter from "./CalendarBranchFilter";
 import "react-calendar/dist/Calendar.css";
 import { Form, Card } from "react-bootstrap";
 import { getCalendarOffice } from "../states/calendar";
@@ -57,6 +59,7 @@ const CalendarComponent = () => {
   });
 
   return (
+
     <div className="app ">
       <h1 className="text-center">React Calendar</h1>
       <div
