@@ -10,22 +10,29 @@ import { getAllBranches } from "../states/branches";
 import { useDispatch, useSelector } from "react-redux";
 import AssignForm from "./AssignForm";
 
+
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
+  const [office, setOffice] = useState([]);
+  const [security, setSecurity] = useState([]);
   const [calendar, setCalendar] = useState([]);
   const branches = useSelector((state) => state.branches);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBranches());
   }, []);
-  let coso = "";
-  const onClicke = async (e) => {
-    coso = await dispatch(getBranchName(e.target.value));
-    console.log(coso);
-  };
-  const changeCalendar= async()=>{
 
-  }
+  const onClicke = async (e) => {
+    const officeObject= await dispatch(getBranchName(e.target.value));
+   /*  console.log("COSO", officeObject); */
+    setOffice(officeObject.payload)
+  };
+
+
+
+ /*  const changeCalendar= async()=>{
+   
+} */
   const onbluer = (e) => {
     return (e.target.style.background = "green");
   };
@@ -37,32 +44,36 @@ const CalendarComponent = () => {
     );
   });
   const changeDate = async () => {
-    const id = coso.payload.id;
+    const id = office.id;
     const year = date.getFullYear().toString();
     const day = date.getDate().toString();
     const month = date.getMonth().toString();
     const thisDay = year.concat("-", month, "-", day);
-    const calendar = await dispatch(getCalendarOffice({ id, thisDay }));
-
-    return calendar.payload ? setCalendar(calendar.payload) : [];
-  };
-  const arraySecurities = calendar.securities ? calendar.securities : [];
-  const securities = arraySecurities?.map((security) => {
+    const workDay = await dispatch(getCalendarOffice({ id, thisDay }));
+    /* console.log(workDay) */
+   setCalendar(workDay.payload.calendar)
+   setSecurity(workDay.payload.securities)
+  }; 
+  console.log(security)
+  const securities = security?.map((securit) => {
+   const hourEntry=calendar[0].wishEntryHour.split("T")
+   const hourClose=calendar[0].wishEntryHour.split("T")
     return (
-      <li key={security.id}>
+      <li key={securit.id}>
         <span>
           {"name:" +
-            security.name +
-            "  CUIL:" +
-            security.CUIL +
-            "  hora de entrada: " +
-            security.entryHour}
+            securit.name +
+            " ||  CUIL:" +
+            securit.CUIL +
+            " ||  hora de entrada: " +
+            hourEntry[1].split(".")[0]
+            + " || hora de salida: "+ hourClose[1].split(".")[0]}
         </span>
       </li>
     );
   });
-  console.log("ACA HAY ZANAHORIA", securities);
-  console.log("ACA ESTA TODO PAPA", calendar);
+ /*  console.log("ACA HAY ZANAHORIA", securities);
+  console.log("ACA ESTA TODO PAPA", calendar); */
   return (
     <div className="calendarContainer">
       <div className="app ">
@@ -71,17 +82,20 @@ const CalendarComponent = () => {
           className="calendar-container"
           style={{ marginLeft: "550px", marginTop: "80px", size: "150px" }}
           onBlur={onbluer}
-        >
+          >
           <Calendar onChange={setDate} value={date} />
           <button value={date} onClick={changeDate}>
             {" "}
             serach
-          </button>
-          {console.log(date, "ACA")}
+          </button>{console.log(date, "ACA")}
+          
+          
+          
         </div>
         <p className="text-center">
           <span className="bold">Selected Date:</span> {date.toDateString()}
         </p>
+       
 
         <Card
           style={{
@@ -111,8 +125,10 @@ const CalendarComponent = () => {
             <Card.Link href="#">Another Link</Card.Link>
           </Card.Body>
         </Card>
-        <AssignForm style={{ minWidth: "40px" }} />
-      </div>
+        <AssignForm style={{ minWidth: "40px" }} vigilantes={security} />
+         
+        
+      </div> 
     </div>
   );
 };

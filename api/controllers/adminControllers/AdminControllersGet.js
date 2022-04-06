@@ -91,7 +91,7 @@ class AdminControllerGet{
           req,
           next
         );
-        console.log("controller",officeCalendar)
+        
         return officeCalendar
           ? res.status(200).json(officeCalendar)
           : res.sendStatus(404);

@@ -151,7 +151,6 @@ class AdminServicesGet {
 
   static async serviceGetCalenderOffice(req, next) {
     try {
-      console.log("ACA", req.body)
       const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
@@ -168,8 +167,22 @@ class AdminServicesGet {
           association: BranchOficce.security,
            }, 
       })
-      console.log(securities[0].securities)
-      return {calendar:calendar.workDays, securities: securities[0].securities};
+      const arrayId= securities[0].securities.map(security=> security.dataValues.id )
+      
+     const onlyWithCalendar= await Securities.findAll({
+       where:{
+         id: arrayId
+       },
+       include:{
+         association: Securities.calendar,
+          where:{
+           date : req.params.date
+         } 
+       }
+     })
+    
+     
+      return {calendar:calendar.workDays, securities: securities[0].securities, onlyCalendar: onlyWithCalendar };
     } catch (err) {
       next(err);
     }

@@ -6,15 +6,17 @@ import swal from "sweetalert";
 import { useForm } from "react-hook-form";
 
 const AssignForm = ({vigilantes}) => {
-    const [guardias , setGuardias] = React.useState([
+    /* const [guardias , setGuardias] = React.useState([
         {name : "Martin Cristo" , CUIL : 23354896579 , direccion : "Av Sarmiento 3545"},
         {name : "Marcelo Castro" , CUIL : 21354896575 , direccion : "Av Belgrano 3545"},
         {name : "Daniela Dominguez" , CUIL : 25354896574 , direccion : "Av San Martin 3545"},
         {name : "Mariana Lopez" , CUIL : 29354896577 , direccion : "Av Colon 3545"}]) // hay que traerlo desde el back 
-    const [guardia,setGuardia] = React.useState(guardias[0]);
+   */ const [guardia,setGuardia] = React.useState(vigilantes[0]); 
     const {register,handleSubmit,formState: { errors },} = useForm();
     const handleClick = async (data) => {
+        
         try{
+            guardia? 
             await axios({
                 method: "POST",
                 url: "/api/admin/add/calendar/office",
@@ -23,7 +25,7 @@ const AssignForm = ({vigilantes}) => {
                 wishEntryHour:data.ingreso,
                 wishClosingHour:data.egreso
                 },
-            });
+            }): (<p>no hay vigiladores </p>)
             swal({
                 title: "Vigilador asignado",
                 text: ".",
@@ -49,10 +51,10 @@ const AssignForm = ({vigilantes}) => {
                     <div className="row mt-3">
                         <div className="col-md-12">
                         <label className="labels">Seleccioná el guardia de seguridad</label>
-                        <select onChange={(e)=>{setGuardia(guardias[e.target.value])}} className="form-select" id="inputGroupSelect01">
-                            {guardias?.map((guardia , i)=>(
-                                <option key={i} value={i}>{guardia.name}</option>
-                            ))}
+                        <select onChange={(e)=>{setGuardia(vigilantes[e.target.value])}} className="form-select" id="inputGroupSelect01">
+                            {vigilantes? vigilantes.map((guardia , i)=>(
+                                <option key={i} value={i}>{guardia.name }</option>
+                            )): "."}
                         </select>
                         </div>
                     </div>
@@ -63,7 +65,7 @@ const AssignForm = ({vigilantes}) => {
                         className="position-relative"
                         variant="outlined"
                         disabled="true"
-                        value={guardia.CUIL}
+                        value={guardia?guardia.CUIL:""} 
                     />
                     </div>
                     <div>
@@ -73,7 +75,7 @@ const AssignForm = ({vigilantes}) => {
                         className="position-relative"
                         variant="outlined"
                         disabled="true"
-                        value={guardia.direccion}
+                        value={guardia? guardia.direccion: ""}
                     />
                     </div>
                     <div className="row mt-2">
