@@ -1,52 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import swal from "sweetalert";
 import { useForm } from "react-hook-form";
-import {getCloseSecurities } from '../states/securities'
+import { getCloseSecurities } from "../states/securities";
 import { useDispatch, useSelector } from "react-redux";
 
-const AssignForm = ({ vigilantes }) => {
+const AssignForm = () => {
+  const dispatch = useDispatch();
+  const closeSecurities = useSelector((state) => state.securities);
+  const branch = useSelector((state) => state.branch);
 
-  const closeSecurities = useSelector((state) => state.securities)
+  useEffect(() => {
+    dispatch(getCloseSecurities(branch));
+  }, []);
 
-
-  const [guardias, setGuardias] = React.useState([
-    {
-      name: "Martin Cristo",
-      CUIL: 23354896579,
-      direccion: "Av Sarmiento 3545",
-    },
-    {
-      name: "Marcelo Castro",
-      CUIL: 21354896575,
-      direccion: "Av Belgrano 3545",
-    },
-    {
-      name: "Daniela Dominguez",
-      CUIL: 25354896574,
-      direccion: "Av San Martin 3545",
-    },
-    { name: "Mariana Lopez", CUIL: 29354896577, direccion: "Av Colon 3545" },
-  ]); // hay que traerlo desde el back
-
-
-  const [guardia, setGuardia] = React.useState(guardias[0]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  
+  const options = closeSecurities?.map((guardia, i) => {
+    return (
+      <option key={i} value={i}>
+        {guardia.name} {guardia.lastName} --- {guardia.address} 
+      </option>
+    );
+  });
+
   const handleClick = async (data) => {
     try {
       await axios({
         method: "POST",
         url: "/api/admin/add/calendar/office",
         data: {
-          name: guardia.name,
+          // name: guardia.name,
           wishEntryHour: data.ingreso,
           wishClosingHour: data.egreso,
         },
@@ -70,30 +60,47 @@ const AssignForm = ({ vigilantes }) => {
     <form onSubmit={handleSubmit(handleClick)}>
       <div className="row mt-3">
         <div className="col-md-12">
-          <label className="labels">Seleccioná el guardia de seguridad</label>
+          <Form.Label className="labels">Seleccione un vigilador</Form.Label>
+          <Form.Control
+          style={{width:"200px"}}
+            as="select"
+            size="ms"
+            className="position-relative"
+            name="security"
+            variant="outlined"
+            {...register("security", {
+              required: {
+                value: true,
+                message: "Necesitas este campo",
+              },
+            })}
+          >
+            {options}
+          </Form.Control>
+          {/* <label className="labels">Seleccioná el guardia de seguridad</label>
           <select
             onChange={(e) => {
-              setGuardia(guardias[e.target.value]);
+              setGuardia(closeSecurities[e.target.value]);
             }}
             className="form-select"
             id="inputGroupSelect01"
           >
-            {guardias?.map((guardia, i) => (
+            {closeSecurities?.map((guardia, i) => (
               <option key={i} value={i}>
-                {guardia.name}
+                {guardia.name} {guardia.address}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
       </div>
-      <div>
+      {/* <div>
         <Form.Label className="labels">CUIL</Form.Label>
         <Form.Control
           size="ms"
           className="position-relative"
           variant="outlined"
           disabled="true"
-          value={guardia.CUIL}
+          // value={guardia.CUIL}
         />
       </div>
       <div>
@@ -103,9 +110,9 @@ const AssignForm = ({ vigilantes }) => {
           className="position-relative"
           variant="outlined"
           disabled="true"
-          value={guardia.direccion}
+          // value={guardia.direccion}
         />
-      </div>
+      </div> */}
       <div className="row mt-2">
         <div className="col-md-6">
           <Form.Label className="labels">Ingreso</Form.Label>
@@ -142,13 +149,8 @@ const AssignForm = ({ vigilantes }) => {
           />
         </div>
       </div>
-      
 
-      <Button
-        type="submit"
-        variant="secondary"
-        style={{ marginTop: "5px" }}
-      >
+      <Button type="submit" variant="secondary" style={{ marginTop: "5px" }}>
         Asignar
       </Button>
     </form>
