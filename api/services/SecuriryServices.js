@@ -110,6 +110,7 @@ class SecuritiesServices {
       next(err);
     }
   }
+  
   static async serviceToWriteMyWorkDayClose(req, next) {}
 
   static async serviceCancellWorkDay(req, next) {
