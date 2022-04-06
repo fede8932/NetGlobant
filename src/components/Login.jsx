@@ -27,10 +27,10 @@ export default function Login() {
         admin: admin,
       },
     });
-    localStorage.setItem("user", JSON.stringify({ id: token.data.security.id, name: token.data.security.name, token: token.data.jwt.token }));
+    localStorage.setItem("user", JSON.stringify({ id: token.data.administrator.id, name: token.data.administrator.name, token: token.data.jwt.token }));
     dispatch(
 
-      setUser({ id: token.data.security.id, name: token.data.security.name, token: token.data.jwt.token  })
+      setUser({ id: token.data.administrator.id, name: token.data.administrator.name, token: token.data.jwt.token  })
     );
     admin ? navigate("/") : navigate("/status");
   };

@@ -43,7 +43,7 @@ class AdminServicesPut {
         plain: true,
       });
 
-      console.log("update", update);
+      console.log("update", rows);
       return update;
     } catch (err) {
       next(err);
@@ -61,6 +61,7 @@ class AdminServicesPut {
       next(err);
     }
   }
+
   static async serviceEditCalendar(req, next) {
     try {
       const [rows, newSchedule] = await WorkDay.update(req.body, {

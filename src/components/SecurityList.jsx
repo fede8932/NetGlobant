@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Button, FormControl, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getSecurity } from "../states/singleSecurity";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { getAllSecurities } from "../states/securities";
 import { AiOutlineFileAdd } from "react-icons/ai";

@@ -7,12 +7,16 @@ import { useEffect } from "react";
 import { editBranchId, getBranchId } from "../states/singleBranch";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import useInput from "../hooks/useInput";
 
 const EditBranchOffice = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const branch = useSelector((state) => state.branch);
   const navigate = useNavigate();
+  const name = useInput(branch.name);
+  const openHour = useInput(branch.openHour);
+  const closeHour = useInput(branch.closeHour);
 
   useEffect(() => {
     dispatch(getBranchId(id.id));
@@ -24,71 +28,74 @@ const EditBranchOffice = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    dispatch(
-      editBranchId({
-        id: id.id,
-        data,
-      })
-    );
-  
-    navigate(`/branch/${id.id}`);
+  const onSubmit = async (data) => {
+    try {
+      const editedBranch = await dispatch(
+        editBranchId({
+          ...branch,
+          ...data,
+        })
+      );
+      navigate(`/branch/${editedBranch.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClickVolver = (url) => {
     navigate(url);
   };
 
-
   return (
     <div className="container rounded bg-white mt-5 mb-5">
-    <div className="row">
-      <div className="col-md-3 border-right"></div>
-      <div className="col-md-5 border-right">
-        <div className="p-3 py-5">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h4 className="text-right" style={{ color: "grey" }}>
-              EDITAR SUCURSAL
-            </h4>
-          </div>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row mt-2">
-              <div className="col-md-6">
-                <Form.Label className="labels">Nombre</Form.Label>
-                <Form.Control
-                  size="ms"
-                  placeholder={branch.name}
-                  className="position-relative"
-                  name="name"
-                  variant="outlined"
-                  {...register("name", 
-                  )}
-                />
-                <ErrorMessage
-                  errors={require}
-                  name="name"
-                  render={({ message }) => <p>{message}</p>}
-                />
-              </div>
+      <div className="row">
+        <div className="col-md-3 border-right"></div>
+        <div className="col-md-5 border-right">
+          <div className="p-3 py-5">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h4 className="text-right" style={{ color: "grey" }}>
+                EDITAR SUCURSAL
+              </h4>
             </div>
-
-            <div className="row mt-3">
-              <div className="col-md-12">
-                <Form.Label className="labels">Dirección: {branch.address}</Form.Label>
-
-              </div>
-
-              <div className="col-md-12">
-                <Form.Label className="labels">Ciudad: {branch.city}</Form.Label>
-            
-              </div>
-
-             
-
+            <Form onSubmit={handleSubmit(onSubmit)}>
               <div className="row mt-2">
+                <div className="col-md-6">
+                  <Form.Label className="labels">Nombre</Form.Label>
+                  <Form.Control
+                    size="ms"
+                    placeholder={branch.name}
+                    className="position-relative"
+                    name="name"
+                    variant="outlined"
+                    {...register("name")}
+                    value={name.value}
+                    onChange={name.onChange}
+                  />
+                  <ErrorMessage
+                    errors={require}
+                    name="name"
+                    render={({ message }) => <p>{message}</p>}
+                  />
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="col-md-12">
+                  <Form.Label className="labels">
+                    Dirección: {branch.address}
+                  </Form.Label>
+                </div>
+
+                <div className="col-md-12">
+                  <Form.Label className="labels">
+                    Ciudad: {branch.city}
+                  </Form.Label>
+                </div>
+
+                <div className="row mt-2">
                   <div className="col-md-6">
                     <Form.Label className="labels">
-                      Hoario de apertura: {branch.openHour} HS
+                      Hoario de apertura: {/* {{branch.openHour} HS} */}
                     </Form.Label>
                     <Form.Control
                       as="select"
@@ -103,6 +110,8 @@ const EditBranchOffice = () => {
                           message: "Necesitas este campo",
                         },
                       })}
+                      // value={openHour.value}
+                      // onChange={openHour.onChange}
                     >
                       <option>00</option>
                       <option>01</option>
@@ -139,7 +148,7 @@ const EditBranchOffice = () => {
 
                   <div className="col-md-6">
                     <Form.Label className="labels">
-                      Horario de cierre: {branch.closeHour} HS
+                      Horario de cierre: {/* {branch.closeHour} HS */}
                     </Form.Label>
                     <Form.Control
                       as="select"
@@ -154,6 +163,8 @@ const EditBranchOffice = () => {
                           message: "Necesitas este campo",
                         },
                       })}
+                      // value={closeHour.value}
+                      // onChange={closeHour.onChange}
                     >
                       <option>00</option>
                       <option>01</option>
@@ -187,30 +198,30 @@ const EditBranchOffice = () => {
                     />
                   </div>
                 </div>
-            </div>
-            <div className="text-center">
-              <Button
-                onSubmit={handleSubmit(onSubmit)}
-                type="submit"
-                variant="warning"
-                className="btn btn-primary profile-button"
-              >
-                GUARDAR CAMBIOS
-              </Button>
-              <Button
-                variant="warning"
-                onClick={() => handleClickVolver("/clients")}
-                className="btn btn-primary profile-button m-5"
-                type="button"
-              >
-                VOLVER
-              </Button>
-            </div>
-          </Form>
+              </div>
+              <div className="text-center">
+                <Button
+                  onSubmit={handleSubmit(onSubmit)}
+                  type="submit"
+                  variant="warning"
+                  className="btn btn-primary profile-button"
+                >
+                  GUARDAR CAMBIOS
+                </Button>
+                <Button
+                  variant="warning"
+                  onClick={() => handleClickVolver("/clients")}
+                  className="btn btn-primary profile-button m-5"
+                  type="button"
+                >
+                  VOLVER
+                </Button>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   );
 };
 

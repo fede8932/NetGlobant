@@ -3,7 +3,7 @@ import { Form, Button, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import SingleCard from "./SingleCard";
 import { getSecurity } from "../states/singleSecurity";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSecurityById } from "../states/singleSecurity";
 

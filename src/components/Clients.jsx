@@ -3,7 +3,7 @@ import { Form, Button, FormControl, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
 import { getAllClients } from "../states/Clients";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineFileAdd } from "react-icons/ai";
 
@@ -30,16 +30,13 @@ const Clients = () => {
     navigate(`/clients/${id}`);
   };
 
-
-
   const handleClick = (url) => {
     navigate(url);
   };
 
   return (
     <>
-
-<div>
+      <div>
         <h1
           style={{
             display: "flex",
@@ -52,7 +49,7 @@ const Clients = () => {
         </h1>
 
         <Button
-         onClick={() => handleClick("/client")}
+          onClick={() => handleClick("/client")}
           variant="secondary"
           style={{
             position: "relative",
@@ -65,12 +62,9 @@ const Clients = () => {
         </Button>
       </div>
 
-
-
       <Form
         onSubmit={handleSubmit}
         className="d-flex"
- 
         style={{ width: "40%", margin: "0 auto" }}
       >
         <FormControl

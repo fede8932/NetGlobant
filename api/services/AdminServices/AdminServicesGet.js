@@ -8,7 +8,7 @@ const {
 const { Op } = require("@sequelize/core");
 /* const { Op } = require("sequelize") */
 const { findAll } = require("../../models/Admin");
-const { distance } = require("../../lib/findDistance.js")
+const { distance } = require("../../lib/findDistance.js");
 
 class AdminServicesGet {
   static async serviceGetAllClients(next) {
@@ -24,9 +24,6 @@ class AdminServicesGet {
     try {
       const oneClient = await Client.findOne({
         where: { id: req.params.id },
-        include: {
-          association: Client.offices,
-        },
       });
       return oneClient;
     } catch (err) {
@@ -215,35 +212,35 @@ class AdminServicesGet {
     const { y, x } = req.body;
     const { id } = req.params;
 
-    let orderedSecurities = []
-    let min
+    let orderedSecurities = [];
+    let min;
 
     try {
       let securities = await Securities.findAll({
         include: {
           association: Securities.provincie,
           where: {
-            id: id
-          }
+            id: id,
+          },
         },
       });
 
       securities = securities.map((securitie) => {
         const dist = distance(y, x, securitie.y, securitie.x);
-        securitie.dist = dist
-        return securitie
+        securitie.dist = dist;
+        return securitie;
       });
 
-      while (securities[0]){
-        min = securities[0]
-        securities.forEach(security => {
-          if(min.dist > security.dist) min = security
-        })
-        securities = securities.filter(security => security.id != min.id)
-        orderedSecurities.push(min)
+      while (securities[0]) {
+        min = securities[0];
+        securities.forEach((security) => {
+          if (min.dist > security.dist) min = security;
+        });
+        securities = securities.filter((security) => security.id != min.id);
+        orderedSecurities.push(min);
       }
 
-      return orderedSecurities.slice(0,12);
+      return orderedSecurities.slice(0, 12);
     } catch (error) {
       next(error);
     }

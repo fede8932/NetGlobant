@@ -1,5 +1,5 @@
 import React from "react";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector } from "react-redux";

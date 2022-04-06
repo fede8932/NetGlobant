@@ -11,7 +11,7 @@ class AdminControllerPut {
       req,
       next
     );
-    return res.status(201).json(updatedSecurity);
+    return res.status(201).json([updatedSecurity]);
   }
 
   static async editClient(req, res, next) {
@@ -28,9 +28,11 @@ class AdminControllerPut {
   }
 
   static async editSecurityStatus(req, res, next) {
-    const updatedSecurity = await AdminServicesPut.serviceEditSecurityStatus(req, next)
-
-    return res.status(201).send(updatedSecurity)
+    const updatedSecurity = await AdminServicesPut.serviceEditSecurityStatus(
+      req,
+      next
+    );
+    return res.status(201).send(updatedSecurity);
   }
 }
 module.exports = AdminControllerPut;

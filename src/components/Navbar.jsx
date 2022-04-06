@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import React from "react";
 
 const Barra = () => {
