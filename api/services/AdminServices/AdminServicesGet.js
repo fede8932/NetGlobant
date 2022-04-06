@@ -24,18 +24,15 @@ class AdminServicesGet {
     try {
       const oneClient = await Client.findOne({
         where: { id: req.params.id },
-        include:{
-          association: Client.offices,
-           }
-        
+        // include:{
+        //   association: Client.offices,
+        //    }
       });
       return oneClient;
     } catch (err) {
       next(err);
     }
   }
-
-
 
   static async serviceGetOneName(req, next) {
     try {
@@ -98,20 +95,18 @@ class AdminServicesGet {
     try {
       const allOfficeByClient = await BranchOficce.findAll({
         where: {
-          clientId: req.params.clientId
+          clientId: req.params.clientId,
         },
-        include:{
+        include: {
           association: Client.offices,
-        }
-      })
+        },
+      });
       return allOfficeByClient;
     } catch (err) {
-      console.log("error => ", err)
+      console.log("error => ", err);
       next(err);
     }
   }
-
-
 
   static async serviceGetOneOffice(req, next) {
     try {
@@ -135,14 +130,13 @@ class AdminServicesGet {
 
   static async serviceGetAllSecuritiesByOffice(req, next) {
     try {
-      
       const securityList = await BranchOficce.findAll({
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
         },
       });
-      
+
       return securityList;
     } catch (err) {
       next(err);
@@ -151,56 +145,57 @@ class AdminServicesGet {
 
   static async serviceGetCalenderOffice(req, next) {
     try {
-      console.log("ACA", req.body)
+      console.log("ACA", req.body);
       const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
           association: BranchOficce.calendar,
-          where:{
-            date: req.params.date
-          }
-        }
+          where: {
+            date: req.params.date,
+          },
+        },
       });
-      console.log(calendar)
-      const securities= await BranchOficce.findAll({
+      console.log(calendar);
+      const securities = await BranchOficce.findAll({
         where: { id: req.params.id },
-        include:{
+        include: {
           association: BranchOficce.security,
-           }, 
-      })
-      console.log(securities[0].securities)
-      return {calendar:calendar.workDays, securities: securities[0].securities};
+        },
+      });
+      console.log(securities[0].securities);
+      return {
+        calendar: calendar.workDays,
+        securities: securities[0].securities,
+      };
     } catch (err) {
       next(err);
     }
   }
 
-static async serviceGetAllSecuritiesByProvincie(req, next){
- try{
-    const provincie= await BranchOficce.findAll({
-      where: {
-        name: req.params.name
-      }
-    })
-    console.log(provincie[0].provincyId)
-    const provincieId=provincie[0].provincyId
-    const  securities= await Securities.findAll({
-      include:{
-        association: Securities.provincie,
-        where:{
-          id: provincieId
-        }
-      }
-    }) 
-    console.log(securities)
-    return securities
-
- }catch(err){
-   console.log(err)
-   next(err)
- }
-}
-
+  static async serviceGetAllSecuritiesByProvincie(req, next) {
+    try {
+      const provincie = await BranchOficce.findAll({
+        where: {
+          name: req.params.name,
+        },
+      });
+      console.log(provincie[0].provincyId);
+      const provincieId = provincie[0].provincyId;
+      const securities = await Securities.findAll({
+        include: {
+          association: Securities.provincie,
+          where: {
+            id: provincieId,
+          },
+        },
+      });
+      console.log(securities);
+      return securities;
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
 
   static async serviceGetCalenderSecurity(req, next) {
     try {
@@ -255,22 +250,20 @@ static async serviceGetAllSecuritiesByProvincie(req, next){
     }
   }
 
-
-static async getImageSecurity(req, next){
-  try{
-  const image= WorkDay.findAll({
-    where:{
-      id: req.params.id
-    },
-    include:{
-      attributes:['imageSecurity']
+  static async getImageSecurity(req, next) {
+    try {
+      const image = WorkDay.findAll({
+        where: {
+          id: req.params.id,
+        },
+        include: {
+          attributes: ["imageSecurity"],
+        },
+      });
+      return image;
+    } catch (err) {
+      next(err);
     }
-  })
-  return image
-}catch(err){
-  next(err)
-}
-}
-
+  }
 }
 module.exports = AdminServicesGet;

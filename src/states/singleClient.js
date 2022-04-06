@@ -40,6 +40,7 @@ export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
 
 export const editClient = createAsyncThunk("EDIT_CLIENT", async (client) => {
   try {
+    console.log("STORE DE REDUX", client)
     const editedClient = await axios.put(
       `/api/admin/edit/client/${client.id}`,
       client

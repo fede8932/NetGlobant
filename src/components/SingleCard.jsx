@@ -44,6 +44,11 @@ const SingleCard = () => {
                 <div style={{ marginBottom: "15px" }}>
                   CUIL: {security.CUIL}
                 </div>
+              </div>
+              <div class="profile-card__txt">
+                <div style={{ marginBottom: "15px" }}>
+                  Email: {security.email}
+                </div>
                 Vigilador residente en <strong>Argentina</strong>
               </div>
               <div class="profile-card-loc">

@@ -7,12 +7,16 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import { editSecurity } from "../states/singleSecurity";
 import { getSecurityById } from "../states/singleSecurity";
+import useInput from "../hooks/useInput";
 
 const SecurityFormNuevo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const securityData = useSelector((state) => state.security);
+  const security = useSelector((state) => state.security);
   const id = useParams();
+  const address = useInput(security[0].address);
+  const email = useInput(security[0].email);
+  const provincie = useInput(security[0].provincie);
 
   useEffect(() => {
     dispatch(getSecurityById(id.id));
@@ -25,13 +29,20 @@ const SecurityFormNuevo = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    dispatch(
-      editSecurity({
-        id: id.id,
-        data,
-      })
-    );
+    try {
+      console.log(security)
+      const editedSecurity = await dispatch(
+        editSecurity({
+          ...security[0],
+          ...data,
+        })
+      );
+      navigate(`/search/securities/${editedSecurity.payload[0].id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   const handleClickVolver = (url) => {
     navigate(url);
   };
@@ -51,19 +62,19 @@ const SecurityFormNuevo = () => {
               <div className="row mt-2">
                 <div className="col-md-6">
                   <Form.Label className="labels">
-                    Nombre: {securityData[0].name}{" "}
+                    Nombre: {security[0].name}{" "}
                   </Form.Label>
                 </div>
                 <div className="col-md-6">
                   <Form.Label className="labels">
-                    Apellido: {securityData[0].lastName}{" "}
+                    Apellido: {security[0].lastName}{" "}
                   </Form.Label>
                 </div>
               </div>
 
               <div className="col-md-12">
                 <Form.Label className="labels">
-                  CUIL: {securityData[0].CUIL}
+                  CUIL: {security[0].CUIL}
                 </Form.Label>
               </div>
 
@@ -72,7 +83,7 @@ const SecurityFormNuevo = () => {
                   <Form.Label className="labels">Dirección</Form.Label>
                   <Form.Control
                     size="ms"
-                    placeholder={securityData[0].address}
+                    placeholder={security[0].address}
                     className="position-relative"
                     name="address"
                     variant="outlined"
@@ -82,6 +93,8 @@ const SecurityFormNuevo = () => {
                         message: "Necesitas este campo",
                       },
                     })}
+                    value={address.value}
+                    onChange={address.onChange}
                   />
                   <ErrorMessage
                     errors={errors}
@@ -94,7 +107,7 @@ const SecurityFormNuevo = () => {
                   <Form.Label className="labels">Email</Form.Label>
                   <Form.Control
                     size="ms"
-                    placeholder={securityData[0].email}
+                    placeholder={security[0].email}
                     className="position-relative"
                     name="email"
                     variant="outlined"
@@ -108,6 +121,8 @@ const SecurityFormNuevo = () => {
                         message: "El formato no es correcto",
                       },
                     })}
+                    value={email.value}
+                    onChange={email.onChange}
                   />
                   <ErrorMessage
                     errors={errors}
@@ -132,6 +147,9 @@ const SecurityFormNuevo = () => {
                         message: "Necesitas este campo",
                       },
                     })}
+                    //ver cómo agregar el valor de la provincia
+                    value={provincie.value}
+                    onChange={provincie.onChange}
                   >
                     <option>Buenos Aires</option>
                     <option>Córdoba</option>

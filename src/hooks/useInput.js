@@ -1,6 +1,6 @@
 const { useState, useEffect } = require("react");
 
-export function useInput(initialState = "") {
+function useInput(initialState = "") {
   const [value, setValue] = useState(initialState);
 
   useEffect(() => {
@@ -12,3 +12,5 @@ export function useInput(initialState = "") {
   };
   return { value, onChange };
 }
+
+export default useInput;

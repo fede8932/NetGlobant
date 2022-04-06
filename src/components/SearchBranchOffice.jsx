@@ -3,7 +3,7 @@ import { Form, Button, FormControl, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBranches } from "../states/branches";
 import { getBranchName } from "../states/singleBranch";
-import { useInput } from "../hooks/useInput";
+import useInput from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineFileAdd } from "react-icons/ai";
 

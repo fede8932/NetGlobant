@@ -8,11 +8,16 @@ import { useEffect } from "react";
 import { getClientId } from "../states/singleClient";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import useInput from "../hooks/useInput";
 
 const EditSecurity = () => {
   const dispatch = useDispatch();
   const id = useParams();
-  const client = useSelector((state) => state.client);
+  let client = useSelector((state) => state.client);
+  const legalAddress = useInput(client.legalAddress);
+  const email = useInput(client.email);
+  const startContratDate = useInput(client.startContratDate);
+  const endContratDate = useInput(client.endContratDate);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,15 +30,19 @@ const EditSecurity = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    dispatch(
-      editClient({
-        id: id.id,
-        data,
-      })
-    );
-
-    navigate(`/clients/${id.id}`);
+  const onSubmit = async (data) => {
+    try {
+      console.log("ESTO ES CLIENT", client);
+      const editedClient = await dispatch(
+        editClient({
+          ...client,
+          ...data,
+        })
+      );
+      navigate(`/clients/${editedClient.payload.id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClickVolver = (url) => {
@@ -69,12 +78,14 @@ const EditSecurity = () => {
                 <div className="col-md-12">
                   <Form.Label className="labels">Dirección</Form.Label>
                   <Form.Control
+                    {...register("legalAddress")}
+                    value={legalAddress.value}
+                    onChange={legalAddress.onChange}
                     size="ms"
-                    placeholder={client.legalAddress}
                     className="position-relative"
                     name="legalAddress"
                     variant="outlined"
-                    {...register("address")}
+                    required
                   />
                   <ErrorMessage
                     errors={errors}
@@ -97,6 +108,8 @@ const EditSecurity = () => {
                         message: "El formato no es correcto",
                       },
                     })}
+                    value={email.value}
+                    onChange={email.onChange}
                   />
                   <ErrorMessage
                     errors={errors}
@@ -117,6 +130,8 @@ const EditSecurity = () => {
                       name="startContratDate"
                       variant="outlined"
                       {...register("startContratDate")}
+                      // value={startContratDate.value}
+                      // onChange={startContratDate.onChange}
                     />
                     <ErrorMessage
                       errors={errors}
@@ -137,6 +152,8 @@ const EditSecurity = () => {
                       name="endContratDate"
                       variant="outlined"
                       {...register("endContratDate")}
+                      // value={endContratDate.value}
+                      // onChange={endContratDate.onChange}
                     />
                     <ErrorMessage
                       errors={errors}

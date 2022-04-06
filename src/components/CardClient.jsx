@@ -19,7 +19,6 @@ const CardClient = () => {
     dispatch(getClientId(id.id));
   }, []);
 
-  console.log("client.id en delete", client.id);
   const handleDelete = () => {
     dispatch(deleteClient(client.id));
     swal({
@@ -55,7 +54,9 @@ const CardClient = () => {
           <Card.Subtitle className="mb-2 text-muted">
             Dirección Legal: {client.legalAddress}
           </Card.Subtitle>
-
+          <Card.Subtitle className="mb-2 text-muted">
+            Email: {client.email}
+          </Card.Subtitle>
           <Card.Text className="mb-2 mt-5">
             Inicio de contrato: {client.startContratDate}
           </Card.Text>
