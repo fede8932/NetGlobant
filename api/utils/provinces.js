@@ -1,36 +1,75 @@
-const provinces= [{
-    name: "Jujuy"
-},
-{
-    name: "Catamarca"
-},
-{
-    name: "Córdoba"
-},
-{
-    name: "Buenos Aires"
-},
-{
-    name: "Capital Federal"
-},
-{
-    name: "Santa Fé"
-},
-{
-  name: "Chaco"
-},{
-    name:"Mendoza"
-},{
-    name: "Rio Negro"
-},{
-    name: "Neuquen"
-},{
-    name:"Chubut"
-},{
-    name: "San Luis"
-},{
-    name:"Tierra del Fuego"
-}
-]
+const provinces = [
+  {
+    name: "Buenos Aires",
+  },
+  {
+    name: "Córdoba",
+  },
+  {
+    name: "San Luis",
+  },
+  {
+    name: "Catamarca",
+  },
+  {
+    name: "Tierra Del Fuego",
+  },
+  {
+    name: "Santa Cruz",
+  },
+  {
+    name: "Río Negro",
+  },
+  {
+    name: "Neuquén",
+  },
+  {
+    name: "La Pampa",
+  },
+  {
+    name: "Santa Fé",
+  },
+  {
+    name: "La Rioja",
+  },
+  {
+    name: "Tucumán",
+  },
+  {
+    name: "Corrientes",
+  },
 
-module.exports= provinces
+  {
+    name: "Entre Ríos",
+  },
+  {
+    name: "Misiones",
+  },
+  {
+    name: "Chaco",
+  },
+  {
+    name: "Formosa",
+  },
+  {
+    name: "Jujuy",
+  },
+  {
+    name: "San Juan",
+  },
+  {
+    name: "Salta",
+  },
+  {
+    name: "Mendoza",
+  },
+
+  {
+    name: "Santiago del Estero",
+  },
+  {
+    name: "Chubut",
+  },
+];
+
+module.exports = provinces;

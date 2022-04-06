@@ -103,6 +103,53 @@ const BranchOfficeForm = () => {
                   />
                 </div>
 
+                <div className="row mt-2">
+                  <div className="col-md-6">
+                    <Form.Label className="labels">Longitud</Form.Label>
+                    <Form.Control
+                      size="ms"
+                      placeholder="Coordenada X"
+                      className="position-relative"
+                      name="addressX"
+                      variant="outlined"
+                      {...register("addressX", {
+                        required: {
+                          value: true,
+                          message: "Necesitas este campo",
+                        },
+                      })}
+                    ></Form.Control>
+
+                    <ErrorMessage
+                      errors={errors}
+                      name="addressX"
+                      render={({ message }) => <p>{message}</p>}
+                    />
+                  </div>
+
+                  <div className="col-md-6">
+                    <Form.Label className="labels">Latitud</Form.Label>
+                    <Form.Control
+                      size="ms"
+                      placeholder="Coordenada Y"
+                      className="position-relative"
+                      name="addressY"
+                      variant="outlined"
+                      {...register("addressY", {
+                        required: {
+                          value: true,
+                          message: "Necesitas este campo",
+                        },
+                      })}
+                    ></Form.Control>
+                    <ErrorMessage
+                      errors={errors}
+                      name="addressY"
+                      render={({ message }) => <p>{message}</p>}
+                    />
+                  </div>
+                </div>
+
                 <div className="col-md-12">
                   <Form.Label className="labels">Ciudad</Form.Label>
                   <Form.Control

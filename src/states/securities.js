@@ -13,8 +13,21 @@ export const getAllSecurities = createAsyncThunk(
   }
 );
 
+export const getCloseSecurities = createAsyncThunk(
+  "GET_CLOSE_SECURITIES",
+  async (officeId) => {
+    try {
+      const closeSecurities = await axios.get("");
+      return closeSecurities.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const securitiesReducer = createReducer([], {
   [getAllSecurities.fulfilled]: (state, action) => action.payload,
+  [getCloseSecurities.fulfilled]: (state, action) => action.payload,
 });
 
 export default securitiesReducer;

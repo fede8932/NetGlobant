@@ -7,7 +7,7 @@ import { setPosition } from "./states/geoLocalizacion";
 import { effectLogin } from "./states/user";
 import Login from "./components/Login";
 import ClientForm from "./components/ClientFrom";
-import SecurityForm from "./components/SecurityForm";
+
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import { Route, Routes } from "react-router-dom";
@@ -32,12 +32,12 @@ import EditBranchOffice from "./components/EditBranchOffice";
 import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
-import EditSecurityNuevo from "./components/EditSecurityNuevo"
+import EditSecurityNuevo from "./components/EditSecurityNuevo";
 import CalendarComponent from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
-import Footer from './components/Footer'
-import FormRecomendation from './components/FormRecomendation'
-
+import Footer from "./components/Footer";
+import FormRecomendation from "./components/FormRecomendation";
+import CalendarAssignment from "./components/CalendarAssignment"
 
 function App() {
   const dispatch = useDispatch();
@@ -65,15 +65,13 @@ function App() {
         <></>
       )}
 
-      <FormRecomendation/>
-   
-   <Footer/>
+      <Footer />
 
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/client" element={<ClientFormNuevo/>} />
+        <Route path="/client" element={<ClientFormNuevo />} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/clients/:id" element={<CardClient />} />
         <Route path="/edit/client/:id" element={<EditClient />} />
@@ -91,6 +89,7 @@ function App() {
         <Route path="/search/securities" element={<SecurityList />} />
         <Route path="/user/avisos" element={<AvisosForm />} />
         <Route path="/calendar" element={<CalendarComponent />} />
+        <Route path="/asignation" element={<CalendarAssignment />} />
       </Routes>
     </div>
   );

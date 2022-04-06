@@ -1,36 +1,40 @@
-const S = require("sequelize")
-const db = require("../db")
+const S = require("sequelize");
+const db = require("../db");
 
-class BranchOficce extends S.Model{}
+class BranchOficce extends S.Model {}
 
-BranchOficce.init({
-    name:{
-        type: S.STRING
+BranchOficce.init(
+  {
+    name: {
+      type: S.STRING,
     },
-    address:{
-      type: S.STRING
+    address: {
+      type: S.STRING,
     },
-    city:{
-        type: S.STRING
+    city: {
+      type: S.STRING,
     },
-    openHour:{
-        type: S.INTEGER
+    openHour: {
+      type: S.INTEGER,
     },
-    status:{
-        type: S.BOOLEAN,
-        defaultValue:true
-      },
-    closeHour:{
-        type: S.INTEGER
+    status: {
+      type: S.BOOLEAN,
+      defaultValue: true,
     },
-    addressX:{
-        type: S.FLOAT
+    closeHour: {
+      type: S.INTEGER,
     },
-    addressY:{
-        type: S.FLOAT
-    }
-},{
-    sequelize: db, modelName: "branchOficce"
-})
+    addressX: {
+      type: S.FLOAT,
+    },
+    addressY: {
+      type: S.FLOAT,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "branchOficce",
+  }
+);
 
-module.exports= BranchOficce
+module.exports = BranchOficce;
