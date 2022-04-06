@@ -21,7 +21,7 @@ const setupSeed = async () => {
   console.log("Products Seed...");
  
 
-  return Promise.all([admins,  clients, securities,provincies]);
+  return Promise.all([admins,  clients, securities, provincies]);
 };
 
 db.sync({ force: false })

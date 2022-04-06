@@ -1,7 +1,5 @@
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
-import CalendarClientFilter from "./CalendarClientFilter";
-import CalendarBranchFilter from "./CalendarBranchFilter";
 import "react-calendar/dist/Calendar.css";
 import { Form, Card } from "react-bootstrap";
 import { getCalendarOffice } from "../states/calendar";
@@ -9,7 +7,8 @@ import { getBranchName } from "../states/singleBranch";
 import { getAllBranches } from "../states/branches";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import AssignForm from "./AssignForm";
+import CalendarClientFilter from "./CalendarClientFilter";
+
 
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
@@ -59,23 +58,26 @@ const CalendarComponent = () => {
   });
 
   return (
-    <div className="app ">
-      <h1 className="text-center">React Calendar</h1>
-      <div
-        className="calendar-container"
-        style={{ marginLeft: "550px", marginTop: "80px", size: "150px" }}
-        onBlur={onbluer}
-        onClick={click}
-      >
-        <Calendar onChange={setDate} value={date} />
-        {console.log(date, "ACA")}
+    <div className="calendarContainer">
+      <div >
+        <CalendarClientFilter />
       </div>
-      <p className="text-center">
-        <span className="bold">Selected Date:</span> {date.toDateString()}
-      </p>
 
-      <div className="calendarContainer">
-        <AssignForm style={{ minWidth: "400px" }} />
+      <div className="app ">
+        <h1 className="text-center">React Calendar</h1>
+        <div
+          className="calendar-container"
+          style={{ marginLeft: "550px", marginTop: "80px", size: "150px" }}
+          onBlur={onbluer}
+          onClick={click}
+        >
+          <Calendar onChange={setDate} value={date} />
+          {console.log(date, "ACA")}
+        </div>
+        <p className="text-center">
+          <span className="bold">Selected Date:</span> {date.toDateString()}
+        </p>
+
         <Card
           style={{
             width: "18rem",

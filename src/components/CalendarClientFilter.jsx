@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { getAllClients } from "../states/Clients";
 import { getClient } from "../states/singleClient";
 import { useSelector, useDispatch } from "react-redux";
@@ -52,11 +52,10 @@ const CalendarClientFilter = () => {
         style={{
           position: "relative",
           width: "300px",
-          left: "400px",
+          left: "300px",
           top: "10px",
         }}
       >
-        <Form.Label className="labels">Cliente</Form.Label>
         <Form.Control
           as="select"
           size="ms"
@@ -75,8 +74,12 @@ const CalendarClientFilter = () => {
           {options}
         </Form.Control>
 
-        <Button   style={{marginTop:"5px"}} variant="secondary" onClick={handleSubmit(onSubmit)}>
-          Buscar sucursales
+        <Button
+          style={{ marginTop: "5px" }}
+          variant="secondary"
+          onClick={handleSubmit(onSubmit)}
+        >
+          Sigiente
         </Button>
 
         {showCalendarBranchFilter()}

@@ -19,9 +19,7 @@ Securities.init(
     CUIL: {
       type: S.BIGINT,
     },
-    entryHour: {
-      type: S.INTEGER,
-    },
+
     email: {
       type: S.STRING,
       validate: {
@@ -43,6 +41,12 @@ Securities.init(
     },
     date: {
       type: S.DATEONLY,
+    },
+    addressX: {
+      type: S.FLOAT,
+    },
+    addressY: {
+      type: S.FLOAT,
     },
   },
   {

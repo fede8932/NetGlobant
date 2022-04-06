@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
-import { Card, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { getAllBranchesByClient } from "../states/branches";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { getBranchName } from "../states/singleBranch";
+import AssignForm from "./AssignForm";
 
 const CalendarBranchFilter = (client) => {
   const dispatch = useDispatch();
   const branches = useSelector((state) => state.branches);
+  const branch = useSelector((state) => state.branch);
 
   useEffect(() => {
     dispatch(getAllBranchesByClient(client.client.id));
@@ -28,10 +31,21 @@ const CalendarBranchFilter = (client) => {
 
   const onSubmit = (data) => {
     console.log("se selecciono una sucursal", data);
+    dispatch(getBranchName(data.branch));
+  };
+
+  const showCalendarAssignForm = () => {
+    return branch.id ? (
+      <>
+        <AssignForm style={{ minWidth: "400px" }} />
+      </>
+    ) : (
+      <></>
+    );
   };
 
   return (
-    <>
+   
       <Form
         onSubmit={handleSubmit(onSubmit)}
         style={{
@@ -65,10 +79,11 @@ const CalendarBranchFilter = (client) => {
           style={{ marginTop: "5px" }}
           onClick={handleSubmit(onSubmit)}
         >
-          Asignar vigiladores
+          Siguiente
         </Button>
+        {showCalendarAssignForm()}
       </Form>
-    </>
+    
   );
 };
 
