@@ -2,10 +2,10 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getCalendarOffice= createAsyncThunk("GET_CALENDAR_OFFICE", async ({id, day})=>{
+export const getCalendarOffice= createAsyncThunk("GET_CALENDAR_OFFICE", async ({id, thisDay})=>{
     try{
-        console.log("DATEEEEE", id, "ID", day)
-   const calendarioOffice= await axios.get(`api/admin/calendar/office/${id}/${day}`)
+        console.log("DATEEEEE", id, "ID", thisDay)
+   const calendarioOffice= await axios.get(`api/admin/calendar/office/${id}/${thisDay}`)
    return calendarioOffice.data
     }catch(err){
         console.log(err)

@@ -8,7 +8,7 @@ const {
 const createWorkDay = require("../../lib/createWorkDaySecurity");
 const {
   validateCreateWorkDay,
-  validationZone,
+ /*  validationZone, */
 } = require("../../lib/validationsr");
 
 class AdminServicesPost {
@@ -35,7 +35,6 @@ class AdminServicesPost {
       
 
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
@@ -54,9 +53,7 @@ class AdminServicesPost {
           status: true,
         },
       });
-      console.log(client);
       const office = await BranchOficce.create(req.body);
-      console.log(office);
       office.setClient(client);
       office.setProvincy(provincieLocal);
       return office;
@@ -67,9 +64,7 @@ class AdminServicesPost {
 
   static async serviceAddClient(req, next) {
     try {
-      console.log("ESTO ES REQ BODY", req.body);
       const client = await Client.create(req.body);
-      console.log("CLIENT", client);
       return client;
     } catch (err) {
       next(err);
@@ -143,8 +138,16 @@ class AdminServicesPost {
         },
       });
       if (!haveDays) {
-        return createWorkDay(req);
-      }
+          const workDays = await WorkDay.create(req.body);
+          console.log(workDays)
+          const security = await Securities.findOne({
+            where: { name: req.body.name },
+          });
+          security.status= true
+          security.save()
+          security.addWorkDays(workDays);
+          return security;
+    }
       const { dataValues } = haveDays.dataValues.workDays[0];
       const definition = validateCreateWorkDay(
         dataValues.wishEntryHour,
@@ -152,7 +155,7 @@ class AdminServicesPost {
         req.body.wishEntryHour,
         req.body.wishClosingHour
       );
-      console.log(definition);
+      console.log("DEFINITION",definition);
       return definition ? createWorkDay(req) : definition;
     } catch (err) {
       next(err);

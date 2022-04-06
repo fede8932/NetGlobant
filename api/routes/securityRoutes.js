@@ -10,7 +10,7 @@ securityRouter.put(
   SecurityController.cancellMyWorkDay
 );
 
-securityRouter.patch(
+securityRouter.put(
   "/myEffictiveWorkDay/:id/:date",
   SecurityController.writeMyWorkDay
 );

@@ -12,7 +12,7 @@ const Security = () => {
   const securityToSearch = useInput();
   const id = useParams();
   const security = useSelector((state) => state.security);
-  const navigate = useNavigate();
+  /*   const navigate = useNavigate(); */
 
   useEffect(() => {
     dispatch(getSecurityById(id.id));

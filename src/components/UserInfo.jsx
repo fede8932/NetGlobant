@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form , Button , Container , ListGroup } from 'react-bootstrap';
+import { Form , Button , Container , /* ListGroup */ } from 'react-bootstrap';
 import Footer from './Footer';
 import Consulta from './Consulta';
 import { useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ export default function UserInfo() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    /*formState: {  errors  ,}*/
   } = useForm();
   const consultar = async (date) => {
     const servicio = await axios({

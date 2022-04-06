@@ -12,13 +12,13 @@ WorkDay.init(
       type: S.DATE,
     },
     wishEntryHour: {
-      type: S.DATE, 
+      type: S.STRING, 
     },
     closingHour: {
-      type: S.DATE,
+      type:S.DATE,
     },
     wishClosingHour: {
-      type: S.DATE,
+      type:  S.STRING,
     },
     serverHourEntry: {
       type: S.DATE,
@@ -34,9 +34,6 @@ WorkDay.init(
     comment: {
       type: S.TEXT,
     },
-    date: {
-      type: S.DATEONLY,
-    },
     imageSecurity: {
       type: S.STRING,
     },
@@ -46,6 +43,13 @@ WorkDay.init(
     modelName: "workDay",
   }
 );
+
+/* WorkDay.beforeCreate((workday)=>{
+  const dates= workday.wishEntryHour
+  workday.dates= dates
+  return workday.save()
+})
+ */
 
 WorkDay.sync({ alter: true })
 

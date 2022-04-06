@@ -21,10 +21,8 @@ adminRouter.get("/securities/:name", AdminControllerGet.getOneSecurity);
 adminRouter.get("/office", AdminControllerGet.getAllOffice);
 // TRAE UNA OFICINA POR ID
 adminRouter.get("/office/:id", AdminControllerGet.getOneOffice);
-
 // TRAE TODAS LAS OFICINAS de un determinado cliente
 adminRouter.get("/office/byclient/:clientId", AdminControllerGet.getAllOfficeByClient);
-
 // TRAE UNA OFICINA POR NAME
 adminRouter.get("/officename/:name", AdminControllerGet.getOneOfficeName);
 // TRAE UN GUARDIA POR NAME DE OFICINA
