@@ -71,6 +71,20 @@ class AdminServicesPut {
       next(err);
     }
   }
+
+  static async serviceEditSecurityStatus(req, next) {
+    const { status } = req.body;
+    const { id } = req.params;
+    try {
+      const [rows, security] = await Securities.update(
+        { status: status },
+        { where: { id: id } }
+      );
+      return security;
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = AdminServicesPut;

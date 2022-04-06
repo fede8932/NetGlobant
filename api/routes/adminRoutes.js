@@ -80,6 +80,8 @@ adminRouter.put("/edit/security/:id", AdminControllerPut.editSecurity);
 adminRouter.put("/edit/client/:id", AdminControllerPut.editClient);
 // EDITA CALENDAR POR ID
 adminRouter.put("/edit/calendar/:id", AdminControllerPut.editCalendar);
+// EDITA EL ESTADO DE UN SECURITY
+adminRouter.put("/edit/securityStatus/:id", AdminControllerPut.editSecurityStatus)
 
 
 //ESTADO DE CALENDARIO (DISPONIBILIDAD)
