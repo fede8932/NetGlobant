@@ -117,6 +117,7 @@ class AdminControllerGet{
           req,
           next
         );
+        console.log(securities);
         return res.send(securities);
       }
     
