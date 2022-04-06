@@ -22,7 +22,7 @@ const setupSeed = async () => {
   return Promise.all([admins, securities, clients, provincies]);
 };
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(setupSeed)
   .then(() => {
     console.log("Seed succesfully");

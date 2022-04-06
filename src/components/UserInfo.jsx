@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Form , Button , Container , ListGroup } from 'react-bootstrap';
-import Footer from './Footer';
+import { Form , Button , Container} from 'react-bootstrap';
 import Consulta from './Consulta';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -21,7 +20,6 @@ export default function UserInfo() {
       url: `/api/security/myWorkDay/${user.id}/${date.fecha}`,
     });
     setInfo(servicio)
-    console.log(info)
   };
 
   return (
@@ -50,7 +48,6 @@ export default function UserInfo() {
         </Form><br />
         {info.data?(<Consulta info={info}/>):(<></>)}
     </Container>
-    <Footer/>
     </div>
     );
 }

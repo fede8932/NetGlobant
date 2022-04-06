@@ -13,6 +13,9 @@ class SecuritiesServices {
         where: {
           date: req.params.date,
         },
+        include:{
+          association: BranchOficce.calendar
+        }
       });
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
@@ -21,10 +24,19 @@ class SecuritiesServices {
           where: {
             wishEntryHour: today.wishEntryHour,
           },
-        },
+        }, 
       });
-      console.log(schedule);
-      const oficina = await BranchOficce.findOne({
+      const oficina= await BranchOficce.findOne({
+          include:{
+            association: BranchOficce.security,
+            where:{
+              id: schedule.id
+            }
+          }})
+
+
+      const oficinaSchedule= await BranchOficce.findOne({
+        where:{ id: oficina.id},
         include: {
           association: BranchOficce.calendar,
           where: {
@@ -32,13 +44,13 @@ class SecuritiesServices {
           },
         },
       });
-
+      console.log("OFICNA",oficina);
       const cliente = await Client.findOne({
         where: {
           id: oficina.clientId,
         },
       });
-      console.log(oficina);
+
       const provincia = await Provincies.findOne({
         where: {
           id: oficina.provincyId,
@@ -46,7 +58,7 @@ class SecuritiesServices {
       });
 
       return {
-        office: oficina,
+        office: oficinaSchedule,
         calendario: schedule,
         cliente: cliente,
         provincia: provincia,
@@ -59,6 +71,7 @@ class SecuritiesServices {
 
   static async serviceToWriteMyWorkDay(req, next) {
     try {
+      console.log(req.params)
       const today = await Securities.findOne({
         where: { id: req.params.id },
         include: {
@@ -68,8 +81,9 @@ class SecuritiesServices {
           },
         },
       });
+      console.log(today)
       const workDaily = today.dataValues.workDays;
-      const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body;
+      // const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body;
       const securityIn = horarioDeFichadaIngreso
         ? { entryHour: horarioDeFichadaIngreso, serverHourEntry: new Date() }
         : {
@@ -131,3 +145,5 @@ class SecuritiesServices {
 }
 
 module.exports = SecuritiesServices;
+
+

@@ -34,9 +34,6 @@ WorkDay.init(
     comment: {
       type: S.TEXT,
     },
-    date: {
-      type: S.DATEONLY,
-    },
     imageSecurity: {
       type: S.STRING,
     },

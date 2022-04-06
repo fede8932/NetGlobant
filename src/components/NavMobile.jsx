@@ -56,7 +56,7 @@ const Barra = () => {
           onClick={handleLogout}
           variant="warning"
           style={{ color: "#696969" }}
-          href="/"
+          href="/admin/login"
         >
           Logout
         </Button>

@@ -36,7 +36,6 @@ import EditSecurityNuevo from "./components/EditSecurityNuevo"
 import CalendarComponent from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from './components/Footer'
-import FormRecomendation from './components/FormRecomendation'
 
 
 function App() {
@@ -64,11 +63,6 @@ function App() {
       ) : (
         <></>
       )}
-
-      <FormRecomendation/>
-   
-   <Footer/>
-
       <Routes>
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
@@ -92,6 +86,7 @@ function App() {
         <Route path="/user/avisos" element={<AvisosForm />} />
         <Route path="/calendar" element={<CalendarComponent />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }
