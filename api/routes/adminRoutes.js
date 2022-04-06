@@ -94,6 +94,8 @@ adminRouter.patch("/validate/client/:id", AdminControllerPatch.patchClient)
 adminRouter.patch("/validate/admins/:id", AdminControllerPatch.patchAdmin)
 //ESTADO DE OFICINA (DISPONIBILIDAD)
 adminRouter.patch("/validate/Office/:id", AdminControllerPatch.patchOffice)
+//CAMBIA LA CONTRASEÑA
+adminRouter.patch("/changePassword/:id", AdminControllerPatch.patchPassword)
 
 
 module.exports = adminRouter;

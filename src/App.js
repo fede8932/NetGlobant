@@ -37,7 +37,7 @@ import CalendarComponent from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import FormRecomendation from "./components/FormRecomendation";
-import CalendarAssignment from "./components/CalendarAssignment"
+import CalendarAssignment from "./components/CalendarAssignment";
 
 function App() {
   const dispatch = useDispatch();

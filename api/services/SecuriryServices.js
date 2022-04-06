@@ -103,6 +103,7 @@ class SecuritiesServices {
       next(err);
     }
   }
+  
   static async serviceChangeMyPassword(req, next) {
     try {
       await Securities.update(req.body, {

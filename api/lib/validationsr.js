@@ -24,20 +24,23 @@ function validateCreateWorkDay(inHour, exitHour, newInHour, newExitHour) {
   return true;
 }
 
-function  enableOrDisable(instance){
- instance.status= !instance.status
- return instance.save()
+function enableOrDisable(instance) {
+  instance.status = !instance.status;
+  return instance.save();
 }
 
-const  validationZone= async(idBranch, idSecurity)=>{
- const securities= await Securities.findOne({
- where:{id: idBranch}, include:{ association: Securities.provincie}
- })
-const officie= await BranchOficce.findOne({
-  where:{id: idSecurity}
-})
-const comparation= securities.provincies.filter((provincie)=> provincie.id == officie.provincyId)
-return comparation.length>0? true: false
-} 
+const validationZone = async (idBranch, idSecurity) => {
+  const securities = await Securities.findOne({
+    where: { id: idBranch },
+    include: { association: Securities.provincie },
+  });
+  const officie = await BranchOficce.findOne({
+    where: { id: idSecurity },
+  });
+  const comparation = securities.provincies.filter(
+    (provincie) => provincie.id == officie.provincyId
+  );
+  return comparation.length > 0 ? true : false;
+};
 
-module.exports = {enableOrDisable, validateCreateWorkDay, validationZone}
+module.exports = { enableOrDisable, validateCreateWorkDay, validationZone };
