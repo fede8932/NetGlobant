@@ -1,16 +1,20 @@
-const securityRouter = require("express").Router()
-const SecurityController= require("../controllers/SecurityController")
+const securityRouter = require("express").Router();
+const SecurityController = require("../controllers/SecurityController");
 
-securityRouter.get("/myWorkDay/:id/:date", SecurityController.getMyWorkDay)
+securityRouter.get("/myWorkDay/:id/:date", SecurityController.getMyWorkDay);
 
-securityRouter.patch("/mypassword/:id", SecurityController.changeMyPassword)
+securityRouter.patch("/mypassword/:id", SecurityController.changeMyPassword);
 
-securityRouter.put("/cancelledWorkDay/:id", SecurityController.cancellMyWorkDay)
+securityRouter.put(
+  "/cancelledWorkDay/:id",
+  SecurityController.cancellMyWorkDay
+);
 
-securityRouter.patch("/myEffictiveWorkDay/:id/:date", SecurityController.writeMyWorkDay )
+securityRouter.patch(
+  "/myEffictiveWorkDay/:id/:date",
+  SecurityController.writeMyWorkDay
+);
 
-securityRouter.post("/photoWorkDay", SecurityController.saveImageSecurity)
+securityRouter.post("/photoWorkDay", SecurityController.saveImageSecurity);
 
-
-
-module.exports= securityRouter
+module.exports = securityRouter;
