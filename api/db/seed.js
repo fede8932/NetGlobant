@@ -17,12 +17,14 @@ const setupSeed = async () => {
   const clients = await Client.bulkCreate(clientsList);
     
   const provincies= await Provincies.bulkCreate(provinces)
+  
   console.log("Products Seed...");
+ 
 
-  return Promise.all([admins, securities, clients, provincies]);
+  return Promise.all([admins,  clients, securities,provincies]);
 };
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(setupSeed)
   .then(() => {
     console.log("Seed succesfully");
