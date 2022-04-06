@@ -5,7 +5,7 @@ import {
     TileLayer,
   } from 'react-leaflet'
   const Mapa = function({coordenadas , cliente}) {
-    return (
+    return !coordenadas[0]?(<>Coordenadas NULL</>):(
       <MapContainer center={coordenadas} zoom={14} id="mapa">
       <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -17,7 +17,6 @@ import {
           </Popup>
     </Marker>
       </MapContainer>
-
     )
   }
   export default Mapa

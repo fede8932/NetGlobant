@@ -5,7 +5,6 @@ export const setUser = createAction("SET_USER")
 
 
 export const effectLogin = createAsyncThunk("PERSISTENCIA", () => {
-  //console.log(JSON.parse(localStorage.getItem('user')));
   return JSON.parse(localStorage.getItem('user'));
 });
 

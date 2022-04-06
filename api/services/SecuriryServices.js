@@ -26,6 +26,7 @@ class SecuritiesServices {
           },
         },
       });
+
       const oficina = await BranchOficce.findOne({
         include: {
           association: BranchOficce.security,
@@ -34,15 +35,19 @@ class SecuritiesServices {
           },
         },
       });
+
       const oficinaSchedule = await BranchOficce.findOne({
         where: { id: oficina.id },
         include: {
-          association: BranchOficce.calendar,
+          association: BranchOficce.security,
           where: {
-            wishEntryHour: today.wishEntryHour,
+            id: schedule.id,
           },
         },
       });
+
+      console.log("OFICNA", oficina);
+
       const cliente = await Client.findOne({
         where: {
           id: oficina.clientId,
@@ -69,41 +74,43 @@ class SecuritiesServices {
 
   static async serviceToWriteMyWorkDayEntry(req, next) {
     try {
-      console.log(req.params.date)
-      const date= req.params.date
-      console.log("DATE", date)
-      const justDate= date.split(" ")[0]
-      console.log("JUSTDATE", justDate)
+      console.log(req.params.date);
+      const date = req.params.date;
+      console.log("DATE", date);
+      const justDate = date.split(" ")[0];
+      console.log("JUSTDATE", justDate);
+      console.log(req.params);
       const today = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
-        
-        where:{
-          workDay:{
-            date: justDate
-          }
-        }
-      },
+
+          where: {
+            workDay: {
+              date: justDate,
+            },
+          },
+        },
       });
-     
-      console.log("TODAY",today)
+
+      console.log("TODAY", today);
       /* const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body; */
-       
-      const [rows, workDay] = await WorkDay.update( { entryHour: req.params.date, serverHourEntry: new Date() }, {
-        where: { id: workDaily[0].id },
-        returning: true,
-      });
-      console.log(workDay)
+
+      const [rows, workDay] = await WorkDay.update(
+        { entryHour: req.params.date, serverHourEntry: new Date() },
+        {
+          where: { id: workDaily[0].id },
+
+          returning: true,
+        }
+      );
+      console.log(workDay);
       return workDay;
     } catch (err) {
       next(err);
     }
   }
-  static async serviceToWriteMyWorkDayClose(req, next){
-
-
-  }
+  static async serviceToWriteMyWorkDayClose(req, next) {}
 
   static async serviceCancellWorkDay(req, next) {
     try {
@@ -120,7 +127,7 @@ class SecuritiesServices {
       next(err);
     }
   }
-  
+
   static async serviceChangeMyPassword(req, next) {
     try {
       await Securities.update(req.body, {
