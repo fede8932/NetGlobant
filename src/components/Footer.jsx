@@ -1,21 +1,42 @@
-import * as React from 'react';
+import * as React from "react";
 
-const Footer = function (){
-    return (
-    <div id="footer" className="container"
-    style={{position: "fixed", bottom:"0px", left:"85px", height:"100px"}}>
-    <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+const Footer = function () {
+  return (
+    <div
+      id="footer"
+      className="container"
+      style={{
+        position: "absolute",
+        bottom: "0",
+        left: "85px",
+        height: "90px",
+        width: "100%",
+      }}
+    >
+      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div className="col-md-4 d-flex align-items-center">
-        <span className="text-muted">© 2022 Bootcamp Enero, Inc</span>
+          <span className="text-muted">© 2022 Bootcamp Enero, Inc</span>
         </div>
 
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li className="ms-3"><a className="text-muted" href="#"><i className="bi bi-facebook"></i></a></li>
-        <li className="ms-3"><a className="text-muted" href="#"><i className="bi bi-twitter"></i></a></li>
-        <li className="ms-3"><a className="text-muted" href="#"><i className="bi bi-whatsapp"></i></a></li>
+          <li className="ms-3">
+            <a className="text-muted" href="#">
+              <i className="bi bi-facebook"></i>
+            </a>
+          </li>
+          <li className="ms-3">
+            <a className="text-muted" href="#">
+              <i className="bi bi-twitter"></i>
+            </a>
+          </li>
+          <li className="ms-3">
+            <a className="text-muted" href="#">
+              <i className="bi bi-whatsapp"></i>
+            </a>
+          </li>
         </ul>
-    </footer>
+      </footer>
     </div>
-    )
-}
-export default Footer
+  );
+};
+export default Footer;

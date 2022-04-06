@@ -18,6 +18,7 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log("data en login", data);
     const token = await axios({
       method: "POST",
       url: "/api/auth/login",
@@ -27,10 +28,20 @@ export default function Login() {
         admin: admin,
       },
     });
-    localStorage.setItem("user", JSON.stringify({ id: token.data.administrator.id, name: token.data.administrator.name, token: token.data.jwt.token }));
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: token.data.administrator.id,
+        name: token.data.administrator.name,
+        token: token.data.jwt.token,
+      })
+    );
     dispatch(
-
-      setUser({ id: token.data.administrator.id, name: token.data.administrator.name, token: token.data.jwt.token  })
+      setUser({
+        id: token.data.administrator.id,
+        name: token.data.administrator.name,
+        token: token.data.jwt.token,
+      })
     );
     admin ? navigate("/") : navigate("/status");
   };

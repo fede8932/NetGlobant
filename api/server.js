@@ -17,7 +17,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/api", routes);

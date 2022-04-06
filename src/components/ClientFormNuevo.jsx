@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -82,8 +82,7 @@ const ClientFormNuevo = () => {
                       },
                       maxLength: {
                         value: 11,
-                        message:
-                        "El CUIT debe tener 11 caracteres",
+                        message: "El CUIT debe tener 11 caracteres",
                       },
                     })}
                   />

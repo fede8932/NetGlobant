@@ -87,8 +87,7 @@ const CalendarComponent = () => {
         >
           <Calendar onChange={setDate} value={date} />
           <button value={date} onClick={changeDate}>
-            {" "}
-            serach
+            search
           </button>
           {console.log(date, "ACA")}
         </div>
@@ -163,8 +162,8 @@ const CalendarComponent = () => {
               </Card.Text>
             </Card.Body>
           </Card>
+          {/* <AssignForm style={{ minWidth: "40px" }} vigilantes={security} /> */}
         </div>
-        <AssignForm style={{ minWidth: "40px" }} vigilantes={security} />
       </div>
     </div>
   );

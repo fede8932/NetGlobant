@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
@@ -8,83 +8,126 @@ import { getCloseSecurities } from "../states/securities";
 import { useDispatch, useSelector } from "react-redux";
 
 const AssignForm = ({ vigilantes }) => {
-  /* const [guardias , setGuardias] = React.useState([
-        {name : "Martin Cristo" , CUIL : 23354896579 , direccion : "Av Sarmiento 3545"},
-        {name : "Marcelo Castro" , CUIL : 21354896575 , direccion : "Av Belgrano 3545"},
-        {name : "Daniela Dominguez" , CUIL : 25354896574 , direccion : "Av San Martin 3545"},
-        {name : "Mariana Lopez" , CUIL : 29354896577 , direccion : "Av Colon 3545"}]) // hay que traerlo desde el back 
-   */ const [guardia, setGuardia] = React.useState(vigilantes[0]);
+  //const [guardia, setGuardia] = React.useState(vigilantes[0]);
+  const dispatch = useDispatch();
+  const closeSecurities = useSelector((state) => state.securities);
+  const branch = useSelector((state) => state.branch);
+
+  useEffect(() => {
+    dispatch(getCloseSecurities(branch));
+  }, []);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
+  const options = closeSecurities?.map((guardia, i) => {
+    return (
+      <option key={i} value={i}>
+        {guardia.name} {guardia.lastName} --- {guardia.address}
+      </option>
+    );
+  });
+
   const handleClick = async (data) => {
-    console.log("DATA DE ASING", data);
-    try {
-      guardia ? (
-        await axios({
-          method: "POST",
-          url: "/api/admin/add/Calendar/security",
-          data: {
-            name: guardia.name,
-            wishEntryHour: data.ingreso,
-            wishClosingHour: data.egreso,
-          },
-        })
-      ) : (
-        <p>no hay vigiladores </p>
-      );
-      swal({
-        title: "Vigilador asignado",
-        text: ".",
-        icon: "success",
-        button: "Aceptar",
-      });
-    } catch (err) {
-      swal({
-        title: err,
-        text: ".",
-        icon: "success",
-        button: "Aceptar",
-      });
-    }
+    // console.log("DATA DE ASING", data);
+    // try {
+    //   guardia ? (
+    //     await axios({
+    //       method: "POST",
+    //       url: "/api/admin/add/Calendar/security",
+    //       data: {
+    //         name: guardia.name,
+    //         wishEntryHour: data.ingreso,
+    //         wishClosingHour: data.egreso,
+    //       },
+    //     })
+    //   ) : (
+    //     <p>no hay vigiladores </p>
+    //   );
+    //   swal({
+    //     title: "Vigilador asignado",
+    //     text: ".",
+    //     icon: "success",
+    //     button: "Aceptar",
+    //   });
+    // } catch (err) {
+    //   swal({
+    //     title: err,
+    //     text: ".",
+    //     icon: "success",
+    //     button: "Aceptar",
+    //   });
+    // }
   };
   return (
-    <div className="assignContainer">
-      <h4 className="text-center" style={{ color: "grey" }}>
-        ASIGNACIÓN
-      </h4>
-      <form onSubmit={handleSubmit(handleClick)}>
-        <div className="row mt-3">
-          <div className="col-md-12">
-            <label className="labels">Seleccioná el guardia de seguridad</label>
-            <select
-              onChange={(e) => {
-                setGuardia(vigilantes[e.target.value]);
-              }}
-              className="form-select"
-              id="inputGroupSelect01"
-            >
-              {vigilantes
-                ? vigilantes.map((guardia, i) => (
-                    <option key={i} value={i}>
-                      {guardia.name}
-                    </option>
-                  ))
-                : "."}
-            </select>
-          </div>
+    <form onSubmit={handleSubmit(handleClick)}>
+      <div className="row mt-3">
+        <div className="col-md-12">
+          <Form.Label className="labels">Seleccione un vigilador</Form.Label>
+          <Form.Control
+            style={{ width: "200px" }}
+            as="select"
+            size="ms"
+            className="position-relative"
+            name="security"
+            variant="outlined"
+            {...register("security", {
+              required: {
+                value: true,
+                message: "Necesitas este campo",
+              },
+            })}
+          >
+            {options}
+          </Form.Control>
+          {/* <label className="labels">Seleccioná el guardia de seguridad</label>
+          <select
+            onChange={(e) => {
+              setGuardia(closeSecurities[e.target.value]);
+            }}
+            className="form-select"
+            id="inputGroupSelect01"
+          >
+            {closeSecurities?.map((guardia, i) => (
+              <option key={i} value={i}>
+                {guardia.name} {guardia.address}
+              </option>
+            ))}
+          </select> */}
         </div>
-        <div>
-          <Form.Label className="labels">CUIL</Form.Label>
+      </div>
+      {/* <div>
+        <Form.Label className="labels">CUIL</Form.Label>
+        <Form.Control
+          size="ms"
+          className="position-relative"
+          variant="outlined"
+          disabled="true"
+          // value={guardia.CUIL}
+        />
+      </div>
+      <div>
+        <Form.Label className="labels">Dirección</Form.Label>
+        <Form.Control
+          size="ms"
+          className="position-relative"
+          variant="outlined"
+          disabled="true"
+          // value={guardia.direccion}
+        />
+      </div> */}
+      <div className="row mt-2">
+        <div className="col-md-6">
+          <Form.Label className="labels">Ingreso</Form.Label>
           <Form.Control
             size="ms"
             className="position-relative"
             variant="outlined"
             disabled="true"
-            value={guardia ? guardia.CUIL : ""}
+            //value={guardia ? guardia.CUIL : ""}
           />
         </div>
         <div>
@@ -94,7 +137,7 @@ const AssignForm = ({ vigilantes }) => {
             className="position-relative"
             variant="outlined"
             disabled="true"
-            value={guardia ? guardia.direccion : ""}
+            //value={guardia ? guardia.direccion : ""}
           />
         </div>
         <div className="row mt-2">
@@ -136,14 +179,14 @@ const AssignForm = ({ vigilantes }) => {
         <div id="assignBtn" className="text-center">
           <Button
             type="submit"
-            variant="warning"
-            className="btn btn-primary profile-button"
+            variant="secondary"
+            style={{ marginTop: "5px" }}
           >
-            ASIGNAR
+            Asignar
           </Button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 
