@@ -19,7 +19,6 @@ Securities.init(
     CUIL: {
       type: S.BIGINT,
     },
-
     email: {
       type: S.STRING,
       validate: {
