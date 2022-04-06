@@ -36,9 +36,6 @@ Securities.init(
     address: {
       type: S.STRING,
     },
-    salt: {
-      type: S.STRING,
-    },
     date: {
       type: S.DATEONLY,
     },

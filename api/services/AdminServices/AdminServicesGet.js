@@ -7,8 +7,8 @@ const {
 } = require("../../models");
 const { Op } = require("@sequelize/core");
 /* const { Op } = require("sequelize") */
-const { getRadius } = require("../../lib/findDistance");
 const { findAll } = require("../../models/Admin");
+const { distance } = require("../../lib/findDistance.js")
 
 class AdminServicesGet {
   static async serviceGetAllClients(next) {
@@ -219,8 +219,13 @@ class AdminServicesGet {
     let min
 
     try {
-      const securities = await Securities.findAll({
-        include: Provincies.findOne({ where: { id: id } }),
+      let securities = await Securities.findAll({
+        include: {
+          association: Securities.provincie,
+          where: {
+            id: id
+          }
+        },
       });
 
       securities = securities.map((securitie) => {
