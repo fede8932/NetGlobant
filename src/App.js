@@ -3,11 +3,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosition } from "./states/geoLocalizacion";
+/* import { setPosition } from "./states/geoLocalizacion"; */
 import { effectLogin } from "./states/user";
 import Login from "./components/Login";
-import ClientForm from "./components/ClientFrom";
-import SecurityForm from "./components/SecurityForm";
+/* import ClientForm from "./components/ClientFrom";
+import SecurityForm from "./components/SecurityForm"; */
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import { Route, Routes } from "react-router-dom";
@@ -20,7 +20,7 @@ import Sidebar from "./components/Sidebar";
 import Clients from "./components/Clients";
 import { effectDevice } from "./states/device";
 import HomeMobile from "./components/homeMobile";
-import EditSecurity from "./components/EditSecurity";
+/* import EditSecurity from "./components/EditSecurity"; */
 import CardClient from "./components/CardClient";
 import EditClient from "./components/EditClient";
 import NavbarMobile from "./components/NavMobile";

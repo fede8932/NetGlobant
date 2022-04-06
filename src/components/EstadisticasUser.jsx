@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useInput } from "../hooks/useInput";
-import { Accordion, Form , Button, Table} from "react-bootstrap";
+/* import { useInput } from "../hooks/useInput"; */
+ import { Accordion, Form , Button, /* Table */} from "react-bootstrap"; 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useSelector } from "react-redux";
-import axios from "axios";
+/* import { useSelector } from "react-redux"; */
+/* import axios from "axios"; */
 import Footer from "./Footer"
 import { useForm } from "react-hook-form";
 import TableSecurity from "./TableSecurity";
@@ -11,7 +11,7 @@ import TablePermisos from "./TablePermisos";
 
 
 const EstadisticasUser = () => {
-  const usuario = useSelector((state) => state.usuario);
+ /*  const usuario = useSelector((state) => state.usuario); */
   const [registros , setRegistros] = useState([])
   const result=[{fecha: "21/03/2022" , cliente:"Fravega" , sucursal: "San Miguel" , horas : 12 },
   {fecha: "21/03/2022" , cliente:"Fravega" , sucursal: "San Miguel" , horas : 12 },
@@ -24,10 +24,10 @@ const EstadisticasUser = () => {
   {fecha: "28/03/2022" , cliente:"Garbarino" , sucursal: "José C. Paz" , horas : 12 },
   {fecha: "29/03/2022" , cliente:"Garbarino" , sucursal: "José C. Paz" , horas : 12 },
   {fecha: "30/03/2022" , cliente:"Garbarino" , sucursal: "José C. Paz" , horas : 12 }]
-  const name = useInput();
+ /*  const name = useInput();
   const motivo = useInput();
   const startDate = useInput();
-  const endDate = useInput();
+  const endDate = useInput(); */
   const {register,handleSubmit,formState: { errors },} = useForm();
 
   const consultar = async (e) => {

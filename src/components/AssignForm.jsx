@@ -14,12 +14,12 @@ const AssignForm = ({vigilantes}) => {
    */ const [guardia,setGuardia] = React.useState(vigilantes[0]); 
     const {register,handleSubmit,formState: { errors },} = useForm();
     const handleClick = async (data) => {
-        
+        console.log("DATA DE ASING", data)
         try{
             guardia? 
             await axios({
                 method: "POST",
-                url: "/api/admin/add/calendar/office",
+                url: "/api/admin/add/Calendar/security",
                 data: {
                 name: guardia.name,
                 wishEntryHour:data.ingreso,

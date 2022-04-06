@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SingleCard from "./SingleCard";
 import { getSecurity } from "../states/singleSecurity";
 import { useInput } from "../hooks/useInput";
-import { useNavigate, useParams } from "react-router-dom";
+import { /* useNavigate, */ useParams } from "react-router-dom";
 import { getSecurityById } from "../states/singleSecurity";
 
 const Security = () => {
@@ -12,7 +12,7 @@ const Security = () => {
   const securityToSearch = useInput();
   const id = useParams();
   const security = useSelector((state) => state.security);
-  const navigate = useNavigate();
+/*   const navigate = useNavigate(); */
 
   useEffect(() => {
     dispatch(getSecurityById(id.id));

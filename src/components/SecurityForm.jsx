@@ -12,7 +12,7 @@ const SecurityForm = () => {
   const lastName = useInput();
   const cuil = useInput();
   const email = useInput();
-  const entryHour = useInput();
+/*   const entryHour = useInput(); */
   const address = useInput();
   const provincie = useInput();
   const password = useInput();

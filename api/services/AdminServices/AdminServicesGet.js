@@ -160,7 +160,7 @@ class AdminServicesGet {
           }
         }
       });
-      console.log(calendar)
+      console.log("CALENDARRRRRRRRRR", calendar)
       const securities= await BranchOficce.findAll({
         where: { id: req.params.id },
         include:{

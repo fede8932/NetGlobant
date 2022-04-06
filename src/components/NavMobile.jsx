@@ -5,14 +5,14 @@ import {
   Button,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getClient } from "../states/singleClient";
-import { useInput } from "../hooks/useInput";
+import {/*  useDispatch, */ useSelector } from "react-redux";
+/* import { getClient } from "../states/singleClient";
+import { useInput } from "../hooks/useInput"; */
 import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch(); */
   const user = useSelector((state) => state.usuario);
   const handleClick = (url) => {
     navigate(url);

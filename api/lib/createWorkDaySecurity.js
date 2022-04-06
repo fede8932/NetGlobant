@@ -1,7 +1,8 @@
 const { WorkDay, Securities } = require("../models");
 
 const createWorkDay = async (req) => {
-  console.log(req.body)
+  try{
+  console.log("ESTE REQ BODY ", req.body)
   const workDays = await WorkDay.create(req.body);
   console.log(workDays)
   const security = await Securities.findOne({
@@ -9,6 +10,10 @@ const createWorkDay = async (req) => {
   });
   security.addWorkDays(workDays);
   return security;
+} catch(err){
+  console.log(err)
+
+}
 };
 
 module.exports = createWorkDay;

@@ -7,7 +7,7 @@ class SecurityController{
  }
 
  static async writeMyWorkDay(req, res, next){
-     await SecuritiesServices.serviceToWriteMyWorkDay(req, next)
+     await SecuritiesServices.serviceToWriteMyWorkDayEntry(req, next)
      return res.sendStatus(201)
  }
 

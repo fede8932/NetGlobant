@@ -14,6 +14,7 @@ import AssignForm from "./AssignForm";
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
   const [office, setOffice] = useState([]);
+  const [assing, setAssing] = useState([]);
   const [security, setSecurity] = useState([]);
   const [calendar, setCalendar] = useState([]);
   const branches = useSelector((state) => state.branches);
@@ -50,14 +51,15 @@ const CalendarComponent = () => {
     const month = date.getMonth().toString();
     const thisDay = year.concat("-", month, "-", day);
     const workDay = await dispatch(getCalendarOffice({ id, thisDay }));
-    /* console.log(workDay) */
+   setAssing(workDay.payload.onlyCalendar) 
    setCalendar(workDay.payload.calendar)
    setSecurity(workDay.payload.securities)
+   return workDay
   }; 
-  console.log(security)
-  const securities = security?.map((securit) => {
-   const hourEntry=calendar[0].wishEntryHour.split("T")
-   const hourClose=calendar[0].wishEntryHour.split("T")
+  
+  const securitiesAssing= assing?.map((securit) => {
+   const hourEntry=securit.workDays[0].wishEntryHour
+   const hourClose=securit.workDays[0].wishClosingHour
     return (
       <li key={securit.id}>
         <span>
@@ -66,14 +68,16 @@ const CalendarComponent = () => {
             " ||  CUIL:" +
             securit.CUIL +
             " ||  hora de entrada: " +
-            hourEntry[1].split(".")[0]
-            + " || hora de salida: "+ hourClose[1].split(".")[0]}
+            hourEntry
+            + " || hora de salida: "+ hourClose}
         </span>
       </li>
     );
-  });
- /*  console.log("ACA HAY ZANAHORIA", securities);
-  console.log("ACA ESTA TODO PAPA", calendar); */
+  }) 
+
+ 
+ 
+
   return (
     <div className="calendarContainer">
       <div className="app ">
@@ -96,7 +100,7 @@ const CalendarComponent = () => {
           <span className="bold">Selected Date:</span> {date.toDateString()}
         </p>
        
-
+    <div>
         <Card
           style={{
             width: "18rem",
@@ -115,16 +119,47 @@ const CalendarComponent = () => {
                 onChange={onClicke} 
                 variant="outlined"
                 aria-label="Default select example"
-              >
-               {/*  <option>Open this select menu</option> */}
+              > <option>.</option>
                 {options}
               </Form.Control>
             </Card.Subtitle>
-            <Card.Text>{securities}</Card.Text>
-            <Card.Link href="#">Card Link</Card.Link>
-            <Card.Link href="#">Another Link</Card.Link>
+            <Card.Text>{securitiesAssing}</Card.Text>
           </Card.Body>
         </Card>
+</div>
+ <div>
+       <Card
+          style={{
+            width: "20rem",
+            marginLeft: "580px",
+            marginTop: "10px",
+            size: "250px",
+            marginBottom: "200px",
+          }}
+        >
+          <Card.Body>
+            <Card.Title> Todos lo vililadores de esta sucursal</Card.Title>
+            <Card.Text>{security.map((securitie,i)=>{
+   return(
+    <li key={securitie.id}>
+      {securitie.status? <span style={{background : "#FF553E", color: "black"}}>
+      {"name:" +
+        securitie.name +
+        " ||  CUIL:" +
+        securitie.CUIL + " OCUPADO" }
+    </span>:<span style={{background : "#95FF75", color: "black"}}>
+      {"name:" +
+        securitie.name +
+        " ||  CUIL:" +
+        securitie.CUIL + " DISPONIBLE"}
+    </span>  }
+   
+  </li> )
+  }
+)   }</Card.Text>
+          </Card.Body>
+        </Card> 
+        </div>
         <AssignForm style={{ minWidth: "40px" }} vigilantes={security} />
          
         

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container , Button , Col , Toast} from 'react-bootstrap';
+import { Container , Button , /* Col ,*/ Toast} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from './Footer'
 import { setPosition } from '../states/geoLocalizacion';
