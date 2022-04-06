@@ -113,15 +113,10 @@ class AdminControllerGet{
       }
     
       static async getSecuritiesByDistance(req, res, next) {
-        const { y, x } = req.body;
         const securities = await AdminServicesGet.serviceGetSecuritiesByDistance(
           req,
           next
         );
-        securities.map((securitie) => {
-          const dist = distance(y, x, securitie.y, securitie.x);
-          return (securitie.dist = dist);
-        });
         return res.send(securities);
       }
     
