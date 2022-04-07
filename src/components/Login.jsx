@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../states/user";
 import { useDispatch, useSelector } from "react-redux";
+import "../style/estilos.scss";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <div id="fondo">
+    <div id="fondologin">
       <Container id="main-container" className="d-grid h-100 ">
         <Form
           id="sign-in-form"

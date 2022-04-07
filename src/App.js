@@ -38,6 +38,7 @@ import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
 import AssignSecurity from "./components/AssignSecurity"
 import CalendarBranchFilter from "./components/CalendarBranchFilter"
+import Home from "./components/Home"
 
 function App() {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ function App() {
         )}
 
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/homemobile" element={<HomeMobile />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/admin/login" element={<Login />} />
@@ -105,7 +107,7 @@ function App() {
       </div>
 
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
