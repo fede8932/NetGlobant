@@ -38,7 +38,7 @@ const CalendarSelectClient = () => {
 
   const showCalendarBranchFilter=()=>{
     return (
-      <div>
+      <div style={{ marginTop: "350px", marginRight: "900px"}}>
       <CalendarSelectBranch />
       </div>
     )

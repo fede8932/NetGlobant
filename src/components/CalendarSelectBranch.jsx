@@ -14,13 +14,13 @@ const CalendarSelectBranch = () => {
   const branch = useSelector((state) => state.branch);
   const client = useSelector((state) => state.client);
   
-console.log(branch)
+
   useEffect(() => {
     dispatch(getAllBranchesByClient(client.id));
     dispatch(getClientId(client.id));
   }, []);
 
-  console.log(client);
+  console.log("QUE PASA",client);
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ console.log(branch)
     );
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("se selecciono una sucursal", data);
     dispatch(getBranchName(data.branch));
     
@@ -95,7 +95,7 @@ console.log(branch)
         <Button
           variant="secondary"
           style={{ marginTop: "5px" }}
-          onClick={handleSubmit(onSubmit)}
+          /* onClick={onSubmit} */
         >
           Siguiente
         </Button>
