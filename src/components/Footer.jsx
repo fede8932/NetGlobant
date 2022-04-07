@@ -6,10 +6,7 @@ const Footer = function () {
       id="footer"
       className="container"
       style={{
-        position: "absolute",
-        bottom: "0",
-        left: "85px",
-        height: "90px",
+        position: "fixed",
         width: "100%",
       }}
     >
