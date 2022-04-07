@@ -18,7 +18,7 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("data en login", data);
+    const user= admin?"administrator":"security"
     const token = await axios({
       method: "POST",
       url: "/api/auth/login",
@@ -31,15 +31,15 @@ export default function Login() {
     localStorage.setItem(
       "user",
       JSON.stringify({
-        id: token.data.administrator.id,
-        name: token.data.administrator.name,
+        id: token.data[user].id,
+        name: token.data[user].name,
         token: token.data.jwt.token,
       })
     );
     dispatch(
       setUser({
-        id: token.data.administrator.id,
-        name: token.data.administrator.name,
+        id: token.data[user].id,
+        name: token.data[user].name,
         token: token.data.jwt.token,
       })
     );

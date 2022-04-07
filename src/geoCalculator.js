@@ -1,9 +1,7 @@
 export const tiempoCompleto = function () {
   var date = new Date();
   const formatDate = (date) => {
-    let formatted_date = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}-03`;
+    let formatted_date = `${date.getFullYear()}-${("0" + (date.getMonth() + 1).toString()).substr(-2)}-${("0" + (date.getDate()).toString()).substr(-2)} ${date.getHours()}:${("0" + (date.getMinutes()).toString()).substr(-2)}:${("0" + (date.getSeconds()).toString()).substr(-2)}-03`;
     return formatted_date;
   };
   return formatDate(date);
