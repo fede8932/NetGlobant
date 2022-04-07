@@ -4,7 +4,7 @@ import { getAllBranchesByClient } from "../states/branches";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { getBranchName } from "../states/singleBranch";
-import Calendar from "./Calendar"
+import Calendar from "./Calendar";
 import { useParams } from "react-router-dom";
 import { getClientId } from "../states/singleClient";
 
@@ -13,14 +13,16 @@ const CalendarSelectBranch = () => {
   const branches = useSelector((state) => state.branches);
   const branch = useSelector((state) => state.branch);
   const client = useSelector((state) => state.client);
-  
-console.log(branch)
+
+  console.log(branch);
+
   useEffect(() => {
     dispatch(getAllBranchesByClient(client.id));
-    dispatch(getClientId(client.id));
+    //dispatch(getClientId(client.id));
   }, []);
 
   console.log(client);
+
   const {
     register,
     handleSubmit,
@@ -38,18 +40,10 @@ console.log(branch)
   const onSubmit = (data) => {
     console.log("se selecciono una sucursal", data);
     dispatch(getBranchName(data.branch));
-    
-
   };
 
   const showCalendar = () => {
-    return branch.id ? (
-      <>
-      {/* <Calendar/>  */}
-      </>
-    ) : (
-      <></>
-    );
+    return branch.id ? <>{/* <Calendar/>  */}</> : <></>;
   };
 
   return (
@@ -95,13 +89,12 @@ console.log(branch)
         <Button
           variant="secondary"
           style={{ marginTop: "5px" }}
-          onClick={handleSubmit(onSubmit)}
+          onClick={onSubmit}
         >
           Siguiente
         </Button>
         {/* {showCalendar()} */}
       </Form>
-   
     </>
   );
 };

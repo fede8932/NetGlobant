@@ -18,7 +18,9 @@ const CalendarComponent = () => {
   const client = useSelector((state) => state.client);
   const branch = useSelector((state) => state.branch);
   const dispatch = useDispatch();
+
 console.log(branch)
+
   /* useEffect(() => {
     dispatch(getAllBranches());
   }, []); */
