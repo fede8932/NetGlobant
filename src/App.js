@@ -35,6 +35,7 @@ import Calendar from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
+import AssignSecurity from "./components/AssignSecurity"
 
 function App() {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ function App() {
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/assign" element={<AssignSecurity/>} />
         </Routes>
       </div>
     </>

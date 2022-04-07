@@ -4,7 +4,7 @@ import { getAllBranchesByClient } from "../states/branches";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { getBranchName } from "../states/singleBranch";
-import AssignForm from "./AssignForm";
+import AssignFormSecurity from "./AssignFormSecurity";
 
 const CalendarBranchFilter = (client) => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const CalendarBranchFilter = (client) => {
   const showCalendarAssignForm = () => {
     return branch.id ? (
       <>
-        <AssignForm style={{ minWidth: "400px" }} />
+        <AssignFormSecurity style={{ minWidth: "400px" }} />
       </>
     ) : (
       <></>
