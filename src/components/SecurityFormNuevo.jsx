@@ -269,6 +269,7 @@ const SecurityFormNuevo = () => {
                     className="position-relative"
                     name="password"
                     variant="outlined"
+                    type="password"
                     {...register("password", {
                       required: {
                         value: true,

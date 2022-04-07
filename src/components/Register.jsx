@@ -40,7 +40,7 @@ export default function Register() {
           button: "Aceptar",
         });
       })
-      .then(navigate("/admin/login"));
+      .then(navigate("/"));
   };
 
   return (

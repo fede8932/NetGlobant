@@ -50,10 +50,8 @@ const CalendarSelectBranch = () => {
     <>
       <h1
         style={{
-          position: "relative",
           width: "300px",
-          left: "300px",
-          top: "5px",
+          float: "left",
         }}
       >
         {client.bussinessName}
@@ -61,10 +59,8 @@ const CalendarSelectBranch = () => {
       <Form
         onSubmit={handleSubmit(onSubmit)}
         style={{
-          position: "relative",
+          float: "left",
           width: "300px",
-          left: "300px",
-          top: "10px",
         }}
       >
         <Form.Label className="labels">Elige una sucursal</Form.Label>
