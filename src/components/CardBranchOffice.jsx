@@ -14,21 +14,14 @@ const CardBranchOffice = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const branch = useSelector((state) => state.branch);
-  const client = useSelector((state) => state.client);
 
   useEffect(async () => {
     try {
       const obtainedBranch = await dispatch(getBranchId(id.id));
-      const obtainedClient = await dispatch(
-        getClientId(obtainedBranch.payload.clientId)
-      );
-      console.log("ESTO ES CLIENT", obtainedClient.payload.id);
     } catch (err) {
       console.log(err);
     }
   }, []);
-
-  console.log("eeeeeesto es client", client);
 
   const handleDelete = () => {
     dispatch(deleteBranchId(branch.id));
@@ -57,9 +50,9 @@ const CardBranchOffice = () => {
       >
         <Card.Body>
           <Card.Title style={{ fontSize: "20px" }}>{branch.name}</Card.Title>
-          {/* <Card.Subtitle className="mb-2 mt-5 text-muted">
-            Cliente: <strong>{client.bussinesName}</strong>
-          </Card.Subtitle> */}
+          <Card.Subtitle className="mb-2 mt-5 text-muted">
+            Cliente: <strong>{branch.clientName}</strong>
+          </Card.Subtitle>
           <Card.Subtitle className="mb-2 mt-5 text-muted">
             Ciudad: {branch.city}
           </Card.Subtitle>

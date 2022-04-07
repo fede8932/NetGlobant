@@ -108,6 +108,8 @@ class AdminServicesGet {
   static async serviceGetOneOffice(req, next) {
     try {
       const oneOffice = await BranchOficce.findByPk(req.params.id);
+      const officeName = await Client.findByPk(oneOffice.clientId);
+      oneOffice.dataValues.clientName = officeName.bussinessName
       return oneOffice;
     } catch (err) {
       next(err);
