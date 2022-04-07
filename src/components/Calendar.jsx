@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { Form, Card } from "react-bootstrap";
 import { getCalendarOffice } from "../states/calendar";
-import { getBranchName } from "../states/singleBranch";
-import { getAllBranches } from "../states/branches";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import CalendarClientFilter from "./CalendarClientFilter";
 import AssignForm from "./AssignForm";
+import workDay from "../askingCalendarOffice";
 
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
@@ -16,44 +14,35 @@ const CalendarComponent = () => {
   const [assing, setAssing] = useState([]);
   const [security, setSecurity] = useState([]);
   const [calendar, setCalendar] = useState([]);
-  const branches = useSelector((state) => state.branches);
+  const client = useSelector((state)=> state.client) 
+  const branch = useSelector((state) => state.branch);
   const dispatch = useDispatch();
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getAllBranches());
-  }, []);
-
+  }, []); */
+console.log( "BRANCH SELECIONADO", branch)
   const onClicke = async (e) => {
-    const officeObject = await dispatch(getBranchName(e.target.value));
-    /*  console.log("COSO", officeObject); */
-    setOffice(officeObject.payload);
+    setOffice(branch);
   };
-
-  /*  const changeCalendar= async()=>{
-   
-} */
+console.log("")
+  
   const onbluer = (e) => {
     return (e.target.style.background = "green");
   };
-  const options = branches?.map((branch) => {
-    return (
-      <option key={branch.id} id={branch.id} value={branch.name}>
-        {branch.name}
-      </option>
-    );
-  });
   const changeDate = async () => {
-    const id = office.id;
+    const id = branch.id;
     const year = date.getFullYear().toString();
     const day = date.getDate().toString();
     const month = date.getMonth().toString();
     const thisDay = year.concat("-", month, "-", day);
     const workDay = await dispatch(getCalendarOffice({ id, thisDay }));
+    console.log(workDay.payload)
     setAssing(workDay.payload.onlyCalendar);
     setCalendar(workDay.payload.calendar);
     setSecurity(workDay.payload.securities);
     return workDay;
   };
-
+/*  workDay(calendar[0].wishEntryHour,calendar[0].wishClosingHour) */
   const securitiesAssing = assing?.map((securit) => {
     const hourEntry = securit.workDays[0].wishEntryHour;
     const hourClose = securit.workDays[0].wishClosingHour;
@@ -82,7 +71,7 @@ const CalendarComponent = () => {
         <h1 className="text-center">React Calendar</h1>
         <div
           className="calendar-container"
-          style={{ marginLeft: "550px", marginTop: "80px", size: "150px" }}
+          style={{ marginLeft: "350px", marginTop: "80px", size: "150px" }}
           onBlur={onbluer}
         >
           <Calendar onChange={setDate} value={date} />
@@ -98,7 +87,7 @@ const CalendarComponent = () => {
           <Card
             style={{
               width: "18rem",
-              marginLeft: "980px",
+              marginLeft: "680px",
               marginTop: "80px",
               size: "150px",
               marginBottom: "100px",
@@ -116,7 +105,7 @@ const CalendarComponent = () => {
                 >
                   {" "}
                   <option>.</option>
-                  {options}
+                  {/* {options} */}
                 </Form.Control>
               </Card.Subtitle>
               <Card.Text>{securitiesAssing}</Card.Text>
@@ -139,7 +128,7 @@ const CalendarComponent = () => {
                 {security.map((securitie, i) => {
                   return (
                     <li key={securitie.id}>
-                      {securitie.status ? (
+                      {securitie.isBusy ? (
                         <span style={{ background: "#FF553E", color: "black" }}>
                           {"name:" +
                             securitie.name +
@@ -162,8 +151,8 @@ const CalendarComponent = () => {
               </Card.Text>
             </Card.Body>
           </Card>
-          {/* <AssignForm style={{ minWidth: "40px" }} vigilantes={security} /> */}
         </div>
+      <AssignForm style={{ minWidth: "40px" }} vigilantes={security} /> 
       </div>
     </div>
   );

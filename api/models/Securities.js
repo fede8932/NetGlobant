@@ -29,6 +29,10 @@ Securities.init(
       type: S.BOOLEAN,
       defaultValue: true,
     },
+    isBusy:{
+      type: S.BOOLEAN,
+      defaultValue: false,
+    },
     password: {
       type: S.STRING,
     },

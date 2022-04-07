@@ -82,11 +82,14 @@ class AdminServicesPost {
           /* status: true */
         },
       });
+      
       const workDay = await WorkDay.findOne({
         where: { id: req.body.id, /* status: true */ },
 
       });
       security.addWorkDays(workDay);
+      security.isBusy=true
+      security.save()
     } catch (err) {
       next(err);
     }
@@ -127,9 +130,7 @@ class AdminServicesPost {
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
-
         where: { name: req.body.name  },
-
         include: {
           association: Securities.calendar,
           where: {
@@ -137,13 +138,14 @@ class AdminServicesPost {
           },
         },
       });
+      console.log("HAVE DAYS",haveDays)
       if (!haveDays) {
           const workDays = await WorkDay.create(req.body);
-          console.log(workDays)
           const security = await Securities.findOne({
             where: { name: req.body.name },
           });
-          security.status= true
+          console.log("SECURITY",security)
+          security.isBusy= true
           security.save()
           security.addWorkDays(workDays);
           return security;
@@ -155,7 +157,7 @@ class AdminServicesPost {
         req.body.wishEntryHour,
         req.body.wishClosingHour
       );
-      console.log("DEFINITION",definition);
+     
       return definition ? createWorkDay(req) : definition;
     } catch (err) {
       next(err);

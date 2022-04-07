@@ -4,6 +4,7 @@ import { getAllBranchesByClient } from "../states/branches";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { getBranchName } from "../states/singleBranch";
+import Calendar from "./Calendar"
 import AssignForm from "./AssignForm";
 
 const CalendarBranchFilter = (client) => {
@@ -32,12 +33,14 @@ const CalendarBranchFilter = (client) => {
   const onSubmit = (data) => {
     console.log("se selecciono una sucursal", data);
     dispatch(getBranchName(data.branch));
+    <Calendar/>
   };
 
   const showCalendarAssignForm = () => {
     return branch.id ? (
       <>
-        <AssignForm style={{ minWidth: "400px" }} />
+      
+        {/* <AssignForm style={{ minWidth: "400px" }} /> */}
       </>
     ) : (
       <></>
