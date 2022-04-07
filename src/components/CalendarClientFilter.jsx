@@ -5,11 +5,13 @@ import { getClient } from "../states/singleClient";
 import { useSelector, useDispatch } from "react-redux";
 import CalendarBranchFilter from "./CalendarBranchFilter";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 
 const CalendarClientFilter = () => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients);
-  const selectedClient = useSelector((state) => state.client);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,7 +25,7 @@ const CalendarClientFilter = () => {
 
   const options = clients?.map((client) => {
     return (
-      <option key={client.id} value={client.bussinessName}>
+      <option key={client.id} value={client.id}>
         {client.bussinessName}
       </option>
     );
@@ -32,18 +34,12 @@ const CalendarClientFilter = () => {
   const onSubmit = async (data) => {
     try {
       dispatch(getClient(data.client));
+   
+      navigate(`/assign/branch/${data.client}`)
     } catch (err) {}
   };
 
-  const showCalendarBranchFilter = () => {
-    return selectedClient.id ? (
-      <>
-        <CalendarBranchFilter client={selectedClient} />
-      </>
-    ) : (
-      <></>
-    );
-  };
+
 
   return (
     <>
@@ -82,7 +78,7 @@ const CalendarClientFilter = () => {
           Sigiente
         </Button>
 
-        {showCalendarBranchFilter()}
+        {/* {showCalendarBranchFilter()} */}
       </Form>
     </>
   );

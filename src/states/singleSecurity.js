@@ -74,6 +74,29 @@ export const deleteSecurity = createAsyncThunk(
   }
 );
 
+export const assingSegurityToBranch = createAsyncThunk(
+  "ASSIGN_SECURITY_TO_BRANCH",
+  async (data) => {
+    try {
+      const assignation = await axios.post("/api/admin/add/office/security", {
+        id: data.id,
+        CUIL: data.security,
+        
+      });
+      swal({
+        title: "Vigilador asignado correctamente",
+        text: ".",
+        icon: "success",
+        button: "Aceptar",
+      });
+
+      return assignation.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const securityReducer = createReducer([], {
   [getSecurity.fulfilled]: (state, action) => action.payload,
   [editSecurity.fulfilled]: (state, action) => action.payload,
