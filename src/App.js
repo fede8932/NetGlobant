@@ -35,6 +35,7 @@ import Calendar from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
+import CalendarSelectBranch from "./components/CalendarSelectBranch";
 import AssignSecurity from "./components/AssignSecurity"
 import CalendarBranchFilter from "./components/CalendarBranchFilter"
 
@@ -92,6 +93,8 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/assign" element={<AssignSecurity/>} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
+          <Route path="/select/branch/:id" element={<CalendarSelectBranch/>} />
+          
         </Routes>
       </div>
     </>

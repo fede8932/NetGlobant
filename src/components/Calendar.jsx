@@ -4,7 +4,8 @@ import "react-calendar/dist/Calendar.css";
 import { Form, Card, Badge } from "react-bootstrap";
 import { getCalendarOffice } from "../states/calendar";
 import { useDispatch, useSelector } from "react-redux";
-import CalendarClientFilter from "./CalendarClientFilter";
+import CalendarSelectClient from "./CalendarSelectClient";
+import CalendarSelectBranch from "./CalendarSelectBranch";
 import AssignForm from "./AssignForm";
 import workDay from "../askingCalendarOffice";
 
@@ -17,7 +18,7 @@ const CalendarComponent = () => {
   const client = useSelector((state) => state.client);
   const branch = useSelector((state) => state.branch);
   const dispatch = useDispatch();
-
+console.log(branch)
   /* useEffect(() => {
     dispatch(getAllBranches());
   }, []); */
@@ -70,8 +71,8 @@ const CalendarComponent = () => {
   return (
     <div className="calendarContainer">
       <div>
-        <CalendarClientFilter />
-      </div>
+    <CalendarSelectClient/> 
+     </div>
       <div className="app ">
         <h1 className="text-center">React Calendar</h1>
         <div
