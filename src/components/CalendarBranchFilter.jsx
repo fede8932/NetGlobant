@@ -5,16 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { getBranchName } from "../states/singleBranch";
 import AssignFormSecurity from "./AssignFormSecurity";
+import { useParams } from "react-router-dom";
+import { getClientId } from "../states/singleClient";
 
-const CalendarBranchFilter = (client) => {
+const CalendarBranchFilter = () => {
   const dispatch = useDispatch();
   const branches = useSelector((state) => state.branches);
   const branch = useSelector((state) => state.branch);
+  const client = useSelector((state) => state.client);
+  const clientId = useParams();
 
   useEffect(() => {
-    dispatch(getAllBranchesByClient(client.client.id));
+    dispatch(getAllBranchesByClient(clientId.id));
+    dispatch(getClientId(clientId.id));
   }, []);
 
+  console.log(client);
   const {
     register,
     handleSubmit,
@@ -45,17 +51,27 @@ const CalendarBranchFilter = (client) => {
   };
 
   return (
-   
+    <>
+      <h1
+        style={{
+          position: "relative",
+          width: "300px",
+          left: "300px",
+          top: "5px",
+        }}
+      >
+        {client.bussinessName}
+      </h1>
       <Form
         onSubmit={handleSubmit(onSubmit)}
         style={{
           position: "relative",
           width: "300px",
-          left: "0px",
+          left: "300px",
           top: "10px",
         }}
       >
-        <Form.Label className="labels">Sucursal</Form.Label>
+        <Form.Label className="labels">Elige una sucursal</Form.Label>
         <Form.Control
           as="select"
           size="ms"
@@ -83,7 +99,7 @@ const CalendarBranchFilter = (client) => {
         </Button>
         {showCalendarAssignForm()}
       </Form>
-    
+    </>
   );
 };
 

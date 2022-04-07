@@ -36,6 +36,7 @@ import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import AssignSecurity from "./components/AssignSecurity"
+import CalendarBranchFilter from "./components/CalendarBranchFilter"
 
 function App() {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ function App() {
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/assign" element={<AssignSecurity/>} />
+          <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
         </Routes>
       </div>
     </>
