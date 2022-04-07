@@ -74,44 +74,53 @@ class SecuritiesServices {
 
   static async serviceToWriteMyWorkDayEntry(req, next) {
     try {
-      console.log(req.params.date);
       const date = req.params.date;
-      console.log("DATE", date);
       const justDate = date.split(" ")[0];
-      console.log("JUSTDATE", justDate);
-      console.log(req.params);
-      const today = await Securities.findOne({
+      const allWorkDays = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
-
-          where: {
-            workDay: {
-              date: justDate,
-            },
-          },
         },
       });
-
-      console.log("TODAY", today);
-      /* const { horarioDeFichadaIngreso, horarioDeFichadaEgreso } = req.body; */
-
+     const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
       const [rows, workDay] = await WorkDay.update(
         { entryHour: req.params.date, serverHourEntry: new Date() },
         {
-          where: { id: workDaily[0].id },
-
+          where: { id: todaySecurity[0].dataValues.id},
           returning: true,
         }
       );
-      console.log(workDay);
       return workDay;
     } catch (err) {
       next(err);
     }
   }
   
-  static async serviceToWriteMyWorkDayClose(req, next) {}
+  static async serviceToWriteMyWorkDayClose(req, next) {
+    try {
+      const date = req.params.date;
+      const justDate = date.split(" ")[0];
+      const allWorkDays = await Securities.findOne({
+        where: { id: req.params.id },
+        include: {
+          association: Securities.calendar,
+        },
+      });
+     const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
+     
+      const [rows, workDay] = await WorkDay.update(
+        { closingHour: req.params.date, serverHourClosing: new Date() },
+        {
+          where: { id: todaySecurity[0].dataValues.id},
+          returning: true,
+        }
+      );
+     
+      return workDay;
+    } catch (err) {
+      next(err);
+    }
+  }
 
   static async serviceCancellWorkDay(req, next) {
     try {

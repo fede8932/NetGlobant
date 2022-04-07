@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import { Form, Card } from "react-bootstrap";
+import { Form, Card, Badge } from "react-bootstrap";
 import { getCalendarOffice } from "../states/calendar";
 import { getBranchName } from "../states/singleBranch";
 import { getAllBranches } from "../states/branches";
@@ -24,16 +24,13 @@ const CalendarComponent = () => {
 
   const onClicke = async (e) => {
     const officeObject = await dispatch(getBranchName(e.target.value));
-    /*  console.log("COSO", officeObject); */
+   
     setOffice(officeObject.payload);
   };
 
-  /*  const changeCalendar= async()=>{
    
-} */
-  const onbluer = (e) => {
-    return (e.target.style.background = "green");
-  };
+   
+
   const options = branches?.map((branch) => {
     return (
       <option key={branch.id} id={branch.id} value={branch.name}>
@@ -81,9 +78,8 @@ const CalendarComponent = () => {
       <div className="app ">
         <h1 className="text-center">React Calendar</h1>
         <div
-          className="calendar-container"
+          className="calendar-container  "
           style={{ marginLeft: "550px", marginTop: "80px", size: "150px" }}
-          onBlur={onbluer}
         >
           <Calendar onChange={setDate} value={date} />
           <button value={date} onClick={changeDate}>

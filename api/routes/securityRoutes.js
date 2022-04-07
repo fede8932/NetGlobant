@@ -5,15 +5,11 @@ securityRouter.get("/myWorkDay/:id/:date", SecurityController.getMyWorkDay);
 
 securityRouter.patch("/mypassword/:id", SecurityController.changeMyPassword);
 
-securityRouter.put(
-  "/cancelledWorkDay/:id",
-  SecurityController.cancellMyWorkDay
-);
+securityRouter.put("/cancelledWorkDay/:id",SecurityController.cancellMyWorkDay);
 
-securityRouter.put(
-  "/myEffictiveWorkDay/:id/:date",
-  SecurityController.writeMyWorkDay
-);
+securityRouter.put("/myEffictiveWorkDay/entry/:id/:date",SecurityController.writeMyWorkDayEntry);
+
+securityRouter.put("/myEffictiveWorkDay/close/:id/:date",SecurityController.writeMyWorkDayClose);
 
 securityRouter.post("/photoWorkDay", SecurityController.saveImageSecurity);
 

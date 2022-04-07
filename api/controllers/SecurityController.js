@@ -6,8 +6,12 @@ class SecurityController {
     return schedule ? res.status(200).send(schedule) : res.sendStatus(404);
   }
 
-  static async writeMyWorkDay(req, res, next) {
+  static async writeMyWorkDayEntry(req, res, next) {
     await SecuritiesServices.serviceToWriteMyWorkDayEntry(req, next);
+    return res.sendStatus(201);
+  }
+  static async writeMyWorkDayClose(req, res, next) {
+    await SecuritiesServices.serviceToWriteMyWorkDayClose(req, next);
     return res.sendStatus(201);
   }
 
