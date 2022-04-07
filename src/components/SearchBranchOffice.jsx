@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Button, FormControl, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBranches } from "../states/branches";
-import { getBranchName } from "../states/singleBranch";
+import { getBranchId, getBranchName } from "../states/singleBranch";
 import useInput from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineFileAdd } from "react-icons/ai";
@@ -11,7 +11,6 @@ const SearchBranchOffice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const searchBranch = useInput();
-
   const branch = useSelector((state) => state.branch);
   const branches = useSelector((state) => state.branches);
 
@@ -21,7 +20,7 @@ const SearchBranchOffice = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getBranchName(searchBranch.value));
+    dispatch(getBranchId(searchBranch.value));
     navigate(`/branch/${branch.id}`);
   };
 
@@ -64,7 +63,6 @@ const SearchBranchOffice = () => {
         onSubmit={handleSubmit}
         className="d-flex"
         style={{ width: "40%", margin: "0 auto" }}
-       
       >
         <FormControl
           {...searchBranch}
@@ -84,7 +82,6 @@ const SearchBranchOffice = () => {
         hover
         size="sm"
         style={{ width: "50%", margin: "0 auto", marginTop: "60px" }}
-        
       >
         <thead>
           <tr>
@@ -92,6 +89,7 @@ const SearchBranchOffice = () => {
             <th>Nombre</th>
             <th>Dirección</th>
             <th>Ciudad</th>
+            <th>Cliente</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +99,7 @@ const SearchBranchOffice = () => {
               <td>{branch.name}</td>
               <td>{branch.address}</td>
               <td>{branch.city}</td>
+              <td>{branch.clientName}</td>
             </tr>
           ))}
         </tbody>

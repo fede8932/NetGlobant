@@ -129,11 +129,9 @@ export default function Login() {
                   type="submit"
                   value="submit"
                 >
-                  {" "}
                   INICIAR SESIÓN
                 </Button>
-                <br></br>
-                <br></br>
+                <a href="#">¿Olvidaste la contraseña?</a>
               </div>
             </div>
           </div>
