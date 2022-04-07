@@ -21,8 +21,6 @@ const CalendarSelectBranch = () => {
     //dispatch(getClientId(client.id));
   }, []);
 
-  console.log(client);
-
   const {
     register,
     handleSubmit,
@@ -37,7 +35,7 @@ const CalendarSelectBranch = () => {
     );
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("se selecciono una sucursal", data);
     dispatch(getBranchName(data.branch));
   };
@@ -85,7 +83,7 @@ const CalendarSelectBranch = () => {
         <Button
           variant="secondary"
           style={{ marginTop: "5px" }}
-          onClick={onSubmit}
+          /* onClick={onSubmit} */
         >
           Siguiente
         </Button>
