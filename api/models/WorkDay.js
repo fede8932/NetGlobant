@@ -44,13 +44,6 @@ WorkDay.init(
   }
 );
 
-/* WorkDay.beforeCreate((workday)=>{
-  const dates= workday.wishEntryHour
-  workday.dates= dates
-  return workday.save()
-})
- */
-
 WorkDay.sync({ alter: true })
 
 module.exports = WorkDay;
