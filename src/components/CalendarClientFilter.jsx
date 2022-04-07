@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { getAllClients } from "../states/Clients";
-import { getClient } from "../states/singleClient";
+import { getClientId } from "../states/singleClient";
 import { useSelector, useDispatch } from "react-redux";
 import CalendarBranchFilter from "./CalendarBranchFilter";
 import { useForm } from "react-hook-form";
@@ -33,7 +33,7 @@ const CalendarClientFilter = () => {
 
   const onSubmit = async (data) => {
     try {
-      dispatch(getClient(data.client));
+      dispatch(getClientId(data.client));
    
       navigate(`/assign/branch/${data.client}`)
     } catch (err) {}

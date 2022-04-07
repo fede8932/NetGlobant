@@ -17,10 +17,13 @@ const CalendarComponent = () => {
   const client = useSelector((state) => state.client);
   const branch = useSelector((state) => state.branch);
   const dispatch = useDispatch();
+
   /* useEffect(() => {
     dispatch(getAllBranches());
   }, []); */
+
   console.log("BRANCH SELECIONADO", branch);
+
   const onClicke = async (e) => {
     setOffice(branch);
   };
@@ -29,6 +32,7 @@ const CalendarComponent = () => {
   const onbluer = (e) => {
     return (e.target.style.background = "green");
   };
+
   const changeDate = async () => {
     const id = branch.id;
     const year = date.getFullYear().toString();
@@ -42,6 +46,7 @@ const CalendarComponent = () => {
     setSecurity(workDay.payload.securities);
     return workDay;
   };
+
   /*  workDay(calendar[0].wishEntryHour,calendar[0].wishClosingHour) */
   const securitiesAssing = assing?.map((securit) => {
     const hourEntry = securit.workDays[0].wishEntryHour;
@@ -103,7 +108,6 @@ const CalendarComponent = () => {
                   variant="outlined"
                   aria-label="Default select example"
                 >
-                  {" "}
                   <option>.</option>
                   {/* {options} */}
                 </Form.Control>
