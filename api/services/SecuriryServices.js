@@ -13,16 +13,14 @@ class SecuritiesServices {
         where: {
           date: req.params.date,
         },
-        include: {
-          association: BranchOficce.calendar,
-        },
       });
+      console.log("----------->>>",today)
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
           where: {
-            wishEntryHour: today.wishEntryHour,
+            date: today.date,
           },
         },
       });
@@ -39,9 +37,9 @@ class SecuritiesServices {
       const oficinaSchedule = await BranchOficce.findOne({
         where: { id: oficina.id },
         include: {
-          association: BranchOficce.security,
+          association: BranchOficce.calendar,
           where: {
-            id: schedule.id,
+            date: today.date,
           },
         },
       });

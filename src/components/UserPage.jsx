@@ -78,7 +78,7 @@ export default function UserPage() {
     <div className="estadisticasContainer">
       <div className="responsiveContainer">
         <Container className="textContainer">
-          <h4>Presioná el boton "INGRESO", en el momento exacto en el que comiences tu jornada laboral. Precioná "EGRESO", cuando seas relevado.</h4>
+          <h4>Presioná el boton "INGRESO", en el momento exacto en el que comiences tu jornada laboral. Presioná "EGRESO", cuando seas relevado.</h4>
           <p>Deberás estar correctamente uniformado y listo en tu puesto de vigilancia al momento de iniciar.</p>
         </Container>
         <Container>
