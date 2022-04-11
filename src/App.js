@@ -37,6 +37,7 @@ import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
 import AssignSecurity from "./components/AssignSecurity"
+import { pendientes } from "./states/geoLocalizacion";
 import CalendarBranchFilter from "./components/CalendarBranchFilter"
 import Home from "./components/Home"
 
@@ -44,6 +45,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    pendientes()
     dispatch(effectLogin())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

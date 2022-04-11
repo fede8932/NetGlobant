@@ -54,7 +54,7 @@ Securities.init(
     modelName: "securities",
   }
 );
-Securities.sync({ alter: true });
+// Securities.sync({ alter: true });
 
 Securities.beforeCreate(async (securities) => {
   salt = await genSalt(16);
