@@ -22,7 +22,7 @@ class SecurityController {
 
   static async changeMyPassword(req, res, next) {
     await SecuritiesServices.serviceChangeMyPassword(req, next);
-    return res.sendStatus(204);
+    return res.sendStatus(201);
   }
 
   static async saveImageSecurity(req, res, next) {

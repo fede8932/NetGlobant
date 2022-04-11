@@ -89,7 +89,6 @@ class AdminControllerGet {
       req,
       next
     );
-    console.log("controller", officeCalendar);
     return officeCalendar
       ? res.status(200).json(officeCalendar)
       : res.sendStatus(404);
@@ -119,22 +118,6 @@ class AdminControllerGet {
     console.log(securities);
     return res.send(securities);
   }
-  //==========================================================================
-  //                              REVISAR
-  //==========================================================================
-
-  // static async getSecuritiesByDistance(req, res, next) {
-  //   const { y, x } = req.body;
-  //   const securities = await AdminServicesGet.serviceGetSecuritiesByDistance(
-  //     req,
-  //     next
-  //   );
-  //   securities.map((securitie) => {
-  //     const dist = distance(y, x, securitie.y, securitie.x);
-  //     return (securitie.dist = dist);
-  //   });
-  //   return res.send(securities);
-  // }
 }
 
 module.exports = AdminControllerGet;
