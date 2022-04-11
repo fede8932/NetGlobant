@@ -3,52 +3,12 @@ const {
     Securities,
     BranchOficce,
     WorkDay,
+  
   } = require("../../models");
- 
-  const{enableOrDisable}= require("../../lib/validationsr")
 
   
   class AdminServicesDelite{
-    static async serviceRemoveOffice(req, next) {
-        try {
-          await BranchOficce.destroy({
-            where: {
-              id: req.params.id,
-              status:true
-            },
-          });
-        } catch (err) {
-          next(err);
-        }
-      }
-    
-      static async serviceRemoveSecurity(req, next) {
-        try {
-          await Securities.destroy({
-            where: {
-              id: req.params.id,
-              status:true
-            },
-          });
-        } catch (err) {
-          next(err);
-        }
-      }
-    
-      static async serviceRemoveClient(req, next) {
-        try {
-          await Client.destroy({
-            where: {
-              id: req.params.id,
-              status:true
-            },
-          });
-        } catch (err) {
-          next(err);
-        }
-      }
-    
-      static async serviceRemoveSchedule(req, next) {
+  static async serviceRemoveSchedule(req, next) {
         try {
         await WorkDay.destroy({
             where: { id: req.params.id, status:true },

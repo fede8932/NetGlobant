@@ -4,6 +4,7 @@ const Client= require("./Clients")
 const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
+const Inhabited= require("./Inhabited")
 
 
 /* asocianes */
@@ -21,6 +22,17 @@ Securities.calendar=Securities.belongsToMany(WorkDay, {through: 'ownTime'})
 BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
 
 
+/* asociociones de inhabilitacion */
+/* securities */
+Inhabited.belongsTo(Securities)
+/* clients */
+Inhabited.belongsTo(Client)
+/* branchOffice */
+Inhabited.belongsTo(BranchOficce)
+/* Admins */
+Inhabited.belongsTo(Admin)
+
+
  
 
 
@@ -28,4 +40,4 @@ BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSec
 
 
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay}
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay, Inhabited}

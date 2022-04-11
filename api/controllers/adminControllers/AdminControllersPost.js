@@ -51,5 +51,25 @@ class AdminControllerPost{
         await AdminServicesPost.serviceAddSecurityProvincie(req, next);
         return res.sendStatus(201);
       }
+
+      static async inhabitedSecurity(req, res, next){
+        await AdminServicesPost.serviceInhabitedSecurity(req, next)
+        return res.sendStatus(201)
+      }  
+
+      static async inhabitedClient(req, res, next){
+        await AdminServicesPost.serviceinhabitedClient(req, next)
+        return res.sendStatus(201)
+      } 
+
+      static async inhabitedOffice(req, res, next){
+        await AdminServicesPost.serviceInhabiteOffice(req, next)
+        return res.sendStatus(201)
+      } 
+
+      static async inhabitedAdmins(req, res, next){
+        await AdminServicesPost.serviceInhabitedAdmin(req, next)
+        return res.sendStatus(201)
+      } 
 }
 module.exports=AdminControllerPost 
