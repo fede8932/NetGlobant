@@ -2,6 +2,7 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction";
+import {Modal, Button} from "react-bootstrap"
 
 const NewCalendar = () => {
   const handleDateClick = (e) => {
@@ -13,7 +14,7 @@ const NewCalendar = () => {
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         dateClick={handleDateClick}
-        events={[{title: "hola", date: "2022-04-10"}]}
+        events={[{ title: "hola", date: "2022-04-10" }]}
       />
     </div>
   );
