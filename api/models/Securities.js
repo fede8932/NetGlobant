@@ -8,6 +8,7 @@ class Securities extends S.Model {
     return hash(password, salt);
   }
 }
+
 Securities.init(
   {
     name: {
@@ -29,7 +30,7 @@ Securities.init(
       type: S.BOOLEAN,
       defaultValue: true,
     },
-    isBusy:{
+    isBusy: {
       type: S.BOOLEAN,
       defaultValue: false,
     },

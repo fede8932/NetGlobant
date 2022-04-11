@@ -26,6 +26,7 @@ export default function UserPage() {
   }, []);
 
   const checkIn = async ()=>{
+    console.log(tiempoCompleto())
     if(ingColor!=="warning")return
       if(navigator.onLine){
       const servicio = await axios({
@@ -39,8 +40,8 @@ export default function UserPage() {
         return
       }
       const ingreso = await axios({
-        method: "PATCH",
-        url : `/api/security/myEffictiveWorkDay/${user.id}/${tiempoCompleto()}`
+        method: "PUT",
+        url : `/api/security/myEffictiveWorkDay/entry/${user.id}/${tiempoCompleto()}`
       })
       console.log(ingreso)
     }else{
@@ -48,14 +49,30 @@ export default function UserPage() {
     }
     setIngColor("secondary")
     setOutColor("warning")
-    console.log("ubicacion")
   }
-  const checkOut = ()=>{
+  const checkOut = async ()=>{
     if(ingColor!=="secondary")return
-    localStorage.setItem("userEgr", JSON.stringify({ id: user.id, fecha: tiempoParcial(), fechaHora: tiempoCompleto() , ubicacion:ubicacion }));
-   setIngColor("warning")
+    if(navigator.onLine){
+      const servicio = await axios({
+        method: "GET",
+        url: `/api/security/myWorkDay/${user.id}/${tiempoParcial()}`,
+      });
+      const clientDirection = [servicio.data.office.addressX , servicio.data.office.addressY]
+      console.log([clientDirection,ubicacion])
+      if(haversineDistance(clientDirection , ubicacion , 1.60934)>200){
+        toggleShowA()
+        return
+      }
+      const ingreso = await axios({
+        method: "PUT",
+        url : `/api/security/myEffictiveWorkDay/close/${user.id}/${tiempoCompleto()}`
+      })
+      console.log(ingreso)
+    }else{
+      localStorage.setItem("userEgr", JSON.stringify({ id: user.id, fecha: tiempoParcial(), fechaHora: tiempoCompleto() , ubicacion:ubicacion }));
+    }
+    setIngColor("warning")
     setOutColor("secondary")
-    console.log("ubicacion")
   }
   return (
     <div className="estadisticasContainer">

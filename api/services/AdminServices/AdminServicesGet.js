@@ -109,7 +109,7 @@ class AdminServicesGet {
     try {
       const oneOffice = await BranchOficce.findByPk(req.params.id);
       const officeName = await Client.findByPk(oneOffice.clientId);
-      oneOffice.dataValues.clientName = officeName.bussinessName
+      oneOffice.dataValues.clientName = officeName.bussinessName;
       return oneOffice;
     } catch (err) {
       next(err);
@@ -244,6 +244,7 @@ class AdminServicesGet {
       securities = securities.map((securitie) => {
         const dist = distance(y, x, securitie.y, securitie.x);
         securitie.dist = dist;
+        console.log("aca", y, x)
         return securitie;
       });
 
@@ -256,7 +257,7 @@ class AdminServicesGet {
         orderedSecurities.push(min);
       }
 
-      return orderedSecurities.slice(0, 12);
+      return orderedSecurities.slice(0, 5);
     } catch (error) {
       next(error);
     }

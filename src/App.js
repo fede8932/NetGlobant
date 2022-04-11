@@ -36,14 +36,16 @@ import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
-import AssignSecurity from "./components/AssignSecurity"
-import CalendarBranchFilter from "./components/CalendarBranchFilter"
-import Home from "./components/Home"
+import AssignSecurity from "./components/AssignSecurity";
+import CalendarBranchFilter from "./components/CalendarBranchFilter";
+import Home from "./components/Home";
+import { pendientes } from "./states/geoLocalizacion";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    pendientes();
     dispatch(effectLogin())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -93,10 +95,9 @@ function App() {
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/assign" element={<AssignSecurity/>} />
-          <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
-          <Route path="/select/branch/:id" element={<CalendarSelectBranch/>} />
-          
+          <Route path="/assign" element={<AssignSecurity />} />
+          <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
+          <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
         </Routes>
       </div>
     </>

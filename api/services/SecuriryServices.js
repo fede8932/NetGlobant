@@ -75,7 +75,7 @@ class SecuritiesServices {
   static async serviceToWriteMyWorkDayEntry(req, next) {
     try {
       const date = req.params.date;
-      const justDate = date.split(" ")[0];
+      const justDate = date.split(" ")[0]; //fecha
       const allWorkDays = await Securities.findOne({
         where: { id: req.params.id },
         include: {
@@ -90,6 +90,7 @@ class SecuritiesServices {
           returning: true,
         }
       );
+      console.log("fecha<--->>>>>>>>>>>>",req.params.date)
       return workDay;
     } catch (err) {
       next(err);

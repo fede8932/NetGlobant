@@ -30,7 +30,7 @@ const AssignFormSecurity = () => {
     navigate("/assign");
   };
 
-  const options = closeSecurities?.map((guardia, i) => {
+  const options = closeSecurities && closeSecurities.map((guardia, i) => {
     return (
       <option key={i} value={guardia.CUIL}>
         {guardia.name} {guardia.lastName} --- {guardia.address}

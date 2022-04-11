@@ -164,7 +164,6 @@ const EstadisticasUser = () => {
           </Accordion.Item>
         </Accordion>
       </div>
-      <Footer />
     </div>
   );
 };

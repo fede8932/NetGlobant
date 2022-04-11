@@ -15,13 +15,14 @@ export const getAllSecurities = createAsyncThunk(
 
 export const getCloseSecurities = createAsyncThunk(
   "GET_CLOSE_SECURITIES",
-  async ({ provincyId, addressX,addressY}) => {
+  async ({ provincyId, addressX, addressY }) => {
     try {
-      
-      const closeSecurities = await axios.get(
-        `/api/admin/securitiesByDistance/${provincyId}`,
-        { x: addressX, y: addressY }
-      );
+      console.log("X E Y", addressX, addressY);
+      const closeSecurities = await axios({
+        method: "GET",
+        url: `/api/admin/securitiesByDistance/${provincyId}`,
+        data: { x: addressX, y: addressY },
+      });
       return closeSecurities.data;
     } catch (err) {
       console.log(err);
