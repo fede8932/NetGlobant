@@ -57,6 +57,9 @@ adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleT
 // ASIGNA CALENDAR A OFICINA
 adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToOffice);
 
+
+//MODIFICA VIGILADORES ASIGNADOS este delete si quede porque remueve reslacion- no datos
+adminRouter.delete("/remove/office/security/:name/:id", AdminControllerDelete.removeSecurityByOffice)
 // BORRA VIGILANTE POR ID
 adminRouter.delete("/remove/security/:id", AdminControllerDelete.removeSecurity);
 //BORRA CLIENTE POR ID

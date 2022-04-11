@@ -5,6 +5,7 @@ const {
   Client,
   Provincies,
 } = require("../models");
+const{genHash} = require("../lib/passwordUtils")
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -141,7 +142,9 @@ class SecuritiesServices {
 
   static async serviceChangeMyPassword(req, next) {
     try {
-      await Securities.update(req.body, {
+     const newPassword= await genHash(req.body.password)
+     console.log(newPassword)
+      await Securities.update({password: newPassword.hash}, {
         where: { id: req.params.id },
       });
     } catch (err) {

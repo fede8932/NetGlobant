@@ -147,7 +147,7 @@ class AdminServicesGet {
 
   static async serviceGetCalenderOffice(req, next) {
     try {
-      const calendar = await BranchOficce.findOne({
+       const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
           association: BranchOficce.calendar,
@@ -182,7 +182,7 @@ class AdminServicesGet {
         calendar: calendar.workDays,
         securities: securities[0].securities,
         onlyCalendar: onlyWithCalendar,
-      };
+      }; 
     } catch (err) {
       next(err);
     }

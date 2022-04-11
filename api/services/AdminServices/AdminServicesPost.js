@@ -100,9 +100,9 @@ class AdminServicesPost {
     try {
       const security = await BranchOficce.findOne({
         where: {
-
-         id: req.body.officeId,/*  status:true */
-
+         id: req.body.officeId,  
+         status:true
+         
         },
       });
       const workDay = await WorkDay.findOne({
