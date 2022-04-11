@@ -40,6 +40,7 @@ const NextService = function (){
                         </div>
                     )
                 })}
+                <Button style={{ width: "100%" }} onClick={()=>{navigate("/user/info")}} variant="warning">Consultá tu calendario</Button>
             </Container>
         </>
     )
