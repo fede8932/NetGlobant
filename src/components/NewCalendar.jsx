@@ -17,7 +17,6 @@ const NewCalendar = () => {
 
   return (
     <div style={{ width: "80%", marginLeft: "10%" }}>
-      <ClientSelect />
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"

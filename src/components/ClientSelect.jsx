@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllClients } from "../states/calendarClients";
 import { getAllBranchesByClient } from "../states/calendarBranches";
+import BranchSelect from "./BranchSelect";
 
 const ClientSelect = () => {
   const {
@@ -15,6 +16,10 @@ const ClientSelect = () => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.calendarClients);
   const branches = useSelector((state) => state.calendarBranches);
+
+  const showAlgo = () => {
+    return <h1>HOLA</h1>;
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -59,8 +64,9 @@ const ClientSelect = () => {
           style={{ marginLeft: "45%" }}
         >
           Buscar
-        </Button>{" "}
+        </Button>
       </Form>
+      <BranchSelect />
     </>
   );
 };
