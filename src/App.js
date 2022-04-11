@@ -96,7 +96,6 @@ function App() {
           <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
-          //<Route path="/calendar" element={<Calendar />} />
           <Route path="/user/calendar" element={<NextService />} />
           <Route path="/calendar" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
