@@ -1,18 +1,12 @@
 // fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
 import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getClient } from "../states/singleClient";
-import useInput from "../hooks/useInput";
+import { useSelector } from "react-redux";
 import React from "react";
 
 const Barra = () => {
   const navigate = useNavigate();
-  /* const dispatch = useDispatch(); */
   const user = useSelector((state) => state.usuario);
-  const handleClick = (url) => {
-    navigate(url);
-  };
 
   const handleLogout = () => {
     localStorage.clear();
@@ -35,7 +29,7 @@ const Barra = () => {
         </Button>
         <Button
           onClick={() => {
-            navigate("/user/info");
+            navigate("/user/calendar");
           }}
           variant="warning"
           style={{ color: "#696969" }}
@@ -72,7 +66,7 @@ const Barra = () => {
     ) : (
       <>
         <Button
-          onClick={() => handleClick("/admin/login")}
+          onClick={() => navigate("/admin/login")}
           variant="warning"
           style={{ color: "#696969" }}
         >
@@ -81,7 +75,6 @@ const Barra = () => {
       </>
     );
   };
-  console.log("nav mobile");
   return (
     <Navbar
       display="flex"

@@ -37,6 +37,7 @@ import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
 import AssignSecurity from "./components/AssignSecurity";
 import { pendientes } from "./states/geoLocalizacion";
+import NextService from "./components/NextService";
 import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
@@ -56,7 +57,6 @@ function App() {
   const device = useSelector((state) => state.device);
   const admin = useSelector((state) => state.usuario);
 
-  console.log("admin en app", admin);
 
   return admin ? (
     <>
@@ -95,6 +95,8 @@ function App() {
           <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
+          //<Route path="/calendar" element={<Calendar />} />
+          <Route path="/user/calendar" element={<NextService />} />
           <Route path="/calendar" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
