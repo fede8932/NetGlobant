@@ -58,6 +58,7 @@ const SingleCard = () => {
               >
                 Editar
               </Button>
+              
               <PopUp />
             </div>
           </div>
