@@ -31,7 +31,6 @@ import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo";
-import Calendar from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
@@ -40,6 +39,7 @@ import AssignSecurity from "./components/AssignSecurity"
 import { pendientes } from "./states/geoLocalizacion";
 import CalendarBranchFilter from "./components/CalendarBranchFilter"
 import Home from "./components/Home"
+import NewCalendar from './components/NewCalendar'
 
 function App() {
   const dispatch = useDispatch();
@@ -72,6 +72,9 @@ function App() {
           <></>
         )}
 
+
+        
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/homemobile" element={<HomeMobile />} />
@@ -94,7 +97,7 @@ function App() {
           <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
-          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/calendar" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity/>} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch/>} />

@@ -115,6 +115,7 @@ class AdminServicesPost {
   }
 //------------------------------------------ usar este service para calendario (vision  segun oficina)-------------------------------// 
   static async serviceAddSchedule(req, next) {
+    console.log("req body =>  ", req.body)
     try {
       const branchOficces = await BranchOficce.findOne({
         where: { name: req.body.branchName },
@@ -172,16 +173,26 @@ class AdminServicesPost {
   }
 
   static async serviceAddSecurity(req, next) {
+    console.log("req body => ",req.body)
     try {
       const provincies = await Provincies.findOne({
         where: {
           name: req.body.provincie,
         },
       });
+      console.log("provincie => ",provincies)
+
       const security = await Securities.create(req.body);
+
+      console.log("SECURITY 1 => ",security)
+
       security.addProvincies(provincies);
+
+      console.log("SECURITY 2 => ",security)
+
       return security;
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }
