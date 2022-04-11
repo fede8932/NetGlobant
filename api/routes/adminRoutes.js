@@ -37,6 +37,16 @@ adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSe
 adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuritiesByProvincie)
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay)
+//TRAE A TODAS COSAS QUE ESTEN INHABILITADAS
+adminRouter.get("/inhabites", AdminControllerGet.getAllInhabited)
+//TRAER A TODOS LOS SECURITIES INHABILITADOS
+adminRouter.get("/inhabites/securities", AdminControllerGet.getSecuritiesInhabited)
+//TRAE A TODOS LOS CLIENTES INHABILITADOS
+adminRouter.get("/inhabites/client", AdminControllerGet.getClientsInhabited)
+//TRAE TODAS LAS OFICINAS INHABILITADAS}
+adminRouter.get("/inhabites/officies", AdminControllerGet.getOfficiesInhabited)
+//TRAE TODOS LOS ADMINS DESAHBILITADOS
+adminRouter.get("/inhabites/admins", AdminControllerGet.getAdminsInhabited)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -75,7 +85,13 @@ adminRouter.post("/inhabited/office/:id", AdminControllerPost.inhabitedOffice);
 //INHABILITA ADMINS POR ID 
 adminRouter.post("/inhabited/admin/:id", AdminControllerPost.inhabitedAdmins);
 // REHABILITACIONES
-/* adminRouter.post() */
+ adminRouter.post("/rehabited/security/:id", AdminControllerPost.inhabitedSecurity)
+
+ adminRouter.post("/rehabited/office/:id", AdminControllerPost.inhabitedOffice)
+
+ adminRouter.post("/rehabited/client/:id", AdminControllerPost.inhabitedClient)
+ 
+ adminRouter.post("/rehabited/admin/:id", AdminControllerPost.inhabitedAdmins)
 
 // EDITA OFICINA POR ID
 adminRouter.put("/edit/office/:id", AdminControllerPut.editOffice);

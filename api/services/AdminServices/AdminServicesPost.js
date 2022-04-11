@@ -260,5 +260,80 @@ class AdminServicesPost {
         next(err);
       }
     }
+
+    static async serviceRehabitedSecurities(req, next){
+     const security= await Securities.findOne({
+       where:{id: req.params.id}
+     })
+     const inhabited= await Inhabited.findOne({
+       where:{
+        securityId: security.id
+       }
+     })
+     inhabited.removeSecurity(security)
+     security.statsu= true
+     security.save()
+    }
+
+    static async serviceRehabitedClinets(req, next){
+      try{
+      const  client= await Client.findOne({
+        where:{id: req.params.id}
+      })
+      const inhabited= await Inhabited.findOne({
+        where:{
+          clientId:  client.id
+        }
+      })
+      inhabited.removeClient(client)
+      client.statsu= true
+      client.save()
+      return client
+    } 
+      catch(err){
+        next(err)
+      }
+     }
+
+     static async serviceRehabitedOffice(req, next){
+      try{
+      const  branchOffice= await BranchOficce.findOne({
+        where:{id: req.params.id}
+      })
+      const inhabited= await Inhabited.findOne({
+        where:{
+          branchOficceId:  branchOffice.id
+        }
+      })
+      inhabited.removeBranchOficce(branchOffice)
+      branchOffice.status= true
+      branchOffice.save()
+      return branchOffice
+    } 
+      catch(err){
+        next(err)
+      }
+     }
+
+     static async serviceRehabitedAdmins(req, next){
+      try{
+      const  admins= await Admin.findOne({
+        where:{id: req.params.id}
+      })
+      const inhabited= await Inhabited.findOne({
+        where:{
+          branchOficceId:  admins.id
+        }
+      })
+      inhabited.removeAdmin(admins)
+      admins.status= true
+      admins.save()
+      return admins
+    } 
+      catch(err){
+        next(err)
+      }
+     }
+     
 }
 module.exports = AdminServicesPost;

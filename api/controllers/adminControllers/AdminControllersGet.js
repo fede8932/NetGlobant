@@ -118,6 +118,31 @@ class AdminControllerGet {
     console.log(securities);
     return res.send(securities);
   }
+
+  static async getAllInhabited(req,res,next){
+    const inhabited= await AdminServicesGet.serviceGetInhabites(req, next)
+    return inhabited? res.status(200).send(inhabited) : res.sendStatus(500)
+  }
+
+  static async getSecuritiesInhabited(req, res, next){
+    const securitiesInhabited= await AdminServicesGet.servicesGetSecuritiesInhabited(req, next)
+    return securitiesInhabited? res.status(200).send(securitiesInhabited): res.sendStatus(500)
+  }
+
+  static async getClientsInhabited(req, res, next){
+    const clientsInhabited= await AdminServicesGet.servicesGetClientsInhabited(req, next)
+    return clientsInhabited? res.status(200).send(clientsInhabited): res.sendStatus(500)
+  }
+
+  static async getOfficiesInhabited(req, res, next){
+    const offciesInhabited= await AdminServicesGet.servicesGetOfficiesInhabited(req, next)
+    return offciesInhabited? res.status(200).send(offciesInhabited): res.sendStatus(500)
+  }
+
+  static async getAdminsInhabited(req, res, next){
+    const adminsInhabited= await AdminServicesGet.servicesGetAdminsInhabited(req, next)
+    return adminsInhabited? res.status(200).send(adminsInhabited): res.sendStatus(500)
+  }
 }
 
 module.exports = AdminControllerGet;
