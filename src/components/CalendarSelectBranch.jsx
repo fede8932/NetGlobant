@@ -4,23 +4,23 @@ import { getAllBranchesByClient } from "../states/branches";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { getBranchName } from "../states/singleBranch";
-import AssignFormSecurity from "./AssignFormSecurity";
+import Calendar from "./Calendar";
 import { useParams } from "react-router-dom";
 import { getClientId } from "../states/singleClient";
 
-const CalendarBranchFilter = () => {
+const CalendarSelectBranch = () => {
   const dispatch = useDispatch();
   const branches = useSelector((state) => state.branches);
   const branch = useSelector((state) => state.branch);
   const client = useSelector((state) => state.client);
-  const clientId = useParams();
+
+  console.log(branch);
 
   useEffect(() => {
-    dispatch(getAllBranchesByClient(clientId.id));
-    dispatch(getClientId(clientId.id));
+    dispatch(getAllBranchesByClient(client.id));
+    //dispatch(getClientId(client.id));
   }, []);
 
-  console.log(client);
   const {
     register,
     handleSubmit,
@@ -35,29 +35,21 @@ const CalendarBranchFilter = () => {
     );
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("se selecciono una sucursal", data);
     dispatch(getBranchName(data.branch));
   };
 
-  const showCalendarAssignForm = () => {
-    return branch.id ? (
-      <>
-        <AssignFormSecurity style={{ minWidth: "400px" }} />
-      </>
-    ) : (
-      <></>
-    );
+  const showCalendar = () => {
+    return branch.id ? <>{/* <Calendar/>  */}</> : <></>;
   };
 
   return (
     <>
       <h1
         style={{
-          position: "relative",
           width: "300px",
-          left: "300px",
-          top: "5px",
+          float: "left",
         }}
       >
         {client.bussinessName}
@@ -65,10 +57,8 @@ const CalendarBranchFilter = () => {
       <Form
         onSubmit={handleSubmit(onSubmit)}
         style={{
-          position: "relative",
+          float: "left",
           width: "300px",
-          left: "300px",
-          top: "10px",
         }}
       >
         <Form.Label className="labels">Elige una sucursal</Form.Label>
@@ -93,14 +83,14 @@ const CalendarBranchFilter = () => {
         <Button
           variant="secondary"
           style={{ marginTop: "5px" }}
-          onClick={handleSubmit(onSubmit)}
+          /* onClick={onSubmit} */
         >
           Siguiente
         </Button>
-        {showCalendarAssignForm()}
+        {/* {showCalendar()} */}
       </Form>
     </>
   );
 };
 
-export default CalendarBranchFilter;
+export default CalendarSelectBranch;

@@ -1,9 +1,5 @@
 // fijarse la funciÃ³n showUserNameOrLogin, agregar admin.name en vez de admin solo
-import {
-  Navbar,
-  Container,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getClient } from "../states/singleClient";
@@ -49,14 +45,6 @@ const Barra = () => {
           style={{ color: "#696969" }}
         >
           Login
-        </Button>
-
-        <Button
-          onClick={() => handleClick("/register")}
-          variant="warning"
-          style={{ color: "#696969" }}
-        >
-          Register
         </Button>
       </>
     );

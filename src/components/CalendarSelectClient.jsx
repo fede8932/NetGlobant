@@ -3,10 +3,11 @@ import { Button, Form } from "react-bootstrap";
 import { getAllClients } from "../states/Clients";
 import { getClientId } from "../states/singleClient";
 import { useSelector, useDispatch } from "react-redux";
+import CalendarSelectBranch from "./CalendarSelectBranch";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const CalendarClientFilter = () => {
+const CalendarSelectClient = () => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients);
   const navigate = useNavigate();
@@ -30,11 +31,15 @@ const CalendarClientFilter = () => {
   });
 
   const onSubmit = async (data) => {
-    try {
-      dispatch(getClientId(data.client));
+    dispatch(getClientId(data.client));
+  };
 
-      navigate(`/assign/branch/${data.client}`);
-    } catch (err) {}
+  const showCalendarBranchFilter = () => {
+    return (
+      <div>
+        <CalendarSelectBranch />
+      </div>
+    );
   };
 
   return (
@@ -44,6 +49,7 @@ const CalendarClientFilter = () => {
         style={{
           position: "relative",
           width: "300px",
+          left: "300px",
           top: "10px",
         }}
       >
@@ -72,11 +78,10 @@ const CalendarClientFilter = () => {
         >
           Sigiente
         </Button>
-
-        {/* {showCalendarBranchFilter()} */}
+        {showCalendarBranchFilter()}
       </Form>
     </>
   );
 };
 
-export default CalendarClientFilter;
+export default CalendarSelectClient;
