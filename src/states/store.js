@@ -10,12 +10,13 @@ import securitiesReducer from "./securities";
 import branchesReducer from "./branches";
 import branchReducer from "./singleBranch";
 import calendarReducer from "./calendar";
+import securReducer from "./securityApp";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   reducer: {
-    ubicacion: geoReducer,
     usuario: userReducer,
+    ubicacion: geoReducer,
     client: clientReducer,
     clients: allClientsReducer,
     security: securityReducer,
@@ -24,6 +25,7 @@ const store = configureStore({
     securities: securitiesReducer,
     branches: branchesReducer,
     branch: branchReducer,
+    securityApp: securReducer,
   },
 });
 

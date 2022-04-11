@@ -5,24 +5,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const AvisosForm = () => {
   const usuario = useSelector((state) => state.usuario);
-  const name = useInput();
   const motivo = useInput();
   const startDate = useInput();
   const endDate = useInput();
+  const navigate = useNavigate()
 
   const handleClick = async (e) => {
     e.preventDefault();
-
     await axios({
       method: "POST",
-      url: "/api/admin/add/client",
+      url: `/api/security/absence/${usuario.id}`,
       data: {
-        name: name.value,
+        initDate: startDate.value,
+        endDate: endDate.value,
+        reason: motivo.value,
+        status: "pendiente"
       },
     });
+    navigate("/status")
     swal({
       title: "Solicitud enviada",
       text: "Podrás ver el estado de la solicitud en 'Estadísticas'",
@@ -52,7 +56,7 @@ const AvisosForm = () => {
                   name="bussinessName"
                   variant="outlined"
                   value={usuario.name}
-                  disabled="true"
+                  disabled={true}
                 />
               </div>
             </div>
@@ -83,14 +87,14 @@ const AvisosForm = () => {
             <div className="row mt-2">
               <div className="col-md-6">
                 <Form.Label className="labels">Motivo</Form.Label>
-                <div class="form-floating">
+                <div className="form-floating">
                   <textarea
                     onChange={motivo.onChange}
-                    class="form-control"
+                    className="form-control"
                     placeholder="Leave a comment here"
                     id="floatingTextarea"
                   ></textarea>
-                  <label for="floatingTextarea">Comments</label>
+                  <label form="floatingTextarea">Comments</label>
                 </div>
               </div>
             </div>

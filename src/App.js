@@ -40,6 +40,7 @@ import AssignSecurity from "./components/AssignSecurity"
 import { pendientes } from "./states/geoLocalizacion";
 import CalendarBranchFilter from "./components/CalendarBranchFilter"
 import Home from "./components/Home"
+import NextService from "./components/NextService";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,7 +56,6 @@ function App() {
   const device = useSelector((state) => state.device);
   const admin = useSelector((state) => state.usuario);
 
-  console.log("admin en app", admin);
 
   return admin ? (
     <>
@@ -98,6 +98,7 @@ function App() {
           <Route path="/assign" element={<AssignSecurity/>} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch/>} />
+          <Route path="/user/calendar" element={<NextService />} />
           
         </Routes>
       </div>

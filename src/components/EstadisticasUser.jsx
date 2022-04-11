@@ -1,89 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "../hooks/useInput";
 import { Accordion, Form, Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-/* import { useSelector } from "react-redux"; */
+import { useSelector } from "react-redux";
 /* import axios from "axios"; */
 import Footer from "./Footer";
 import { useForm } from "react-hook-form";
 import TableSecurity from "./TableSecurity";
 import TablePermisos from "./TablePermisos";
+import { getPermisos } from "../states/securityApp";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const EstadisticasUser = () => {
-  /*  const usuario = useSelector((state) => state.usuario); */
+  const usuario = useSelector((state) => state.usuario);
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(getPermisos(usuario.id))
+  },[])
   const [registros, setRegistros] = useState([]);
-  const result = [
-    {
-      fecha: "21/03/2022",
-      cliente: "Fravega",
-      sucursal: "San Miguel",
-      horas: 12,
-    },
-    {
-      fecha: "21/03/2022",
-      cliente: "Fravega",
-      sucursal: "San Miguel",
-      horas: 12,
-    },
-    {
-      fecha: "22/03/2022",
-      cliente: "Fravega",
-      sucursal: "San Miguel",
-      horas: 12,
-    },
-    {
-      fecha: "23/03/2022",
-      cliente: "Fravega",
-      sucursal: "San Miguel",
-      horas: 12,
-    },
-    {
-      fecha: "24/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "25/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "26/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "27/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "28/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "29/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-    {
-      fecha: "30/03/2022",
-      cliente: "Garbarino",
-      sucursal: "José C. Paz",
-      horas: 12,
-    },
-  ];
-  /*  const name = useInput();
-  const motivo = useInput();
-  const startDate = useInput();
-  const endDate = useInput(); */
   const {
     register,
     handleSubmit,
@@ -91,15 +26,11 @@ const EstadisticasUser = () => {
   } = useForm();
 
   const consultar = async (e) => {
-    console.log(e.desde, e.hasta);
-    // await axios({
-    //   method: "POST",
-    //   url: "/api/admin/add/client",
-    //   data: {
-    //     name: name.value,
-    //   },
-    // });
-    setRegistros(result);
+    const result = await axios({
+      method: "GET",
+      url :`/api/security/hour/1/${e.desde}/${e.hasta}`
+    })
+    setRegistros(result.data);
   };
 
   return (

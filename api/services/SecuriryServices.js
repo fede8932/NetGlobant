@@ -4,8 +4,10 @@ const {
   BranchOficce,
   Client,
   Provincies,
+  AbsenceRequest
 } = require("../models");
-const{genHash} = require("../lib/passwordUtils")
+const{genHash} = require("../lib/passwordUtils");
+const { Op } = require("sequelize");
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -165,6 +167,63 @@ class SecuritiesServices {
       next(err);
     }
   }
+
+  static async serviceAbsenceRequest(req , next){
+    try {
+      const security = await Securities.findOne({
+        where:{
+          id: req.params.id
+        }
+      });
+      const request = await AbsenceRequest.create(req.body)
+      request.setSecurity(security)
+      return request
+    } catch (err) {
+      next (err)
+    }
+  }
+
+  static async serviceAbsenceRequests(req , next){
+    try {
+      const requests = await AbsenceRequest.findAll({
+        where:{
+          securityId: req.params.id
+        },
+        order: [
+          ["id" , "DESC"]
+        ]
+      })
+      return requests
+    } catch (err){
+      next (err)
+    }
+  }
+
+  static async requestHourSecurity(req , next){
+    try {
+      const security = await Securities.findOne({
+        where : {
+          id: req.params.id
+        },
+        include : {
+          association: Securities.calendar,
+          where: {
+            date : {
+            [Op.between] : [req.params.initDate , req.params.endDate]
+          }}
+        }
+      })
+      let sumaHoras = []
+      security.workDays.map(workday=>{
+        sumaHoras.push({fecha:workday.date , horas:(new Date(workday.closingHour)-new Date(workday.entryHour))/1000/60/60})
+      })
+      return sumaHoras
+    } catch (err){
+      console.log(err)
+      next(err)
+    }
+  }
 }
+
 
 module.exports = SecuritiesServices;

@@ -17,6 +17,10 @@ export const tiempoParcial = function () {
   };
   return formatDate(date);
 };
+export const orderTime = function (fecha , n) {
+  const order = `${fecha.slice(8)}-${fecha.slice(5 , 7)}-${fecha.slice(n , 4)}`
+  return order;
+};
 
 function haversineDistance(coords1, coords2, isMiles) {
   function toRad(x) {

@@ -1,9 +1,9 @@
 import { Table } from "react-bootstrap"
+import { useSelector } from "react-redux"
+import { orderTime } from "../geoCalculator"
 
-const TablePermisos = function ({result}){
-    const permisos = [{fecha:"22/3/2022" , empresa : "falabella" , estado:"aprobada"},
-    {fecha:"23/3/2022" , empresa : "falabella" , estado:"rechazada"},
-    {fecha:"24/3/2022" , empresa : "falabella" , estado:"pendiente"}]
+const TablePermisos = function (){
+    const permisos = useSelector(state=>state.securityApp)
     return (
         <Table
         striped
@@ -13,17 +13,17 @@ const TablePermisos = function ({result}){
         style={{ width: "98%", margin: "0 auto", marginTop: "2rem" }}>
             <thead>
             <tr>
-                <th>Fecha</th>
-                <th>Empresa</th>
+                <th>Inicio de licencia</th>
+                <th>Fin de licencia</th>
                 <th>Estado</th>
             </tr>
             </thead>
             <tbody>
-                {permisos?.map((permiso , i) => (
+                {permisos.data?.map((permiso , i) => (
                     <tr key={i}>
-                    <td>{permiso.fecha}</td>
-                    <td>{permiso.empresa}</td>
-                    <td>{permiso.estado}</td>
+                    <td>{orderTime(permiso.initDate , 0)}</td>
+                    <td>{orderTime(permiso.endDate , 0)}</td>
+                    <td>{permiso.status}</td>
                     </tr>
                 ))}
             </tbody>
