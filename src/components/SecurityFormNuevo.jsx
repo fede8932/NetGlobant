@@ -7,6 +7,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import { createSecurity } from "../states/singleSecurity";
 
+
+
 const SecurityFormNuevo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,6 +41,7 @@ const SecurityFormNuevo = () => {
               <h4 className="text-right" style={{ color: "grey" }}>
                 ALTA DE VIGILADORES
               </h4>
+           
             </div>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <div className="row mt-2">

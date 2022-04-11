@@ -13,6 +13,8 @@ import calendarReducer from "./calendar";
 import calendarClientReducer from "./calendarClients";
 import calendarBranchesReducer from "./calendarBranches";
 import singleCalendarClient from "./singleCalendarClient";
+import securitiesCalendarReducer from "./securitiesCalendar";
+import securityCalendarReducer from "./securityCalendar"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -30,6 +32,8 @@ const store = configureStore({
     calendarClients: calendarClientReducer,
     calendarBranches: calendarBranchesReducer,
     calendarClient: singleCalendarClient,
+    securitiesCalendar: securitiesCalendarReducer,
+    securityCalendar: securityCalendarReducer,
   },
 });
 
