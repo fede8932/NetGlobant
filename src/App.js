@@ -41,6 +41,7 @@ import { pendientes } from "./states/geoLocalizacion";
 import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
+import ClientSelect from "./components/ClientSelect";
 
 function App() {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ function App() {
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
+          <Route path="/set/branch" element={<ClientSelect />} />
         </Routes>
       </div>
     </>
