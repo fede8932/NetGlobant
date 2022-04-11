@@ -15,8 +15,23 @@ export const getAllBranchesByClient = createAsyncThunk(
   }
 );
 
+export const getAllBranchesByName = createAsyncThunk(
+  "GET_ALL_BRANCHES_BY_NAME",
+  async (name) => {
+    try {
+      console.log("ESTO ES NAME", name)
+      const branches = await axios.get(`/api/admin/clientsname/${name}`);
+      console.log("ESTO ES BRANCHES", branches)
+      return branches.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const calendarBranchesReducer = createReducer([], {
   [getAllBranchesByClient.fulfilled]: (state, action) => action.payload,
+  [getAllBranchesByName.fulfilled]: (state, action) => action.payload,
 });
 
 export default calendarBranchesReducer;
