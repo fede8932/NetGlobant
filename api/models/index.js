@@ -5,6 +5,8 @@ const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
 const AbsenceRequest= require("./AbsenceRequest")
+const Inhabited= require("./Inhabited")
+
 
 
 /* asocianes */
@@ -23,10 +25,23 @@ BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSec
 /* - un pedido de ausencia le pertenece a un guardia de seguridad */
 AbsenceRequest.belongsTo(Securities)
 
+/* asociociones de inhabilitacion */
+/* securities */
+Inhabited.belongsTo(Securities)
+/* clients */
+Inhabited.belongsTo(Client)
+/* branchOffice */
+Inhabited.belongsTo(BranchOficce)
+/* Admins */
+Inhabited.belongsTo(Admin)
+
+
  
 
 
 
 
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest}
+
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest, Inhabited}
+

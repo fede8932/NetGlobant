@@ -4,6 +4,7 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
+  Inhabited,
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
@@ -276,6 +277,60 @@ class AdminServicesGet {
       return image;
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async serviceGetInhabites(req,next){
+    try{
+      const allInhabites= await Inhabited.findAll()
+    return allInhabites
+    }
+    catch(err){
+      next(err)
+    }
+  }
+
+  static async servicesGetSecuritiesInhabited(req, next){
+    try{
+      const securitiesInhabited= await Inhabited.findAll({
+        where:{ type: "securities"}
+      })
+      return securitiesInhabited
+    }catch(err){
+      next(err)
+    }
+  }
+
+  static async servicesGetClientsInhabited(req, next){
+    try{
+      const clientsInhabited= await Inhabited.findAll({
+        where:{ type: "clients"}
+      })
+      return clientsInhabited
+    }catch(err){
+      next(err)
+    }
+  }
+
+  static async servicesGetOfficiesInhabited(req, next){
+    try{
+      const officiesInhabited= await Inhabited.findAll({
+        where:{ type: "branchOffice"}
+      })
+      return officiesInhabited
+    }catch(err){
+      next(err)
+    }
+  }
+
+  static async servicesGetAdminsInhabited(req, next){
+    try{
+      const adminsInhabited= await Inhabited.findAll({
+        where:{ type: "admins"}
+      })
+      return adminsInhabited
+    }catch(err){
+      next(err)
     }
   }
 }

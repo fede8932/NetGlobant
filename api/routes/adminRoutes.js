@@ -30,13 +30,23 @@ adminRouter.get("/securities/office/:name",AdminControllerGet.getAllSecuritiesBy
 // TRAE A LOS GUARDIAS QUE VIVEN CERCA
 adminRouter.get("/securitiesByDistance/:id", AdminControllerGet.getSecuritiesByDistance)
 // TRAE CALENDARIO POR OFICINA ID
-adminRouter.get("/calendar/office/:id/:date", AdminControllerGet.getOfficeCalendar);
+adminRouter.get("/calendar/office/:id/:date/:twoce", AdminControllerGet.getOfficeCalendar);
 // TRAE CALENDARIO POR VILIGANTE ID
 adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSecurity)
 // TRAE SECURITIES POR PROVINCIA
 adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuritiesByProvincie)
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay)
+//TRAE A TODAS COSAS QUE ESTEN INHABILITADAS
+adminRouter.get("/inhabites", AdminControllerGet.getAllInhabited)
+//TRAER A TODOS LOS SECURITIES INHABILITADOS
+adminRouter.get("/inhabites/securities", AdminControllerGet.getSecuritiesInhabited)
+//TRAE A TODOS LOS CLIENTES INHABILITADOS
+adminRouter.get("/inhabites/client", AdminControllerGet.getClientsInhabited)
+//TRAE TODAS LAS OFICINAS INHABILITADAS}
+adminRouter.get("/inhabites/officies", AdminControllerGet.getOfficiesInhabited)
+//TRAE TODOS LOS ADMINS DESAHBILITADOS
+adminRouter.get("/inhabites/admins", AdminControllerGet.getAdminsInhabited)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -60,18 +70,28 @@ adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToO
 
 //MODIFICA VIGILADORES ASIGNADOS este delete si quede porque remueve reslacion- no datos
 adminRouter.delete("/remove/office/security/:name/:id", AdminControllerDelete.removeSecurityByOffice)
-// BORRA VIGILANTE POR ID
-adminRouter.delete("/remove/security/:id", AdminControllerDelete.removeSecurity);
-//BORRA CLIENTE POR ID
-adminRouter.delete("/remove/client/:id", AdminControllerDelete.removeClient);
-//BORRA CLIENTE POR ID
-adminRouter.delete("/remove/office/:id", AdminControllerDelete.removeOffice);
 //BORRA CALENDAR DE OFICINA POR ID
 adminRouter.delete("/remove/calendar/office/:id",AdminControllerDelete.removeScheduleOffice);
 //BORRA  CALENDAR DE VIGILANTE POR ID
 adminRouter.delete("/remove/calendar/security/:id", AdminControllerDelete.removeScheduleSecurity)
-//BORRA POR NAME DE OFICINA Y ID DE VIGILANTE
-adminRouter.delete("/remove/office/security/:name/:id", AdminControllerDelete.removeSecurityByOffice)
+
+//<<<<<<---------------I N H A B I L I T A C I O N E S ---------------------->>>>>
+// INHABILITA VIGILANTE POR ID
+adminRouter.post("/inhabited/security/:id", AdminControllerPost.inhabitedSecurity);
+//INHABILITA CLIENTE POR ID
+adminRouter.post("/inhabited/client/:id", AdminControllerPost.inhabitedClient);
+//INHABILITA OFICINS POR ID
+adminRouter.post("/inhabited/office/:id", AdminControllerPost.inhabitedOffice);
+//INHABILITA ADMINS POR ID 
+adminRouter.post("/inhabited/admin/:id", AdminControllerPost.inhabitedAdmins);
+// REHABILITACIONES
+ adminRouter.post("/rehabited/security/:id", AdminControllerPost.inhabitedSecurity)
+
+ adminRouter.post("/rehabited/office/:id", AdminControllerPost.inhabitedOffice)
+
+ adminRouter.post("/rehabited/client/:id", AdminControllerPost.inhabitedClient)
+ 
+ adminRouter.post("/rehabited/admin/:id", AdminControllerPost.inhabitedAdmins)
 
 // EDITA OFICINA POR ID
 adminRouter.put("/edit/office/:id", AdminControllerPut.editOffice);

@@ -48,7 +48,7 @@ class AdminControllerPatch {
   }
 
   static async patchPassword(req, res, next) {
-    const patchPassword = await AdminServicesPatch.changePassword(req, next);
+    const patchPassword = await AdminServicesPatch.patchPassword(req, next);
     return patchPassword
       ? res.status(204).json(patchPassword)
       : res.sendStatus(404);

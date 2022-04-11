@@ -17,6 +17,9 @@ WorkDay.init(
     closingHour: {
       type:S.DATE,
     },
+    effectiveHours:{
+      type: S.INTEGER
+    },
     wishClosingHour: {
       type:  S.STRING,
     },

@@ -9,6 +9,7 @@ const {
 const{genHash} = require("../lib/passwordUtils");
 const { Op } = require("sequelize");
 
+
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
     try {
@@ -101,13 +102,16 @@ class SecuritiesServices {
   static async serviceToWriteMyWorkDayClose(req, next) {
     try {
       const date = req.params.date;
+      
       const justDate = date.split(" ")[0];
+     
       const allWorkDays = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
-        },
-      });
+        }, 
+      }); 
+
      const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
      
       const [rows, workDay] = await WorkDay.update(
@@ -117,12 +121,13 @@ class SecuritiesServices {
           returning: true,
         }
       );
-     
       return workDay;
     } catch (err) {
       next(err);
     }
   }
+
+ 
 
   static async serviceCancellWorkDay(req, next) {
     try {
