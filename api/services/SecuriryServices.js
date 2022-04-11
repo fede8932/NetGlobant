@@ -6,6 +6,7 @@ const {
   Provincies,
 } = require("../models");
 const{genHash} = require("../lib/passwordUtils")
+const conuntingHours = require("../lib/countingHours")
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -101,13 +102,16 @@ class SecuritiesServices {
   static async serviceToWriteMyWorkDayClose(req, next) {
     try {
       const date = req.params.date;
+      
       const justDate = date.split(" ")[0];
+     
       const allWorkDays = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
-        },
-      });
+        }, 
+      }); 
+
      const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
      
       const [rows, workDay] = await WorkDay.update(
@@ -117,12 +121,13 @@ class SecuritiesServices {
           returning: true,
         }
       );
-     
       return workDay;
     } catch (err) {
       next(err);
     }
   }
+
+  //1-RECIBO UN PERIODO + ID VIGILANTE, 2- PEDIR BASE DE DATOS TOODAS LAS JORNADAS DEL VIGILANTE, 3- MAPEO EL ARRAY Y SUMO A UNA VARIABLE EXTERNA LA CANTIDAD DE HORAS DE LA JORNADA (PARA SUMAR LAS HORAS: CON EL OBJETO DATE DE ENTRADA SE LO RESTO AL DE SALIDA Y LO DIVIDO POR 1000/60/60) 
 
   static async serviceCancellWorkDay(req, next) {
     try {
