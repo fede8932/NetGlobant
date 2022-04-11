@@ -25,7 +25,7 @@ const NewCalendar = () => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    dispatch(getSelectedSecurities("Fravega Gualeguaychu"));
+    dispatch(getSelectedSecurities("Adidas MDA"));
   }, []);
 
   const handleDateClick = (e) => {
@@ -35,10 +35,11 @@ const NewCalendar = () => {
   };
 
   const onSubmit = (data) => {
-    data.branchName = "Fravega Gualeguaychu";
+    data.branchName = "Adidas MDA";
     data.date = actualDate;
     console.log(data);
-    setEvents(data);
+    events.push(data)
+    setEvents([...events]);
     dispatch(postSecurityToSchedule(data));
     console.log("agregado", data);
   };
@@ -67,7 +68,6 @@ const NewCalendar = () => {
         // }
         footerToolbar={{ center: "dayGridMonth tomiGridDay" }}
         initialView="dayGridMonth"
-    
         buttonText={{ month: "mes", day: "dia" }}
         businessHours={{
           daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
