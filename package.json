@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/react": "^5.11.0",
     "@hookform/error-message": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.0",
     "@sequelize/core": "^7.0.0-alpha.10",
