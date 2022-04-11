@@ -36,7 +36,7 @@ adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSe
 // TRAE SECURITIES POR PROVINCIA
 adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuritiesByProvincie)
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
-adminRouter.get("/images/security/day:id", AdminControllerGet.getImageSecurityByDay)
+adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -46,11 +46,11 @@ adminRouter.post("/add/client", AdminControllerPost.addClient);
 adminRouter.post("/add/office", AdminControllerPost.addOffice);
 // AGREGA PROVINCIA A VIGILANTE
 adminRouter.post("/add/provincie/security", AdminControllerPost.addSecurityProvincie)
-// AGREGA VIGILANTE A OFICINA
+// AGREGA VIGILANTE A OFICINA 
 adminRouter.post("/add/office/security", AdminControllerPost.addSecurityOffice);
-// AGREGA CALENDAR A OFICINA
+// AGREGA CALENDAR A OFICINA ---> USAR ESTA RUTA PARA CREAR UNA JORNADA LABORAL
 adminRouter.post("/add/Calendar/office", AdminControllerPost.addSchedule);
-// AGREGA CALENDAR A VIGILANTE
+// AGREGA CALENDAR A VIGILANTE 
 adminRouter.post("/add/Calendar/security", AdminControllerPost.addScheduleSecurity);
 // ASIGNA CALENDAR A VIGILANTE
 adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleToSecurity);

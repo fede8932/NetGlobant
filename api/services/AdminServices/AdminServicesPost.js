@@ -113,21 +113,27 @@ class AdminServicesPost {
       next(err);
     }
   }
-
+//------------------------------------------ usar este service para calendario (vision  segun oficina)-------------------------------// 
   static async serviceAddSchedule(req, next) {
     try {
       const branchOficces = await BranchOficce.findOne({
         where: { name: req.body.branchName },
       });
+      const security= await Securities.findOne({
+        where:{
+          CUIL: req.body.CUIL
+        }
+      })
       const workDay = await WorkDay.create(req.body);
       branchOficces.addWorkDays(workDay);
+      security.addWorkDays(workDay);
       return branchOficces;
     } catch (err) {
       console.log(err);
       next(err);
     }
   }
-
+//-------------------------------------------------------------------------------------------------------------------------------------//
   static async serviceAddScheduleSecurity(req, next) {
     try {
       const haveDays = await Securities.findOne({
@@ -189,6 +195,7 @@ class AdminServicesPost {
       const security = await Securities.findOne({
         where: {
           name: req.body.name,
+          CUIL: req.body.CUIL,
           status: true,
         },
       });

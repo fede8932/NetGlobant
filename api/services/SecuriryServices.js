@@ -22,7 +22,8 @@ class SecuritiesServices {
         include: {
           association: Securities.calendar,
           where: {
-            wishEntryHour: today.wishEntryHour,
+            date: today.date,
+            wishEntryHour: today.wishEntryHour
           },
         },
       });
@@ -39,9 +40,9 @@ class SecuritiesServices {
       const oficinaSchedule = await BranchOficce.findOne({
         where: { id: oficina.id },
         include: {
-          association: BranchOficce.security,
+          association: BranchOficce.calendar,
           where: {
-            id: schedule.id,
+            date: today.date,
           },
         },
       });

@@ -44,6 +44,6 @@ WorkDay.init(
   }
 );
 
-WorkDay.sync({ alter: true })
+WorkDay.sync({ alter: false })
 
 module.exports = WorkDay;

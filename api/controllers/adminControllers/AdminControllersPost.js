@@ -15,12 +15,12 @@ class AdminControllerPost{
         const newClient = await AdminServicesPost.serviceAddClient(req, next);
         return newClient ? res.status(201).json(newClient) : res.sendStatus(404);
       }
-    
+//------------------------- este es el controller a usar para calendario (vision sucursal) --------------------------------------//   
       static async addSchedule(req, res, next) {
         await AdminServicesPost.serviceAddSchedule(req, next);
         return res.sendStatus(201);
       }
-    
+ //-----------------------------------------------------------------------------------------------------------------------------///   
       static async addScheduleSecurity(req, res, next) {
         const workDay = await AdminServicesPost.serviceAddScheduleSecurity(
           req,

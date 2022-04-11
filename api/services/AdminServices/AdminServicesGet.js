@@ -5,8 +5,9 @@ const {
   Provincies,
   WorkDay,
 } = require("../../models");
-const { Op } = require("@sequelize/core");
-/* const { Op } = require("sequelize") */
+/* const { Op } = require("@sequelize/core"); */
+const { Op } = require("sequelize");
+
 const { findAll } = require("../../models/Admin");
 const { distance } = require("../../lib/findDistance.js");
 
@@ -47,8 +48,10 @@ class AdminServicesGet {
     try {
       const oneSecurity = await Securities.findAll({
         where: {
-          name: name,
-          lastName: lastName,
+          [Op.or]: [
+          {name: name},
+          {name: name,lastName: lastName}
+      ]
         },
       });
       return oneSecurity;
@@ -192,7 +195,6 @@ class AdminServicesGet {
           name: req.params.name,
         },
       });
-      console.log(provincie[0].provincyId);
       const provincieId = provincie[0].provincyId;
       const securities = await Securities.findAll({
         include: {
@@ -202,7 +204,6 @@ class AdminServicesGet {
           },
         },
       });
-      console.log(securities);
       return securities;
     } catch (err) {
       console.log(err);
