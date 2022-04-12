@@ -6,7 +6,7 @@ const {
   WorkDay,
   Events,
   AbsenceRequest,
-  Disabled
+  Disabled,
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
@@ -51,10 +51,7 @@ class AdminServicesGet {
     try {
       const oneSecurity = await Securities.findAll({
         where: {
-          [Op.or]: [
-          {name: name},
-          {name: name,lastName: lastName}
-      ]
+          [Op.or]: [{ name: name }, { name: name, lastName: lastName }],
         },
       });
       return oneSecurity;
@@ -115,6 +112,9 @@ class AdminServicesGet {
         },
         include: {
           association: Client.offices,
+          where:{
+            status:true
+          }
         },
       });
       return allOfficeByClient;
@@ -126,15 +126,18 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      const client = await Client.findAll({
+      console.log(req.params)
+      const clients = await Client.findOne({
         where: {
           bussinessName: req.params.clientName,
-        },
+        }, /*  include: {
+          association: Client.offices,
+          }, */
       });
-      const officies = await BranchOficce.findAll({where:{
-        clientId: client[0].id
-      }})
-      return officies;
+    const offices= await BranchOficce.findOne({
+      where:{clientId: clients.id}
+    })
+      return clients;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -145,7 +148,7 @@ class AdminServicesGet {
     try {
       const oneOffice = await BranchOficce.findByPk(req.params.id);
       const officeName = await Client.findByPk(oneOffice.clientId);
-      oneOffice.dataValues.clientName = officeName.bussinessName
+      oneOffice.dataValues.clientName = officeName.bussinessName;
       return oneOffice;
     } catch (err) {
       next(err);
@@ -169,6 +172,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
+          where:{
+            status:true
+          }
         },
       });
 
@@ -180,7 +186,7 @@ class AdminServicesGet {
 
   static async serviceGetCalenderOffice(req, next) {
     try {
-       const calendar = await BranchOficce.findOne({
+      const calendar = await BranchOficce.findOne({
         where: { id: req.params.id },
         include: {
           association: BranchOficce.calendar,
@@ -215,7 +221,7 @@ class AdminServicesGet {
         calendar: calendar.workDays,
         securities: securities[0].securities,
         onlyCalendar: onlyWithCalendar,
-      }; 
+      };
     } catch (err) {
       next(err);
     }
@@ -234,6 +240,7 @@ class AdminServicesGet {
           association: Securities.provincie,
           where: {
             id: provincieId,
+            status:true
           },
         },
       });
@@ -312,84 +319,79 @@ class AdminServicesGet {
     }
   }
 
-
-  static async serviceGetDisabled(req,next){
-
-    try{
-      const allInhabites= await Disabled.findAll()
-    return allInhabites
-    }
-    catch(err){
-      next(err)
+  static async serviceGetDisabled(req, next) {
+    try {
+      const allInhabites = await Disabled.findAll();
+      return allInhabites;
+    } catch (err) {
+      next(err);
     }
   }
 
-  static async servicesGetSecuritiesDisabled(req, next){
-    try{
-      const securitiesDisabled= await Disabled.findAll({
-        where:{ type: "securities"}
-      })
-      return securitiesDisabled
-    }catch(err){
-      next(err)
+  static async servicesGetSecuritiesDisabled(req, next) {
+    try {
+      const securitiesDisabled = await Disabled.findAll({
+        where: { type: "securities" },
+      });
+      return securitiesDisabled;
+    } catch (err) {
+      next(err);
     }
   }
 
-  static async servicesGetClientsDisabled(req, next){
-    try{
-      const clientsDisabled= await Disabled.findAll({
-        where:{ type: "clients"}
-      })
-      return clientsDisabled
-    }catch(err){
-      next(err)
+  static async servicesGetClientsDisabled(req, next) {
+    try {
+      const clientsDisabled = await Disabled.findAll({
+        where: { type: "clients" },
+      });
+      return clientsDisabled;
+    } catch (err) {
+      next(err);
     }
   }
 
-  static async servicesGetOfficiesDisabled(req, next){
-    try{
-      const officiesDisabled= await Disabled.findAll({
-        where:{ type: "branchOffice"}
-      })
-      return officiesDisabled
-    }catch(err){
-      next(err)
+  static async servicesGetOfficiesDisabled(req, next) {
+    try {
+      const officiesDisabled = await Disabled.findAll({
+        where: { type: "branchOffice" },
+      });
+      return officiesDisabled;
+    } catch (err) {
+      next(err);
     }
   }
 
-  static async servicesGetAdminsDisabled(req, next){
-    try{
-      const adminsDisabled= await Disabled.findAll({
-        where:{ type: "admins"}
-      })
-      return adminsDisabled
-    }catch(err){
-      next(err)
+  static async servicesGetAdminsDisabled(req, next) {
+    try {
+      const adminsDisabled = await Disabled.findAll({
+        where: { type: "admins" },
+      });
+      return adminsDisabled;
+    } catch (err) {
+      next(err);
     }
   }
 
-  static async servicesGetAllRequest(req, next){
-    try{
-     const allRequest= await AbsenceRequest.findAll()
-     return allRequest
-
-    }catch(err){
-     next(err)
+  static async servicesGetAllRequest(req, next) {
+    try {
+      const allRequest = await AbsenceRequest.findAll();
+      return allRequest;
+    } catch (err) {
+      next(err);
     }
-
   }
 
-  static async servicesGetOneRequest(req,res,next){
-    try{
-      const security= await Securities.findOne({
-        where:{id: req.params.id}
-      })
-    const oneRequest= await AbsenceRequest.findOne({
-      where:{securityId: security.id}
-    })
-    return oneRequest
-    }catch(err){
-      next(err)
+  static async servicesGetOneRequest(req, res, next) {
+    try {
+      const security = await Securities.findOne({
+        where: { id: req.params.id },
+      });
+      const oneRequest = await AbsenceRequest.findOne({
+        where: { securityId: security.id },
+      });
+      return oneRequest;
+    } catch (err) {
+      next(err);
     }
   }
 
@@ -399,7 +401,81 @@ class AdminServicesGet {
       return events;
     } catch (err) {
       next(err);
+    }
+  }
 
+  static async serviceGetBranchOfficewitoutSecurityDay(req, next) {
+    try {
+      let date = new Date();
+      let day = date.getDate() + 7;
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let nextDate = new Date(year, month, day);
+      const workDayBranch = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+          where: {
+            date: {
+              [Op.between]: [date, nextDate],
+            },
+          },
+        },
+      });
+
+      const branchHours = workDayBranch.map((branch) => {
+        let branchinfo = { branch: branch.id, hours: 0 };
+        branch.workDays.map((workDay) => {
+          branchinfo.hours +=
+            (new Date(`${workDay.date} ${workDay.wishClosingHour}`) -
+              new Date(`${workDay.date} ${workDay.wishEntryHour}`)) /
+            1000 /
+            60 /
+            60;
+        });
+        return branchinfo;
+      });
+
+      const branchWithoutSecurity = branchHours.filter(
+        (branch) => branch.hours < 168
+      );
+
+      return branchWithoutSecurity;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutWorkDay(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.workDays.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutSecurities(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.security,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.securities.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
     }
   }
 
