@@ -119,6 +119,7 @@ class AdminControllerGet {
     return res.send(securities);
   }
 
+
   static async getAllInhabited(req,res,next){
     const inhabited= await AdminServicesGet.serviceGetInhabites(req, next)
     return inhabited? res.status(200).send(inhabited) : res.sendStatus(500)
@@ -142,6 +143,11 @@ class AdminControllerGet {
   static async getAdminsInhabited(req, res, next){
     const adminsInhabited= await AdminServicesGet.servicesGetAdminsInhabited(req, next)
     return adminsInhabited? res.status(200).send(adminsInhabited): res.sendStatus(500)
+  }
+  static async getAllEvents(req, res, next) {
+    const events = await AdminServicesGet.serviceGetAllEvents(next);
+    return events ? res.status(200).json(events) : res.sendStatus(404);
+
   }
 }
 

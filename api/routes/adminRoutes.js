@@ -47,6 +47,10 @@ adminRouter.get("/inhabites/client", AdminControllerGet.getClientsInhabited)
 adminRouter.get("/inhabites/officies", AdminControllerGet.getOfficiesInhabited)
 //TRAE TODOS LOS ADMINS DESAHBILITADOS
 adminRouter.get("/inhabites/admins", AdminControllerGet.getAdminsInhabited)
+// TRAE TODOS LOS EVENTOS
+adminRouter.get("/events", AdminControllerGet.getAllEvents);
+
+
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -66,6 +70,10 @@ adminRouter.post("/add/Calendar/security", AdminControllerPost.addScheduleSecuri
 adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleToSecurity);
 // ASIGNA CALENDAR A OFICINA
 adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToOffice);
+// POST EVENT
+adminRouter.post("/add/event", AdminControllerPost.addEvent);
+
+
 
 
 //MODIFICA VIGILADORES ASIGNADOS este delete si quede porque remueve reslacion- no datos

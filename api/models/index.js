@@ -6,6 +6,7 @@ const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
 const AbsenceRequest= require("./AbsenceRequest")
 const Inhabited= require("./Inhabited")
+const Events= require("./Events")
 
 
 
@@ -43,5 +44,5 @@ Inhabited.belongsTo(Admin)
 
 
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest, Inhabited}
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest, Inhabited, Events}
 

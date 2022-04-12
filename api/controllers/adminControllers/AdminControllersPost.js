@@ -1,5 +1,6 @@
 const AdminServicesPost = require("../../services/AdminServices/AdminServicesPost");
 
+
 class AdminControllerPost {
   static async addSecurity(req, res, next) {
     const office = await AdminServicesPost.serviceAddSecurity(req, next);
@@ -94,5 +95,10 @@ class AdminControllerPost {
     const admins = await AdminServicesPost.serviceRehabitedAdmins(req, next);
     return admins ? res.status(201).send(admins) : res.sendStatus(500);
   }
+
+   static async addEvent(req, res, next) {
+    const newEvent= await AdminServicesPost.serviceAddEvent(req, next);
+    return newEvent ? res.status(201).json(newEvent) : res.sendStatus(404);
+      }
 }
 module.exports = AdminControllerPost;

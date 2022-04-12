@@ -5,6 +5,7 @@ const {
   Provincies,
   WorkDay,
   Inhabited,
+  Events,
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
@@ -280,6 +281,7 @@ class AdminServicesGet {
     }
   }
 
+
   static async serviceGetInhabites(req,next){
     try{
       const allInhabites= await Inhabited.findAll()
@@ -331,6 +333,16 @@ class AdminServicesGet {
       return adminsInhabited
     }catch(err){
       next(err)
+    }
+  }
+
+  static async serviceGetAllEvents(next) {
+    try {
+      const events = await Events.findAll();
+      return events;
+    } catch (err) {
+      next(err);
+
     }
   }
 }

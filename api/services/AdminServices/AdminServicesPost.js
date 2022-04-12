@@ -5,7 +5,9 @@ const {
   Provincies,
   WorkDay,
   Admin,
-  Inhabited
+  Inhabited,
+  Events,
+
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
 const {
@@ -209,6 +211,7 @@ class AdminServicesPost {
     }
   }
 
+
   static async serviceInhabitedAdmin(req, next){
     try{
       const admin= await Admin.findOne({
@@ -339,5 +342,17 @@ class AdminServicesPost {
       }
      }
      
+
+
+  static async serviceAddEvent(req, next) {
+    try {
+      console.log("event req.body => ", req.body)
+      const event = await Events.create(req.body);
+      return event;
+    } catch (err) {
+      next(err);
+    }
+  }
+
 }
 module.exports = AdminServicesPost;
