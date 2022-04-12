@@ -7,7 +7,6 @@ import CalendarSelectBranch from "./CalendarSelectBranch";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-
 const CalendarSelectClient = () => {
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients);
@@ -32,17 +31,16 @@ const CalendarSelectClient = () => {
   });
 
   const onSubmit = async (data) => {
-      dispatch(getClientId(data.client));
-      
+    dispatch(getClientId(data.client));
   };
 
-  const showCalendarBranchFilter=()=>{
+  const showCalendarBranchFilter = () => {
     return (
       <div>
-      <CalendarSelectBranch />
+        <CalendarSelectBranch />
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -80,10 +78,8 @@ const CalendarSelectClient = () => {
         >
           Sigiente
         </Button>
-       {showCalendarBranchFilter()}
-
-      </Form> 
-       
+        {showCalendarBranchFilter()}
+      </Form>
     </>
   );
 };

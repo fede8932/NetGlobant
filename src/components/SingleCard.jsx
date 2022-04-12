@@ -28,7 +28,7 @@ const SingleCard = () => {
             >
               {security.name} {security.lastName}
             </div>
-            <div style={{ position: "relative", left: "250px", top: "80px" }}>
+            <div style={{ position: "relative", left: "230px", top: "80px" }}>
               <div class="profile-card__txt">
                 <div style={{ marginBottom: "15px" }}>
                   CUIL: {security.CUIL}
@@ -39,13 +39,11 @@ const SingleCard = () => {
                   Email: {security.email}
                 </div>
                 Vigilador residente en <strong>Argentina</strong>
-              </div>
-              <div class="profile-card-loc">
-                <span class="profile-card-loc__txt">{security.address}</span>
-                <div style={{ marginBottom: "15px" }}>
+                <div style={{ marginBottom: "15px", marginRight:"470px" }}>
                   Dirección: {security.address}
                 </div>
               </div>
+              
             </div>
             <div>
               <Button
@@ -60,6 +58,7 @@ const SingleCard = () => {
               >
                 Editar
               </Button>
+              
               <PopUp />
             </div>
           </div>

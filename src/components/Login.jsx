@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../states/user";
 import { useDispatch, useSelector } from "react-redux";
+import "../style/estilos.scss";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("data en login", data);
+    const user= admin?"administrator":"security"
     const token = await axios({
       method: "POST",
       url: "/api/auth/login",
@@ -31,15 +32,15 @@ export default function Login() {
     localStorage.setItem(
       "user",
       JSON.stringify({
-        id: token.data.administrator.id,
-        name: token.data.administrator.name,
+        id: token.data[user].id,
+        name: token.data[user].name,
         token: token.data.jwt.token,
       })
     );
     dispatch(
       setUser({
-        id: token.data.administrator.id,
-        name: token.data.administrator.name,
+        id: token.data[user].id,
+        name: token.data[user].name,
         token: token.data.jwt.token,
       })
     );
@@ -47,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <div id="fondo">
+    <div id="fondologin">
       <Container id="main-container" className="d-grid h-100 ">
         <Form
           id="sign-in-form"

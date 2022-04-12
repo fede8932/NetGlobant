@@ -34,6 +34,9 @@ const CardClient = () => {
     navigate(url);
   };
 
+  const finContrato = client.endContratDate
+  console.log(finContrato)
+
   return (
     <>
       <Card

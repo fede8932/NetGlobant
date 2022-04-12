@@ -31,18 +31,24 @@ import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo";
-import Calendar from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
-import AssignSecurity from "./components/AssignSecurity"
-import CalendarBranchFilter from "./components/CalendarBranchFilter"
+import AssignSecurity from "./components/AssignSecurity";
+import { pendientes } from "./states/geoLocalizacion";
+import NextService from "./components/NextService";
+import CalendarBranchFilter from "./components/CalendarBranchFilter";
+import Home from "./components/Home";
+import NewCalendar from "./components/NewCalendar";
+import ClientSelect from "./components/ClientSelect";
+import BranchSelectNuevo from "./components/BranchSelectNuevo";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    pendientes();
     dispatch(effectLogin())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -52,7 +58,6 @@ function App() {
   const device = useSelector((state) => state.device);
   const admin = useSelector((state) => state.usuario);
 
-  console.log("admin en app", admin);
 
   return admin ? (
     <>
@@ -70,6 +75,7 @@ function App() {
         )}
 
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/homemobile" element={<HomeMobile />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/admin/login" element={<Login />} />
@@ -90,11 +96,12 @@ function App() {
           <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/assign" element={<AssignSecurity/>} />
-          <Route path="/assign/branch/:id" element={<CalendarBranchFilter/>} />
-          <Route path="/select/branch/:id" element={<CalendarSelectBranch/>} />
-          
+          <Route path="/user/calendar" element={<NextService />} />
+          <Route path="/calendar" element={<NewCalendar />} />
+          <Route path="/assign" element={<AssignSecurity />} />
+          <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
+          <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
+          <Route path="/set/branch" element={<BranchSelectNuevo />} />
         </Routes>
       </div>
     </>
@@ -105,7 +112,7 @@ function App() {
       </div>
 
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />

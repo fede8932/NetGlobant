@@ -5,6 +5,9 @@ const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
 const Disabled= require("./Disabled")
+const AbsenceRequest= require("./AbsenceRequest")
+
+
 
 
 /* asocianes */
@@ -20,7 +23,8 @@ BranchOficce.calendar= BranchOficce.belongsToMany(WorkDay, { through: 'calendar_
 Securities.calendar=Securities.belongsToMany(WorkDay, {through: 'ownTime'})
 /* - a un vigilante se le asigna una sucursal */
 BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSecurity'})
-
+/* - un pedido de ausencia le pertenece a un guardia de seguridad */
+AbsenceRequest.belongsTo(Securities)
 
 /* asociociones de inhabilitacion */
 /* securities */
@@ -40,4 +44,6 @@ Disabled.belongsTo(Admin)
 
 
 
+
 module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay, Disabled}
+

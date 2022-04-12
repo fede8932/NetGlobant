@@ -31,19 +31,26 @@ export default function Register() {
         password: data.password,
         admin: true,
       },
-    }).then(() => {
-      swal({
-        title: "El usuario fue registrado",
-        text: ".",
-        icon: "success",
-        button: "Aceptar",
-      })
     })
-    .then( navigate("/admin/login"))
+      .then(() => {
+        swal({
+          title: "El usuario fue registrado",
+          text: ".",
+          icon: "success",
+          button: "Aceptar",
+        });
+      })
+      .then(navigate("/"));
   };
 
   return (
     <div id="fondo">
+      <p
+        style={{ marginTop: "50px", marginLeft: "500px", fontSize: "30px" }}
+        variant="secondary"
+      >
+        REGISTRAR ADMINISTRADORES
+      </p>
       <Container id="main-container" className="d-grid h-100 ">
         <Form
           id="sign-in-form"
@@ -51,7 +58,7 @@ export default function Register() {
           onSubmit={handleSubmit(onSubmit)}
         >
           <FaRegAddressCard
-            className="mt-5"
+            className="mt-1"
             style={{ color: "grey" }}
             size={50}
           />
@@ -121,9 +128,7 @@ export default function Register() {
                       errors.password && LoginCss.error
                     }`}
                   >
-                    <label
-                      className={LoginCss.labelName}
-                    ></label>
+                    <label className={LoginCss.labelName}></label>
                     <input
                       type="password"
                       name="password"

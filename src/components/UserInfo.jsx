@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function UserInfo() {
   const [info, setInfo] = React.useState({});
+  const [err, setErr] = React.useState("");
   const user = useSelector((state) => state.usuario);
   const {
     register,
@@ -15,12 +16,18 @@ export default function UserInfo() {
     /*formState: {  errors  ,}*/
   } = useForm();
   const consultar = async (date) => {
+    try{
     const servicio = await axios({
       method: "GET",
       url: `/api/security/myWorkDay/${user.id}/${date.fecha}`,
     });
+    console.log("exito")
     setInfo(servicio);
-  };
+    }
+    catch (err) {
+      setInfo({});
+    }
+  }
 
   return (
     <div className="estadisticasContainer">
@@ -47,7 +54,7 @@ export default function UserInfo() {
           </Button>
         </Form>
         <br />
-        {info.data ? <Consulta info={info} /> : <></>}
+        {info.data ? <Consulta datos={info} error={err}/> : <h3>No hay servicios registrados</h3>}
       </Container>
     </div>
   );

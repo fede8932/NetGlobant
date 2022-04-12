@@ -29,6 +29,20 @@ class SecurityController {
     const newImage = await SecuritiesServices.serviceSavePhoto(req, next);
     return newImage ? res.sendStatus(201) : res.sendStatus(500);
   }
-}
 
+  static async absenceRequest(req, res, next) {
+    const newRequest = await SecuritiesServices.serviceAbsenceRequest(req, next);
+    return newRequest ? res.sendStatus(201) : res.sendStatus(500);
+  }
+
+  static async absenceStatus(req, res, next) {
+    const requests= await SecuritiesServices.serviceAbsenceRequests(req, next);
+    return requests ? res.status(201).send(requests) : res.sendStatus(500);
+  }
+
+  static async hourSecurity(req, res, next) {
+    const hour= await SecuritiesServices.requestHourSecurity(req, next);
+    return hour ? res.status(201).send(hour) : res.sendStatus(500);
+  }
+}
 module.exports = SecurityController;
