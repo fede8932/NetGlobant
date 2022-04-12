@@ -37,6 +37,9 @@ adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSe
 adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuritiesByProvincie)
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay)
+// TRAE TODOS LOS EVENTOS
+adminRouter.get("/events", AdminControllerGet.getAllEvents);
+
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -56,6 +59,10 @@ adminRouter.post("/add/Calendar/security", AdminControllerPost.addScheduleSecuri
 adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleToSecurity);
 // ASIGNA CALENDAR A OFICINA
 adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToOffice);
+// POST EVENT
+adminRouter.post("/add/event", AdminControllerPost.addEvent);
+
+
 
 
 //MODIFICA VIGILADORES ASIGNADOS este delete si quede porque remueve reslacion- no datos

@@ -41,6 +41,7 @@ import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
+import StatesSecurity from "./components/StatesSecurity"
 
 function App() {
   const dispatch = useDispatch();
@@ -100,6 +101,7 @@ function App() {
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
           <Route path="/set/branch" element={<ClientSelect />} />
+          <Route path="/states" element={<StatesSecurity />} />
         </Routes>
       </div>
     </>

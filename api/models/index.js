@@ -4,6 +4,7 @@ const Client= require("./Clients")
 const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
+const Events= require("./Events")
 
 
 /* asocianes */
@@ -28,4 +29,4 @@ BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSec
 
 
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay}
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay, Events}

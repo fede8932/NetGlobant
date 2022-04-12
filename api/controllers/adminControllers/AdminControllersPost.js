@@ -51,5 +51,10 @@ class AdminControllerPost{
         await AdminServicesPost.serviceAddSecurityProvincie(req, next);
         return res.sendStatus(201);
       }
+
+      static async addEvent(req, res, next) {
+        const newEvent= await AdminServicesPost.serviceAddEvent(req, next);
+        return newEvent ? res.status(201).json(newEvent) : res.sendStatus(404);
+      }
 }
 module.exports=AdminControllerPost 

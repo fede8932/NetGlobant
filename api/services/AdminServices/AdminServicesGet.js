@@ -4,6 +4,7 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
+  Events,
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
@@ -274,6 +275,16 @@ class AdminServicesGet {
         },
       });
       return image;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+
+  static async serviceGetAllEvents(next) {
+    try {
+      const events = await Events.findAll();
+      return events;
     } catch (err) {
       next(err);
     }

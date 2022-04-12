@@ -118,6 +118,11 @@ class AdminControllerGet {
     console.log(securities);
     return res.send(securities);
   }
+
+  static async getAllEvents(req, res, next) {
+    const events = await AdminServicesGet.serviceGetAllEvents(next);
+    return events ? res.status(200).json(events) : res.sendStatus(404);
+  }
 }
 
 module.exports = AdminControllerGet;

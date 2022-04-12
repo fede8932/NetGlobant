@@ -4,6 +4,7 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
+  Events,
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
 const {
@@ -202,6 +203,17 @@ class AdminServicesPost {
       });
       security.addProvincies(provincies);
       return security;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+
+  static async serviceAddEvent(req, next) {
+    try {
+      console.log("event req.body => ", req.body)
+      const event = await Events.create(req.body);
+      return event;
     } catch (err) {
       next(err);
     }
