@@ -19,9 +19,7 @@ export const getAllBranchesByName = createAsyncThunk(
   "GET_ALL_BRANCHES_BY_NAME",
   async (name) => {
     try {
-      console.log("ESTO ES NAME", name)
-      const branches = await axios.get(`/api/admin/clientsname/${name}`);
-      console.log("ESTO ES BRANCHES", branches)
+      const branches = await axios.get(`/api/admin/office/byclientName/${name}`);
       return branches.data;
     } catch (err) {
       console.log(err);
