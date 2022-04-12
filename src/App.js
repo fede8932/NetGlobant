@@ -43,6 +43,7 @@ import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
+import MasInfo from "./components/MasInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,11 +98,11 @@ function App() {
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/user/calendar" element={<NextService />} />
-          <Route path="/calendar" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
           <Route path="/set/branch" element={<BranchSelectNuevo />} />
+          <Route path="/user/masinfo" element={<MasInfo />} />
         </Routes>
       </div>
     </>
