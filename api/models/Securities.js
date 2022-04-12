@@ -48,6 +48,9 @@ Securities.init(
     addressY: {
       type: S.FLOAT,
     },
+    recoveryToken: {
+      type: S.STRING
+    }
   },
   {
     sequelize: db,

@@ -1,4 +1,4 @@
-const { sign } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken");
 const { readFileSync } = require("fs");
 const { join } = require("path");
 
@@ -28,6 +28,15 @@ function creatingJWT(user, isAdmin) {
   };
 }
 
+function recovery(userID) {
 
+  const token = sign({ userID }, PRIV_KEY, { expiresIn: "10m" })
 
-module.exports = { creatingJWT }
+  return token
+}
+
+function validator(token){
+  return verify(token, PRIV_KEY)
+}
+
+module.exports = { creatingJWT, recovery, validator }

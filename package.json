@@ -24,6 +24,7 @@
     "leaflet": "^1.7.1",
     "leaflet.offline": "^2.1.0",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.7.3",
     "path": "^0.12.7",
     "pg": "^8.7.3",
     "process": "^0.11.10",
