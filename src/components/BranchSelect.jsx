@@ -13,10 +13,6 @@ const BranchSelect = () => {
   const dispatch = useDispatch();
   const branches = useSelector((state) => state.calendarBranches);
 
-//   useEffect(() => {
-//       dispatch()
-//   }, [])
-
   const onSubmit = async (data) => {
     try {
       console.log(data)

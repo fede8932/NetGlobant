@@ -109,6 +109,23 @@ class AdminServicesGet {
     }
   }
 
+  static async serviceGetAllOfficiesByClientName(req, next) {
+    try {
+      const client = await Client.findAll({
+        where: {
+          bussinessName: req.params.clientName,
+        },
+      });
+      const officies = await BranchOficce.findAll({where:{
+        clientId: client[0].id
+      }})
+      return officies;
+    } catch (err) {
+      console.log("error => ", err);
+      next(err);
+    }
+  }
+
   static async serviceGetOneOffice(req, next) {
     try {
       const oneOffice = await BranchOficce.findByPk(req.params.id);
