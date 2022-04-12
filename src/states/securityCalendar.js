@@ -7,6 +7,7 @@ export const postSecurityToSchedule = createAsyncThunk(
     "POST_SECURITY_SCHEDULE",
     async (info) => {
       try {
+        console.log("info post schedule", info)
         const securityPosted = await axios.post(
           `/api/admin/add/Calendar/office`, info
         );

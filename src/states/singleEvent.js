@@ -9,7 +9,7 @@ export const postEvent = createAsyncThunk("POST_EVENT", async (event) => {
       start: event.start,
       end: event.end,
       branchName: event.branchName,
-      securityName: event.CUIL,
+      securityName: event.completeName,
     });
     swal({
       title: "Evento agregado",
@@ -55,6 +55,7 @@ const eventReducer = createReducer(
   {
     [postEvent.fulfilled]: (state, action) => action.payload,
     [deleteEvent.fulfilled]: (state, action) => action.payload,
+    [editEvent.fulfilled]: (state, action) => action.payload,
   }
 );
 
