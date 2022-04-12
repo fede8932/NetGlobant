@@ -1,9 +1,9 @@
 const S = require("sequelize");
 const db = require("../db");
 
-class Inhabited extends S.Model {}
+class Disabled extends S.Model {}
 
-Inhabited.init(
+Disabled.init(
   {
     type: {
       type: S.STRING,
@@ -17,8 +17,9 @@ Inhabited.init(
   },
   {
     sequelize: db,
-    modelName: "inhabited",
+    modelName:"disabled",
   }
 );
 
-module.exports = Inhabited;
+
+module.exports = Disabled;
