@@ -2,6 +2,7 @@ const SecuritiesServices = require("../services/SecuriryServices");
 
 class SecurityController {
   static async getMyWorkDay(req, res, next) {
+    console.log(req.params)
     const schedule = await SecuritiesServices.serviceMyWorkDay(req, next);
     return schedule ? res.status(200).send(schedule) : res.sendStatus(404);
   }

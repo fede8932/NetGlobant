@@ -16,6 +16,7 @@ import calendarBranchesReducer from "./calendarBranches";
 import singleCalendarClient from "./singleCalendarClient";
 import securitiesCalendarReducer from "./securitiesCalendar";
 import securityCalendarReducer from "./securityCalendar"
+import workDayReducer from "./userCalendar";
 import eventsReducer from "./events";
 import eventReducer from "./singleEvent";
 import singleCalendarBranch from "./singleCalendarBranch"
@@ -39,6 +40,7 @@ const store = configureStore({
     calendarClient: singleCalendarClient,
     securitiesCalendar: securitiesCalendarReducer,
     securityCalendar: securityCalendarReducer,
+    userCalendar: workDayReducer,
     events: eventsReducer,
     event: eventReducer,
     branchCalendar: singleCalendarBranch,
