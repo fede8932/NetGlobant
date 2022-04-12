@@ -61,17 +61,21 @@ const NewCalendar = () => {
 
   useEffect(async () => {
     try {
-      const obtainedBranch = await dispatch(getBranchById(parseInt(id.clientId)));
-      console.log("obtainedBranch => ", obtainedBranch)
-      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
-      console.log("events",events)
-      const securities = await dispatch(getSelectedSecurities(obtainedBranch.payload.name));
+      const obtainedBranch = await dispatch(
+        getBranchById(parseInt(id.clientId))
+      );
+      console.log("obtainedBranch => ", obtainedBranch);
+      const events = await dispatch(
+        getAllEventsBranch(obtainedBranch.payload.name)
+      );
+      console.log("events", events);
+      const securities = await dispatch(
+        getSelectedSecurities(obtainedBranch.payload.name)
+      );
     } catch (err) {
       console.log(err);
     }
   }, []);
-
-
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -97,7 +101,9 @@ const NewCalendar = () => {
         <>
           <div className="event_container">
             <div className="image_calendar"></div>
-            <i className="event_calendar">{evento.event._def.extendedProps.securityName}</i>
+            <i className="event_calendar">
+              {evento.event._def.extendedProps.securityName}
+            </i>
             <b className="event_timeText">{evento.timeText}</b>
             {/* <b className="event_timeText">{evento.end}</b> */}
           </div>
@@ -106,15 +112,16 @@ const NewCalendar = () => {
     }
   };
 
-  // const options =
-  //   selectedSecuritiess[0] &&
-  //   selectedSecuritiess[0].securities?.map((security, i) => {
-  //     return (
-  //       <option key={i} value={security.CUIL}>
-  //         {security.name} {security.lastName}
-  //       </option>
-  //     );
-  //   });
+  const options =
+    selectedSecuritiess[0] &&
+    selectedSecuritiess[0].securities?.map((security, i) => {
+      console.log("SECURITY", security)
+      return (
+        <option key={i} value={security.CUIL}>
+          {security.name} {security.lastName}
+        </option>
+      );
+    });
 
   return (
     <div style={{ width: "70%", marginLeft: "20%" }}>
@@ -136,93 +143,93 @@ const NewCalendar = () => {
           <Modal.Title>Agregar a Calendario </Modal.Title>
         </Modal.Header>
 
-  //       <Modal.Body>
-  //         <Form
-  //           onSubmit={handleSubmit(onSubmit)}
-  //           style={{
-  //             position: "relative",
-  //             width: "300px",
-  //             left: "0px",
-  //             top: "20px",
-  //           }}
-  //         >
-  //           <Form.Label className="labels">
-  //             <strong>Fecha: </strong> {actualDate}
-  //           </Form.Label>
-  //           <br />
-  //           <div className="col-md-12">
-  //             <Form.Label className="labels">
-  //               Seleccione un vigilador
-  //             </Form.Label>
-  //             <Form.Control
-  //               style={{ width: "200px" }}
-  //               as="select"
-  //               size="ms"
-  //               className="position-relative"
-  //               name="CUIL"
-  //               variant="outlined"
-  //               {...register("CUIL", {
-  //                 required: {
-  //                   value: true,
-  //                   message: "Necesitas este campo",
-  //                 },
-  //               })}
-  //             >
-  //               <option>Seleccione un vigilador</option>
-  //               {options}
-  //             </Form.Control>
-  //           </div>
+        <Modal.Body>
+          <Form
+            onSubmit={handleSubmit(onSubmit)}
+            style={{
+              position: "relative",
+              width: "300px",
+              left: "0px",
+              top: "20px",
+            }}
+          >
+            <Form.Label className="labels">
+              <strong>Fecha: </strong> {actualDate}
+            </Form.Label>
+            <br />
+            <div className="col-md-12">
+              <Form.Label className="labels">
+                Seleccione un vigilador
+              </Form.Label>
+              <Form.Control
+                style={{ width: "200px" }}
+                as="select"
+                size="ms"
+                className="position-relative"
+                name="CUIL"
+                variant="outlined"
+                {...register("CUIL", {
+                  required: {
+                    value: true,
+                    message: "Necesitas este campo",
+                  },
+                })}
+              >
+                <option>Seleccione un vigilador</option>
+                {options}
+              </Form.Control>
+            </div>
 
-  //           <div className="row mt-2">
-  //             <div className="col-md-6">
-  //               <Form.Label className="labels">Ingreso</Form.Label>
-  //               <Form.Control
-  //                 name="wishEntryHour"
-  //                 size="ms"
-  //                 className="position-relative"
-  //                 variant="outlined"
-  //                 type="time"
-  //                 {...register("wishEntryHour", {
-  //                   required: {
-  //                     value: true,
-  //                     message: "Necesitas este campo",
-  //                   },
-  //                 })}
-  //               />
-  //             </div>
-  //             <div className="col-md-6">
-  //               <Form.Label className="labels">Egreso</Form.Label>
-  //               <Form.Control
-  //                 name="wishClosingHour"
-  //                 size="ms"
-  //                 className="position-relative"
-  //                 variant="outlined"
-  //                 type="time"
-  //                 {...register("wishClosingHour", {
-  //                   required: {
-  //                     value: true,
-  //                     message: "Necesitas este campo",
-  //                   },
-  //                 })}
-  //               />
-  //             </div>
-  //           </div>
-  //         </Form>
-  //       </Modal.Body>
-  //       <br />
-  //       <br />
+            <div className="row mt-2">
+              <div className="col-md-6">
+                <Form.Label className="labels">Ingreso</Form.Label>
+                <Form.Control
+                  name="wishEntryHour"
+                  size="ms"
+                  className="position-relative"
+                  variant="outlined"
+                  type="time"
+                  {...register("wishEntryHour", {
+                    required: {
+                      value: true,
+                      message: "Necesitas este campo",
+                    },
+                  })}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label className="labels">Egreso</Form.Label>
+                <Form.Control
+                  name="wishClosingHour"
+                  size="ms"
+                  className="position-relative"
+                  variant="outlined"
+                  type="time"
+                  {...register("wishClosingHour", {
+                    required: {
+                      value: true,
+                      message: "Necesitas este campo",
+                    },
+                  })}
+                />
+              </div>
+            </div>
+          </Form>
+        </Modal.Body>
+        <br />
+        <br />
 
-  //       <Modal.Footer>
-  //         <Button variant="secondary" onClick={handleClose}>
-  //           Cerrar
-  //         </Button>
-  //         <Button variant="warning" onClick={handleSubmit(onSubmit)}>
-  //           Agregar
-  //         </Button>
-  //       </Modal.Footer>
-  //     </Modal>
-  //   </div>
-  // );
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button variant="warning" onClick={handleSubmit(onSubmit)}>
+            Agregar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 };
 
 export default NewCalendar;

@@ -5,7 +5,6 @@ export const getCalendarOffice = createAsyncThunk(
   "GET_CALENDAR_OFFICE",
   async ({ id, thisDay }) => {
     try {
-      console.log("DATEEEEE", id, "ID", thisDay);
       const calendarioOffice = await axios.get(
         `api/admin/calendar/office/${id}/${thisDay}`
       );
