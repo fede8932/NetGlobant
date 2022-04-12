@@ -109,7 +109,7 @@ adminRouter.put("/edit/calendar/:id", AdminControllerPut.editCalendar);
 // EDITA EL ESTADO DE UN SECURITY
 adminRouter.put("/edit/securityStatus/:id", AdminControllerPut.editSecurityStatus)
 //APRUEBA O DESAPRUEBA UNA PETICION DE AUSENCIA
-adminRouter.put("/re")
+adminRouter.put("/request/absence/:id",AdminControllerPut.responseToRequest)
 
 
 //ESTADO DE CALENDARIO (DISPONIBILIDAD)

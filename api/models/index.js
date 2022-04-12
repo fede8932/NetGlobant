@@ -45,5 +45,5 @@ Disabled.belongsTo(Admin)
 
 
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay, Disabled}
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay, AbsenceRequest,Disabled}
 

@@ -34,5 +34,11 @@ class AdminControllerPut {
     );
     return res.status(201).send(updatedSecurity);
   }
+
+  static async responseToRequest(req, res, next){
+    const request= await AdminServicesPut.serviceResponseRequest(req, next)
+    console.log(request)
+    return request? res.status(201).send(request): res.sendStatus(500)
+  }
 }
 module.exports = AdminControllerPut;
