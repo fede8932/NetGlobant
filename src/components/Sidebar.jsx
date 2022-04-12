@@ -41,7 +41,7 @@ const Sidebar = () => {
             <CDBSidebarMenuItem icon="columns">Sucursales</CDBSidebarMenuItem>
           </NavLink>
 
-          <NavLink exact to="/calendar" activeClassName="activeClicked">
+          <NavLink exact to="/set/client" activeClassName="activeClicked">
             <CDBSidebarMenuItem icon="table">Calendario</CDBSidebarMenuItem>
           </NavLink>
 

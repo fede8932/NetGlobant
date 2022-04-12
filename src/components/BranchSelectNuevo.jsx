@@ -22,8 +22,8 @@ const BranchSelectNuevo = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("ESTO ES DATA", data);
-      //navigate(`/calendar/${data.id}`)
+      console.log(data);
+      navigate(`/calendar/${data.branch}`);
     } catch (err) {
       console.log(err);
     }
@@ -35,7 +35,6 @@ const BranchSelectNuevo = () => {
       const branches = await dispatch(
         getAllBranchesByName(clientToSearch.value)
       );
-
       //navigate(`/set/branch/${branches.payload[0].clientId}`)
     } catch (err) {
       console.log(err);
