@@ -27,6 +27,7 @@ export const deleteEvent = createAsyncThunk(
   "DELETE_EVENT_FROM_CALENDAR",
   async (id) => {
     try {
+      console.log("ID",id)
       const deletedEvent = await axios.delete(`/api/admin/deleteEvent/${id}`);
       return deletedEvent.data;
     } catch (err) {

@@ -12,12 +12,17 @@ import { getAllEventsBranch } from "../states/events";
 import { postEvent } from "../states/singleEvent";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBranchById } from "../states/singleCalendarBranch";
+import { AiFillDelete } from "react-icons/ai";
+import { GrEdit } from "react-icons/gr";
+import swal from "sweetalert";
+import {deleteEvent} from "../states/singleEvent"
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
   const reduxEvents = useSelector((state) => state.events);
   const branch = useSelector((state) => state.branchCalendar);
+  const [event, setEvent] = useState([])
   const navigate = useNavigate();
   const id = useParams();
   const {
@@ -30,23 +35,21 @@ const NewCalendar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const rendering = async () => {
-    const events = await dispatch(getAllEventsBranch(branch.name));
-  };
 
-  useEffect(async () => {
+  useEffect( async () => {
     try {
       const obtainedBranch = await dispatch(
         getBranchById(parseInt(id.clientId))
       );
+      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      //setEvent(events.payload);
       const securities = await dispatch(
         getSelectedSecurities(obtainedBranch.payload.name)
       );
-      rendering();
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [event]);
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -66,6 +69,33 @@ const NewCalendar = () => {
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
+    setEvent(data)
+  };
+
+  const handleDelete = (eventToDelete) => {
+    console.log("eliminar");
+    console.log(eventToDelete);
+    swal({
+      title: "Estas seguro que quieres borrar el evento?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((eliminar) => {
+      if (eliminar) {
+        console.log(eventToDelete._def.publicId)
+        dispatch(deleteEvent(eventToDelete._def.publicId));
+        setEvent(eventToDelete)
+        swal("El evento fue eliminado", {
+          icon: "success",
+          buttons: false,
+          timer: 1000,
+        });
+      }
+    });
+  };
+
+  const handleEdit = (event) => {
+    console.log("editar");
   };
 
   const renderEventContent = (evento) => {
@@ -74,14 +104,36 @@ const NewCalendar = () => {
         <>
           <div className="event_container">
             <div className="image_calendar"></div>
-            <i className="event_calendar">
-              {evento.event._def.extendedProps.securityName}
-            </i>
+
             <b className="event_timeText">{evento.timeText}</b>
             <br />
             <i className="event_calendar">
               {evento.event._def.extendedProps.securityName}
             </i>
+            <br />
+            <Button
+              style={{ backgroundColor: "white",border:"none", float: "rigth", size: "1px" }}
+              onClick={() => handleDelete(evento.event)}
+            >
+              <AiFillDelete
+                variant="secondary"
+                style={{ size: "1px", color: "grey", position: "relative" }}
+              />
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "white",border:"none",
+                float: "rigth",
+                size: "5%",
+                marginLeft: "20px",
+              }}
+              onClick={() => handleEdit(evento.event)}
+            >
+              <GrEdit
+                variant="secondary"
+                style={{ size: "1px", color: "grey" }}
+              />
+            </Button>
           </div>
         </>
       );
@@ -124,11 +176,8 @@ const NewCalendar = () => {
           <Modal.Title>Agregar a Calendario </Modal.Title>
         </Modal.Header>
 
-
-       <Modal.Body>
-         <Form
-
-
+        <Modal.Body>
+          <Form
             onSubmit={handleSubmit(onSubmit)}
             style={{
               position: "relative",

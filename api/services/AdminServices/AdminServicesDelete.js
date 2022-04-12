@@ -1,11 +1,35 @@
-const { Client, Securities, BranchOficce, WorkDay } = require("../../models");
+const {
+  Client,
+  Securities,
+  BranchOficce,
+  WorkDay,
+  Events,
+} = require("../../models");
 
 class AdminServicesDelite {
   static async serviceRemoveSchedule(req, next) {
     try {
-      await WorkDay.destroy({
-        where: { id: req.params.id, status: true },
+      const workDay = await WorkDay.findOne({
+        where: { date: req.params.date },
+        include: { model: Events, through: { where: { id: req.body.id } } },
       });
+
+      const event = await Events.findOne({
+        where: {
+          id: req.body.id,
+        },
+      });
+
+      const security = await Securities.findOne({
+        where: {
+          CUIL: req.body.CUIL,
+        },
+      });
+
+      workDay.removeEvent(event);
+      workDay.removeSecurity(security);
+
+      
     } catch (err) {
       next(err);
     }
@@ -21,6 +45,7 @@ class AdminServicesDelite {
     } catch (err) {}
   }
 
+  // USAR ESTA, PASARLE NAME DE OFFICE, ID GUARDIA
   static async serviceRemoveSecurityByOffice(req, next) {
     try {
       const office = await BranchOficce.findOne({
@@ -42,7 +67,7 @@ class AdminServicesDelite {
 
   static async serviceRemoveEvent(req, next) {
     try {
-      await Event.destroy({
+      await Events.destroy({
         where: {
           id: req.params.id,
         },

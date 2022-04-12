@@ -4,6 +4,7 @@ const {
   BranchOficce,
   WorkDay,
   AbsenceRequest,
+  Events
 } = require("../../models");
 
 class AdminServicesPut {
@@ -114,7 +115,7 @@ class AdminServicesPut {
 
   static async serviceEditEvent(req, next) {
     try {
-      const [row, event] = await Event.update(req.body, {
+      const [row, event] = await Events.update(req.body, {
         where: {
           id: req.params.id,
         },
