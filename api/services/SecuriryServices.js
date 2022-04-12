@@ -12,6 +12,7 @@ const { Op } = require("sequelize");
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
+    console.log("service" , req.params)
     try {
       const today = await WorkDay.findOne({
         where: {
@@ -28,7 +29,7 @@ class SecuritiesServices {
           },
         },
       });
-
+      console.log("para que se identifique",schedule)
       const oficina = await BranchOficce.findOne({
         include: {
           association: BranchOficce.security,
@@ -62,12 +63,12 @@ class SecuritiesServices {
         },
       });
 
-      return {
+      return oficinaSchedule && schedule && cliente && provincia?{
         office: oficinaSchedule,
         calendario: schedule,
         cliente: cliente,
         provincia: provincia,
-      };
+      }:null;
     } catch (err) {
       console.log(err);
       next(err);

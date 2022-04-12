@@ -49,6 +49,16 @@ class AdminControllerGet {
       : res.sendStatus(404);
   }
 
+  static async getOneSecurityByCuil(req, res, next) {
+    const oneSecurityByCuil = await AdminServicesGet.serviceGetOneSecurityByCuil(
+      req,
+      next
+    );
+    return oneSecurityByCuil
+      ? res.status(200).json(oneSecurityByCuil)
+      : res.sendStatus(404);
+  }
+
   static async getAllOffice(req, res, next) {
     const allOfficies = await AdminServicesGet.serviceGetAllOffice(next);
     return allOfficies
@@ -169,7 +179,7 @@ class AdminControllerGet {
 
   }
   static async getAllEventsOfBranch(req, res, next) {
-    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(next);
+    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(req,next);
     return eventsOfBranch ? res.status(200).json(eventsOfBranch) : res.sendStatus(404);
 
   }
