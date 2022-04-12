@@ -47,7 +47,10 @@ adminRouter.get("/disabled/client", AdminControllerGet.getClientsDisabled)
 adminRouter.get("/disabled/officies", AdminControllerGet.getOfficiesDisabled)
 //TRAE TODOS LOS ADMINS DESAHBILITADOS
 adminRouter.get("/disabled/admins", AdminControllerGet.getAdminsDisabled)
-
+//TRAE TODOS LOS PEDIDOS DE AUSENCIA
+adminRouter.get("/all/request", AdminControllerGet.getAllRequest)
+//TRAE UN SOLO PEDIDO DE AUSENCIA
+adminRouter.get("/oneResquest/:id", AdminControllerGet.getOneRequest)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)

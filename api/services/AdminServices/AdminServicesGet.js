@@ -4,6 +4,7 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
+  AbsenceRequest,
   Disabled,
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
@@ -280,7 +281,7 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetInhabites(req,next){
+  static async serviceGetDisabled(req,next){
     try{
       const allInhabites= await Disabled.findAll()
     return allInhabites
@@ -329,6 +330,31 @@ class AdminServicesGet {
         where:{ type: "admins"}
       })
       return adminsDisabled
+    }catch(err){
+      next(err)
+    }
+  }
+
+  static async servicesGetAllRequest(req, next){
+    try{
+     const allRequest= await AbsenceRequest.findAll()
+     return allRequest
+
+    }catch(err){
+     next(err)
+    }
+
+  }
+
+  static async servicesGetOneRequest(req,res,next){
+    try{
+      const security= await Securities.findOne({
+        where:{id: req.params.id}
+      })
+    const oneRequest= await AbsenceRequest.findOne({
+      where:{securityId: security.id}
+    })
+    return oneRequest
     }catch(err){
       next(err)
     }

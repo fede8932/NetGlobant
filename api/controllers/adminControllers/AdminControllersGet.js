@@ -143,6 +143,16 @@ class AdminControllerGet {
     const adminsDisabled= await AdminServicesGet.servicesGetAdminsDisabled(req, next)
     return adminsDisabled? res.status(200).send(adminsDisabled): res.sendStatus(500)
   }
+
+  static async getAllRequest(req, res, next){
+    const allRequest= await AdminServicesGet.servicesGetAllRequest(req, next)
+    return allRequest? res.status(200).send(allRequest): res.sendStatus(500)
+  }
+
+  static async getOneRequest(req, res, next){
+    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req,next)
+    return oneRequest? res.status(200).send(oneRequest): res.sendStatus(500)
+  }
 }
 
 module.exports = AdminControllerGet;
