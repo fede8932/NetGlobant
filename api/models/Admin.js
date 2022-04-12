@@ -21,6 +21,9 @@ Admin.init(
       type: S.STRING,
       allowNull: false,
     },
+    recoveryToken: {
+      type: S.STRING
+    },
     status: {
       type: S.BOOLEAN,
       defaultValue: true,
