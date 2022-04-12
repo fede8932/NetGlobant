@@ -15,6 +15,11 @@ adminRouter.get("/clientsname/:name", AdminControllerGet.getOneClientName);
 adminRouter.get("/securities", AdminControllerGet.getAllSecurities);
 // TRAE UN VIGILADOR POR ID
 adminRouter.get("/securitiesById/:id",AdminControllerGet.getOneSecurityById);
+
+// TRAE UN VIGILADOR POR CUIL
+adminRouter.get("/securitiesByCuil/:cuil",AdminControllerGet.getOneSecurityByCuil);
+
+
 // TRAE UN VIGILADOR POR NAME
 adminRouter.get("/securities/:name", AdminControllerGet.getOneSecurity);
 // TRAE TODAS LAS OFICINAS
