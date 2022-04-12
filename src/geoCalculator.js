@@ -7,8 +7,8 @@ export const tiempoCompleto = function () {
   return formatDate(date);
 };
 
-export const tiempoParcial = function () {
-  var date = new Date();
+export const tiempoParcial = function (fecha) {
+  let date = fecha?fecha:new Date()
   const formatDate = (date) => {
     let formatted_date = `${date.getFullYear()}-${
       date.getMonth() + 1
