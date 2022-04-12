@@ -35,10 +35,17 @@ class AdminControllerPut {
     return res.status(201).send(updatedSecurity);
   }
 
-  static async responseToRequest(req, res, next){
-    const request= await AdminServicesPut.serviceResponseRequest(req, next)
-    console.log(request)
-    return request? res.status(201).send(request): res.sendStatus(500)
+  static async responseToRequest(req, res, next) {
+    const request = await AdminServicesPut.serviceResponseRequest(req, next);
+    return request ? res.status(201).send(request) : res.sendStatus(500);
+  }
+
+  static async editEvent(req, res, next) {
+    const editedEvent = await AdminServicesPut.serviceEditEvent(req, next);
+    return editedEvent
+      ? req.status(201).send(editedEvent)
+      : res.sendStatus(500);
   }
 }
+
 module.exports = AdminControllerPut;

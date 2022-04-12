@@ -85,6 +85,19 @@ class AdminServicesGet {
     }
   }
 
+  static async serviceGetOneSecurityByCuil(req, next) {
+    try {
+      const oneSecurityCuil = await Securities.findAll({
+        where: {
+          CUIL: req.params.cuil,
+        },
+      });
+      return oneSecurityCuil;
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceGetAllOffice(next) {
     try {
       const allOffice = await BranchOficce.findAll();

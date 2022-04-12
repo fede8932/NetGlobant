@@ -1,4 +1,10 @@
-const { Client, Securities, BranchOficce, WorkDay, AbsenceRequest } = require("../../models");
+const {
+  Client,
+  Securities,
+  BranchOficce,
+  WorkDay,
+  AbsenceRequest,
+} = require("../../models");
 
 class AdminServicesPut {
   static async serviceEditOffice(req, next) {
@@ -42,8 +48,6 @@ class AdminServicesPut {
         returning: true,
         plain: true,
       });
-
-      console.log("update", rows);
       return update;
     } catch (err) {
       next(err);
@@ -87,20 +91,40 @@ class AdminServicesPut {
     }
   }
 
-  static async serviceResponseRequest(req, next){
-  try{  const request= await AbsenceRequest.findOne({
-      where:{id: req.params.id}
-    }) 
-    console.log(request)
-    const [row, response]= await AbsenceRequest.update({status: req.body.status}, {
-      where:{id: request.id}, returning:true, plain:true
-    })
-    console.log(response)
-    return response
-  }catch(err){
-    next(err)
+  static async serviceResponseRequest(req, next) {
+    try {
+      const request = await AbsenceRequest.findOne({
+        where: { id: req.params.id },
+      });
+      console.log(request);
+      const [row, response] = await AbsenceRequest.update(
+        { status: req.body.status },
+        {
+          where: { id: request.id },
+          returning: true,
+          plain: true,
+        }
+      );
+      console.log(response);
+      return response;
+    } catch (err) {
+      next(err);
+    }
   }
 
+  static async serviceEditEvent(req, next) {
+    try {
+      const [row, event] = await Event.update(req.body, {
+        where: {
+          id: req.params.id,
+        },
+        returning: true,
+        plain: true,
+      });
+      return event;
+    } catch (err) {
+      next(err);
+    }
   }
 }
 
