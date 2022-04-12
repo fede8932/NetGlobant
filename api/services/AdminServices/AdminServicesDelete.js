@@ -25,10 +25,9 @@ class AdminServicesDelite {
           CUIL: req.body.CUIL,
         },
       });
-
+      console.log(security)
+      workDay.removeSecurities(security);
       workDay.removeEvent(event);
-      workDay.removeSecurity(security);
-
       
     } catch (err) {
       next(err);

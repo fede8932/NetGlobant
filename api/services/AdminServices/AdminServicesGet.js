@@ -126,17 +126,18 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      const client = await Client.findAll({
+      console.log(req.params)
+      const clients = await Client.findOne({
         where: {
           bussinessName: req.params.clientName,
-        }, include: {
+        }, /*  include: {
           association: Client.offices,
-          where:{
-            status:true
-          }
-        },
+          }, */
       });
-      return client;
+    const offices= await BranchOficce.findOne({
+      where:{clientId: clients.id}
+    })
+      return clients;
     } catch (err) {
       console.log("error => ", err);
       next(err);

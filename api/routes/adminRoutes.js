@@ -16,10 +16,7 @@ adminRouter.get("/securities", AdminControllerGet.getAllSecurities);
 // TRAE UN VIGILADOR POR ID
 adminRouter.get("/securitiesById/:id", AdminControllerGet.getOneSecurityById);
 // TRAE UN VIGILADOR POR CUIL
-adminRouter.get(
-  "/securitiesByCuil/:cuil",
-  AdminControllerGet.getOneSecurityByCuil
-);
+adminRouter.get("/securitiesByCuil/:cuil", AdminControllerGet.getOneSecurityByCuil);
 // TRAE UN VIGILADOR POR NAME
 adminRouter.get("/securities/:name", AdminControllerGet.getOneSecurity);
 // TRAE TODAS LAS OFICINAS
@@ -27,42 +24,21 @@ adminRouter.get("/office", AdminControllerGet.getAllOffice);
 // TRAE UNA OFICINA POR ID
 adminRouter.get("/office/:id", AdminControllerGet.getOneOffice);
 // TRAE TODAS LAS OFICINAS de un determinado cliente
-adminRouter.get(
-  "/office/byclient/:clientId",
-  AdminControllerGet.getAllOfficeByClient
-);
+adminRouter.get("/office/byclient/:clientId",AdminControllerGet.getAllOfficeByClient);
 //TRAE TODAS LAS OFICINAS DE UN CLIENTE POR NOMBRE
-adminRouter.get(
-  "/office/byClientName/:clientName",
-  AdminControllerGet.getAllOfficiesByClientName
-);
+adminRouter.get("/office/byClientName/:clientName",AdminControllerGet.getAllOfficiesByClientName);
 // TRAE UNA OFICINA POR NAME
 adminRouter.get("/officename/:name", AdminControllerGet.getOneOfficeName);
 // TRAE UN GUARDIA POR NAME DE OFICINA
-adminRouter.get(
-  "/securities/office/:name",
-  AdminControllerGet.getAllSecuritiesByOffice
-);
+adminRouter.get("/securities/office/:name",AdminControllerGet.getAllSecuritiesByOffice);
 // TRAE A LOS GUARDIAS QUE VIVEN CERCA
-adminRouter.get(
-  "/securitiesByDistance/:id",
-  AdminControllerGet.getSecuritiesByDistance
-);
+adminRouter.get("/securitiesByDistance/:id",AdminControllerGet.getSecuritiesByDistance);
 // TRAE CALENDARIO POR OFICINA ID
-adminRouter.get(
-  "/calendar/office/:id/:date/:twoce",
-  AdminControllerGet.getOfficeCalendar
-);
+adminRouter.get("/calendar/office/:id/:date/:twoce",AdminControllerGet.getOfficeCalendar);
 // TRAE CALENDARIO POR VILIGANTE ID
-adminRouter.get(
-  "/calendar/security/:id",
-  AdminControllerGet.getOfficeCalendarSecurity
-);
+adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSecurity);
 // TRAE SECURITIES POR PROVINCIA
-adminRouter.get(
-  "/provincie/security/office/:name",
-  AdminControllerGet.getSecuritiesByProvincie
-);
+adminRouter.get("/provincie/security/office/:name",AdminControllerGet.getSecuritiesByProvincie);
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get(
   "/images/security/day/:id",
