@@ -44,10 +44,9 @@ import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
 
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
+import MasInfo from "./components/MasInfo";
 import ClientSelectNuevo from "./components/ClientSelectNuevo";
-
 import StatesSecurity from "./components/StatesSecurity"
-
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +77,7 @@ function App() {
           <></>
         )}
 
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/homemobile" element={<HomeMobile />} />
@@ -101,6 +101,7 @@ function App() {
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/user/calendar" element={<NextService />} />
+          <Route path="/user/masinfo" element={<MasInfo />} />
           <Route path="/calendar/:clientId" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />

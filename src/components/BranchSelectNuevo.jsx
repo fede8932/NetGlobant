@@ -22,8 +22,8 @@ const BranchSelectNuevo = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("ESTO ES DATA", data);
-      //navigate(`/calendar/${data.id}`)
+      console.log("VER ESTO", data);
+      navigate(`/calendar/${data.branch}`);
     } catch (err) {
       console.log(err);
     }
@@ -35,7 +35,6 @@ const BranchSelectNuevo = () => {
       const branches = await dispatch(
         getAllBranchesByName(clientToSearch.value)
       );
-      
       //navigate(`/set/branch/${branches.payload[0].clientId}`)
     } catch (err) {
       console.log(err);
@@ -119,13 +118,11 @@ const BranchSelectNuevo = () => {
           variant="outlined"
         >
           {branches?.map((branch) => {
-            return <option value={branch.id}>{branch.name}</option>;
+            console.log("ACA", branch)
+            return <option key={branch.id} value={branch.id}>{branch.name}</option>;
           })}
         </Form.Control>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          variant="warning"
-        >
+        <Button onClick={handleSubmit(onSubmit)} variant="warning">
           Calendario
         </Button>
       </Form>

@@ -1,4 +1,3 @@
-import ClientSelect from "./ClientSelect";
 import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,40 +8,23 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedSecurities } from "../states/securitiesCalendar";
 import { postSecurityToSchedule } from "../states/securityCalendar";
-import {getAllEvents} from "../states/events"
-import {postEvent} from "../states/singleEvent"
-import { useNavigate } from "react-router-dom";
+import { getAllEventsBranch } from "../states/events";
+import { postEvent } from "../states/singleEvent";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBranchById } from "../states/singleCalendarBranch";
+import { AiFillDelete } from "react-icons/ai";
+import { GrEdit } from "react-icons/gr";
+import swal from "sweetalert";
+import {deleteEvent} from "../states/singleEvent"
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
-  const eventss = useSelector((state) => state.events)
-
+  const reduxEvents = useSelector((state) => state.events);
+  const branch = useSelector((state) => state.branchCalendar);
+  const [event, setEvent] = useState([])
   const navigate = useNavigate();
-
-  const events = [
-    {
-      name: "Dolores",
-      start: "2022-04-11T10:00:00",
-      end: "2022-04-11T23:00:00",
-    },
-    {
-      name: "Joaquin",
-      start: "2022-04-12T15:00:00",
-      end: "2022-04-12T23:00:00",
-    },
-    {
-      name: "Maria",
-      start: "2022-04-10T21:00:00",
-      end: "2022-04-10T23:00:00",
-    },
-    {
-      name: "Belen",
-      start: "2022-04-09T12:00:00",
-      end: "2022-04-09T23:00:00",
-    },
-  ];
-
+  const id = useParams();
   const {
     register,
     handleSubmit,
@@ -53,12 +35,21 @@ const NewCalendar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
 
-    // dispatch(getAllEvents())
-    dispatch(getSelectedSecurities("Fravega Gualeguaychu"));
-
-  }, []);
+  useEffect( async () => {
+    try {
+      const obtainedBranch = await dispatch(
+        getBranchById(parseInt(id.clientId))
+      );
+      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      //setEvent(events.payload);
+      const securities = await dispatch(
+        getSelectedSecurities(obtainedBranch.payload.name)
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }, [event]);
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -67,39 +58,96 @@ const NewCalendar = () => {
   };
 
   const onSubmit = (data) => {
-
-    navigate("/calendar")
-    data.branchName = "Fravega Gualeguaychu";
+    navigate(`/calendar/${id.clientId}`);
+    const string = data.CUIL;
+    const array = string.split(",");
+    data.CUIL = array[0];
+    data.completeName = array[1].concat(" ", array[2]);
+    data.branchName = branch.name;
     data.date = actualDate;
-    console.log(data);
-    dispatch(postEvent(data))
-
+    data.start = actualDate.concat("T", data.wishEntryHour, ":00");
+    data.end = actualDate.concat("T", data.wishClosingHour, ":00");
+    dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
-    console.log("agregado", data);
+    setEvent(data)
+  };
+
+  const handleDelete = (eventToDelete) => {
+    console.log("eliminar");
+    console.log(eventToDelete);
+    swal({
+      title: "Estas seguro que quieres borrar el evento?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((eliminar) => {
+      if (eliminar) {
+        console.log(eventToDelete._def.publicId)
+        dispatch(deleteEvent(eventToDelete._def.publicId));
+        setEvent(eventToDelete)
+        swal("El evento fue eliminado", {
+          icon: "success",
+          buttons: false,
+          timer: 1000,
+        });
+      }
+    });
+  };
+
+  const handleEdit = (event) => {
+    console.log("editar");
   };
 
   const renderEventContent = (evento) => {
-    console.log("evento", evento);
+    if (evento.event._def.extendedProps.securityName) {
+      return (
+        <>
+          <div className="event_container">
+            <div className="image_calendar"></div>
 
-    // if (evento.name) {
-    //   return (
-    //     <>
-    //       <div className="event_container">
-    //         <div className="image_calendar"></div>
-    //         <i className="event_calendar">{evento.name}</i>
-    //         <b className="event_timeText">{evento.start}</b>
-    //         <b className="event_timeText">{evento.end}</b>
-    //       </div>
-    //     </>
-    //   );
-    // }
+            <b className="event_timeText">{evento.timeText}</b>
+            <br />
+            <i className="event_calendar">
+              {evento.event._def.extendedProps.securityName}
+            </i>
+            <br />
+            <Button
+              style={{ backgroundColor: "white",border:"none", float: "rigth", size: "1px" }}
+              onClick={() => handleDelete(evento.event)}
+            >
+              <AiFillDelete
+                variant="secondary"
+                style={{ size: "1px", color: "grey", position: "relative" }}
+              />
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "white",border:"none",
+                float: "rigth",
+                size: "5%",
+                marginLeft: "20px",
+              }}
+              onClick={() => handleEdit(evento.event)}
+            >
+              <GrEdit
+                variant="secondary"
+                style={{ size: "1px", color: "grey" }}
+              />
+            </Button>
+          </div>
+        </>
+      );
+    }
   };
 
   const options =
     selectedSecuritiess[0] &&
     selectedSecuritiess[0].securities?.map((security, i) => {
       return (
-        <option key={i} value={security.CUIL}>
+        <option
+          key={i}
+          value={[security.CUIL, security.name, security.lastName]}
+        >
           {security.name} {security.lastName}
         </option>
       );
@@ -107,13 +155,16 @@ const NewCalendar = () => {
 
   return (
     <div style={{ width: "70%", marginLeft: "20%" }}>
+      <h3 style={{ color: "grey", marginLeft: "35%", marginTop: "2%" }}>
+        {branch.name}
+      </h3>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
         dateClick={handleDateClick}
         footerToolbar={{ center: "dayGridMonth timeGridDay" }}
         initialView="dayGridMonth"
         buttonText={{ month: "mes", day: "dia" }}
-        events={events}
+        events={reduxEvents}
         eventOverlap={false}
         selectable={true}
         editable={true}
