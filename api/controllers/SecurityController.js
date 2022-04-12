@@ -50,5 +50,11 @@ class SecurityController {
     const nextFiveDays= await SecuritiesServices.servicesGetNextWorkDays(req, next)
     return nextFiveDays? res.status(200).json(nextFiveDays): res.sendStatus(404)
   }
+
+
+  static async findOfficeAndClient(req,res,next){
+    const branch= await SecuritiesServices.getOfficeAndClient(req, next)
+    return branch? res.status(200).json(branch): res.sendStatus(404)
+  }
 }
 module.exports = SecurityController;

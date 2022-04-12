@@ -49,6 +49,16 @@ class AdminControllerGet {
       : res.sendStatus(404);
   }
 
+  static async getOneSecurityByCuil(req, res, next) {
+    const oneSecurityByCuil = await AdminServicesGet.serviceGetOneSecurityByCuil(
+      req,
+      next
+    );
+    return oneSecurityByCuil
+      ? res.status(200).json(oneSecurityByCuil)
+      : res.sendStatus(404);
+  }
+
   static async getAllOffice(req, res, next) {
     const allOfficies = await AdminServicesGet.serviceGetAllOffice(next);
     return allOfficies
@@ -168,11 +178,33 @@ class AdminControllerGet {
     return events ? res.status(200).json(events) : res.sendStatus(404);
 
   }
+
+
+  static async getBranchOfficeWithoutSecurityDay(req, res, next) {
+    const office = await AdminServicesGet.serviceGetBranchOfficewitoutSecurityDay(req,next);
+    return office ? res.status(200).json(office) : res.sendStatus(404);
+
+  }
+
+  static async getBranchOfficeWithoutWorkDay(req, res, next) {
+    const office = await AdminServicesGet.serviceBranchOfficeWithoutWorkDay(req,next);
+    return office ? res.status(200).json(office) : res.json([]);
+
+  }
+
+  static async getBranchOfficeWithoutSecurities(req, res, next) {
+    const office = await AdminServicesGet.serviceBranchOfficeWithoutSecurities(req,next);
+    return office ? res.status(200).json(office) : res.json([]);
+
+  }
+
+
   static async getAllEventsOfBranch(req, res, next) {
-    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(next);
+    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(req,next);
     return eventsOfBranch ? res.status(200).json(eventsOfBranch) : res.sendStatus(404);
 
   }
+
 }
 
 module.exports = AdminControllerGet;

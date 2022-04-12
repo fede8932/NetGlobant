@@ -21,6 +21,7 @@ import eventsReducer from "./events";
 import eventReducer from "./singleEvent";
 import nextWorkDayReducer from "./nextFive";
 import checkInReducer from "./ingresoEgreso";
+import singleCalendarBranch from "./singleCalendarBranch"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -46,6 +47,7 @@ const store = configureStore({
     event: eventReducer,
     nextWorkDays: nextWorkDayReducer,
     ingresoEgreso: checkInReducer
+    branchCalendar: singleCalendarBranch,
   },
 });
 

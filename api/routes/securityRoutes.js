@@ -19,6 +19,10 @@ securityRouter.post("/absence/:id", SecurityController.absenceRequest);
 
 securityRouter.get("/hour/:id/:initDate/:endDate", SecurityController.hourSecurity);
 
+
+securityRouter.get("/find/Office/Client/:id/:initDate/:endDate", SecurityController.findOfficeAndClient)
+
+
 securityRouter.get("/next/five/days/:id", SecurityController.getNextDays)
 
 module.exports = securityRouter;

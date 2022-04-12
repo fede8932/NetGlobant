@@ -27,6 +27,8 @@ BranchOficce.security= BranchOficce.belongsToMany(Securities, {through: 'yourSec
 /* - un pedido de ausencia le pertenece a un guardia de seguridad */
 AbsenceRequest.belongsTo(Securities)
 
+Events.belongsToMany(WorkDay, {through:'workDay_events'})
+
 /* asociociones de inhabilitacion */
 /* securities */
 Disabled.belongsTo(Securities)

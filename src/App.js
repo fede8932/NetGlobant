@@ -106,7 +106,7 @@ function App() {
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
-          <Route path="/states" element={<NewCalendar />} />
+          <Route path="/states" element={<StatesSecurity />} />
           <Route path="/set/client" element={<BranchSelectNuevo />} />
           <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
 
