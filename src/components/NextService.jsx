@@ -2,28 +2,20 @@ import { Container , Card , Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { getWorkDay } from "../states/userCalendar"
-import { tiempoParcial } from "../geoCalculator"
+import { orderTime, tiempoParcial } from "../geoCalculator"
 import { useEffect } from "react"
+import { getWorkDays } from "../states/nextFive"
 
 const NextService = function (){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector(state=>state.usuario)
     const hoy = useSelector(state=>state.userCalendar.data)
-    const clientes = [{name:"Fravega",sucursal: "San miguel",ingreso: "09:00"},
-    {name:"Fravega",sucursal: "Polvorines",ingreso: "10:00"},
-    {name:"Fravega",sucursal: "Fonavi",ingreso: "10:00"},
-    {name:"Garbarino",sucursal: "San miguel",ingreso: "09:00"},
-    {name:"Musimundo",sucursal: "San miguel",ingreso: "11:00"},]
-    const today = clientes.shift()
+    const next = useSelector(state=>state.nextWorkDays)
     useEffect(()=>{
         dispatch(getWorkDay({id:user.id , fecha:tiempoParcial()}))
+        dispatch(getWorkDays({id:user.id}))
     },[])
-    const getDay = async (dia)=>{
-        await dispatch(getWorkDay({id:user.id , dia}))
-        navigate("/user/masinfo")
-    }
-    console.log(hoy)
     return (
         <>
             <Container className="userContainer">
@@ -38,17 +30,16 @@ const NextService = function (){
                     <Button onClick={()=>{navigate('/user/masinfo')}} variant="warning">Más información</Button>
                 </Card.Body>
                 </Card>
-                {clientes && clientes.map((cliente , i)=>{
+                {next && next.map((cliente , i)=>{
                     return (
                         <div key={i}>
                         <Card style={{ width: '100%' , maxHeight: '7rem' , marginBottom : '0.5rem' }}>
                         <Card.Header style={{ maxHeight: '2rem' , display:'flex' }}>
-                            <span>{i?"Poner la fecha":"Mañana"}</span>
+                            <span>{i?orderTime(cliente.date,0):"Mañana"}</span>
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title>{cliente.name}</Card.Title>
-                            <Card.Text>
-                            <a onClick={getDay}>{`Sucursal ${cliente.sucursal}, a las ${cliente.ingreso} hs.`}</a>
+                            <Card.Text style={{ fontSize: "0.8rem" }}>
+                            {`${cliente.name} Sucursal ${cliente.sucursal}, a las ${cliente.wishEntryHour.slice(11,16)} hs.`}
                             </Card.Text>
                         </Card.Body>
                         </Card>
