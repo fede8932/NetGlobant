@@ -99,6 +99,9 @@ class AdminServicesGet {
         },
         include: {
           association: Client.offices,
+          where:{
+            status:true
+          }
         },
       });
       return allOfficeByClient;
@@ -113,14 +116,14 @@ class AdminServicesGet {
       const client = await Client.findAll({
         where: {
           bussinessName: req.params.clientName,
+        }, include: {
+          association: Client.offices,
+          where:{
+            status:true
+          }
         },
       });
-      const officies = await BranchOficce.findAll({
-        where: {
-          clientId: client[0].id,
-        },
-      });
-      return officies;
+      return client;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -155,6 +158,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
+          where:{
+            status:true
+          }
         },
       });
 
@@ -220,6 +226,7 @@ class AdminServicesGet {
           association: Securities.provincie,
           where: {
             id: provincieId,
+            status:true
           },
         },
       });
@@ -383,7 +390,7 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetBranchOfficewitoutSecurity(req, next) {
+  static async serviceGetBranchOfficewitoutSecurityDay(req, next) {
     try {
       let date = new Date();
       let day = date.getDate() + 7;
@@ -434,6 +441,23 @@ class AdminServicesGet {
 
       const branchWithOutWorkDay = branches.filter(
         (branch) => branch.workDays.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutSecurities(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.security,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.securities.length === 0
       );
       return branchWithOutWorkDay;
     } catch (err) {

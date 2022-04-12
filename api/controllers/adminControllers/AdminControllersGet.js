@@ -169,14 +169,20 @@ class AdminControllerGet {
 
   }
 
-  static async getBranchOfficeWithoutSecurity(req, res, next) {
-    const office = await AdminServicesGet.serviceGetBranchOfficewitoutSecurity(req,next);
+  static async getBranchOfficeWithoutSecurityDay(req, res, next) {
+    const office = await AdminServicesGet.serviceGetBranchOfficewitoutSecurityDay(req,next);
     return office ? res.status(200).json(office) : res.sendStatus(404);
 
   }
 
   static async getBranchOfficeWithoutWorkDay(req, res, next) {
     const office = await AdminServicesGet.serviceBranchOfficeWithoutWorkDay(req,next);
+    return office ? res.status(200).json(office) : res.json([]);
+
+  }
+
+  static async getBranchOfficeWithoutSecurities(req, res, next) {
+    const office = await AdminServicesGet.serviceBranchOfficeWithoutSecurities(req,next);
     return office ? res.status(200).json(office) : res.json([]);
 
   }

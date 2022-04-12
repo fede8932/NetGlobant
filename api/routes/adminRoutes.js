@@ -55,10 +55,12 @@ adminRouter.get("/disabled/admins", AdminControllerGet.getAdminsDisabled)
 adminRouter.get("/all/request", AdminControllerGet.getAllRequest)
 //TRAE UN SOLO PEDIDO DE AUSENCIA
 adminRouter.get("/oneResquest/:id", AdminControllerGet.getOneRequest)
-//
-adminRouter.get("/without/security/office", AdminControllerGet.getBranchOfficeWithoutSecurity )
-//
+//TRAE SUCUSARLES CON HORARIOS SIN ASIGNAR EN UN RAGO DE 7 DIAS
+adminRouter.get("/without/securityDay/office", AdminControllerGet.getBranchOfficeWithoutSecurityDay )
+//TRAE SUCURSALES SIN DIAS ASIGNADOS
 adminRouter.get("/without/workday/office", AdminControllerGet.getBranchOfficeWithoutWorkDay)
+//TRAE SUCURSALES SIN NINGUN VIGILADOR ASIGNADO
+adminRouter.get("/office/noOne/security", AdminControllerGet.getBranchOfficeWithoutSecurities)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
