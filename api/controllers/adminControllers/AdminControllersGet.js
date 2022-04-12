@@ -168,6 +168,11 @@ class AdminControllerGet {
     return events ? res.status(200).json(events) : res.sendStatus(404);
 
   }
+  static async getAllEventsOfBranch(req, res, next) {
+    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(next);
+    return eventsOfBranch ? res.status(200).json(eventsOfBranch) : res.sendStatus(404);
+
+  }
 }
 
 module.exports = AdminControllerGet;

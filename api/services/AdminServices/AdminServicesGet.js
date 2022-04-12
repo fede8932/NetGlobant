@@ -389,5 +389,17 @@ class AdminServicesGet {
 
     }
   }
+
+  static async serviceGetAllEventsOfBranch(next) {
+    try {
+      const eventsBranch = await Events.findAll({where:{
+        branchName: req.params.name
+      }});
+      return eventsBranch;
+    } catch (err) {
+      next(err);
+
+    }
+  }
 }
 module.exports = AdminServicesGet;

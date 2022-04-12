@@ -9,39 +9,39 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedSecurities } from "../states/securitiesCalendar";
 import { postSecurityToSchedule } from "../states/securityCalendar";
-import {getAllEvents} from "../states/events"
-import {postEvent} from "../states/singleEvent"
+import { getAllEvents } from "../states/events";
+import { postEvent } from "../states/singleEvent";
 import { useNavigate } from "react-router-dom";
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
-  const eventss = useSelector((state) => state.events)
+  const events = useSelector((state) => state.events);
 
   const navigate = useNavigate();
 
-  const events = [
-    {
-      name: "Dolores",
-      start: "2022-04-11T10:00:00",
-      end: "2022-04-11T23:00:00",
-    },
-    {
-      name: "Joaquin",
-      start: "2022-04-12T15:00:00",
-      end: "2022-04-12T23:00:00",
-    },
-    {
-      name: "Maria",
-      start: "2022-04-10T21:00:00",
-      end: "2022-04-10T23:00:00",
-    },
-    {
-      name: "Belen",
-      start: "2022-04-09T12:00:00",
-      end: "2022-04-09T23:00:00",
-    },
-  ];
+  // const events = [
+  //   {
+  //     name: "Dolores",
+  //     start: "2022-04-11T10:00:00",
+  //     end: "2022-04-11T23:00:00",
+  //   },
+  //   {
+  //     name: "Joaquin",
+  //     start: "2022-04-12T15:00:00",
+  //     end: "2022-04-12T23:00:00",
+  //   },
+  //   {
+  //     name: "Maria",
+  //     start: "2022-04-10T21:00:00",
+  //     end: "2022-04-10T23:00:00",
+  //   },
+  //   {
+  //     name: "Belen",
+  //     start: "2022-04-09T12:00:00",
+  //     end: "2022-04-09T23:00:00",
+  //   },
+  // ];
 
   const {
     register,
@@ -54,11 +54,11 @@ const NewCalendar = () => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-
-    // dispatch(getAllEvents())
+    dispatch(getAllEvents());
     dispatch(getSelectedSecurities("Fravega Gualeguaychu"));
-
   }, []);
+
+  console.log("events REDUX ===>>>", events);
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -67,13 +67,14 @@ const NewCalendar = () => {
   };
 
   const onSubmit = (data) => {
-
-    navigate("/calendar")
+    navigate("/calendar");
     data.branchName = "Fravega Gualeguaychu";
     data.date = actualDate;
+    console.log(actualDate.concat("T", data.wishEntryHour, ":00"));
+    data.start = actualDate.concat("T", data.wishEntryHour, ":00");
+    data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     console.log(data);
-    dispatch(postEvent(data))
-
+    dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
     console.log("agregado", data);
   };
@@ -81,18 +82,18 @@ const NewCalendar = () => {
   const renderEventContent = (evento) => {
     console.log("evento", evento);
 
-    // if (evento.name) {
-    //   return (
-    //     <>
-    //       <div className="event_container">
-    //         <div className="image_calendar"></div>
-    //         <i className="event_calendar">{evento.name}</i>
-    //         <b className="event_timeText">{evento.start}</b>
-    //         <b className="event_timeText">{evento.end}</b>
-    //       </div>
-    //     </>
-    //   );
-    // }
+    if (evento.name) {
+      return (
+        <>
+          <div className="event_container">
+            <div className="image_calendar"></div>
+            <i className="event_calendar">{evento.name}</i>
+            <b className="event_timeText">{evento.start}</b>
+            <b className="event_timeText">{evento.end}</b>
+          </div>
+        </>
+      );
+    }
   };
 
   const options =
