@@ -49,6 +49,8 @@ adminRouter.get("/disabled/client", AdminControllerGet.getClientsDisabled)
 adminRouter.get("/disabled/officies", AdminControllerGet.getOfficiesDisabled)
 // TRAE TODOS LOS EVENTOS
 adminRouter.get("/events", AdminControllerGet.getAllEvents);
+// TRAE TODOS LOS EVENTOS de una BRANCH
+adminRouter.get("/events/:name", AdminControllerGet.getAllEventsOfBranch);
 //TRAE A TODOS LOS ADMINS DESHABILITADOS
 adminRouter.get("/disabled/admins", AdminControllerGet.getAdminsDisabled)
 //TRAE TODOS LOS PEDIDOS DE AUSENCIA

@@ -7,8 +7,8 @@ export const postEvent = createAsyncThunk("POST_EVENT", async (event) => {
       const newEvent = await axios.post("/api/admin/add/event", 
       {
         date: event.date,
-        start: event.wishEntryHour,
-        end: event.wishClosingHour,
+        start: event.start,
+        end: event.end,
         branchName: event.branchName,
         securityName: event.CUIL
 

@@ -16,8 +16,22 @@ export const getAllEvents = createAsyncThunk(
     }
   );
 
+
+  export const getAllEventsBranch = createAsyncThunk(
+    "GET_ALL_EVENTS_BY_BRANCH",
+    async (branchName) => {
+      try {
+        const allEventsBranch = await axios.get(`/api/admin/events/${branchName}`);
+        return allEventsBranch.data;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  );
+
 const eventsReducer = createReducer([], {
   [getAllEvents.fulfilled]: (state, action) => action.payload,
+  [getAllEventsBranch.fulfilled]: (state, action) => action.payload,
 });
 
 export default eventsReducer;
