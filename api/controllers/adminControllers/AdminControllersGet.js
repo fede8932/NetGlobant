@@ -168,6 +168,19 @@ class AdminControllerGet {
     return events ? res.status(200).json(events) : res.sendStatus(404);
 
   }
+
+  static async getBranchOfficeWithoutSecurity(req, res, next) {
+    const office = await AdminServicesGet.serviceGetBranchOfficewitoutSecurity(req,next);
+    return office ? res.status(200).json(office) : res.sendStatus(404);
+
+  }
+
+  static async getBranchOfficeWithoutWorkDay(req, res, next) {
+    const office = await AdminServicesGet.serviceBranchOfficeWithoutWorkDay(req,next);
+    return office ? res.status(200).json(office) : res.json([]);
+
+  }
+
 }
 
 module.exports = AdminControllerGet;

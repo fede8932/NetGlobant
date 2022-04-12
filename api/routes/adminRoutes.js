@@ -55,7 +55,10 @@ adminRouter.get("/disabled/admins", AdminControllerGet.getAdminsDisabled)
 adminRouter.get("/all/request", AdminControllerGet.getAllRequest)
 //TRAE UN SOLO PEDIDO DE AUSENCIA
 adminRouter.get("/oneResquest/:id", AdminControllerGet.getOneRequest)
-
+//
+adminRouter.get("/without/security/office", AdminControllerGet.getBranchOfficeWithoutSecurity )
+//
+adminRouter.get("/without/workday/office", AdminControllerGet.getBranchOfficeWithoutWorkDay)
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
