@@ -228,6 +228,32 @@ class SecuritiesServices {
       next(err)
     }
   }
+
+  static async servicesGetNextWorkDays(req, next){
+    try{
+      let date= new Date()
+    let day= date.getDate()+5
+    let year=date.getFullYear()
+    let month= date.getMonth()
+    let nextDate= new Date(year, month, day)
+
+    const searchNextDays= await  Securities.findOne({
+      where : {
+        id: req.params.id
+      },
+      include : {
+        association: Securities.calendar,
+        where: {
+          date : {
+          [Op.between] : [date , nextDate]
+        }}
+      }
+    })
+    return searchNextDays
+    }catch(err){
+    next(err)
+    }
+  }
 }
 
 

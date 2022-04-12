@@ -44,5 +44,10 @@ class SecurityController {
     const hour= await SecuritiesServices.requestHourSecurity(req, next);
     return hour ? res.status(201).send(hour) : res.sendStatus(500);
   }
+
+  static async getNextDays(req,res,next){
+    const nextFiveDays= await SecuritiesServices.servicesGetNextWorkDays(req, next)
+    return nextFiveDays? res.status(200).json(nextFiveDays): res.sendStatus(404)
+  }
 }
 module.exports = SecurityController;
