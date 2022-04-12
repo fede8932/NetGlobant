@@ -29,24 +29,37 @@ const NewCalendar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [event, setEvent] = useState([]);
 
-  const rendering = async () => {
-    const events = await dispatch(getAllEventsBranch(branch.name));
-  };
+  //const rendering =  () => {
+    // try {
+    //   const obtainedBranch = await dispatch(
+    //     getBranchById(parseInt(id.clientId))
+    //   );
+    //   const events = await dispatch(getAllEventsBranch(obtainedBranch.name));
+    //   //setEvent(events.payload);
+    //   const securities = await dispatch(
+    //     getSelectedSecurities(obtainedBranch.payload.name)
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  // };
 
-  useEffect(async () => {
+  useEffect( async () => {
     try {
       const obtainedBranch = await dispatch(
         getBranchById(parseInt(id.clientId))
       );
+      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      //setEvent(events.payload);
       const securities = await dispatch(
         getSelectedSecurities(obtainedBranch.payload.name)
       );
-      rendering();
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [event]);
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -66,6 +79,7 @@ const NewCalendar = () => {
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
+    setEvent(data)
   };
 
   const renderEventContent = (evento) => {
@@ -74,9 +88,6 @@ const NewCalendar = () => {
         <>
           <div className="event_container">
             <div className="image_calendar"></div>
-            <i className="event_calendar">
-              {evento.event._def.extendedProps.securityName}
-            </i>
             <b className="event_timeText">{evento.timeText}</b>
             <br />
             <i className="event_calendar">
