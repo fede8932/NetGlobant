@@ -4,8 +4,10 @@ const Client= require("./Clients")
 const Provincies= require("./Provincies")
 const Securities= require("./Securities")
 const WorkDay= require("./WorkDay")
+const Disabled= require("./Disabled")
 const AbsenceRequest= require("./AbsenceRequest")
-const Inhabited= require("./Inhabited")
+const Events= require("./Events")
+
 
 
 
@@ -27,13 +29,13 @@ AbsenceRequest.belongsTo(Securities)
 
 /* asociociones de inhabilitacion */
 /* securities */
-Inhabited.belongsTo(Securities)
+Disabled.belongsTo(Securities)
 /* clients */
-Inhabited.belongsTo(Client)
+Disabled.belongsTo(Client)
 /* branchOffice */
-Inhabited.belongsTo(BranchOficce)
+Disabled.belongsTo(BranchOficce)
 /* Admins */
-Inhabited.belongsTo(Admin)
+Disabled.belongsTo(Admin)
 
 
  
@@ -42,6 +44,7 @@ Inhabited.belongsTo(Admin)
 
 
 
+module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest, Disabled, Events}
 
-module.exports= {Admin, BranchOficce, Client, Provincies, Securities, WorkDay , AbsenceRequest, Inhabited}
+
 

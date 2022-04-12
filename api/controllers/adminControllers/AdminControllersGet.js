@@ -64,6 +64,14 @@ class AdminControllerGet {
       : res.sendStatus(404);
   }
 
+  static async getAllOfficiesByClientName(req, res, next) {
+    const allOfficiesByClientName =
+      await AdminServicesGet.serviceGetAllOfficiesByClientName(req, next);
+    return allOfficiesByClientName
+      ? res.status(200).json(allOfficiesByClientName)
+      : res.sendStatus(404);
+  }
+
   static async getOneOffice(req, res, next) {
     const oneOffice = await AdminServicesGet.serviceGetOneOffice(req, next);
     return oneOffice ? res.status(200).json(oneOffice) : res.sendStatus(404);
@@ -119,29 +127,51 @@ class AdminControllerGet {
     return res.send(securities);
   }
 
-  static async getAllInhabited(req,res,next){
-    const inhabited= await AdminServicesGet.serviceGetInhabites(req, next)
-    return inhabited? res.status(200).send(inhabited) : res.sendStatus(500)
+
+  static async getAllDisabled(req,res,next){
+    const Disabled= await AdminServicesGet.serviceGetInhabites(req, next)
+    return Disabled? res.status(200).send(Disabled) : res.sendStatus(500)
+
   }
 
-  static async getSecuritiesInhabited(req, res, next){
-    const securitiesInhabited= await AdminServicesGet.servicesGetSecuritiesInhabited(req, next)
-    return securitiesInhabited? res.status(200).send(securitiesInhabited): res.sendStatus(500)
+  static async getSecuritiesDisabled(req, res, next){
+    const securitiesDisabled= await AdminServicesGet.servicesGetSecuritiesDisabled(req, next)
+    return securitiesDisabled? res.status(200).send(securitiesDisabled): res.sendStatus(500)
   }
 
-  static async getClientsInhabited(req, res, next){
-    const clientsInhabited= await AdminServicesGet.servicesGetClientsInhabited(req, next)
-    return clientsInhabited? res.status(200).send(clientsInhabited): res.sendStatus(500)
+  static async getClientsDisabled(req, res, next){
+    const clientsDisabled= await AdminServicesGet.servicesGetClientsDisabled(req, next)
+    return clientsDisabled? res.status(200).send(clientsDisabled): res.sendStatus(500)
   }
 
-  static async getOfficiesInhabited(req, res, next){
-    const offciesInhabited= await AdminServicesGet.servicesGetOfficiesInhabited(req, next)
-    return offciesInhabited? res.status(200).send(offciesInhabited): res.sendStatus(500)
+  static async getOfficiesDisabled(req, res, next){
+    const offciesDisabled= await AdminServicesGet.servicesGetOfficiesDisabled(req, next)
+    return offciesDisabled? res.status(200).send(offciesDisabled): res.sendStatus(500)
   }
 
-  static async getAdminsInhabited(req, res, next){
-    const adminsInhabited= await AdminServicesGet.servicesGetAdminsInhabited(req, next)
-    return adminsInhabited? res.status(200).send(adminsInhabited): res.sendStatus(500)
+  static async getAdminsDisabled(req, res, next){
+    const adminsDisabled= await AdminServicesGet.servicesGetAdminsDisabled(req, next)
+    return adminsDisabled? res.status(200).send(adminsDisabled): res.sendStatus(500)
+  }
+
+  static async getAllRequest(req, res, next){
+    const allRequest= await AdminServicesGet.servicesGetAllRequest(req, next)
+    return allRequest? res.status(200).send(allRequest): res.sendStatus(500)
+  }
+
+  static async getOneRequest(req, res, next){
+    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req,next)
+    return oneRequest? res.status(200).send(oneRequest): res.sendStatus(500)
+  }
+  static async getAllEvents(req, res, next) {
+    const events = await AdminServicesGet.serviceGetAllEvents(next);
+    return events ? res.status(200).json(events) : res.sendStatus(404);
+
+  }
+  static async getAllEventsOfBranch(req, res, next) {
+    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(next);
+    return eventsOfBranch ? res.status(200).json(eventsOfBranch) : res.sendStatus(404);
+
   }
 }
 

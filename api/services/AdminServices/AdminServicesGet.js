@@ -4,7 +4,9 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
-  Inhabited,
+  Events,
+  AbsenceRequest,
+  Disabled
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
@@ -103,6 +105,23 @@ class AdminServicesGet {
         },
       });
       return allOfficeByClient;
+    } catch (err) {
+      console.log("error => ", err);
+      next(err);
+    }
+  }
+
+  static async serviceGetAllOfficiesByClientName(req, next) {
+    try {
+      const client = await Client.findAll({
+        where: {
+          bussinessName: req.params.clientName,
+        },
+      });
+      const officies = await BranchOficce.findAll({where:{
+        clientId: client[0].id
+      }})
+      return officies;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -280,9 +299,11 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetInhabites(req,next){
+
+  static async serviceGetDisabled(req,next){
+
     try{
-      const allInhabites= await Inhabited.findAll()
+      const allInhabites= await Disabled.findAll()
     return allInhabites
     }
     catch(err){
@@ -290,47 +311,94 @@ class AdminServicesGet {
     }
   }
 
-  static async servicesGetSecuritiesInhabited(req, next){
+  static async servicesGetSecuritiesDisabled(req, next){
     try{
-      const securitiesInhabited= await Inhabited.findAll({
+      const securitiesDisabled= await Disabled.findAll({
         where:{ type: "securities"}
       })
-      return securitiesInhabited
+      return securitiesDisabled
     }catch(err){
       next(err)
     }
   }
 
-  static async servicesGetClientsInhabited(req, next){
+  static async servicesGetClientsDisabled(req, next){
     try{
-      const clientsInhabited= await Inhabited.findAll({
+      const clientsDisabled= await Disabled.findAll({
         where:{ type: "clients"}
       })
-      return clientsInhabited
+      return clientsDisabled
     }catch(err){
       next(err)
     }
   }
 
-  static async servicesGetOfficiesInhabited(req, next){
+  static async servicesGetOfficiesDisabled(req, next){
     try{
-      const officiesInhabited= await Inhabited.findAll({
+      const officiesDisabled= await Disabled.findAll({
         where:{ type: "branchOffice"}
       })
-      return officiesInhabited
+      return officiesDisabled
     }catch(err){
       next(err)
     }
   }
 
-  static async servicesGetAdminsInhabited(req, next){
+  static async servicesGetAdminsDisabled(req, next){
     try{
-      const adminsInhabited= await Inhabited.findAll({
+      const adminsDisabled= await Disabled.findAll({
         where:{ type: "admins"}
       })
-      return adminsInhabited
+      return adminsDisabled
     }catch(err){
       next(err)
+    }
+  }
+
+  static async servicesGetAllRequest(req, next){
+    try{
+     const allRequest= await AbsenceRequest.findAll()
+     return allRequest
+
+    }catch(err){
+     next(err)
+    }
+
+  }
+
+  static async servicesGetOneRequest(req,res,next){
+    try{
+      const security= await Securities.findOne({
+        where:{id: req.params.id}
+      })
+    const oneRequest= await AbsenceRequest.findOne({
+      where:{securityId: security.id}
+    })
+    return oneRequest
+    }catch(err){
+      next(err)
+    }
+  }
+
+  static async serviceGetAllEvents(next) {
+    try {
+      const events = await Events.findAll();
+      return events;
+    } catch (err) {
+      next(err);
+
+    }
+  }
+
+  static async serviceGetAllEventsOfBranch(next) {
+    try {
+      const eventsBranch = await Events.findAll({where:{
+        branchName: req.params.name
+      }});
+      return eventsBranch;
+    } catch (err) {
+      next(err);
+
     }
   }
 }

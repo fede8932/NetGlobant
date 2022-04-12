@@ -23,6 +23,8 @@ adminRouter.get("/office", AdminControllerGet.getAllOffice);
 adminRouter.get("/office/:id", AdminControllerGet.getOneOffice);
 // TRAE TODAS LAS OFICINAS de un determinado cliente
 adminRouter.get("/office/byclient/:clientId", AdminControllerGet.getAllOfficeByClient);
+//TRAE TODAS LAS OFICINAS DE UN CLIENTE POR NOMBRE
+adminRouter.get("/office/byClientName/:clientName", AdminControllerGet.getAllOfficiesByClientName);
 // TRAE UNA OFICINA POR NAME
 adminRouter.get("/officename/:name", AdminControllerGet.getOneOfficeName);
 // TRAE UN GUARDIA POR NAME DE OFICINA
@@ -38,15 +40,24 @@ adminRouter.get("/provincie/security/office/:name", AdminControllerGet.getSecuri
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
 adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay)
 //TRAE A TODAS COSAS QUE ESTEN INHABILITADAS
-adminRouter.get("/inhabites", AdminControllerGet.getAllInhabited)
+adminRouter.get("/disabled", AdminControllerGet.getAllDisabled)
 //TRAER A TODOS LOS SECURITIES INHABILITADOS
-adminRouter.get("/inhabites/securities", AdminControllerGet.getSecuritiesInhabited)
+adminRouter.get("/disabled/securities", AdminControllerGet.getSecuritiesDisabled)
 //TRAE A TODOS LOS CLIENTES INHABILITADOS
-adminRouter.get("/inhabites/client", AdminControllerGet.getClientsInhabited)
+adminRouter.get("/disabled/client", AdminControllerGet.getClientsDisabled)
 //TRAE TODAS LAS OFICINAS INHABILITADAS}
-adminRouter.get("/inhabites/officies", AdminControllerGet.getOfficiesInhabited)
-//TRAE TODOS LOS ADMINS DESAHBILITADOS
-adminRouter.get("/inhabites/admins", AdminControllerGet.getAdminsInhabited)
+adminRouter.get("/disabled/officies", AdminControllerGet.getOfficiesDisabled)
+// TRAE TODOS LOS EVENTOS
+adminRouter.get("/events", AdminControllerGet.getAllEvents);
+// TRAE TODOS LOS EVENTOS de una BRANCH
+adminRouter.get("/events/:name", AdminControllerGet.getAllEventsOfBranch);
+//TRAE A TODOS LOS ADMINS DESHABILITADOS
+adminRouter.get("/disabled/admins", AdminControllerGet.getAdminsDisabled)
+//TRAE TODOS LOS PEDIDOS DE AUSENCIA
+adminRouter.get("/all/request", AdminControllerGet.getAllRequest)
+//TRAE UN SOLO PEDIDO DE AUSENCIA
+adminRouter.get("/oneResquest/:id", AdminControllerGet.getOneRequest)
+
 
 // AGREGA VIGILANTE
 adminRouter.post("/add/security", AdminControllerPost.addSecurity)
@@ -66,32 +77,40 @@ adminRouter.post("/add/Calendar/security", AdminControllerPost.addScheduleSecuri
 adminRouter.post("/assign/Calendar/security", AdminControllerPost.asingScheduleToSecurity);
 // ASIGNA CALENDAR A OFICINA
 adminRouter.post("/assign/Calendar/office", AdminControllerPost.asingScheduleToOffice);
+// POST EVENT
+adminRouter.post("/add/event", AdminControllerPost.addEvent);
 
 
-//MODIFICA VIGILADORES ASIGNADOS este delete si quede porque remueve reslacion- no datos
+
+
+//MODIFICA VIGILADORES ASIGNADOS
 adminRouter.delete("/remove/office/security/:name/:id", AdminControllerDelete.removeSecurityByOffice)
 //BORRA CALENDAR DE OFICINA POR ID
 adminRouter.delete("/remove/calendar/office/:id",AdminControllerDelete.removeScheduleOffice);
 //BORRA  CALENDAR DE VIGILANTE POR ID
 adminRouter.delete("/remove/calendar/security/:id", AdminControllerDelete.removeScheduleSecurity)
 
+
 //<<<<<<---------------I N H A B I L I T A C I O N E S ---------------------->>>>>
 // INHABILITA VIGILANTE POR ID
-adminRouter.post("/inhabited/security/:id", AdminControllerPost.inhabitedSecurity);
+adminRouter.post("/disabled/security/:id", AdminControllerPost.disabledSecurity);
 //INHABILITA CLIENTE POR ID
-adminRouter.post("/inhabited/client/:id", AdminControllerPost.inhabitedClient);
+adminRouter.post("/disabled/client/:id", AdminControllerPost.disabledClient);
 //INHABILITA OFICINS POR ID
-adminRouter.post("/inhabited/office/:id", AdminControllerPost.inhabitedOffice);
+adminRouter.post("/disabled/office/:id", AdminControllerPost.disabledOffice);
 //INHABILITA ADMINS POR ID 
-adminRouter.post("/inhabited/admin/:id", AdminControllerPost.inhabitedAdmins);
-// REHABILITACIONES
- adminRouter.post("/rehabited/security/:id", AdminControllerPost.inhabitedSecurity)
+adminRouter.post("/disabled/admin/:id", AdminControllerPost.disabledAdmins);
 
- adminRouter.post("/rehabited/office/:id", AdminControllerPost.inhabitedOffice)
-
- adminRouter.post("/rehabited/client/:id", AdminControllerPost.inhabitedClient)
- 
- adminRouter.post("/rehabited/admin/:id", AdminControllerPost.inhabitedAdmins)
+// <<--------REHABILITACIONES------>>>>
+//REHABILITAR SECURITY
+adminRouter.put("/rehabited/security/:id", AdminControllerPost.rehabitedSecurities)
+//REHABILITAR OFFICE
+adminRouter.put("/rehabited/office/:id", AdminControllerPost.rehabitedOffices)
+//REHABILITAR CLIENT
+adminRouter.put("/rehabited/client/:id", AdminControllerPost.rehabitedClients)
+ //REHABILITAR ADMIN
+adminRouter.put("/rehabited/admin/:id", AdminControllerPost.rehabitedAdmins)
+//<<<------------------------------->>>
 
 // EDITA OFICINA POR ID
 adminRouter.put("/edit/office/:id", AdminControllerPut.editOffice);
@@ -103,6 +122,8 @@ adminRouter.put("/edit/client/:id", AdminControllerPut.editClient);
 adminRouter.put("/edit/calendar/:id", AdminControllerPut.editCalendar);
 // EDITA EL ESTADO DE UN SECURITY
 adminRouter.put("/edit/securityStatus/:id", AdminControllerPut.editSecurityStatus)
+//APRUEBA O DESAPRUEBA UNA PETICION DE AUSENCIA
+adminRouter.put("/request/absence/:id",AdminControllerPut.responseToRequest)
 
 
 //ESTADO DE CALENDARIO (DISPONIBILIDAD)

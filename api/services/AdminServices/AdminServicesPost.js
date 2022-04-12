@@ -5,7 +5,8 @@ const {
   Provincies,
   WorkDay,
   Admin,
-  Inhabited
+  Events,
+  Disabled
 } = require("../../models");
 const createWorkDay = require("../../lib/createWorkDaySecurity");
 const {
@@ -209,13 +210,14 @@ class AdminServicesPost {
     }
   }
 
-  static async serviceInhabitedAdmin(req, next){
+  static async serviceDisabledAdmin(req, next){
+
     try{
       const admin= await Admin.findOne({
         where:{id:req.params.id}
       })
-     const inhabited= await Inhabited.create(req.body);
-     inhabited.setAdmin(admin)
+     const disabled= await Disabled.create(req.body);
+     disabled.setAdmin(admin)
      Admin.status=false
      Admin.save()
     }catch(err){
@@ -228,8 +230,8 @@ class AdminServicesPost {
       const branchOficce= await BranchOficce.findOne({
         where:{id:req.params.id}
       })
-     const inhabited= await Inhabited.create(req.body);
-     inhabited.setBranchOficce(branchOficce)
+     const disabled= await Disabled.create(req.body);
+     disabled.setBranchOficce(branchOficce)
      branchOficce.status=false
      branchOficce.save()
     } catch (err) {
@@ -237,13 +239,13 @@ class AdminServicesPost {
     }
     }
 
-    static async serviceInhabitedSecurity(req, next) {
+    static async serviceDisabledSecurity(req, next) {
       try {
         const security= await Securities.findOne({
           where:{id:req.params.id}
         })
-       const inhabited= await Inhabited.create(req.body);
-       inhabited.setSecurity(security)
+       const disabled= await Disabled.create(req.body);
+       disabled.setSecurity(security)
        security.status=false
        security.save()
       } catch (err) {
@@ -251,13 +253,13 @@ class AdminServicesPost {
       }
     }
 
-    static async serviceinhabitedClient(req, next) {
+    static async serviceDisabledClient(req, next) {
       try {
         const client= await Client.findOne({
           where:{id:req.params.id}
         })
-       const inhabited= await Inhabited.create(req.body);
-       inhabited.setClient(client)
+       const disabled= await Disabled.create(req.body);
+       disabled.setClient(client)
        client.status=false
        client.save()
       } catch (err) {
@@ -266,31 +268,35 @@ class AdminServicesPost {
     }
 
     static async serviceRehabitedSecurities(req, next){
+      try{
      const security= await Securities.findOne({
        where:{id: req.params.id}
      })
-     const inhabited= await Inhabited.findOne({
+     const [row, disabled]= await Disabled.update({securityId: null},{
        where:{
         securityId: security.id
        }
      })
-     inhabited.removeSecurity(security)
-     security.statsu= true
+     security.status= true
      security.save()
-    }
+     return security
+    } catch(err){
+    next(err)
+  }
+}
 
     static async serviceRehabitedClinets(req, next){
       try{
       const  client= await Client.findOne({
         where:{id: req.params.id}
       })
-      const inhabited= await Inhabited.findOne({
+      const [row, disabled]= await Disabled.update({ clientId: null},{
         where:{
-          clientId:  client.id
+          clientId: client.id
         }
       })
-      inhabited.removeClient(client)
-      client.statsu= true
+     
+      client.status= true
       client.save()
       return client
     } 
@@ -304,12 +310,12 @@ class AdminServicesPost {
       const  branchOffice= await BranchOficce.findOne({
         where:{id: req.params.id}
       })
-      const inhabited= await Inhabited.findOne({
+      const [row, disabled]= await Disabled.update({branchOficceId: null},{
         where:{
-          branchOficceId:  branchOffice.id
+          branchOficceId: branchOffice.id
         }
       })
-      inhabited.removeBranchOficce(branchOffice)
+      
       branchOffice.status= true
       branchOffice.save()
       return branchOffice
@@ -321,23 +327,37 @@ class AdminServicesPost {
 
      static async serviceRehabitedAdmins(req, next){
       try{
-      const  admins= await Admin.findOne({
+       
+      const  admin= await Admin.findOne({
         where:{id: req.params.id}
       })
-      const inhabited= await Inhabited.findOne({
+     
+      const [row, disabled]= await Disabled.update({adminId: null},{
         where:{
-          branchOficceId:  admins.id
+          adminId: admin.id
         }
       })
-      inhabited.removeAdmin(admins)
-      admins.status= true
-      admins.save()
-      return admins
+      console.log("Disabled", disabled)
+      admin.status= true
+      admin.save()
+      return admin
     } 
       catch(err){
         next(err)
       }
      }
      
+
+
+  static async serviceAddEvent(req, next) {
+    try {
+      console.log("event req.body => ", req.body)
+      const event = await Events.create(req.body);
+      return event;
+    } catch (err) {
+      next(err);
+    }
+  }
+
 }
 module.exports = AdminServicesPost;

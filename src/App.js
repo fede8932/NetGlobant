@@ -42,8 +42,11 @@ import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
+
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
 import MasInfo from "./components/MasInfo";
+import ClientSelectNuevo from "./components/ClientSelectNuevo";
+import StatesSecurity from "./components/StatesSecurity"
 
 function App() {
   const dispatch = useDispatch();
@@ -59,7 +62,6 @@ function App() {
   const device = useSelector((state) => state.device);
   const admin = useSelector((state) => state.usuario);
 
-
   return admin ? (
     <>
       <div>
@@ -74,6 +76,7 @@ function App() {
         ) : (
           <></>
         )}
+
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -98,11 +101,15 @@ function App() {
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
           <Route path="/user/calendar" element={<NextService />} />
+          <Route path="/user/masinfo" element={<MasInfo />} />
+          <Route path="/calendar/:clientId" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
-          <Route path="/set/branch" element={<BranchSelectNuevo />} />
-          <Route path="/user/masinfo" element={<MasInfo />} />
+          <Route path="/states" element={<NewCalendar />} />
+          <Route path="/set/client" element={<BranchSelectNuevo />} />
+          <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
+
         </Routes>
       </div>
     </>

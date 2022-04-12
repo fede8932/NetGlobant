@@ -57,7 +57,7 @@ class AuthServices {
         }
       } catch (error) {
         return {
-          error: true,
+          error: error,
         };
       }
     } else {
@@ -81,8 +81,97 @@ class AuthServices {
         }
       } catch (error) {
         return {
-          error: true,
+          error: error,
         };
+      }
+    }
+  }
+
+  static async getSecurity(email) {
+    let security
+    try {
+      security = await Securities.findOne({ where: { email } })
+      return {
+        security,
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
+      }
+    }
+  }
+  static async getAdmin(email) {
+    let administrator
+    try {
+      administrator = await Admin.findOne({ where: { email } })
+      return {
+        administrator,
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
+      }
+    }
+  }
+
+  static async updateAdminPassword(adminID, password){
+
+    try {
+      await Admin.update(password, { where: { id: adminID }})
+      return {
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
+      }
+    }
+  }
+
+  static async updateSecurityPassword(securityID, password){
+
+    try {
+      await Admin.update(password, { where: { id: securityID }})
+      return {
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
+      }
+    }
+  }
+
+  static async updateSecurityToken(securityID, token){
+
+    try {
+      await Securities.update({recoveryToken: token}, {
+        where: { id: securityID }
+      })
+      return {
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
+      }
+    }
+  }
+
+  static async updateAdminToken(adminID, token){
+
+    try {
+      await Securities.update({recoveryToken: token}, {
+        where: { id: adminID }
+      })
+      return {
+        error: false
+      }
+    } catch (error) {
+      return {
+        error: error
       }
     }
   }

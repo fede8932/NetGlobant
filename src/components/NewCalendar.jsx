@@ -9,42 +9,92 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedSecurities } from "../states/securitiesCalendar";
 import { postSecurityToSchedule } from "../states/securityCalendar";
+import { getAllEvents } from "../states/events";
+import { postEvent } from "../states/singleEvent";
+import { useNavigate } from "react-router-dom";
 
 const NewCalendar = () => {
-  // const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
-  // const [actualDate, setActualDate] = useState();
-  // const [events, setEvents] = useState([]);
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-  // const dispatch = useDispatch();
-  // const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
+  const [actualDate, setActualDate] = useState();
+  const events = useSelector((state) => state.events);
 
-  // useEffect(() => {
-  //   dispatch(getSelectedSecurities("Adidas MDA"));
-  // }, []);
+  const navigate = useNavigate();
 
-  // const handleDateClick = (e) => {
-  //   console.log(e.dateStr);
-  //   setActualDate(e.dateStr);
-  //   handleShow();
-  // };
+  // const events = [
+  //   {
+  //     name: "Dolores",
+  //     start: "2022-04-11T10:00:00",
+  //     end: "2022-04-11T23:00:00",
+  //   },
+  //   {
+  //     name: "Joaquin",
+  //     start: "2022-04-12T15:00:00",
+  //     end: "2022-04-12T23:00:00",
+  //   },
+  //   {
+  //     name: "Maria",
+  //     start: "2022-04-10T21:00:00",
+  //     end: "2022-04-10T23:00:00",
+  //   },
+  //   {
+  //     name: "Belen",
+  //     start: "2022-04-09T12:00:00",
+  //     end: "2022-04-09T23:00:00",
+  //   },
+  // ];
 
-  // const onSubmit = (data) => {
-  //   data.branchName = "Adidas MDA";
-  //   data.date = actualDate;
-  //   console.log(data);
-  //   events.push(data)
-  //   setEvents([...events]);
-  //   dispatch(postSecurityToSchedule(data));
-  //   console.log("agregado", data);
-  // };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  // console.log("events", events);
+  useEffect(() => {
+    dispatch(getAllEvents());
+    dispatch(getSelectedSecurities("Fravega Gualeguaychu"));
+  }, []);
+
+  console.log("events REDUX ===>>>", events);
+
+  const handleDateClick = (e) => {
+    console.log(e.dateStr);
+    setActualDate(e.dateStr);
+    handleShow();
+  };
+
+  const onSubmit = (data) => {
+    navigate("/calendar");
+    data.branchName = "Fravega Gualeguaychu";
+    data.date = actualDate;
+    console.log(actualDate.concat("T", data.wishEntryHour, ":00"));
+    data.start = actualDate.concat("T", data.wishEntryHour, ":00");
+    data.end = actualDate.concat("T", data.wishClosingHour, ":00");
+    console.log(data);
+    dispatch(postEvent(data));
+    dispatch(postSecurityToSchedule(data));
+    console.log("agregado", data);
+  };
+
+  const renderEventContent = (evento) => {
+    console.log("evento", evento);
+
+    if (evento.name) {
+      return (
+        <>
+          <div className="event_container">
+            <div className="image_calendar"></div>
+            <i className="event_calendar">{evento.name}</i>
+            <b className="event_timeText">{evento.start}</b>
+            <b className="event_timeText">{evento.end}</b>
+          </div>
+        </>
+      );
+    }
+  };
 
   // const options =
   //   selectedSecuritiess[0] &&
@@ -56,35 +106,25 @@ const NewCalendar = () => {
   //     );
   //   });
 
-  // return (
-  //   <div style={{ width: "80%", marginLeft: "10%" }}>
-  //     <FullCalendar
-  //       plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-  //       dateClick={handleDateClick}
-  //       // headerToolbar={
-  //       //   day
-  //       //     ? { rigth: "allDay" }
-  //       //     : { rigth: dayView ? "allDay" : "prev next" }
-  //       // }
-  //       footerToolbar={{ center: "dayGridMonth tomiGridDay" }}
-  //       initialView="dayGridMonth"
-  //       buttonText={{ month: "mes", day: "dia" }}
-  //       businessHours={{
-  //         daysOfWeek: [1, 2, 3, 4, 5, 6, 7],
-  //         startTime: "00.00",
-  //         endTime: "23:59",
-  //       }}
-  //       events={events}
-  //       eventOverlap={false}
-  //       selectable={true}
-  //       editable={true}
-  //       navLinks={true}
-  //       // eventAdd={onSubmit}
-  //     />
-  //     <Modal show={show} onHide={handleClose}>
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Agregar a Calendario </Modal.Title>
-  //       </Modal.Header>
+  return (
+    <div style={{ width: "70%", marginLeft: "20%" }}>
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+        dateClick={handleDateClick}
+        footerToolbar={{ center: "dayGridMonth timeGridDay" }}
+        initialView="dayGridMonth"
+        buttonText={{ month: "mes", day: "dia" }}
+        events={events}
+        eventOverlap={false}
+        selectable={true}
+        editable={true}
+        navLinks={true}
+        eventContent={renderEventContent}
+      />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar a Calendario </Modal.Title>
+        </Modal.Header>
 
   //       <Modal.Body>
   //         <Form

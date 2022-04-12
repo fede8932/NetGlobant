@@ -37,7 +37,7 @@ const ClientSelect = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Seleccione un cliente</h1>
+      <h3 style={{ textAlign: "center" }}>Seleccione un cliente</h3>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Control
           {...register("client", {
@@ -48,7 +48,6 @@ const ClientSelect = () => {
           })}
           as="select"
           size="ms"
-          placeholder="Provincia"
           className="position-relative"
           name="client"
           variant="outlined"

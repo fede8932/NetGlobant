@@ -1,5 +1,6 @@
 const AdminServicesPost = require("../../services/AdminServices/AdminServicesPost");
 
+
 class AdminControllerPost {
   static async addSecurity(req, res, next) {
     const office = await AdminServicesPost.serviceAddSecurity(req, next);
@@ -52,23 +53,23 @@ class AdminControllerPost {
     return res.sendStatus(201);
   }
 
-  static async inhabitedSecurity(req, res, next) {
-    await AdminServicesPost.serviceInhabitedSecurity(req, next);
+  static async disabledSecurity(req, res, next) {
+    await AdminServicesPost.serviceDisabledSecurity(req, next);
     return res.sendStatus(201);
   }
 
-  static async inhabitedClient(req, res, next) {
-    await AdminServicesPost.serviceinhabitedClient(req, next);
+  static async disabledClient(req, res, next) {
+    await AdminServicesPost.serviceDisabledClient(req, next);
     return res.sendStatus(201);
   }
 
-  static async inhabitedOffice(req, res, next) {
+  static async disabledOffice(req, res, next) {
     await AdminServicesPost.serviceInhabiteOffice(req, next);
     return res.sendStatus(201);
   }
 
-  static async inhabitedAdmins(req, res, next) {
-    await AdminServicesPost.serviceInhabitedAdmin(req, next);
+  static async disabledAdmins(req, res, next) {
+    await AdminServicesPost.serviceDisabledAdmin(req, next);
     return res.sendStatus(201);
   }
 
@@ -82,17 +83,23 @@ class AdminControllerPost {
 
   static async rehabitedClients(req, res, next) {
     const client = await AdminServicesPost.serviceRehabitedClinets(req, next);
-    return client ? res.status(201).send(client) : res.send(client);
+    return client ? res.status(200).send(client) : res.send(client);
   }
 
   static async rehabitedOffices(req, res, next) {
     const office = await AdminServicesPost.serviceRehabitedOffice(req, next);
-    return office ? res.status(201).send(office) : res.sendStatus(500);
+    return office ? res.status(200).send(office) : res.sendStatus(500);
   }
 
   static async rehabitedAdmins(req, res, next) {
     const admins = await AdminServicesPost.serviceRehabitedAdmins(req, next);
-    return admins ? res.status(201).send(admins) : res.sendStatus(500);
+    console.log("ADMIN DE CONTROLLERS", admins)
+    return admins ? res.status(200).send(admins) : res.sendStatus(500);
   }
+
+   static async addEvent(req, res, next) {
+    const newEvent= await AdminServicesPost.serviceAddEvent(req, next);
+    return newEvent ? res.status(201).json(newEvent) : res.sendStatus(404);
+      }
 }
 module.exports = AdminControllerPost;
