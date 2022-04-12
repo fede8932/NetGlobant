@@ -169,7 +169,7 @@ class AdminControllerGet {
 
   }
   static async getAllEventsOfBranch(req, res, next) {
-    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(next);
+    const eventsOfBranch = await AdminServicesGet.serviceGetAllEventsOfBranch(req,next);
     return eventsOfBranch ? res.status(200).json(eventsOfBranch) : res.sendStatus(404);
 
   }

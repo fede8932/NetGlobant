@@ -9,16 +9,20 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedSecurities } from "../states/securitiesCalendar";
 import { postSecurityToSchedule } from "../states/securityCalendar";
-import { getAllEvents } from "../states/events";
+import { getAllEventsBranch } from "../states/events";
 import { postEvent } from "../states/singleEvent";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getBranchById } from "../states/singleCalendarBranch";
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
-  const events = useSelector((state) => state.events);
-
+  const reduxEvents = useSelector((state) => state.events);
+  const branch = useSelector((state) => state.branchCalendar);
   const navigate = useNavigate();
+  const id = useParams();
+
+  console.log("id params => ", id);
 
   // const events = [
   //   {
@@ -43,6 +47,8 @@ const NewCalendar = () => {
   //   },
   // ];
 
+  console.log("BRANCH SELECCIONADA CALENDARIO ==>>", branch);
+
   const {
     register,
     handleSubmit,
@@ -53,12 +59,19 @@ const NewCalendar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    dispatch(getAllEvents());
-    dispatch(getSelectedSecurities("Fravega Gualeguaychu"));
+  useEffect(async () => {
+    try {
+      const obtainedBranch = await dispatch(getBranchById(parseInt(id.clientId)));
+      console.log("obtainedBranch => ", obtainedBranch)
+      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      console.log("events",events)
+      const securities = await dispatch(getSelectedSecurities(obtainedBranch.payload.name));
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
-  console.log("events REDUX ===>>>", events);
+
 
   const handleDateClick = (e) => {
     console.log(e.dateStr);
@@ -68,28 +81,25 @@ const NewCalendar = () => {
 
   const onSubmit = (data) => {
     navigate("/calendar");
-    data.branchName = "Fravega Gualeguaychu";
+    data.branchName = branch.name;
     data.date = actualDate;
-    console.log(actualDate.concat("T", data.wishEntryHour, ":00"));
     data.start = actualDate.concat("T", data.wishEntryHour, ":00");
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
-    console.log(data);
     dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
-    console.log("agregado", data);
   };
 
   const renderEventContent = (evento) => {
     console.log("evento", evento);
 
-    if (evento.name) {
+    if (evento.event._def.extendedProps.securityName) {
       return (
         <>
           <div className="event_container">
             <div className="image_calendar"></div>
-            <i className="event_calendar">{evento.name}</i>
-            <b className="event_timeText">{evento.start}</b>
-            <b className="event_timeText">{evento.end}</b>
+            <i className="event_calendar">{evento.event._def.extendedProps.securityName}</i>
+            <b className="event_timeText">{evento.timeText}</b>
+            {/* <b className="event_timeText">{evento.end}</b> */}
           </div>
         </>
       );
@@ -114,7 +124,7 @@ const NewCalendar = () => {
         footerToolbar={{ center: "dayGridMonth timeGridDay" }}
         initialView="dayGridMonth"
         buttonText={{ month: "mes", day: "dia" }}
-        events={events}
+        events={reduxEvents}
         eventOverlap={false}
         selectable={true}
         editable={true}

@@ -11,7 +11,6 @@ export const postEvent = createAsyncThunk("POST_EVENT", async (event) => {
         end: event.end,
         branchName: event.branchName,
         securityName: event.CUIL
-
       });
       swal({
         title: "Evento agregado",

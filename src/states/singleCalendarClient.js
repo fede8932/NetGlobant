@@ -13,7 +13,8 @@ export const getClientById = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
 const singleCalendarClient = createReducer(
   {},
   {
-    [getClientById]: (state, action) => action.payload,
+    
+    [getClientById.fulfilled]: (state, action) => action.payload,
   }
 );
 

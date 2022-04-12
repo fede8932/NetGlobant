@@ -390,7 +390,7 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetAllEventsOfBranch(next) {
+  static async serviceGetAllEventsOfBranch(req,next) {
     try {
       const eventsBranch = await Events.findAll({where:{
         branchName: req.params.name
