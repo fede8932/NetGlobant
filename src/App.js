@@ -48,7 +48,6 @@ import ClientSelectNuevo from "./components/ClientSelectNuevo";
 import StatesSecurity from "./components/StatesSecurity"
 import ChangePassword from "./components/ChangePassword";
 import SinPass from "./components/SinPass";
-import StatesSecurity from "./components/StatesSecurity";
 import AdminForgotPassword from "./components/AdminForgotPassword";
 import EditRequest from "./components/EditRequest";
 

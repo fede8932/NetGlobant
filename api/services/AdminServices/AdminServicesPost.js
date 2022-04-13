@@ -95,6 +95,22 @@ class AdminServicesPost {
   //------------------------------------------ usar este service para calendario (vision  segun oficina)-------------------------------//
   static async serviceAddSchedule(req, next) {
     try {
+      /* ESTO ES REQ BODY {
+        [0]   CUIL: '223344777642',
+        [0]   wishEntryHour: '20:25',
+        [0]   wishClosingHour: '20:25',
+        [0]   completeName: 'mario reartes',
+        [0]   branchName: 'adidas1',
+        [0]   date: '2022-04-13',
+        [0]   start: '2022-04-13T20:25:00',
+        [0]   end: '2022-04-13T20:25:00',
+        [0]   securityId: 1
+        [0] } *//* date: event.date,
+      start: event.start,
+      end: event.end,
+      branchName: event.branchName,
+      securityName: event.completeName, */
+        const {wishEntryHour,wishClosingHour,completeName,branchName,date, start,end }= req.body
       console.log("ESTO ES REQ BODY", req.body)
       const branchOficces = await BranchOficce.findOne({
         where: { name: req.body.branchName },
@@ -104,9 +120,9 @@ class AdminServicesPost {
           CUIL: req.body.CUIL,
         },
       });
-      const workDay = await WorkDay.create(req.body);
-      console.log("WORKDAY 1", workDay);
-      
+      const workDay = await WorkDay.create({ date: date,wishClosingHour: wishClosingHour,wishEntryHour: wishEntryHour});
+      const event = await Events.create({ date: date,start: start,end: end,branchName: branchName,securityName:completeName,});
+      event.setWorkDay(workDay);
       branchOficces.addWorkDays(workDay);
       security.addWorkDays(workDay);
       return branchOficces;
@@ -287,9 +303,11 @@ class AdminServicesPost {
 
   static async serviceRehabitedClinets(req, next) {
     try {
+      console.log("HOLA", req.params)
       const client = await Client.findOne({
         where: { id: req.params.id },
       });
+      console.log("CLIENT", client)
       const [row, disabled] = await Disabled.update(
         { clientId: null },
         {
@@ -298,11 +316,13 @@ class AdminServicesPost {
           },
         }
       );
-
+     
+     console.log("DISABLED", disabled)
       client.status = true;
       client.save();
       return client;
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }

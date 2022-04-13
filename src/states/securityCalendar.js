@@ -8,7 +8,7 @@ export const postSecurityToSchedule = createAsyncThunk(
       try {
         console.log("INFOIIIIIIIIIIIOOOOOOOOOOOO", info)
         const securityPosted = await axios.post(
-          `/api/admin/add/Calendar/offiqce`, info
+          `/api/admin/add/Calendar/office`, info
         );
         swal({
           title: "El horario fue asignado",
