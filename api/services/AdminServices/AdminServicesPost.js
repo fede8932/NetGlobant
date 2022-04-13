@@ -360,7 +360,7 @@ class AdminServicesPost {
       const event = await Events.create(req.body);
       const workDay = await WorkDay.findOne({
         where: {
-          date: req.body.date,
+          date: event.date,
         },
       });
       console.log("WORKDAY", workDay);

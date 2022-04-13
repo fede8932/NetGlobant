@@ -112,6 +112,9 @@ class AdminServicesGet {
         },
         include: {
           association: Client.offices,
+          where:{
+            status:true
+          }
         },
       });
       return allOfficeByClient;
@@ -123,10 +126,13 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      const client = await Client.findAll({
+      console.log(req.params)
+      const clients = await Client.findOne({
         where: {
           bussinessName: req.params.clientName,
-        },
+        }, /*  include: {
+          association: Client.offices,
+          }, */
       });
       const officies = await BranchOficce.findAll({
         where: {
@@ -168,6 +174,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
+          where:{
+            status:true
+          }
         },
       });
 
@@ -233,6 +242,7 @@ class AdminServicesGet {
           association: Securities.provincie,
           where: {
             id: provincieId,
+            status:true
           },
         },
       });
@@ -391,6 +401,81 @@ class AdminServicesGet {
     try {
       const events = await Events.findAll();
       return events;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetBranchOfficewitoutSecurityDay(req, next) {
+    try {
+      let date = new Date();
+      let day = date.getDate() + 7;
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let nextDate = new Date(year, month, day);
+      const workDayBranch = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+          where: {
+            date: {
+              [Op.between]: [date, nextDate],
+            },
+          },
+        },
+      });
+
+      const branchHours = workDayBranch.map((branch) => {
+        let branchinfo = { branch: branch.id, hours: 0 };
+        branch.workDays.map((workDay) => {
+          branchinfo.hours +=
+            (new Date(`${workDay.date} ${workDay.wishClosingHour}`) -
+              new Date(`${workDay.date} ${workDay.wishEntryHour}`)) /
+            1000 /
+            60 /
+            60;
+        });
+        return branchinfo;
+      });
+
+      const branchWithoutSecurity = branchHours.filter(
+        (branch) => branch.hours < 168
+      );
+
+      return branchWithoutSecurity;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutWorkDay(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.workDays.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutSecurities(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.security,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.securities.length === 0
+      );
+      return branchWithOutWorkDay;
     } catch (err) {
       next(err);
     }

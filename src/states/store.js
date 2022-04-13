@@ -19,6 +19,8 @@ import securityCalendarReducer from "./securityCalendar"
 import workDayReducer from "./userCalendar";
 import eventsReducer from "./events";
 import eventReducer from "./singleEvent";
+import nextWorkDayReducer from "./nextFive";
+import checkInReducer from "./ingresoEgreso";
 import singleCalendarBranch from "./singleCalendarBranch"
 
 const store = configureStore({
@@ -43,6 +45,8 @@ const store = configureStore({
     userCalendar: workDayReducer,
     events: eventsReducer,
     event: eventReducer,
+    nextWorkDays: nextWorkDayReducer,
+    ingresoEgreso: checkInReducer,
     branchCalendar: singleCalendarBranch,
   },
 });

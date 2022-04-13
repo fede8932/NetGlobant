@@ -223,10 +223,70 @@ class SecuritiesServices {
       security.workDays.map(workday=>{
         sumaHoras.push({fecha:workday.date , horas:(new Date(workday.closingHour)-new Date(workday.entryHour))/1000/60/60})
       })
+     
       return sumaHoras
     } catch (err){
       console.log(err)
       next(err)
+    }
+  }
+  static async getOfficeAndClient(req, next){
+    try{
+      const branch= await BranchOficce.findAll({
+        
+        include:[{
+          model: WorkDay,
+          where:{
+            date: { 
+              [Op.between] : [req.params.initDate , req.params.endDate] }}
+        },{
+          model: Securities,
+          where:{
+            id: req.params.id
+          }
+        }]
+      })
+      
+      let days=[]
+      branch[0].workDays.map((workDay)=> days.push(workDay.id) )
+      const securities= await Securities.findAll({
+        where:{id: branch[0].dataValues.securities[0].id},
+        include:{
+          model: WorkDay,
+          where:{
+            id: days}
+        }
+      })
+      
+     console.log(securities)
+     return {oficina: branch, horario: securities}
+    }catch(err){
+      next(err)}
+  }
+
+  static async servicesGetNextWorkDays(req, next){
+    try{
+      let date= new Date()
+      let day= date.getDate()+5
+      let year=date.getFullYear()
+      let month= date.getMonth()
+      let nextDate= new Date(year, month, day)
+
+      const searchNextDays= await  Securities.findOne({
+        where : {
+          id: req.params.id
+        },
+        include : {
+          association: Securities.calendar,
+          where: {
+            date : {
+            [Op.between] : [date , nextDate]
+          }}
+        }
+      })
+      return searchNextDays
+    }catch(err){
+    next(err)
     }
   }
 }
