@@ -1,6 +1,5 @@
 const AuthServices = require("../services/Auth");
 const UserServices = require("../services/Auth");
-
 const { recovery, validator } = require("../lib/JWTUtils");
 const { genHash } = require("../lib/passwordUtils");
 const { transporter } = require("../config/nodemailer");
@@ -89,7 +88,7 @@ class AuthController {
 
     await AuthServices.updateAdminToken(security.id, "");
 
-    const { hash } = genHash(newPassword);
+    const { hash } = await genHash(newPassword);
 
     await AuthServices.updateAdminPassword(administrator.id, hash);
 

@@ -10,8 +10,6 @@ const {
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
-
-const { findAll } = require("../../models/Admin");
 const { distance } = require("../../lib/findDistance.js");
 
 class AdminServicesGet {
@@ -42,6 +40,7 @@ class AdminServicesGet {
       });
       return oneClient;
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -109,12 +108,7 @@ class AdminServicesGet {
       const allOfficeByClient = await BranchOficce.findAll({
         where: {
           clientId: req.params.clientId,
-        },
-        include: {
-          association: Client.offices,
-          where:{
-            status:true
-          }
+          status: true,
         },
       });
       return allOfficeByClient;
@@ -126,18 +120,16 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      console.log(req.params)
+      console.log(req.params);
       const clients = await Client.findOne({
         where: {
           bussinessName: req.params.clientName,
-        }, /*  include: {
-          association: Client.offices,
-          }, */
+        },
       });
-    const offices= await BranchOficce.findOne({
-      where:{clientId: clients.id}
-    })
-      return clients;
+      const offices = await BranchOficce.findAll({
+        where: { clientId: clients.id },
+      });
+      return offices;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -172,9 +164,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
-          where:{
-            status:true
-          }
+          where: {
+            status: true,
+          },
         },
       });
 
@@ -201,6 +193,7 @@ class AdminServicesGet {
           association: BranchOficce.security,
         },
       });
+      console.log(securities);
       const arrayId = securities[0].securities.map(
         (security) => security.dataValues.id
       );
@@ -223,24 +216,25 @@ class AdminServicesGet {
         onlyCalendar: onlyWithCalendar,
       };
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
 
   static async serviceGetAllSecuritiesByProvincie(req, next) {
     try {
-      const provincie = await BranchOficce.findAll({
+      const provincieBranch = await BranchOficce.findAll({
         where: {
           name: req.params.name,
         },
       });
-      const provincieId = provincie[0].provincyId;
+
+      const provincieId = provincieBranch[0].provincyId;
       const securities = await Securities.findAll({
         include: {
           association: Securities.provincie,
           where: {
             id: provincieId,
-            status:true
           },
         },
       });
@@ -381,15 +375,27 @@ class AdminServicesGet {
     }
   }
 
+  // static async servicesGetOneRequest(req, res, next) {
+  //   try {
+  //     const oneRequest = await AbsenceRequest.findOne({
+  //       where: { id: req.params.id },
+  //     });
+
+  //     return oneRequest;
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
+
   static async servicesGetOneRequest(req, res, next) {
     try {
-      const security = await Securities.findOne({
+      const oneRequest = await AbsenceRequest.findOne({
         where: { id: req.params.id },
       });
-      const oneRequest = await AbsenceRequest.findOne({
-        where: { securityId: security.id },
+      const security = await Securities.findOne({
+        where: { id: oneRequest.securityId },
       });
-      return oneRequest;
+      return { oneRequest, security };
     } catch (err) {
       next(err);
     }
@@ -479,15 +485,16 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetAllEventsOfBranch(req,next) {
+  static async serviceGetAllEventsOfBranch(req, next) {
     try {
-      const eventsBranch = await Events.findAll({where:{
-        branchName: req.params.name
-      }});
+      const eventsBranch = await Events.findAll({
+        where: {
+          branchName: req.params.name,
+        },
+      });
       return eventsBranch;
     } catch (err) {
       next(err);
-
     }
   }
 }

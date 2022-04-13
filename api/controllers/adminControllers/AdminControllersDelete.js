@@ -16,16 +16,6 @@ class AdminControllerDelite {
     return res.sendStatus(202);
   }
 
-  static async removeOffice(req, res, next) {
-    await AdminServicesDelite.serviceRemoveOffice(req, next);
-    return res.status(202).json([]);
-  }
-
-  static async removeScheduleSecurity(req, res, next) {
-    await AdminServicesDelite.serviceRemoveCalendarSecurity(req, next);
-    return res.sendStatus(202);
-  }
-
   static async removeSecurityByOffice(req, res, next) {
     await AdminServicesDelite.serviceRemoveSecurityByOffice(req, next);
     return res.sendStatus(202);

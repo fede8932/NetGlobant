@@ -108,7 +108,7 @@ class AdminControllerGet {
       next
     );
     return officeCalendar
-      ? res.status(200).json(officeCalendar)
+      ? res.status(200).send(officeCalendar)
       : res.sendStatus(404);
   }
 
@@ -134,12 +134,12 @@ class AdminControllerGet {
       next
     );
     console.log(securities);
-    return res.send(securities);
+    return securities ? res.status(200).send(securities) : res.status(500).send([]) 
   }
 
 
   static async getAllDisabled(req,res,next){
-    const Disabled= await AdminServicesGet.serviceGetInhabites(req, next)
+    const Disabled= await AdminServicesGet.serviceGetDisabled(req, next)
     return Disabled? res.status(200).send(Disabled) : res.sendStatus(500)
 
   }
@@ -170,7 +170,7 @@ class AdminControllerGet {
   }
 
   static async getOneRequest(req, res, next){
-    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req,next)
+    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req, next)
     return oneRequest? res.status(200).send(oneRequest): res.sendStatus(500)
   }
   static async getAllEvents(req, res, next) {

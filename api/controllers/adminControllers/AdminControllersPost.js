@@ -1,6 +1,5 @@
 const AdminServicesPost = require("../../services/AdminServices/AdminServicesPost");
 
-
 class AdminControllerPost {
   static async addSecurity(req, res, next) {
     const office = await AdminServicesPost.serviceAddSecurity(req, next);
@@ -18,10 +17,10 @@ class AdminControllerPost {
   }
   //------------------------- este es el controller a usar para calendario (vision sucursal) --------------------------------------//
   static async addSchedule(req, res, next) {
-    await AdminServicesPost.serviceAddSchedule(req, next);
-    return res.sendStatus(201);
+    const schedule = await AdminServicesPost.serviceAddSchedule(req, next);
+    return schedule ? res.status(201).json(schedule) : res.sendStatus(500);
   }
-  //-----------------------------------------------------------------------------------------------------------------------------///
+  //--------------------------------------------------------- q--------------------------------------------------------------------///
   static async addScheduleSecurity(req, res, next) {
     const workDay = await AdminServicesPost.serviceAddScheduleSecurity(
       req,
@@ -32,11 +31,6 @@ class AdminControllerPost {
 
   static async asingScheduleToSecurity(req, res, next) {
     await AdminServicesPost.serviceAsingSchedule(req, next);
-    return res.sendStatus(201);
-  }
-
-  static async asingScheduleToOffice(req, res, next) {
-    await AdminServicesPost.serviceAsingScheduleOffice(req, next);
     return res.sendStatus(201);
   }
 
@@ -93,13 +87,12 @@ class AdminControllerPost {
 
   static async rehabitedAdmins(req, res, next) {
     const admins = await AdminServicesPost.serviceRehabitedAdmins(req, next);
-    console.log("ADMIN DE CONTROLLERS", admins)
-    return admins ? res.status(200).send(admins) : res.sendStatus(500);
+    return admins ? res.status(200).send(admins) : res.send([]);
   }
 
-   static async addEvent(req, res, next) {
-    const newEvent= await AdminServicesPost.serviceAddEvent(req, next);
+  static async addEvent(req, res, next) {
+    const newEvent = await AdminServicesPost.serviceAddEvent(req, next);
     return newEvent ? res.status(201).json(newEvent) : res.sendStatus(404);
-      }
+  }
 }
 module.exports = AdminControllerPost;

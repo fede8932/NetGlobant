@@ -42,13 +42,15 @@ import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
-
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
 import MasInfo from "./components/MasInfo";
 import ClientSelectNuevo from "./components/ClientSelectNuevo";
 import StatesSecurity from "./components/StatesSecurity"
 import ChangePassword from "./components/ChangePassword";
 import SinPass from "./components/SinPass";
+import StatesSecurity from "./components/StatesSecurity";
+import AdminForgotPassword from "./components/AdminForgotPassword";
+import EditRequest from "./components/EditRequest";
 
 function App() {
   const dispatch = useDispatch();
@@ -79,7 +81,6 @@ function App() {
           <></>
         )}
 
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/homemobile" element={<HomeMobile />} />
@@ -109,9 +110,9 @@ function App() {
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
           <Route path="/states" element={<StatesSecurity />} />
+          <Route path="/states/:id" element={<EditRequest />} />
           <Route path="/set/client" element={<BranchSelectNuevo />} />
           <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
-
         </Routes>
       </div>
     </>
@@ -128,6 +129,7 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
         <Route path="/user/passw" element={<ChangePassword />} />
         <Route path="/newSecurityPassword/:token" element={<SinPass />} />
+        <Route path="/changePassword/admin" element={<AdminForgotPassword />} />
       </Routes>
     </>
   );

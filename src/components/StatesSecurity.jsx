@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
+import { getAllRequests } from "../states/requests";
+import { useDispatch, useSelector } from "react-redux";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const StatesSecurity = () => {
+  const requests = useSelector((state) => state.requests);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getAllRequests());
+  }, []);
+
+  const handleRequest = (id) => {
+    
+    navigate(`/states/${id}`);
+    console.log("editar")
+  }
+
+  console.log("allrequests", requests)
   return (
     <>
-      <h3 style={{ width: "50%", margin: "0 auto", marginTop: "60px" }}>
-        Estados Pedidos de Ausencia
+      <h3 style={{ width: "50%", margin: "0 auto", marginTop: "60px", color:"grey" }}>
+        PEDIDOS DE AUSENCIA
       </h3>
 
       <Table
@@ -17,21 +36,26 @@ const StatesSecurity = () => {
       >
         <thead>
           <tr>
-            <th>Vigilador</th>
-            <th>Sucursal</th>
-            <th>Dia</th>
+            <th>ID Vigilador</th>
+            <th>Razón</th>
+            <th>Comienzo</th>
+            <th>Fin</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
-          {/* {branches?.map((branch, id) => (
-            <tr key={branch.id} onClick={() => handleBranch(branch.id)}>
-              <td>{branch.id}</td>
-              <td>{branch.name}</td>
-              <td>{branch.address}</td>
-              <td>{branch.city}</td>
+          {requests?.map((req) => (
+            <tr
+              key={req.id}
+              onClick={() => handleRequest(req.id)}
+            >
+              <td>{req.id}</td>
+              <td>{req.reason}</td>
+              <td>{req.initDate}</td>
+              <td>{req.endDate}</td>
+              <td>{req.status}</td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </Table>
     </>

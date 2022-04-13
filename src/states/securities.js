@@ -17,7 +17,7 @@ export const getCloseSecurities = createAsyncThunk(
   "GET_CLOSE_SECURITIES",
   async ({ provincyId, addressX,addressY}) => {
     try {
-      
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA", provincyId, addressX, addressY)
       const closeSecurities = await axios.get(
         `/api/admin/securitiesByDistance/${provincyId}`,
         { x: addressX, y: addressY }
