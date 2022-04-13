@@ -26,7 +26,7 @@ class AdminServicesDelite {
         },
       });
       console.log(security)
-      workDay.removeSecurities(security);
+      security.removeWorkDays(workDay);
       workDay.removeEvent(event);
       
     } catch (err) {
@@ -66,14 +66,32 @@ class AdminServicesDelite {
 
   static async serviceRemoveEvent(req, next) {
     try {
+        
+        const event = await Events.findOne({
+          where: {
+            id: req.params.id,
+          },
+        });
+        const workDay = await WorkDay.findOne({
+          where: { date: event.date },
+        });
+        const security = await Securities.findOne({
+          where: {
+            CUIL: req.body.CUIL,
+          },
+        });
+        console.log(security)
+        security.removeWorkDays(workDay);
+        workDay.removeEvent(event);
       await Events.destroy({
         where: {
-          id: req.params.id,
+          id: event.id,
         },
       });
-    } catch (err) {
+    }catch (err) {
       next(err);
     }
-  }
+  
+}
 }
 module.exports = AdminServicesDelite;

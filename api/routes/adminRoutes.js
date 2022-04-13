@@ -40,17 +40,11 @@ adminRouter.get("/calendar/security/:id", AdminControllerGet.getOfficeCalendarSe
 // TRAE SECURITIES POR PROVINCIA
 adminRouter.get("/provincie/security/office/:name",AdminControllerGet.getSecuritiesByProvincie);
 // TRAE TODAS LA IMAGENES POR WORKDAY ID
-adminRouter.get(
-  "/images/security/day/:id",
-  AdminControllerGet.getImageSecurityByDay
-);
+adminRouter.get("/images/security/day/:id", AdminControllerGet.getImageSecurityByDay);
 //TRAE A TODAS COSAS QUE ESTEN INHABILITADAS
 adminRouter.get("/disabled", AdminControllerGet.getAllDisabled);
 //TRAER A TODOS LOS SECURITIES INHABILITADOS
-adminRouter.get(
-  "/disabled/securities",
-  AdminControllerGet.getSecuritiesDisabled
-);
+adminRouter.get("/disabled/securities",AdminControllerGet.getSecuritiesDisabled);
 //TRAE A TODOS LOS CLIENTES INHABILITADOS
 adminRouter.get("/disabled/client", AdminControllerGet.getClientsDisabled);
 //TRAE TODAS LAS OFICINAS INHABILITADAS}
@@ -81,54 +75,32 @@ adminRouter.post("/add/client", AdminControllerPost.addClient);
 // AGREGA OFICINA
 adminRouter.post("/add/office", AdminControllerPost.addOffice);
 // AGREGA PROVINCIA A VIGILANTE
-adminRouter.post(
-  "/add/provincie/security",
-  AdminControllerPost.addSecurityProvincie
-);
+adminRouter.post("/add/provincie/security",AdminControllerPost.addSecurityProvincie);
 // AGREGA VIGILANTE A OFICINA
 adminRouter.post("/add/office/security", AdminControllerPost.addSecurityOffice);
 // AGREGA CALENDAR A OFICINA ---> USAR ESTA RUTA PARA CREAR UNA JORNADA LABORAL
 adminRouter.post("/add/Calendar/office", AdminControllerPost.addSchedule);
 // AGREGA CALENDAR A VIGILANTE
-adminRouter.post(
-  "/add/Calendar/security",
-  AdminControllerPost.addScheduleSecurity
-);
+adminRouter.post("/add/Calendar/security",AdminControllerPost.addScheduleSecurity);
 // ASIGNA CALENDAR A VIGILANTE
-adminRouter.post(
-  "/assign/Calendar/security",
-  AdminControllerPost.asingScheduleToSecurity
-);
+adminRouter.post("/assign/Calendar/security",AdminControllerPost.asingScheduleToSecurity);
 // ASIGNA CALENDAR A OFICINA
-adminRouter.post(
-  "/assign/Calendar/office",
-  AdminControllerPost.asingScheduleToOffice
-);
+adminRouter.post("/assign/Calendar/office",AdminControllerPost.asingScheduleToOffice);
 // POST EVENT
 adminRouter.post("/add/event", AdminControllerPost.addEvent);
 
 //MODIFICA VIGILADORES ASIGNADOS
-adminRouter.delete(
-  "/remove/office/security/:name/:id",
-  AdminControllerDelete.removeSecurityByOffice
-);
+adminRouter.delete("/remove/office/security/:name/:id",AdminControllerDelete.removeSecurityByOffice);
 //BORRA CALENDAR DE OFICINA POR ID
-adminRouter.delete(
-  "/remove/calendar/office/:id",
-  AdminControllerDelete.removeScheduleOffice
-);
+adminRouter.delete("/remove/calendar/office/:id",AdminControllerDelete.removeScheduleOffice);
 //BORRA  CALENDAR DE VIGILANTE POR ID
-adminRouter.delete(
-  "/remove/calendar/security/:id",
-  AdminControllerDelete.removeScheduleSecurity
-);
+adminRouter.delete("/remove/calendar/security/:id",AdminControllerDelete.removeScheduleSecurity);
+//ELIMINA UN EVENTO DEL CALENDARIO
+adminRouter.delete("/deleteEvent/:id", AdminControllerDelete.removeEvent);
 
 //<<<<<<---------------I N H A B I L I T A C I O N E S ---------------------->>>>>
 // INHABILITA VIGILANTE POR ID
-adminRouter.post(
-  "/disabled/security/:id",
-  AdminControllerPost.disabledSecurity
-);
+adminRouter.post("/disabled/security/:id",AdminControllerPost.disabledSecurity);
 //INHABILITA CLIENTE POR ID
 adminRouter.post("/disabled/client/:id", AdminControllerPost.disabledClient);
 //INHABILITA OFICINS POR ID
@@ -138,10 +110,7 @@ adminRouter.post("/disabled/admin/:id", AdminControllerPost.disabledAdmins);
 
 // <<--------REHABILITACIONES------>>>>
 //REHABILITAR SECURITY
-adminRouter.put(
-  "/rehabited/security/:id",
-  AdminControllerPost.rehabitedSecurities
-);
+adminRouter.put("/rehabited/security/:id",AdminControllerPost.rehabitedSecurities);
 //REHABILITAR OFFICE
 adminRouter.put("/rehabited/office/:id", AdminControllerPost.rehabitedOffices);
 //REHABILITAR CLIENT
@@ -159,10 +128,7 @@ adminRouter.put("/edit/client/:id", AdminControllerPut.editClient);
 // EDITA CALENDAR POR ID
 adminRouter.put("/edit/calendar/:id", AdminControllerPut.editCalendar);
 // EDITA EL ESTADO DE UN SECURITY
-adminRouter.put(
-  "/edit/securityStatus/:id",
-  AdminControllerPut.editSecurityStatus
-);
+adminRouter.put("/edit/securityStatus/:id",AdminControllerPut.editSecurityStatus);
 //APRUEBA O DESAPRUEBA UNA PETICION DE AUSENCIA
 adminRouter.put("/request/absence/:id", AdminControllerPut.responseToRequest);
 //EDITA EL EVENTO DE UN CALENDARIO
@@ -181,7 +147,5 @@ adminRouter.patch("/validate/Office/:id", AdminControllerPatch.patchOffice);
 //CAMBIA LA CONTRASEÑA
 adminRouter.patch("/changePassword/:id", AdminControllerPatch.patchPassword);
 
-//ELIMINA UN EVENTO DEL CALENDARIO
-adminRouter.delete("/deleteEvent/:id", AdminControllerDelete.removeEvent);
 
 module.exports = adminRouter;

@@ -46,7 +46,7 @@ const store = configureStore({
     events: eventsReducer,
     event: eventReducer,
     nextWorkDays: nextWorkDayReducer,
-    ingresoEgreso: checkInReducer
+    ingresoEgreso: checkInReducer,
     branchCalendar: singleCalendarBranch,
   },
 });
