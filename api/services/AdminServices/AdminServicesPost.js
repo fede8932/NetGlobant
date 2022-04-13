@@ -95,6 +95,7 @@ class AdminServicesPost {
   //------------------------------------------ usar este service para calendario (vision  segun oficina)-------------------------------//
   static async serviceAddSchedule(req, next) {
     try {
+      console.log("ESTO ES REQ BODY", req.body)
       const branchOficces = await BranchOficce.findOne({
         where: { name: req.body.branchName },
       });
@@ -104,7 +105,7 @@ class AdminServicesPost {
         },
       });
       const workDay = await WorkDay.create(req.body);
-      console.log("WORKDAY", workDay);
+      console.log("WORKDAY 1", workDay);
       
       branchOficces.addWorkDays(workDay);
       security.addWorkDays(workDay);
@@ -354,9 +355,10 @@ class AdminServicesPost {
   static async serviceAddEvent(req, next) {
     try {
       const event = await Events.create(req.body);
+      console.log("ESTO ES EVENT", event.dataValues)
       const workDay = await WorkDay.findOne({
         where: {
-          date: event.date,
+          date: event.dataValues.date,
         },
       });
       console.log("WORKDAY", workDay);

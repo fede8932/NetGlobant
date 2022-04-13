@@ -2,14 +2,13 @@ import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 import axios from "axios";
 import swal from "sweetalert";
 
-
 export const postSecurityToSchedule = createAsyncThunk(
     "POST_SECURITY_SCHEDULE",
     async (info) => {
       try {
-        console.log("info post schedule", info)
+        console.log("INFOIIIIIIIIIIIOOOOOOOOOOOO", info)
         const securityPosted = await axios.post(
-          `/api/admin/add/Calendar/office`, info
+          `/api/admin/add/Calendar/offiqce`, info
         );
         swal({
           title: "El horario fue asignado",

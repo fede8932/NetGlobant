@@ -69,9 +69,8 @@ const NewCalendar = () => {
     data.start = actualDate.concat("T", data.wishEntryHour, ":00");
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     data.securityId = parseInt(array[3]);
-    console.log("DATAAAAAAAAAAAAAA", data);
+    //dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
-    dispatch(postEvent(data));
     setEvent(data);
   };
 
@@ -143,9 +142,6 @@ const NewCalendar = () => {
               />
             </Button>
             <br />
-            <i className="event_calendar">
-              {evento.event._def.extendedProps.securityName}
-            </i>
             <br />
             <div style={{ position: "relative", marginTop: "2px" }}></div>
           </div>
