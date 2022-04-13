@@ -32,6 +32,14 @@ export const getClient = createAsyncThunk(
 export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
   try {
     const client = await axios.get(`/api/admin/clients/${id}`);
+    const startDate = client.data.startContratDate.slice(0, 10).split("-");
+    client.data.startContratDate = startDate[2].concat(
+      `-${startDate[1]}-${startDate[0]}`
+    );
+    const endDate = client.data.endContratDate.slice(0, 10).split("-");
+    client.data.endContratDate = endDate[2].concat(
+      `-${endDate[1]}-${endDate[0]}`
+    );
     return client.data;
   } catch (err) {
     console.log(err);
@@ -40,7 +48,6 @@ export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
 
 export const editClient = createAsyncThunk("EDIT_CLIENT", async (client) => {
   try {
-    console.log("STORE DE REDUX", client)
     const editedClient = await axios.put(
       `/api/admin/edit/client/${client.id}`,
       client

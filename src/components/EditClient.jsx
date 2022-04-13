@@ -16,6 +16,8 @@ const EditSecurity = () => {
   let client = useSelector((state) => state.client);
   const legalAddress = useInput(client.legalAddress);
   const email = useInput(client.email);
+  const city = useInput(client.city);
+  const province = useInput(client.province);
   const startContratDate = useInput(client.startContratDate);
   const endContratDate = useInput(client.endContratDate);
   const navigate = useNavigate();
@@ -90,6 +92,76 @@ const EditSecurity = () => {
                   <ErrorMessage
                     errors={errors}
                     name="legalAddress"
+                    render={({ message }) => <p>{message}</p>}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <Form.Label className="labels">Ciudad</Form.Label>
+                  <Form.Control
+                    {...register("city")}
+                    value={city.value}
+                    onChange={city.onChange}
+                    size="ms"
+                    className="position-relative"
+                    name="city"
+                    variant="outlined"
+                    required
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="city"
+                    render={({ message }) => <p>{message}</p>}
+                  />
+                </div>
+
+                <div className="col-md-12">
+                  <Form.Label className="labels">Provincia</Form.Label>
+
+                  <Form.Control
+                    as="select"
+                    size="ms"
+                    placeholder="Provincia"
+                    className="position-relative"
+                    name="province"
+                    variant="outlined"
+                    {...register("province", {
+                      required: {
+                        value: true,
+                        message: "Necesitas este campo",
+                      },
+                    })}
+                    //ver cómo agregar el valor de la provincia
+                    value={province.value}
+                    onChange={province.onChange}
+                  >
+                    <option>Buenos Aires</option>
+                    <option>Córdoba</option>
+                    <option>San Luis</option>
+                    <option>Catamarca</option>
+                    <option>Tierra Del Fuego</option>
+                    <option>Santa Cruz</option>
+                    <option>Río Negro</option>
+                    <option>Neuquén</option>
+                    <option>La Pampa</option>
+                    <option>Santa Fé</option>
+                    <option>La Rioja</option>
+                    <option>Tucumán</option>
+                    <option>Corrientes</option>
+                    <option>Entre Ríos</option>
+                    <option>Misiones</option>
+                    <option>Chaco</option>
+                    <option>Formosa</option>
+                    <option>Jujuy</option>
+                    <option>San Juan</option>
+                    <option>Salta</option>
+                    <option>Mendoza</option>
+                    <option>Santiago del Estero</option>
+                    <option>Chubut</option>
+                  </Form.Control>
+
+                  <ErrorMessage
+                    errors={errors}
+                    name="province"
                     render={({ message }) => <p>{message}</p>}
                   />
                 </div>
