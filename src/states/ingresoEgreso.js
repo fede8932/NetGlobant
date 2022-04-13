@@ -12,7 +12,7 @@ export const workDay = async (data) => {
 
 export const inRegister = async (data) => {
     try {
-      const ingreso = await axios.put(`/api/security/myEffictiveWorkDay/entry/${data.id}/${data.time}`);
+      const ingreso = await axios.put(`/api/security/myEffictiveWorkDay/entry/${data.id}/${data.time}/${data.loc}`);
       return ingreso;
     } catch (err) {
       console.log(err);
@@ -21,7 +21,7 @@ export const inRegister = async (data) => {
 
 export const outRegister = async (data) => {
     try {
-      const egreso = await axios.put(`/api/security/myEffictiveWorkDay/close/${data.id}/${data.time}`);
+      const egreso = await axios.put(`/api/security/myEffictiveWorkDay/close/${data.id}/${data.time}/${data.loc}`);
       return egreso;
     } catch (err) {
       console.log(err);

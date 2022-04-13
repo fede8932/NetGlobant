@@ -87,7 +87,7 @@ class SecuritiesServices {
       });
      const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
       const [rows, workDay] = await WorkDay.update(
-        { entryHour: req.params.date, serverHourEntry: new Date() },
+        { entryHour: req.params.date, inLocation: req.params.geo, serverHourEntry: new Date() },
         {
           where: { id: todaySecurity[0].dataValues.id},
           returning: true,
@@ -116,7 +116,7 @@ class SecuritiesServices {
      const todaySecurity= allWorkDays.workDays.filter((workaday)=> workaday.date === justDate)
      
       const [rows, workDay] = await WorkDay.update(
-        { closingHour: req.params.date, serverHourClosing: new Date() },
+        { closingHour: req.params.date, outLocation: req.params.geo, serverHourClosing: new Date() },
         {
           where: { id: todaySecurity[0].dataValues.id},
           returning: true,

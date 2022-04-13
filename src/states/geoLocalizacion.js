@@ -9,7 +9,7 @@ export const pendientes = function (){
   if(navigator.onLine && ingreso){
     axios({
       method: "PUT",
-      url : `/api/security/myEffictiveWorkDay/entry/${ingreso.id}/${ingreso.fechaHora}`
+      url : `/api/security/myEffictiveWorkDay/entry/${ingreso.id}/${ingreso.fechaHora}/${ingreso.ubicacion.toString()}`
     }).then(()=>{
       localStorage.removeItem('userIng');
       console.log("ingreso guardado")})
@@ -17,7 +17,7 @@ export const pendientes = function (){
   if(navigator.onLine && egreso){
     axios({
       method: "PUT",
-      url : `/api/security/myEffictiveWorkDay/close/${egreso.id}/${egreso.fechaHora}`
+      url : `/api/security/myEffictiveWorkDay/close/${egreso.id}/${egreso.fechaHora}/${egreso.ubicacion.toString()}`
     }).then(()=>{
       localStorage.removeItem('userEgr');
       console.log("egreso guardado")})

@@ -45,6 +45,9 @@ import ClientSelect from "./components/ClientSelect";
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
 import MasInfo from "./components/MasInfo";
 import ClientSelectNuevo from "./components/ClientSelectNuevo";
+import StatesSecurity from "./components/StatesSecurity"
+import ChangePassword from "./components/ChangePassword";
+import SinPass from "./components/SinPass";
 import StatesSecurity from "./components/StatesSecurity";
 import AdminForgotPassword from "./components/AdminForgotPassword";
 import EditRequest from "./components/EditRequest";
@@ -124,6 +127,8 @@ function App() {
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="/user/passw" element={<ChangePassword />} />
+        <Route path="/newSecurityPassword/:token" element={<SinPass />} />
         <Route path="/changePassword/admin" element={<AdminForgotPassword />} />
       </Routes>
     </>

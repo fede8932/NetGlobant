@@ -37,6 +37,12 @@ WorkDay.init(
     imageSecurity: {
       type: S.STRING,
     },
+    inLocation: {
+      type: S.STRING,
+    },
+    outLocation: {
+      type: S.STRING,
+    },
   },
   {
     sequelize: db,

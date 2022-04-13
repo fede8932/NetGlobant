@@ -9,9 +9,9 @@ securityRouter.put("/mypassword/:id", SecurityController.changeMyPassword);
 
 securityRouter.put("/cancelledWorkDay/:id",SecurityController.cancellMyWorkDay);
 
-securityRouter.put("/myEffictiveWorkDay/entry/:id/:date",SecurityController.writeMyWorkDayEntry);
+securityRouter.put("/myEffictiveWorkDay/entry/:id/:date/:geo",SecurityController.writeMyWorkDayEntry);
 
-securityRouter.put("/myEffictiveWorkDay/close/:id/:date",SecurityController.writeMyWorkDayClose);
+securityRouter.put("/myEffictiveWorkDay/close/:id/:date/:geo",SecurityController.writeMyWorkDayClose);
 
 securityRouter.post("/photoWorkDay", SecurityController.saveImageSecurity);
 

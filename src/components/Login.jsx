@@ -1,14 +1,15 @@
 import LoginCss from "../style/Home.module.css";
 import { useForm } from "react-hook-form";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Button, Form , Spinner} from "react-bootstrap";
 import { FiUser } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../states/user";
 import { useDispatch, useSelector } from "react-redux";
 import "../style/estilos.scss";
 
 export default function Login() {
+  const device = useSelector((state) => state.device);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const admin = useSelector((state) => state.device) === "mobile" ? false : true;
@@ -34,6 +35,7 @@ export default function Login() {
       JSON.stringify({
         id: token.data[user].id,
         name: token.data[user].name,
+        email: token.data[user].email,
         token: token.data.jwt.token,
       })
     );
@@ -41,6 +43,7 @@ export default function Login() {
       setUser({
         id: token.data[user].id,
         name: token.data[user].name,
+        email: token.data[user].email,
         token: token.data.jwt.token,
       })
     );
@@ -134,14 +137,16 @@ export default function Login() {
                   INICIAR SESIÓN
                 </Button>
                 <br></br>
-                <br></br>
+                <Link to={device == "desk" ? "/changePassword/admin" : "/user/passw"}>
+                  <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
+                </Link>
               </div>
             </div>
           </div>
         </Form>
       </Container>
-      <Link to="/changePassword/admin">
-        <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
+      <Link to={device == "desk" ? "/changePassword/admin" : "/user/passw"}>
+          <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
       </Link>
     </div>
   );
