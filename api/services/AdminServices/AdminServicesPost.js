@@ -77,12 +77,12 @@ class AdminServicesPost {
       const security = await Securities.findOne({
         where: {
           CUIL: req.body.CUIL,
-          /* status: true */
+          status: true,
         },
       });
 
       const workDay = await WorkDay.findOne({
-        where: { id: req.body.id /* status: true */ },
+        where: { id: req.body.id },
       });
       security.addWorkDays(workDay);
       security.isBusy = true;
@@ -92,22 +92,6 @@ class AdminServicesPost {
     }
   }
 
-  static async serviceAsingScheduleOffice(req, next) {
-    try {
-      const security = await BranchOficce.findOne({
-        where: {
-          id: req.body.officeId,
-          status: true,
-        },
-      });
-      const workDay = await WorkDay.findOne({
-        where: { id: req.body.id /* status: true */ },
-      });
-      security.addWorkDays(workDay);
-    } catch (err) {
-      next(err);
-    }
-  }
   //------------------------------------------ usar este service para calendario (vision  segun oficina)-------------------------------//
   static async serviceAddSchedule(req, next) {
     try {
@@ -198,7 +182,6 @@ class AdminServicesPost {
       });
       const security = await Securities.findOne({
         where: {
-          name: req.body.name,
           CUIL: req.body.CUIL,
           status: true,
         },
@@ -257,11 +240,20 @@ class AdminServicesPost {
       const client = await Client.findOne({
         where: { id: req.params.id },
       });
+      const branchOficce = await BranchOficce.findAll({
+        where: { clientId: client.id },
+      });
       const disabled = await Disabled.create(req.body);
+      branchOficce.map(async (branchOffice) => {
+        const disabled = await Disabled.create(req.body);
+        branchOffice.dataValues.status = false && branchOffice.save();
+        return disabled.setBranchOficce(branchOffice);
+      });
       disabled.setClient(client);
       client.status = false;
       client.save();
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -363,7 +355,7 @@ class AdminServicesPost {
           date: event.date,
         },
       });
-      console.log("EVENT", event, "WORKDAY", workDay)
+      console.log("EVENT", event, "WORKDAY", workDay);
       event.addWorkDays(workDay);
       return event;
     } catch (err) {

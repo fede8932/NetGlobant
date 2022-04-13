@@ -35,10 +35,7 @@ class AdminControllerPost {
     return res.sendStatus(201);
   }
 
-  static async asingScheduleToOffice(req, res, next) {
-    await AdminServicesPost.serviceAsingScheduleOffice(req, next);
-    return res.sendStatus(201);
-  }
+
 
   static async addSecurityOffice(req, res, next) {
     const security = await AdminServicesPost.serviceAddSecurityOffice(
@@ -93,8 +90,7 @@ class AdminControllerPost {
 
   static async rehabitedAdmins(req, res, next) {
     const admins = await AdminServicesPost.serviceRehabitedAdmins(req, next);
-    console.log("ADMIN DE CONTROLLERS", admins)
-    return admins ? res.status(200).send(admins) : res.sendStatus(500);
+    return admins ? res.status(200).send(admins) : res.send([]);
   }
 
    static async addEvent(req, res, next) {
