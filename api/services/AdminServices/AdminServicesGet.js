@@ -138,11 +138,19 @@ class AdminServicesGet {
 
   static async serviceGetOneOffice(req, next) {
     try {
-      const oneOffice = await BranchOficce.findByPk(req.params.id);
-      const officeName = await Client.findByPk(oneOffice.clientId);
+      const oneOffice = await BranchOficce.findOne({
+        where:{
+          id:req.params.id}
+      });
+      console.log(oneOffice.clientId)
+      const officeName = await Client.findOne({
+        where:{
+          id:oneOffice.clientId}});
+          console.log(officeName)
       oneOffice.dataValues.clientName = officeName.bussinessName;
       return oneOffice;
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }
