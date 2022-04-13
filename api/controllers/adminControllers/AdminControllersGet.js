@@ -170,7 +170,7 @@ class AdminControllerGet {
   }
 
   static async getOneRequest(req, res, next){
-    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req,next)
+    const oneRequest= await AdminServicesGet.servicesGetOneRequest(req, next)
     return oneRequest? res.status(200).send(oneRequest): res.sendStatus(500)
   }
   static async getAllEvents(req, res, next) {

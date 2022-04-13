@@ -255,6 +255,9 @@ class AdminServicesPost {
 
   static async serviceDisabledClient(req, next) {
     try {
+
+      console.log("req.params => ", req.params)
+      console.log("req.body => ", req.body)
       const client = await Client.findOne({
         where: { id: req.params.id },
       });
@@ -262,6 +265,7 @@ class AdminServicesPost {
       disabled.setClient(client);
       client.status = false;
       client.save();
+
     } catch (err) {
       next(err);
     }

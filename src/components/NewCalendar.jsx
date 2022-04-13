@@ -69,14 +69,13 @@ const NewCalendar = () => {
     data.start = actualDate.concat("T", data.wishEntryHour, ":00");
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     data.securityId = parseInt(array[3]);
-    console.log("DATAAAAAAAAAAAAAA", data)
+    console.log("DATAAAAAAAAAAAAAA", data);
     dispatch(postSecurityToSchedule(data));
     dispatch(postEvent(data));
     setEvent(data);
   };
 
   const handleDelete = (eventToDelete) => {
-    console.log("AAAAAAAAAAAAAAAAAAA", eventToDelete);
     swal({
       title: "Estas seguro que quieres borrar el evento?",
       icon: "warning",
@@ -85,6 +84,7 @@ const NewCalendar = () => {
     }).then((eliminar) => {
       if (eliminar) {
         //eventToDelete.securityId = eventToDelete.
+        console.log(eventToDelete._def.publicId);
         dispatch(deleteEvent(eventToDelete._def.publicId));
         setEvent(eventToDelete);
         swal("El evento fue eliminado", {
@@ -101,7 +101,6 @@ const NewCalendar = () => {
   };
 
   const renderEventContent = (evento) => {
-    console.log("ESTO ES EVENTOOO", evento);
     if (evento.event._def.extendedProps.securityName) {
       return (
         <>
@@ -134,7 +133,7 @@ const NewCalendar = () => {
                 border: "none",
                 float: "rigth",
                 size: "5%",
-                marginLeft: "20px",
+                marginLeft: "0px",
               }}
               onClick={() => handleEdit(evento.event)}
             >
@@ -143,6 +142,12 @@ const NewCalendar = () => {
                 style={{ size: "1px", color: "grey" }}
               />
             </Button>
+            <br />
+            <i className="event_calendar">
+              {evento.event._def.extendedProps.securityName}
+            </i>
+            <br />
+            <div style={{ position: "relative", marginTop: "2px" }}></div>
           </div>
         </>
       );
