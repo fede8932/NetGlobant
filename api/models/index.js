@@ -8,41 +8,25 @@ const Disabled = require("./Disabled");
 const AbsenceRequest = require("./AbsenceRequest");
 const Events = require("./Events");
 
-/* asocianes */
-/* -un cliente tiene muchas sucursales: */
+Disabled.belongsTo(Securities);
+Disabled.belongsTo(Client);
+Disabled.belongsTo(BranchOficce);
+Disabled.belongsTo(Admin);
+AbsenceRequest.belongsTo(Securities);
 Client.offices = BranchOficce.belongsTo(Client);
-/* -una sucursal le pertenece a una  provincia */
 BranchOficce.belongsTo(Provincies);
-/* -un vigilador esta habilitado en distintas provincias */
+Events.belongsTo(WorkDay);
+
 Securities.provincie = Securities.belongsToMany(Provincies, {
   through: "provincies_security ",
 });
-/* -una sucursal tiene muchas jornadas */
 BranchOficce.calendar = BranchOficce.belongsToMany(WorkDay, {
   through: "calendar_office",
 });
-/* -un vigilador tiene muchas jornadas */
 Securities.calendar = Securities.belongsToMany(WorkDay, { through: "ownTime" });
-/* - a un vigilante se le asigna una sucursal */
 BranchOficce.security = BranchOficce.belongsToMany(Securities, {
   through: "yourSecurity",
 });
-/* - un pedido de ausencia le pertenece a un guardia de seguridad */
-AbsenceRequest.belongsTo(Securities);
-
-Events.belongsTo(WorkDay);
-
-//Events.belongsTo(Securities);
-
-/* asociociones de inhabilitacion */
-/* securities */
-Disabled.belongsTo(Securities);
-/* clients */
-Disabled.belongsTo(Client);
-/* branchOffice */
-Disabled.belongsTo(BranchOficce);
-/* Admins */
-Disabled.belongsTo(Admin);
 
 module.exports = {
   Admin,

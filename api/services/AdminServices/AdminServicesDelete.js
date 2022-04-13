@@ -34,16 +34,6 @@ class AdminServicesDelite {
     }
   }
 
-  // si el front me puede enviar el id del dia, lo la fecha o algo entonces va a quedar un solo service para office y par security, si en cambio me pasan dato de branch o de security entonces cambia ambas logicas y se mantienen por separado
-
-  static async serviceRemoveCalendarSecurity(req, next) {
-    try {
-      await WorkDay.destroy({
-        where: { id: req.params.id, status: true },
-      });
-    } catch (err) {}
-  }
-
   // USAR ESTA, PASARLE NAME DE OFFICE, ID GUARDIA
   static async serviceRemoveSecurityByOffice(req, next) {
     try {
@@ -57,7 +47,7 @@ class AdminServicesDelite {
           id: req.params.id,
         },
       });
-      office.removeSecurities(security);
+      office.removeSecurity(security);
       return office;
     } catch (err) {
       next(err);
@@ -84,6 +74,22 @@ class AdminServicesDelite {
       await Events.destroy({
         where: {
           id: req.params.id,
+        },
+      });
+      const workDay = await WorkDay.findOne({
+        where: { date: event.date },
+      });
+      const security = await Securities.findOne({
+        where: {
+          CUIL: req.body.CUIL,
+        },
+      });
+      console.log(security);
+      security.removeWorkDays(workDay);
+      workDay.removeEvent(event);
+      await Events.destroy({
+        where: {
+          id: event.id,
         },
       });
     } catch (err) {

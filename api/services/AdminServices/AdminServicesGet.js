@@ -10,8 +10,6 @@ const {
 } = require("../../models");
 /* const { Op } = require("@sequelize/core"); */
 const { Op } = require("sequelize");
-
-const { findAll } = require("../../models/Admin");
 const { distance } = require("../../lib/findDistance.js");
 
 class AdminServicesGet {
@@ -42,6 +40,7 @@ class AdminServicesGet {
       });
       return oneClient;
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -109,12 +108,7 @@ class AdminServicesGet {
       const allOfficeByClient = await BranchOficce.findAll({
         where: {
           clientId: req.params.clientId,
-        },
-        include: {
-          association: Client.offices,
-          where: {
-            status: true,
-          },
+          status: true,
         },
       });
       return allOfficeByClient;
@@ -126,17 +120,16 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      const client = await Client.findAll({
+      console.log(req.params);
+      const clients = await Client.findOne({
         where: {
           bussinessName: req.params.clientName,
         },
       });
-      const officies = await BranchOficce.findAll({
-        where: {
-          clientId: client[0].id,
-        },
+      const offices = await BranchOficce.findAll({
+        where: { clientId: clients.id },
       });
-      return officies;
+      return offices;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -200,6 +193,7 @@ class AdminServicesGet {
           association: BranchOficce.security,
         },
       });
+      console.log(securities);
       const arrayId = securities[0].securities.map(
         (security) => security.dataValues.id
       );
@@ -222,24 +216,25 @@ class AdminServicesGet {
         onlyCalendar: onlyWithCalendar,
       };
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
 
   static async serviceGetAllSecuritiesByProvincie(req, next) {
     try {
-      const provincie = await BranchOficce.findAll({
+      const provincieBranch = await BranchOficce.findAll({
         where: {
           name: req.params.name,
         },
       });
-      const provincieId = provincie[0].provincyId;
+
+      const provincieId = provincieBranch[0].provincyId;
       const securities = await Securities.findAll({
         include: {
           association: Securities.provincie,
           where: {
             id: provincieId,
-            status: true,
           },
         },
       });

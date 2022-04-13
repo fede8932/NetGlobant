@@ -108,7 +108,7 @@ class AdminControllerGet {
       next
     );
     return officeCalendar
-      ? res.status(200).json(officeCalendar)
+      ? res.status(200).send(officeCalendar)
       : res.sendStatus(404);
   }
 
@@ -139,7 +139,7 @@ class AdminControllerGet {
 
 
   static async getAllDisabled(req,res,next){
-    const Disabled= await AdminServicesGet.serviceGetInhabites(req, next)
+    const Disabled= await AdminServicesGet.serviceGetDisabled(req, next)
     return Disabled? res.status(200).send(Disabled) : res.sendStatus(500)
 
   }

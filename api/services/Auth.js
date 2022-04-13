@@ -1,5 +1,4 @@
 const { Securities, Admin } = require("../models");
-
 const { verifyPassword } = require("../lib/passwordUtils");
 const { creatingJWT } = require("../lib/JWTUtils");
 
@@ -19,17 +18,17 @@ class AuthServices {
         };
       }
     } else {
-        try {
-          await Securities.create(data);
-          return {
-            error: false,
-          };
-        } catch (error) {
-          return {
-            error: true,
-            response: error,
-          };
-        }
+      try {
+        await Securities.create(data);
+        return {
+          error: false,
+        };
+      } catch (error) {
+        return {
+          error: true,
+          response: error,
+        };
+      }
     }
   }
 
@@ -38,11 +37,14 @@ class AuthServices {
 
     if (admin) {
       try {
-        const administrator = await Admin.findOne({ where: {email: email} });
-        const isPasswordValid = await verifyPassword(password, administrator.password);
+        const administrator = await Admin.findOne({ where: { email: email } });
+        const isPasswordValid = await verifyPassword(
+          password,
+          administrator.password
+        );
         if (isPasswordValid) {
           const jwt = creatingJWT(administrator, admin);
-          administrator.password = null
+          administrator.password = null;
           return {
             error: false,
             response: {
@@ -62,11 +64,14 @@ class AuthServices {
       }
     } else {
       try {
-        const security = await Securities.findOne({ where: {email: email} });
-        const isPasswordValid = await verifyPassword(password, security.password);
+        const security = await Securities.findOne({ where: { email: email } });
+        const isPasswordValid = await verifyPassword(
+          password,
+          security.password
+        );
         if (isPasswordValid) {
           const jwt = creatingJWT(security, admin);
-          security.password = null
+          security.password = null;
           return {
             error: false,
             response: {
@@ -88,91 +93,96 @@ class AuthServices {
   }
 
   static async getSecurity(email) {
-    let security
+    let security;
     try {
-      security = await Securities.findOne({ where: { email } })
+      security = await Securities.findOne({ where: { email } });
       return {
         security,
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
   static async getAdmin(email) {
-    let administrator
+    let administrator;
     try {
-      administrator = await Admin.findOne({ where: { email } })
+      administrator = await Admin.findOne({ where: { email } });
       return {
         administrator,
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
 
-  static async updateAdminPassword(adminID, password){
-
+  static async updateAdminPassword(adminID, password) {
     try {
-      await Admin.update(password, { where: { id: adminID }})
+      await Admin.update({ password: password }, { where: { id: adminID } });
       return {
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
 
-  static async updateSecurityPassword(securityID, password){
-
+  static async updateSecurityPassword(securityID, password) {
     try {
-      await Admin.update(password, { where: { id: securityID }})
+      await Securities.update(
+        { password: password },
+        { where: { id: securityID } }
+      );
       return {
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
 
-  static async updateSecurityToken(securityID, token){
-
+  static async updateSecurityToken(securityID, token) {
     try {
-      await Securities.update({recoveryToken: token}, {
-        where: { id: securityID }
-      })
+      await Securities.update(
+        { recoveryToken: token },
+        {
+          where: { id: securityID },
+        }
+      );
       return {
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
 
-  static async updateAdminToken(adminID, token){
-
+  static async updateAdminToken(adminID, token) {
     try {
-      await Securities.update({recoveryToken: token}, {
-        where: { id: adminID }
-      })
+      await Securities.update(
+        { recoveryToken: token },
+        {
+          where: { id: adminID },
+        }
+      );
       return {
-        error: false
-      }
+        error: false,
+      };
     } catch (error) {
       return {
-        error: error
-      }
+        error: error,
+      };
     }
   }
 }

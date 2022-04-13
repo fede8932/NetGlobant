@@ -4,8 +4,9 @@ const {
   BranchOficce,
   WorkDay,
   AbsenceRequest,
-  Events
+  Events,
 } = require("../../models");
+const { Op } = require("sequelize");
 
 class AdminServicesPut {
   static async serviceEditOffice(req, next) {
@@ -40,8 +41,6 @@ class AdminServicesPut {
 
   static async serviceEditClient(req, next) {
     try {
-      console.log("req.body", req.body);
-
       const [rows, update] = await Client.update(req.body, {
         where: {
           id: req.params.id,
@@ -97,6 +96,27 @@ class AdminServicesPut {
       const request = await AbsenceRequest.findOne({
         where: { id: req.params.id },
       });
+      console.log(request.dataValues.securityId);
+      const security = await Securities.findOne({
+        where: { id: request.dataValues.securityId },
+        include: {
+          association: Securities.calendar,
+          where: {
+            date: {
+              [Op.between]: [
+                request.dataValues.initDate,
+                request.dataValues.endDate,
+              ],
+            },
+          },
+        },
+      });
+      console.log(security);
+      let days = [];
+      security[0].workDays.map((workDay) => days.push(workDay.id));
+      const workDays = await WorkDay.findAll({
+        where: { id: days },
+      });
       const [row, response] = await AbsenceRequest.update(
         { status: req.body.status },
         {
@@ -105,6 +125,11 @@ class AdminServicesPut {
           plain: true,
         }
       );
+
+      if (response.status === "Accepted") {
+        security.removeWorkDays(workDays);
+      }
+      console.log(response);
       return response;
     } catch (err) {
       next(err);
