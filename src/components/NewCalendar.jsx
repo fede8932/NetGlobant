@@ -15,14 +15,14 @@ import { getBranchById } from "../states/singleCalendarBranch";
 import { AiFillDelete } from "react-icons/ai";
 import { GrEdit } from "react-icons/gr";
 import swal from "sweetalert";
-import {deleteEvent} from "../states/singleEvent"
+import { deleteEvent } from "../states/singleEvent";
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
   const reduxEvents = useSelector((state) => state.events);
   const branch = useSelector((state) => state.branchCalendar);
-  const [event, setEvent] = useState([])
+  const [event, setEvent] = useState([]);
   const navigate = useNavigate();
   const id = useParams();
   const {
@@ -35,13 +35,14 @@ const NewCalendar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-  useEffect( async () => {
+  useEffect(async () => {
     try {
       const obtainedBranch = await dispatch(
         getBranchById(parseInt(id.clientId))
       );
-      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      const events = await dispatch(
+        getAllEventsBranch(obtainedBranch.payload.name)
+      );
       //setEvent(events.payload);
       const securities = await dispatch(
         getSelectedSecurities(obtainedBranch.payload.name)
@@ -67,14 +68,15 @@ const NewCalendar = () => {
     data.date = actualDate;
     data.start = actualDate.concat("T", data.wishEntryHour, ":00");
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
-    dispatch(postEvent(data));
+    data.securityId = parseInt(array[3]);
+    console.log("DATAAAAAAAAAAAAAA", data)
     dispatch(postSecurityToSchedule(data));
-    setEvent(data)
+    dispatch(postEvent(data));
+    setEvent(data);
   };
 
   const handleDelete = (eventToDelete) => {
-    console.log("eliminar");
-    console.log(eventToDelete);
+    console.log("AAAAAAAAAAAAAAAAAAA", eventToDelete);
     swal({
       title: "Estas seguro que quieres borrar el evento?",
       icon: "warning",
@@ -82,9 +84,9 @@ const NewCalendar = () => {
       dangerMode: true,
     }).then((eliminar) => {
       if (eliminar) {
-        console.log(eventToDelete._def.publicId)
+        //eventToDelete.securityId = eventToDelete.
         dispatch(deleteEvent(eventToDelete._def.publicId));
-        setEvent(eventToDelete)
+        setEvent(eventToDelete);
         swal("El evento fue eliminado", {
           icon: "success",
           buttons: false,
@@ -99,6 +101,7 @@ const NewCalendar = () => {
   };
 
   const renderEventContent = (evento) => {
+    console.log("ESTO ES EVENTOOO", evento);
     if (evento.event._def.extendedProps.securityName) {
       return (
         <>
@@ -112,7 +115,12 @@ const NewCalendar = () => {
             </i>
             <br />
             <Button
-              style={{ backgroundColor: "white",border:"none", float: "rigth", size: "1px" }}
+              style={{
+                backgroundColor: "white",
+                border: "none",
+                float: "rigth",
+                size: "1px",
+              }}
               onClick={() => handleDelete(evento.event)}
             >
               <AiFillDelete
@@ -122,7 +130,8 @@ const NewCalendar = () => {
             </Button>
             <Button
               style={{
-                backgroundColor: "white",border:"none",
+                backgroundColor: "white",
+                border: "none",
                 float: "rigth",
                 size: "5%",
                 marginLeft: "20px",
@@ -146,7 +155,7 @@ const NewCalendar = () => {
       return (
         <option
           key={i}
-          value={[security.CUIL, security.name, security.lastName]}
+          value={[security.CUIL, security.name, security.lastName, security.id]}
         >
           {security.name} {security.lastName}
         </option>

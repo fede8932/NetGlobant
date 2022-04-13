@@ -119,8 +119,9 @@ class AdminServicesPost {
           CUIL: req.body.CUIL,
         },
       });
-
       const workDay = await WorkDay.create(req.body);
+      console.log("WORKDAY", workDay);
+      
       branchOficces.addWorkDays(workDay);
       security.addWorkDays(workDay);
       return branchOficces;
@@ -357,15 +358,16 @@ class AdminServicesPost {
   static async serviceAddEvent(req, next) {
     try {
       const event = await Events.create(req.body);
-
       const workDay = await WorkDay.findOne({
         where: {
           date: req.body.date,
         },
       });
-      workDay.addEvent(event);
+      console.log("WORKDAY", workDay);
+      event.setWorkDay(workDay);
       return event;
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }

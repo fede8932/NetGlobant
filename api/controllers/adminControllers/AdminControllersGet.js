@@ -134,7 +134,7 @@ class AdminControllerGet {
       next
     );
     console.log(securities);
-    return res.send(securities);
+    return securities ? res.status(200).send(securities) : res.status(500).send([]) 
   }
 
 

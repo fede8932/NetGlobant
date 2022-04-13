@@ -5,20 +5,20 @@ class WorkDay extends S.Model {}
 
 WorkDay.init(
   {
-    date:{
-      type: S.DATEONLY 
+    date: {
+      type: S.DATEONLY,
     },
     entryHour: {
       type: S.DATE,
     },
     wishEntryHour: {
-      type: S.STRING, 
+      type: S.STRING,
     },
     closingHour: {
-      type:S.DATE,
+      type: S.DATE,
     },
     wishClosingHour: {
-      type:  S.STRING,
+      type: S.STRING,
     },
     serverHourEntry: {
       type: S.DATE,
@@ -44,9 +44,6 @@ WorkDay.init(
   }
 );
 
-
-
-WorkDay.sync({ alter: false })
-
+WorkDay.sync({ alter: false });
 
 module.exports = WorkDay;

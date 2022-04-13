@@ -27,4 +27,7 @@ Events.init(
   }
 );
 
+Events.sync({ alter: false });
+
+
 module.exports = Events;
