@@ -1,51 +1,21 @@
+import React from "react";
+import "../style/estilos.scss";
+import { Container, Form, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import LoginCss from "../style/Home.module.css";
 import { useForm } from "react-hook-form";
-import { Container, Button, Form } from "react-bootstrap";
 import { FiUser } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { setUser } from "../states/user";
-import { useDispatch, useSelector } from "react-redux";
-import "../style/estilos.scss";
 
-export default function Login() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const admin = useSelector((state) => state.device) === "mobile" ? false : true;
+const AdminForgotPassword = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const user = admin ? "administrator" : "security";
-    const token = await axios({
-      method: "POST",
-      url: "/api/auth/login",
-      data: {
-        email: data.email,
-        password: data.password,
-        admin: admin,
-      },
-    });
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: token.data[user].id,
-        name: token.data[user].name,
-        token: token.data.jwt.token,
-      })
-    );
-    dispatch(
-      setUser({
-        id: token.data[user].id,
-        name: token.data[user].name,
-        token: token.data.jwt.token,
-      })
-    );
-    admin ? navigate("/") : navigate("/status");
-  };
+  const onSubmit = () => {
+    console.log("acá se ejecutó onSubmit")
+  }
 
   return (
     <div id="fondologin">
@@ -91,7 +61,6 @@ export default function Login() {
                     )}
                   </div>
                 </Form.Group>
-
                 <Form.Group className="mb-1" controlId="sign-in-password">
                   <div
                     className={`${LoginCss.inputBonito}  ${
@@ -130,7 +99,6 @@ export default function Login() {
                   type="submit"
                   value="submit"
                 >
-                  {" "}
                   INICIAR SESIÓN
                 </Button>
                 <br></br>
@@ -141,8 +109,10 @@ export default function Login() {
         </Form>
       </Container>
       <Link to="/changePassword/admin">
-        <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
+        <p style={{ textAlign: "center" }}>¿Olvidaste la contraseña?</p>
       </Link>
     </div>
   );
-}
+};
+
+export default AdminForgotPassword;

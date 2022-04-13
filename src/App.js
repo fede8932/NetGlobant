@@ -46,7 +46,8 @@ import ClientSelect from "./components/ClientSelect";
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
 import MasInfo from "./components/MasInfo";
 import ClientSelectNuevo from "./components/ClientSelectNuevo";
-import StatesSecurity from "./components/StatesSecurity"
+import StatesSecurity from "./components/StatesSecurity";
+import AdminForgotPassword from "./components/AdminForgotPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,7 +77,6 @@ function App() {
         ) : (
           <></>
         )}
-
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -109,7 +109,6 @@ function App() {
           <Route path="/states" element={<StatesSecurity />} />
           <Route path="/set/client" element={<BranchSelectNuevo />} />
           <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
-
         </Routes>
       </div>
     </>
@@ -124,6 +123,7 @@ function App() {
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="/changePassword/admin" element={<AdminForgotPassword />} />
       </Routes>
     </>
   );
