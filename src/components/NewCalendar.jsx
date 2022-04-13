@@ -15,14 +15,14 @@ import { getBranchById } from "../states/singleCalendarBranch";
 import { AiFillDelete } from "react-icons/ai";
 import { GrEdit } from "react-icons/gr";
 import swal from "sweetalert";
-import {deleteEvent} from "../states/singleEvent"
+import { deleteEvent } from "../states/singleEvent";
 
 const NewCalendar = () => {
   const selectedSecuritiess = useSelector((state) => state.securitiesCalendar);
   const [actualDate, setActualDate] = useState();
   const reduxEvents = useSelector((state) => state.events);
   const branch = useSelector((state) => state.branchCalendar);
-  const [event, setEvent] = useState([])
+  const [event, setEvent] = useState([]);
   const navigate = useNavigate();
   const id = useParams();
   const {
@@ -35,13 +35,14 @@ const NewCalendar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-  useEffect( async () => {
+  useEffect(async () => {
     try {
       const obtainedBranch = await dispatch(
         getBranchById(parseInt(id.clientId))
       );
-      const events = await dispatch(getAllEventsBranch(obtainedBranch.payload.name));
+      const events = await dispatch(
+        getAllEventsBranch(obtainedBranch.payload.name)
+      );
       //setEvent(events.payload);
       const securities = await dispatch(
         getSelectedSecurities(obtainedBranch.payload.name)
@@ -69,7 +70,7 @@ const NewCalendar = () => {
     data.end = actualDate.concat("T", data.wishClosingHour, ":00");
     dispatch(postEvent(data));
     dispatch(postSecurityToSchedule(data));
-    setEvent(data)
+    setEvent(data);
   };
 
   const handleDelete = (eventToDelete) => {
@@ -82,9 +83,9 @@ const NewCalendar = () => {
       dangerMode: true,
     }).then((eliminar) => {
       if (eliminar) {
-        console.log(eventToDelete._def.publicId)
+        console.log(eventToDelete._def.publicId);
         dispatch(deleteEvent(eventToDelete._def.publicId));
-        setEvent(eventToDelete)
+        setEvent(eventToDelete);
         swal("El evento fue eliminado", {
           icon: "success",
           buttons: false,
@@ -105,27 +106,28 @@ const NewCalendar = () => {
           <div className="event_container">
             <div className="image_calendar"></div>
 
-            <b className="event_timeText">{evento.timeText}</b>
-            <br />
-            <i className="event_calendar">
-              {evento.event._def.extendedProps.securityName}
-            </i>
-            <br />
-            <Button
-              style={{ backgroundColor: "white",border:"none", float: "rigth", size: "1px" }}
-              onClick={() => handleDelete(evento.event)}
-            >
-              <AiFillDelete
-                variant="secondary"
-                style={{ size: "1px", color: "grey", position: "relative" }}
-              />
-            </Button>
-            <Button
+            <b className="event_timeText">
+              {"  "}{evento.timeText}{" "}
+              <Button
+                style={{
+                  backgroundColor: "white",
+                  border: "none",
+                  float: "left",
+                  size: "0px",
+                }}
+                onClick={() => handleDelete(evento.event)}
+              >
+                <AiFillDelete
+                  variant="secondary"
+                  style={{ size: "0px", color: "grey", position: "relative" }}
+                />
+              </Button>
+              {/* <Button
               style={{
                 backgroundColor: "white",border:"none",
                 float: "rigth",
                 size: "5%",
-                marginLeft: "20px",
+                marginLeft: "0px",
               }}
               onClick={() => handleEdit(evento.event)}
             >
@@ -134,6 +136,14 @@ const NewCalendar = () => {
                 style={{ size: "1px", color: "grey" }}
               />
             </Button>
+             */}
+            </b>
+            <br />
+            <i className="event_calendar">
+             {"  "} {evento.event._def.extendedProps.securityName}
+            </i>
+            <br />
+            <div style={{ position: "relative", marginTop: "2px" }}></div>
           </div>
         </>
       );

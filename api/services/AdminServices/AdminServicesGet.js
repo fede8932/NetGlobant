@@ -112,9 +112,9 @@ class AdminServicesGet {
         },
         include: {
           association: Client.offices,
-          where:{
-            status:true
-          }
+          where: {
+            status: true,
+          },
         },
       });
       return allOfficeByClient;
@@ -126,18 +126,15 @@ class AdminServicesGet {
 
   static async serviceGetAllOfficiesByClientName(req, next) {
     try {
-      console.log(req.params)
-      const clients = await Client.findOne({
+      const client = await Client.findAll({
         where: {
           bussinessName: req.params.clientName,
-        }, /*  include: {
-          association: Client.offices,
-          }, */
+        },
       });
-    const offices= await BranchOficce.findOne({
-      where:{clientId: clients.id}
-    })
-      return clients;
+      const officies = await BranchOficce.findAll({where:{
+        clientId: client[0].id
+      }})
+      return officies;
     } catch (err) {
       console.log("error => ", err);
       next(err);
@@ -172,9 +169,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
-          where:{
-            status:true
-          }
+          where: {
+            status: true,
+          },
         },
       });
 
@@ -240,7 +237,7 @@ class AdminServicesGet {
           association: Securities.provincie,
           where: {
             id: provincieId,
-            status:true
+            status: true,
           },
         },
       });
@@ -381,19 +378,33 @@ class AdminServicesGet {
     }
   }
 
+
+  // static async servicesGetOneRequest(req, res, next) {
+  //   try {
+  //     const oneRequest = await AbsenceRequest.findOne({
+  //       where: { id: req.params.id },
+  //     });
+
+  //     return oneRequest;
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
+
   static async servicesGetOneRequest(req, res, next) {
     try {
-      const security = await Securities.findOne({
+      const oneRequest = await AbsenceRequest.findOne({
         where: { id: req.params.id },
       });
-      const oneRequest = await AbsenceRequest.findOne({
-        where: { securityId: security.id },
+      const security = await Securities.findOne({
+        where: { id: oneRequest.securityId },
       });
-      return oneRequest;
+      return {oneRequest, security};
     } catch (err) {
       next(err);
     }
   }
+
 
   static async serviceGetAllEvents(next) {
     try {
@@ -479,15 +490,16 @@ class AdminServicesGet {
     }
   }
 
-  static async serviceGetAllEventsOfBranch(req,next) {
+  static async serviceGetAllEventsOfBranch(req, next) {
     try {
-      const eventsBranch = await Events.findAll({where:{
-        branchName: req.params.name
-      }});
+      const eventsBranch = await Events.findAll({
+        where: {
+          branchName: req.params.name,
+        },
+      });
       return eventsBranch;
     } catch (err) {
       next(err);
-
     }
   }
 }

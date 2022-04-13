@@ -42,11 +42,12 @@ import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import NewCalendar from "./components/NewCalendar";
 import ClientSelect from "./components/ClientSelect";
-
 import BranchSelectNuevo from "./components/BranchSelectNuevo";
 import MasInfo from "./components/MasInfo";
 import ClientSelectNuevo from "./components/ClientSelectNuevo";
 import StatesSecurity from "./components/StatesSecurity"
+import EditRequest from "./components/EditRequest"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -107,9 +108,11 @@ function App() {
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
           <Route path="/states" element={<StatesSecurity />} />
+          <Route path="/states/:id"  element={<EditRequest/>}/>
           <Route path="/set/client" element={<BranchSelectNuevo />} />
           <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
 
+         
         </Routes>
       </div>
     </>

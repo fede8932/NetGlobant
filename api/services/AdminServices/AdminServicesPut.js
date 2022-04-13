@@ -97,7 +97,6 @@ class AdminServicesPut {
       const request = await AbsenceRequest.findOne({
         where: { id: req.params.id },
       });
-      console.log(request);
       const [row, response] = await AbsenceRequest.update(
         { status: req.body.status },
         {
@@ -106,7 +105,6 @@ class AdminServicesPut {
           plain: true,
         }
       );
-      console.log(response);
       return response;
     } catch (err) {
       next(err);
