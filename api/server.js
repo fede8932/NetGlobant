@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/api", routes);
 
-db.sync({ force:false }).then(() => {
+db.sync({ force: false }).then(() => {
   app.listen(SERVER_PORT, (req, res) => {
     console.log("Server Listening on port: " + SERVER_PORT);
   });

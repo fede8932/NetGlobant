@@ -34,9 +34,6 @@ const CardClient = () => {
     navigate(url);
   };
 
-  const finContrato = client.endContratDate
-  console.log(finContrato)
-
   return (
     <>
       <Card
@@ -60,11 +57,16 @@ const CardClient = () => {
           <Card.Subtitle className="mb-2 text-muted">
             Email: {client.email}
           </Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">
+            Ciudad: {client.city}
+          </Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">
+            Provincia: {client.province}
+          </Card.Subtitle>
           <Card.Text className="mb-2 mt-5">
             Inicio de contrato: {client.startContratDate}
           </Card.Text>
           <Card.Text>Fin de contrato: {client.endContratDate}</Card.Text>
-
           <Card.Text>
             <Button
               style={{
