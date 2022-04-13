@@ -36,7 +36,7 @@ export default function UserPage() {
     return clientDirection
   }
   const checkIn = async()=>{
-    const ingreso = await inRegister({id:user.id , time:tiempoCompleto()})
+    const ingreso = await inRegister({id:user.id , time:tiempoCompleto() , loc : ubicacion.toString()})
     return ingreso
   }
 
@@ -85,7 +85,7 @@ export default function UserPage() {
   }
 
   const checkOut = async()=>{
-    const egreso = await outRegister({id:user.id , time:tiempoCompleto()})
+    const egreso = await outRegister({id:user.id , time:tiempoCompleto() , loc : ubicacion.toString()})
     return egreso
   }
 

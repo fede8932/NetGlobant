@@ -55,11 +55,12 @@ class AuthController {
     let verificationLink;
 
     const { security, error } = await AuthServices.getSecurity(email);
-
+    console.log(security)
     if (error) return res.send(message);
 
     const token = recovery(security.id);
-    verificationLink = `http://localhost:3001/api/auth/newSecurityPassword/${token}`;
+    // verificationLink = `http://localhost:3001/api/auth/newSecurityPassword/${token}`;
+    verificationLink = `http://localhost:3000/newSecurityPassword/${token}`;
 
     await AuthServices.updateSecurityToken(security.id, token);
 
@@ -73,7 +74,7 @@ class AuthController {
           `,
     });
 
-    return res.send(verificationLink);
+    return res.send(token);
   }
 
   static async updateAdminPassword(req, res) {
@@ -98,6 +99,7 @@ class AuthController {
   static async updateSecurityPassword(req, res) {
     const { newPassword, email } = req.body;
     const { token } = req.params;
+    console.log(newPassword)
 
     const message = "something goes wrong!";
 
@@ -108,10 +110,10 @@ class AuthController {
 
     await AuthServices.updateSecurityToken(security.id, "");
 
-    const { hash } = genHash(newPassword);
-
-    await AuthServices.updateSecurityPassword(security.id, hash);
-
+    const { hash } = await genHash(newPassword);
+    console.log(hash)
+    const prueba = await AuthServices.updateSecurityPassword(security.id, hash);
+    console.log(prueba.error)
     return res.sendStatus(202);
   }
 }

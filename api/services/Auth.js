@@ -133,7 +133,7 @@ class AuthServices {
   static async updateSecurityPassword(securityID, password){
 
     try {
-      await Admin.update(password, { where: { id: securityID }})
+      await Securities.update({password:password}, { where: { id: securityID }})
       return {
         error: false
       }
