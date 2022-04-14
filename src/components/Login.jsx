@@ -145,9 +145,6 @@ export default function Login() {
           </div>
         </Form>
       </Container>
-      <Link to={device == "desk" ? "/changePassword/admin" : "/user/passw"}>
-          <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
-      </Link>
     </div>
   );
 }

@@ -11,7 +11,7 @@ const EditRequest = () => {
   const navigate = useNavigate();
   const request = useSelector((state) => state.request);
   const id = useParams();
-  const idRequest = id.id
+  const idRequest = id.id;
   const {
     register,
     handleSubmit,
@@ -22,14 +22,16 @@ const EditRequest = () => {
     dispatch(getRequestById(idRequest));
   }, []);
 
-  console.log(idRequest)
+  console.log(idRequest);
 
-  const onSubmit = (data) => {
-    console.log("esto es el objeto data", data);
-    data.id = idRequest
-    console.log("esto es el objeto data", data);
-    dispatch(editRequestById(data))
-    navigate("/states")
+  const onSubmit = async (data) => {
+    try {
+      data.id = idRequest;
+      const editedRequest = await dispatch(editRequestById(data));
+      navigate("/states");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return request.oneRequest ? (

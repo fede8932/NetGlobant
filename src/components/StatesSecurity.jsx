@@ -10,20 +10,30 @@ const StatesSecurity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getAllRequests());
+  useEffect(async () => {
+    try {
+      const obtainedRequests = await dispatch(getAllRequests());
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const handleRequest = (id) => {
-    
     navigate(`/states/${id}`);
-    console.log("editar")
-  }
+    console.log("editar");
+  };
 
-  console.log("allrequests", requests)
+  console.log("allrequests", requests);
   return (
     <>
-      <h3 style={{ width: "50%", margin: "0 auto", marginTop: "60px", color:"grey" }}>
+      <h3
+        style={{
+          width: "50%",
+          margin: "0 auto",
+          marginTop: "60px",
+          color: "grey",
+        }}
+      >
         PEDIDOS DE AUSENCIA
       </h3>
 
@@ -45,10 +55,7 @@ const StatesSecurity = () => {
         </thead>
         <tbody>
           {requests?.map((req) => (
-            <tr
-              key={req.id}
-              onClick={() => handleRequest(req.id)}
-            >
+            <tr key={req.id} onClick={() => handleRequest(req.id)}>
               <td>{req.id}</td>
               <td>{req.reason}</td>
               <td>{req.initDate}</td>

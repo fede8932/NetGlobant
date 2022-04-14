@@ -111,9 +111,9 @@ class AdminServicesPut {
           },
         },
       });
-      console.log(security);
+      console.log("SECURITY", security.workDays);
       let days = [];
-      security[0].workDays.map((workDay) => days.push(workDay.id));
+      security.workDays.map((workDay) => days.push(workDay.id));
       const workDays = await WorkDay.findAll({
         where: { id: days },
       });

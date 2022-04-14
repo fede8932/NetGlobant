@@ -14,6 +14,7 @@ const Sidebar = () => {
       textColor="#fff"
       backgroundColor="#333"
       style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+      //className="wrapper"
     >
       <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
         <a
