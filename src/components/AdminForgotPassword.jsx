@@ -18,6 +18,7 @@ const AdminForgotPassword = () => {
   }
 
   return (
+    <>
     <div id="fondologin">
       <Container id="main-container" className="d-grid h-100 ">
         <Form
@@ -112,6 +113,31 @@ const AdminForgotPassword = () => {
         <p style={{ textAlign: "center" }}>¿Olvidaste la contraseña?</p>
       </Link>
     </div>
+    <div
+    style={{
+      border: "grey solid",
+      alignItems: "center",
+      width: "40%",
+      margin: "0 auto",
+      marginTop: "120px"
+    }}
+  >
+    <h2>
+      <strong>Recuperá tu cuenta</strong>
+    </h2>
+  </div>
+  <div
+    style={{
+      margin: "0 auto",
+      textAlign: "center",
+      borderLeft: "grey solid",
+      borderRight: "grey solid",
+    }}
+  >
+    <p>Ingresá tu email para restablecer la contraseña</p>
+    <Form></Form>
+  </div>
+  </>
   );
 };
 

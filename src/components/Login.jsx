@@ -11,8 +11,7 @@ import "../style/estilos.scss";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const admin =
-    useSelector((state) => state.device) === "mobile" ? false : true;
+  const admin = useSelector((state) => state.device) === "mobile" ? false : true;
   const {
     register,
     handleSubmit,
@@ -142,7 +141,7 @@ export default function Login() {
         </Form>
       </Container>
       <Link to="/changePassword/admin">
-        <p style={{ textAlign: "center" }}>¿Olvidaste la contraseña?</p>
+        <p style={{textAlign: "center"}}>¿Olvidaste la contraseña?</p>
       </Link>
     </div>
   );
