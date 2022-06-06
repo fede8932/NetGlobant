@@ -5,6 +5,7 @@ const {
   Client,
   Provincies,
 } = require("../models");
+const{genHash} = require("../lib/passwordUtils")
 
 class SecuritiesServices {
   static async serviceMyWorkDay(req, next) {
@@ -13,16 +14,14 @@ class SecuritiesServices {
         where: {
           date: req.params.date,
         },
-        include: {
-          association: BranchOficce.calendar,
-        },
       });
+      console.log("----------->>>",today)
       const schedule = await Securities.findOne({
         where: { id: req.params.id },
         include: {
           association: Securities.calendar,
           where: {
-            wishEntryHour: today.wishEntryHour,
+            date: today.date,
           },
         },
       });
@@ -39,9 +38,9 @@ class SecuritiesServices {
       const oficinaSchedule = await BranchOficce.findOne({
         where: { id: oficina.id },
         include: {
-          association: BranchOficce.security,
+          association: BranchOficce.calendar,
           where: {
-            id: schedule.id,
+            date: today.date,
           },
         },
       });
@@ -141,7 +140,9 @@ class SecuritiesServices {
 
   static async serviceChangeMyPassword(req, next) {
     try {
-      await Securities.update(req.body, {
+     const newPassword= await genHash(req.body.password)
+     console.log(newPassword)
+      await Securities.update({password: newPassword.hash}, {
         where: { id: req.params.id },
       });
     } catch (err) {

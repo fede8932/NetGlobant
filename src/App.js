@@ -36,10 +36,17 @@ import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
+<<<<<<< HEAD
 import AssignSecurity from "./components/AssignSecurity";
 import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
 import { pendientes } from "./states/geoLocalizacion";
+=======
+import AssignSecurity from "./components/AssignSecurity"
+import { pendientes } from "./states/geoLocalizacion";
+import CalendarBranchFilter from "./components/CalendarBranchFilter"
+import Home from "./components/Home"
+>>>>>>> b5365e35d52f322f3f7d12437663c28d37295cef
 
 function App() {
   const dispatch = useDispatch();

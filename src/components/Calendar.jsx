@@ -18,8 +18,9 @@ const CalendarComponent = () => {
   const client = useSelector((state) => state.client);
   const branch = useSelector((state) => state.branch);
   const dispatch = useDispatch();
+  const nuevaVariable = "";
 
-console.log(branch)
+  console.log(branch);
 
   /* useEffect(() => {
     dispatch(getAllBranches());
@@ -73,8 +74,8 @@ console.log(branch)
   return (
     <div className="calendarContainer">
       <div>
-    <CalendarSelectClient/> 
-     </div>
+        <CalendarSelectClient />
+      </div>
       <div className="app ">
         <h1 className="text-center">React Calendar</h1>
         <div
