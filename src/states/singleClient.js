@@ -32,6 +32,14 @@ export const getClient = createAsyncThunk(
 export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
   try {
     const client = await axios.get(`/api/admin/clients/${id}`);
+    const startDate = client.data.startContratDate.slice(0, 10).split("-");
+    client.data.startContratDate = startDate[2].concat(
+      `-${startDate[1]}-${startDate[0]}`
+    );
+    const endDate = client.data.endContratDate.slice(0, 10).split("-");
+    client.data.endContratDate = endDate[2].concat(
+      `-${endDate[1]}-${endDate[0]}`
+    );
     return client.data;
   } catch (err) {
     console.log(err);
@@ -40,7 +48,6 @@ export const getClientId = createAsyncThunk("GET_CLIENTS_ID", async (id) => {
 
 export const editClient = createAsyncThunk("EDIT_CLIENT", async (client) => {
   try {
-    console.log("STORE DE REDUX", client)
     const editedClient = await axios.put(
       `/api/admin/edit/client/${client.id}`,
       client
@@ -52,6 +59,22 @@ export const editClient = createAsyncThunk("EDIT_CLIENT", async (client) => {
       button: "Aceptar",
     });
     return editedClient.data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+export const disableClient = createAsyncThunk("DISABLE_CLIENT", async (data) => {
+  try {
+    const date = new Date()
+    const disabledClient = await axios.post(`/api/admin/disabled/client/${data.id}`, {type: "client", inhabitedDate: date, reason: data.reason});
+    swal("El cliente fue deshabilitado", {
+      icon: "success",
+      buttons: false,
+      timer: 1000,
+    });
+    return disabledClient.data;
   } catch (err) {
     console.log(err);
   }
@@ -74,6 +97,7 @@ const clientReducer = createReducer(
     [editClient.fulfilled]: (state, action) => action.payload,
     [deleteClient.fulfilled]: (state, action) => action.payload,
     [postClient.fulfilled]: (state, action) => action.payload,
+    [disableClient.fulfilled]: (state, action) => action.payload,
   }
 );
 

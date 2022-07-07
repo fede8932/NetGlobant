@@ -23,6 +23,18 @@ export const getSecurityById = createAsyncThunk(
   }
 );
 
+export const getSecurityByCUIL = createAsyncThunk(
+  "GET_SECURITY_BY_CUIL",
+  async (cuil) => {
+    try {
+      const securityCuil = await axios.get(`/api/admin/securitiesByCuil/${cuil}`);
+      return securityCuil.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 export const createSecurity = createAsyncThunk(
   "CREATE_SECURITY",
   async (security) => {
@@ -98,6 +110,7 @@ export const assingSegurityToBranch = createAsyncThunk(
 
 const securityReducer = createReducer([], {
   [getSecurity.fulfilled]: (state, action) => action.payload,
+  [getSecurityByCUIL.fulfilled]: (state, action) => action.payload,
   [editSecurity.fulfilled]: (state, action) => action.payload,
   [deleteSecurity.fulfilled]: (state, action) => action.payload,
   [getSecurityById.fulfilled]: (state, action) => action.payload,

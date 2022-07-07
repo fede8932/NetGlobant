@@ -12,6 +12,7 @@ const distance = (latitude1, longitude1, latitude2, longitude2) => {
 
   const c = 2 * Math.asin(Math.sqrt(a));
   const r = 6371;
+  console.log(c, r);
   return c * r;
 };
 

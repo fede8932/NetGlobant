@@ -4,10 +4,12 @@ const {
   BranchOficce,
   Provincies,
   WorkDay,
+  Events,
+  AbsenceRequest,
+  Disabled,
 } = require("../../models");
-const { Op } = require("@sequelize/core");
-/* const { Op } = require("sequelize") */
-const { findAll } = require("../../models/Admin");
+/* const { Op } = require("@sequelize/core"); */
+const { Op } = require("sequelize");
 const { distance } = require("../../lib/findDistance.js");
 
 class AdminServicesGet {
@@ -38,6 +40,7 @@ class AdminServicesGet {
       });
       return oneClient;
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -47,8 +50,7 @@ class AdminServicesGet {
     try {
       const oneSecurity = await Securities.findAll({
         where: {
-          name: name,
-          lastName: lastName,
+          [Op.or]: [{ name: name }, { name: name, lastName: lastName }],
         },
       });
       return oneSecurity;
@@ -79,6 +81,19 @@ class AdminServicesGet {
     }
   }
 
+  static async serviceGetOneSecurityByCuil(req, next) {
+    try {
+      const oneSecurityCuil = await Securities.findAll({
+        where: {
+          CUIL: req.params.cuil,
+        },
+      });
+      return oneSecurityCuil;
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async serviceGetAllOffice(next) {
     try {
       const allOffice = await BranchOficce.findAll();
@@ -93,9 +108,7 @@ class AdminServicesGet {
       const allOfficeByClient = await BranchOficce.findAll({
         where: {
           clientId: req.params.clientId,
-        },
-        include: {
-          association: Client.offices,
+          status: true,
         },
       });
       return allOfficeByClient;
@@ -105,13 +118,44 @@ class AdminServicesGet {
     }
   }
 
+  static async serviceGetAllOfficiesByClientName(req, next) {
+    try {
+      console.log(req.params);
+      const clients = await Client.findOne({
+        where: {
+          bussinessName: req.params.clientName,
+        },
+      });
+      const offices = await BranchOficce.findAll({
+        where: { clientId: clients.id },
+      });
+      return offices;
+    } catch (err) {
+      console.log("error => ", err);
+      next(err);
+    }
+  }
+
   static async serviceGetOneOffice(req, next) {
     try {
+<<<<<<< HEAD
       const oneOffice = await BranchOficce.findByPk(req.params.id);
       const officeName = await Client.findByPk(oneOffice.clientId);
+=======
+      const oneOffice = await BranchOficce.findOne({
+        where:{
+          id:req.params.id}
+      });
+      console.log(oneOffice.clientId)
+      const officeName = await Client.findOne({
+        where:{
+          id:oneOffice.clientId}});
+          console.log(officeName)
+>>>>>>> c4d9875d1ef794f526cf50fdf365d67e36956b2a
       oneOffice.dataValues.clientName = officeName.bussinessName;
       return oneOffice;
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }
@@ -133,6 +177,9 @@ class AdminServicesGet {
         where: { name: req.params.name },
         include: {
           association: BranchOficce.security,
+          where: {
+            status: true,
+          },
         },
       });
 
@@ -159,6 +206,7 @@ class AdminServicesGet {
           association: BranchOficce.security,
         },
       });
+      console.log(securities);
       const arrayId = securities[0].securities.map(
         (security) => security.dataValues.id
       );
@@ -181,19 +229,20 @@ class AdminServicesGet {
         onlyCalendar: onlyWithCalendar,
       };
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
 
   static async serviceGetAllSecuritiesByProvincie(req, next) {
     try {
-      const provincie = await BranchOficce.findAll({
+      const provincieBranch = await BranchOficce.findAll({
         where: {
           name: req.params.name,
         },
       });
-      console.log(provincie[0].provincyId);
-      const provincieId = provincie[0].provincyId;
+
+      const provincieId = provincieBranch[0].provincyId;
       const securities = await Securities.findAll({
         include: {
           association: Securities.provincie,
@@ -202,7 +251,6 @@ class AdminServicesGet {
           },
         },
       });
-      console.log(securities);
       return securities;
     } catch (err) {
       console.log(err);
@@ -274,6 +322,191 @@ class AdminServicesGet {
         },
       });
       return image;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetDisabled(req, next) {
+    try {
+      const allInhabites = await Disabled.findAll();
+      return allInhabites;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async servicesGetSecuritiesDisabled(req, next) {
+    try {
+      const securitiesDisabled = await Disabled.findAll({
+        where: { type: "securities" },
+      });
+      return securitiesDisabled;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async servicesGetClientsDisabled(req, next) {
+    try {
+      const clientsDisabled = await Disabled.findAll({
+        where: { type: "clients" },
+      });
+      return clientsDisabled;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async servicesGetOfficiesDisabled(req, next) {
+    try {
+      const officiesDisabled = await Disabled.findAll({
+        where: { type: "branchOffice" },
+      });
+      return officiesDisabled;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async servicesGetAdminsDisabled(req, next) {
+    try {
+      const adminsDisabled = await Disabled.findAll({
+        where: { type: "admins" },
+      });
+      return adminsDisabled;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async servicesGetAllRequest(req, next) {
+    try {
+      const allRequest = await AbsenceRequest.findAll();
+      return allRequest;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  // static async servicesGetOneRequest(req, res, next) {
+  //   try {
+  //     const oneRequest = await AbsenceRequest.findOne({
+  //       where: { id: req.params.id },
+  //     });
+
+  //     return oneRequest;
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
+
+  static async servicesGetOneRequest(req, res, next) {
+    try {
+      const oneRequest = await AbsenceRequest.findOne({
+        where: { id: req.params.id },
+      });
+      const security = await Securities.findOne({
+        where: { id: oneRequest.securityId },
+      });
+      return { oneRequest, security };
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetAllEvents(next) {
+    try {
+      const events = await Events.findAll();
+      return events;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetBranchOfficewitoutSecurityDay(req, next) {
+    try {
+      let date = new Date();
+      let day = date.getDate() + 7;
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let nextDate = new Date(year, month, day);
+      const workDayBranch = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+          where: {
+            date: {
+              [Op.between]: [date, nextDate],
+            },
+          },
+        },
+      });
+
+      const branchHours = workDayBranch.map((branch) => {
+        let branchinfo = { branch: branch.id, hours: 0 };
+        branch.workDays.map((workDay) => {
+          branchinfo.hours +=
+            (new Date(`${workDay.date} ${workDay.wishClosingHour}`) -
+              new Date(`${workDay.date} ${workDay.wishEntryHour}`)) /
+            1000 /
+            60 /
+            60;
+        });
+        return branchinfo;
+      });
+
+      const branchWithoutSecurity = branchHours.filter(
+        (branch) => branch.hours < 168
+      );
+
+      return branchWithoutSecurity;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutWorkDay(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.calendar,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.workDays.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceBranchOfficeWithoutSecurities(req, next) {
+    try {
+      const branches = await BranchOficce.findAll({
+        include: {
+          association: BranchOficce.security,
+        },
+      });
+
+      const branchWithOutWorkDay = branches.filter(
+        (branch) => branch.securities.length === 0
+      );
+      return branchWithOutWorkDay;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceGetAllEventsOfBranch(req, next) {
+    try {
+      const eventsBranch = await Events.findAll({
+        where: {
+          branchName: req.params.name,
+        },
+      });
+      return eventsBranch;
     } catch (err) {
       next(err);
     }

@@ -1,4 +1,12 @@
-const { Client, Securities, BranchOficce, WorkDay } = require("../../models");
+const {
+  Client,
+  Securities,
+  BranchOficce,
+  WorkDay,
+  AbsenceRequest,
+  Events,
+} = require("../../models");
+const { Op } = require("sequelize");
 
 class AdminServicesPut {
   static async serviceEditOffice(req, next) {
@@ -33,8 +41,6 @@ class AdminServicesPut {
 
   static async serviceEditClient(req, next) {
     try {
-      console.log("req.body", req.body);
-
       const [rows, update] = await Client.update(req.body, {
         where: {
           id: req.params.id,
@@ -42,8 +48,6 @@ class AdminServicesPut {
         returning: true,
         plain: true,
       });
-
-      console.log("update", rows);
       return update;
     } catch (err) {
       next(err);
@@ -84,6 +88,66 @@ class AdminServicesPut {
       return security;
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async serviceResponseRequest(req, next) {
+    try {
+      const request = await AbsenceRequest.findOne({
+        where: { id: req.params.id },
+      });
+      console.log(request.dataValues.securityId);
+      const security = await Securities.findOne({
+        where: { id: request.dataValues.securityId },
+        include: {
+          association: Securities.calendar,
+          where: {
+            date: {
+              [Op.between]: [
+                request.dataValues.initDate,
+                request.dataValues.endDate,
+              ],
+            },
+          },
+        },
+      });
+      console.log("SECURITY", security.workDays);
+      let days = [];
+      security.workDays.map((workDay) => days.push(workDay.id));
+      const workDays = await WorkDay.findAll({
+        where: { id: days },
+      });
+      const [row, response] = await AbsenceRequest.update(
+        { status: req.body.status },
+        {
+          where: { id: request.id },
+          returning: true,
+          plain: true,
+        }
+      );
+
+      if (response.status === "Accepted") {
+        security.removeWorkDays(workDays);
+      }
+      console.log(response);
+      return response;
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async serviceEditEvent(req, next) {
+    try {
+      const [row, event] = await Events.update(req.body, {
+        where: {
+          id: req.params.id,
+        },
+        returning: true,
+        plain: true,
+      });
+      return event;
+    } catch (err) {
+      next(err);
     }
   }
 }

@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import { getClientId } from "../states/singleClient";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import PopUpDisable from "./PopUpDisable";
 
 const CardClient = () => {
   const navigate = useNavigate();
@@ -34,9 +35,6 @@ const CardClient = () => {
     navigate(url);
   };
 
-  const finContrato = client.endContratDate
-  console.log(finContrato)
-
   return (
     <>
       <Card
@@ -60,11 +58,16 @@ const CardClient = () => {
           <Card.Subtitle className="mb-2 text-muted">
             Email: {client.email}
           </Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">
+            Ciudad: {client.city}
+          </Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">
+            Provincia: {client.province}
+          </Card.Subtitle>
           <Card.Text className="mb-2 mt-5">
             Inicio de contrato: {client.startContratDate}
           </Card.Text>
           <Card.Text>Fin de contrato: {client.endContratDate}</Card.Text>
-
           <Card.Text>
             <Button
               style={{
@@ -87,6 +90,7 @@ const CardClient = () => {
               <BiEdit />
               Editar
             </Button>
+
             <Button
               style={{
                 float: "right",
@@ -98,6 +102,12 @@ const CardClient = () => {
               <RiDeleteBin6Line />
               Eliminar
             </Button>
+            <PopUpDisable
+              style={{
+                marginRight: "50%",
+                top: "50px",
+              }}
+            />
           </Card.Text>
         </Card.Body>
       </Card>

@@ -49,13 +49,18 @@ Securities.init(
     addressY: {
       type: S.FLOAT,
     },
+    recoveryToken: {
+      type: S.STRING
+    }
   },
   {
     sequelize: db,
     modelName: "securities",
   }
 );
-Securities.sync({ alter: true });
+
+Securities.sync({ alter: false });
+
 
 Securities.beforeCreate(async (securities) => {
   salt = await genSalt(16);

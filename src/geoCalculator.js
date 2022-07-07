@@ -7,8 +7,8 @@ export const tiempoCompleto = function () {
   return formatDate(date);
 };
 
-export const tiempoParcial = function () {
-  var date = new Date();
+export const tiempoParcial = function (fecha) {
+  let date = fecha?fecha:new Date()
   const formatDate = (date) => {
     let formatted_date = `${date.getFullYear()}-${
       date.getMonth() + 1
@@ -17,6 +17,28 @@ export const tiempoParcial = function () {
   };
   return formatDate(date);
 };
+export const orderTime = function (fecha , n) {
+  const order = `${fecha.slice(8)}-${fecha.slice(5 , 7)}-${fecha.slice(n , 4)}`
+  return order;
+};
+
+export const sumarDias = function (fecha, dias){
+  fecha.setDate(fecha.getDate() + dias);
+  return fecha;
+}
+
+export const decimalAHora = function(decimal) {
+  let horas = Math.floor(decimal), // Obtenemos la parte entera
+    restoHoras = Math.floor(decimal % 1 * 100), // Obtenemos la parde decimal
+    decimalMinutos = restoHoras * 60 / 100, // Obtenemos los minutos expresado en decimal
+
+    minutos = Math.floor(decimalMinutos), // Obtenemos la parte entera
+    restoMins = Math.floor(decimalMinutos % 1 * 100), // Obtenemos la parde decimal
+    segundos = Math.floor(restoMins * 60 / 100); // Obtenemos los segundos expresado en entero
+
+  return `${('00'+horas).slice(-2)}:${('00'+minutos).slice(-2)}`;
+}
+
 
 function haversineDistance(coords1, coords2, isMiles) {
   function toRad(x) {

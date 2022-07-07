@@ -22,10 +22,10 @@ const Clients = () => {
     e.preventDefault();
     console.log("searchClient => ", searchClient.value);
     dispatch(getClient(searchClient.value));
-    console.log("client => ", client);
     navigate(`/clients/${client.id}`);
   };
 
+  
   const handleClient = (id) => {
     navigate(`/clients/${id}`);
   };
@@ -92,6 +92,7 @@ const Clients = () => {
             <th>Nombre</th>
             <th>CUIT</th>
             <th>Dirección</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +102,8 @@ const Clients = () => {
               <td>{client.bussinessName}</td>
               <td>{client.CUIT}</td>
               <td>{client.legalAddress}</td>
+              {client.status ?  <td>Habilitado</td> :  <td>Deshabilitado</td>}
+             
             </tr>
           ))}
         </tbody>

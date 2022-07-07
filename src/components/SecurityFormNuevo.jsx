@@ -138,7 +138,6 @@ const SecurityFormNuevo = () => {
                     render={({ message }) => <p>{message}</p>}
                   />
                 </div>
-
                 <div className="row mt-2">
                   <div className="col-md-6">
                     <Form.Label className="labels">Longitud</Form.Label>

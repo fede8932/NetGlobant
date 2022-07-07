@@ -31,15 +31,25 @@ import AvisosForm from "./components/AvisosForm";
 import ClientFormNuevo from "./components/ClientFormNuevo";
 import SecurityFormNuevo from "./components/SecurityFormNuevo";
 import EditSecurityNuevo from "./components/EditSecurityNuevo";
-import Calendar from "./components/Calendar";
 import EstadisticasUser from "./components/EstadisticasUser";
 import Footer from "./components/Footer";
 import CalendarAssignment from "./components/CalendarAssignment";
 import CalendarSelectBranch from "./components/CalendarSelectBranch";
 import AssignSecurity from "./components/AssignSecurity";
+import { pendientes } from "./states/geoLocalizacion";
+import NextService from "./components/NextService";
 import CalendarBranchFilter from "./components/CalendarBranchFilter";
 import Home from "./components/Home";
-import { pendientes } from "./states/geoLocalizacion";
+import NewCalendar from "./components/NewCalendar";
+import ClientSelect from "./components/ClientSelect";
+import BranchSelectNuevo from "./components/BranchSelectNuevo";
+import MasInfo from "./components/MasInfo";
+import ClientSelectNuevo from "./components/ClientSelectNuevo";
+import StatesSecurity from "./components/StatesSecurity"
+import ChangePassword from "./components/ChangePassword";
+import SinPass from "./components/SinPass";
+import AdminForgotPassword from "./components/AdminForgotPassword";
+import EditRequest from "./components/EditRequest";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,8 +64,6 @@ function App() {
   }, []);
   const device = useSelector((state) => state.device);
   const admin = useSelector((state) => state.usuario);
-
-  console.log("admin en app", admin);
 
   return admin ? (
     <>
@@ -94,10 +102,20 @@ function App() {
           <Route path="/edit/branch/:id" element={<EditBranchOffice />} />
           <Route path="/search/securities" element={<SecurityList />} />
           <Route path="/user/avisos" element={<AvisosForm />} />
-          <Route path="/calendar" element={<Calendar />} />
+          {/* // <Route path="/calendar" element={<Calendar />} />
+          // <Route path="/assign" element={<AssignSecurity />} />
+          // <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
+          // <Route path="/select/branch/:id" element={<CalendarSelectBranch />} /> */}
+          <Route path="/user/calendar" element={<NextService />} />
+          <Route path="/user/masinfo" element={<MasInfo />} />
+          <Route path="/calendar/:clientId" element={<NewCalendar />} />
           <Route path="/assign" element={<AssignSecurity />} />
           <Route path="/assign/branch/:id" element={<CalendarBranchFilter />} />
           <Route path="/select/branch/:id" element={<CalendarSelectBranch />} />
+          <Route path="/states" element={<StatesSecurity />} />
+          <Route path="/states/:id" element={<EditRequest />} />
+          <Route path="/set/client" element={<BranchSelectNuevo />} />
+          <Route path="/set/branch/:id" element={<ClientSelectNuevo />} />
         </Routes>
       </div>
     </>
@@ -112,6 +130,9 @@ function App() {
         <Route path="/homemobile" element={<HomeMobile />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/admin/login" element={<Login />} />
+        <Route path="/user/passw" element={<ChangePassword />} />
+        <Route path="/newSecurityPassword/:token" element={<SinPass />} />
+        <Route path="/changePassword/admin" element={<AdminForgotPassword />} />
       </Routes>
     </>
   );
