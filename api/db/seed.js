@@ -11,16 +11,30 @@ const setupSeed = async () => {
   const securities = await Securities.bulkCreate(securitiesList);
   const clients = await Client.bulkCreate(clientsList);
   const provincies = await Provincies.bulkCreate(provinces);
+  console.log("SEED SUCCESFULLY");
   return Promise.all([admins, clients, securities, provincies]);
 };
 
-db.sync({ force: false })
-  .then(setupSeed)
-  .then(() => {
-    console.log("Seed succesfully");
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.log("Somethin went wrong on the seed process", err.message);
-    process.exit(1);
-  });
+// db.sync({ force: false })
+//   .then(setupSeed)
+//   .then(() => {
+//     console.log("Seed succesfully");
+//     process.exit(0);
+//   })
+//   .catch((err) => {
+//     console.log("Somethin went wrong on the seed process", err.message);
+//     process.exit(1);
+//   });
+
+(async () => {
+  try {
+    const sync = await db.sync({ force: false });
+    const seed = await setupSeed();
+    const exit = await process.exit(0);
+
+    Promise.all([sync, seed, exit]);
+  } catch (error) {
+    console.error(error);
+    await process.exit(1);
+  }
+})();

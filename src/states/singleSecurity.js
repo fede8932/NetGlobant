@@ -81,7 +81,6 @@ export const assingSegurityToBranch = createAsyncThunk(
       const assignation = await axios.post("/api/admin/add/office/security", {
         id: data.id,
         CUIL: data.security,
-        
       });
       swal({
         title: "Vigilador asignado correctamente",
